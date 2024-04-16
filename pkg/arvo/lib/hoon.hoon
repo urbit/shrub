@@ -7694,7 +7694,6 @@
       [%bust %noun]
     ::  consume debugging context
     ::
-    %-  decorate
     ::  use home as subject
     ::
     %-  home
@@ -7705,6 +7704,11 @@
     ::
     ~+
     |-  ^-  hoon
+    %-  decorate
+    =:  bug  ~
+        def  ~
+        nut  ~
+      ==
     ?-  mod
       [%base *]  ?:(=(%void p.mod) [%rock %n 0] (basal p.mod))
       [%bcbc *]  ::  track hygienic recursion points lexically
@@ -7715,8 +7719,8 @@
                         ::
                         (~(put by ^+(cox (~(uni by cox) q.mod))) %$ p.mod)
                  ==
-      [%dbug *]  [%dbug p.mod $(mod q.mod)]
-      [%gist *]  $(mod q.mod)
+      [%dbug *]  [%dbug p.mod spore(mod q.mod)]
+      [%gist *]  $(mod q.mod, nut `p.mod)
       [%leaf *]  [%rock p.mod q.mod]
       [%loop *]  ~|([%loop p.mod] $(mod (~(got by cox) p.mod)))
       [%like *]  $(mod bcmc/(unreel p.mod q.mod))
@@ -7728,8 +7732,8 @@
       [%bcbr *]  $(mod p.mod)
       [%bccb *]  [%rock %n 0]
       [%bccl *]  |-  ^-  hoon
-                 ?~  t.p.mod  ^$(mod i.p.mod)
-                 :-  ^$(mod i.p.mod)
+                 ?~  t.p.mod  spore(mod i.p.mod)
+                 :-  spore(mod i.p.mod)
                  $(i.p.mod i.t.p.mod, t.p.mod t.t.p.mod)
       [%bccn *]  ::  use last entry
                  ::
@@ -7811,6 +7815,7 @@
     ::TODO: try seeing if putting %gist in here fixes %brbc
     ?:  ?=(%dbug -.mod)  factory(mod q.mod, bug [p.mod bug])
     ?:  ?=(%bcsg -.mod)  factory(mod q.mod, def `[%kthp q.mod p.mod])
+    ?:  ?=(%gist -.mod)  factory(mod q.mod, nut `p.mod)
     ^-  hoon
     ::  if we recognize an indirection
     ::
@@ -7955,6 +7960,12 @@
       ::
       ~+
       ^-  hoon
+      %-  decorate
+      =:  bug  ~
+          def  ~
+          nut  ~
+        ==
+
       ?-    mod
       ::
       ::  base
@@ -13566,7 +13577,7 @@
     ++  goop  ~+((glue mush))                           ::  separator list & docs
     ++  hank  (most mush loaf)                          ::  gapped hoons
     ++  hunk  (most mush loan)                          ::  gapped specs
-    ++  jump  ;~(pose leap:docs gap)                    ::  gap before docs
+    ++  jump  ;~(pose leap:docs gap)                     ::  gap before docs
     ++  loaf  ?:(tol tall wide)                         ::  hoon
     ++  loll  ?:(tol tall(doc |) wide(doc |))           ::  hoon without docs
     ++  loan  ?:(tol till wyde)                         ::  spec

@@ -19,9 +19,9 @@
 ::  $care: Perspective
 ::    
 +$  care
-  $?  %x  :: single node
-      %y  :: single node and immediate children
-      %z  :: single node and all descendants
+  $?  %x  ::  single node
+      %y  ::  single node and immediate children
+      %z  ::  single node and all descendants
   ==
 ::  $tour: perspective and shrub
 ::    
@@ -80,8 +80,7 @@
     $(res (welp res [%ud (lent i.ps)] i.ps), ps t.ps)
   ::  +de:drive: Demultiplex one path into several
   ::    
-  ::    See also: (+en:drive)
-
+  ::    See also: +en:drive
   ++  de
     =|  res=(list pith)
     |=  pax=(pole iota)
@@ -94,6 +93,7 @@
     $(res [nex res])
   --
 ::  +ford: Container for build system bootstrapping
+::
 ++  ford
   |%
   ++  desk
@@ -104,7 +104,7 @@
     |=  s=stud
     ?^  s  |
     =(%ford (end [3 4] s))
-  ::  +riff:ford: Constant build system node
+  ::  +riff: Constant build system node
   ::  
   ::    Required for bootstrapping. This is used to put the reef and
   ::    other ford combinators into the build system to bootstrap
@@ -151,17 +151,17 @@
     (scan (trip txt) (rein *name))
   +$  loc
     [=disk =pith]
-  ::  $lib:ford: Specification of library import
+  ::  $lib: Specification of library import
   ::
   +$  lib
     [face=term =loc]
-  ::  $pro:ford: Specification of protocol import
+  ::  $pro: Specification of protocol import
   ::
   +$  pro
     [face=term =stud]
   +$  vale
     [face=term =stud]
-  ::  $file:ford: Code with imports
+  ::  $file: Code with imports
   ::
   +$  file
     $:  pro=(list pro)
@@ -169,7 +169,7 @@
         lib=(list lib)
         =hoon
     ==
-  ::  +rein:ford: Parse code with imports
+  ::  +rein: Parse code with imports
   ++  rein
     |=  =name
     =<  apex
@@ -202,7 +202,7 @@
         ;~(pfix cen ;~(plug (star ket) stip))                     :: relative
         ;~(plug ;~(pfix fas sig fed:ag) stip) :: absolute
       ==
-    ::  +std:rein:ford: Parse import directive
+    ::  +std: Parse import directive
     ::
     ::    Either  name:~ship/desk
     ::    or      name (from %std disk)
@@ -212,10 +212,10 @@
         ;~(plug sym ;~(pfix col sig fed:ag) ;~(pfix fas sym))
         sym
       ==
-    ::  +pro:rein:ford: Parse protocol import directive
+    ::  +pro: Parse protocol import directive
     ::
-    ::    /@  foo=bar  :: imports %bar protocol from %std disk with name foo
-    ::    /@  bar      :: imports %bar protocol from %std disk with name bar
+    ::      /@  foo=bar  :: imports %bar protocol from %std disk with name foo
+    ::      /@  bar      :: imports %bar protocol from %std disk with name bar
     ::
     ++  pro
       :: ^-  $-(nail (like ^pro))
@@ -228,6 +228,8 @@
           [mark.stud stud]
         std
       ==
+    ::  +lib: Parse library import directrive
+    ::
     ++  lib
       %+  rune  hep
       ;~  pose
@@ -265,16 +267,24 @@
       |*  [car=rule rul=rule]
       (ifix [;~(plug fas car gap) gay] rul)
 
+    ::  +libs: Parse many library directives
+    ::
     ++  libs
       :: ^-  $-(nail (like (list ^lib)))
       (star lib)
+    ::  +pros: Parse many protocol directives
     ++  pros
       :: ^-  $-(nail (like (list ^pro)))
       (star pro)
+    ::  +hone: Hoon parser with path
+    ::
     ++  hone
       :: ^-  $-(nail (like hoon))
       =+  vaz=(vang & (en-path:^name name))
       (ifix [gay gay] tall:vaz)
+    ::  +apex: Entrypoint for parsing
+    ::
+    ::    Returns a $file
     ++  apex
       :: ^-  rule
       ;~  plug 
@@ -283,12 +293,12 @@
         hone
       ==
     --
-  ::  +with-face:ford: Decorate vase with face
+  ::  +with-face: Decorate vase with face
   ::
   ++  with-face
     |=  [fac=@tas =vase]
     vase(p [%face fac p.vase])
-  ::  +with-faces:ford: Decorate vases with faces, slopped onto reef
+  ::  +with-faces: Decorate vases with faces, slopped onto reef
   ::
   ++  with-faces
     |=  [reef=vase faces=(list (pair term vase))]
@@ -556,6 +566,7 @@
     --
   --
 ::  $stud: mark name
+::
 +$  stud
   $@  @tas                                 ::  auth=urbit
   $:  mark=@tas                            :: 
@@ -923,6 +934,7 @@
 ++  dejs
   =,  dejs:format
   |%
+  ::  +pail:dejs: convert pail from json
   ++  pail
     |=  fun=$-([@ json] vase)
     |=  jon=json
@@ -1085,6 +1097,8 @@
 +$  ewer  (pair stud vase)
 +$  vial  (pair stud *)
 +$  move  (pair pith card)
+::  $icon: varying state of a shrub
+::
 +$  icon
   $:  =ever
       state=vase
@@ -1170,14 +1184,11 @@
 +$  firm
   $_  ^&
   |%
-  ::  $state: the state of this value in the urbit namespace
+  ::  +state: the state of this value in the urbit namespace
   ::
   ::    For instance, a message would be
-  ::    ```hoon
-  ::    [author=ship time-sent=time message=txt]
-  ::    ```
+  ::      [author=ship time-sent=time message=txt]
   ::
-  ::    ```
   ++  state  *stud
   ::  $poke: a poke is a request to change a value in teh urbit
   ::  namespace.
@@ -1239,4 +1250,153 @@
       ~
     `i.lis
   --
+++  find-notes
+  !.
+  =|  res=[space=(map cuff type) by-type=(map type cuff) helps=(map [from=cuff to=cuff] crib)]
+  =|  loc=cuff
+  |=  ty=type
+  ^+  res
+  =.  space.res  (~(put by space.res) loc ty)
+  |-  ^+  res
+  =*  loop  $
+  ?-    ty
+      %noun      res
+      %void      res
+      [%atom *]  res
+      [%cell *]
+    =.  res  $(ty p.ty)
+    $(ty q.ty)
+  ::
+      [%core *]
+    ?:  =(%wet q.p.q.ty)
+      ~&  %wet-ignoring
+      res
+::  %+  welp
+::    ?.  ?=(%gold r.p.q.ty)
+::      ~
+::    ~  :: $(ty p.ty)
+    ^+  res
+    =/  chaps  ~(tap by q.r.q.ty)
+    |-  =*  loop-chap  $
+    ?~  chaps
+      res
+    =/  [dude=term =tome]  i.chaps
+    =/  arms  ~(tap by q.tome)
+    |-  =*  loop-arm  $
+    ?~  arms
+      loop-chap(chaps t.chaps)
+    =/  [name=term =hoon]  i.arms
+    ::  ~?  =(name %$)  hoon
+    ?.  &(?=(%note -.hoon) ?=(%help -.p.hoon))
+      
+      =/  nex  ~(play ~(et ut ty) ~[name] ~)
+      =.  res  
+        %=  loop
+          ty  nex
+          space.res  (~(put by space.res) (snoc loc funk/name) nex)
+          loc        (snoc loc funk/name)
+        ==
+      loop-arm(arms t.arms)
+    =/  =help  p.p.hoon
+    =>  .(ty `type`ty)
+    =.  ty  (edit-arm ty dude name q.hoon)
+    ?>  ?=(%core -.ty)
+    =/  nex  ~(play ~(et ut ty) ~[name] ~)
+    =.  res
+      %=  loop
+        ty         nex
+        loc        (welp loc cuff.help)
+        :: space.res  (~(put by space.res) loc nex)
+        helps.res  (~(put by helps.res) [loc cuff.help] crib.help)
+      ==
+    loop-arm(arms t.arms)
+
+    :: loop(ty [%hold p.ty hoon])
+  ::
+      [%face *]
+    ?@  p.ty
+      =.  loc        (snoc loc frag/p.ty)
+      $(ty q.ty)
+    $(ty q.ty)
+  ::
+      [%fork *]
+    =/  tines  ~(tap in p.ty)
+    |-  =*  inner  $
+    ?~  tines
+      res
+    =.  res  loop(ty i.tines)
+    inner(tines t.tines)
+  ::
+      [%hint *]  
+    ?.  ?=(%help -.q.p.ty)
+      $(ty q.ty)
+    =/  =help  p.q.p.ty
+
+    =?  cuff.help  ?=([%atom @ ~ @] q.ty)
+      (snoc cuff.help cone/[p u.q]:q.ty)
+    =?  loc  ?=([%cell * *] q.ty)
+      ?.  ?=([%atom @ ~ @] p.q.ty)
+        loc
+      (snoc loc cone/[p u.q]:p.q.ty)
+    =.  helps.res  (~(put by helps.res) [loc cuff.help] crib.help)
+    $(ty q.ty)
+  ::
+      [%hold *]  $(ty ~(repo ut ty))
+  ==
+++  edit-arm
+  |=  [ty=type dude=term arm=term hon=hoon]
+  ^-  type
+  ?>  ?=(%core -.ty)
+  =/  chap  (~(got by q.r.q.ty) dude)
+  =.  q.chap   (~(put by q.chap) arm hon)
+  ty(q.r.q (~(put by q.r.q.ty) dude chap))
+++  render-help
+  |=  ty=type
+  %.  ~
+  =/  [space=(map cuff type) by-type=(map type cuff) helps=(map [from=cuff to=cuff] crib)]
+    (find-notes ty)
+  =/  cuffs
+    %+  turn  ~(tap by helps)
+    |=  [[from=cuff to=cuff] =crib]
+    ^-  [cuff _crib]
+    [(welp from to) crib]
+  %-  slog
+  %-  zing
+  %+  turn  (sort cuffs |=([[a=cuff *] [b=cuff *]] (sort-cuffs a b)))
+  |=  [=cuff =crib]
+  ^-  (list tank)
+  :+  leaf/(render-cuff cuff)
+    leaf/"  {(trip summary.crib)}"
+  %-  zing
+  %+  turn  details.crib
+  |=  sec=(list pica)
+  %+  turn  sec
+  |=  [prose=? lin=@t]
+  leaf/"   {(trip lin)}"
+++  sort-cuffs
+  |=  [a=cuff b=cuff]
+  (aor (crip <b>) (crip <a>))
+++  tripl
+  |=  =term
+  ?:  =(~ term)
+    "$"
+  (trip term)
+::
+++  render-cuff
+  |=  =cuff
+  ^-  tape
+  %-  zing
+  %+  turn  cuff
+  |=  lin=link
+  ?:  =([%funk ~] lin)
+    ""
+  ^-  tape
+  ~!  trip
+  ?-  -.lin
+    %chat  "|{(tripl p.lin)}"
+    %cone  "%{(tripl q.lin)}"
+    %frag  ".{(tripl p.lin)}"
+    %funk  "+{(tripl p.lin)}"
+    %plan  "${(tripl p.lin)}"
+  ==
 --
