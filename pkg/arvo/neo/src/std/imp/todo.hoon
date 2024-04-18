@@ -19,13 +19,8 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo vase)
     ?>  =(%todo-diff stud)
-    =/  text  text:!<(todo state-vase)
+    =/  v  !<(todo state-vase)
     =/  act  !<(todo-diff vax)
-    :-  ~
-    ?-    -.act
-        %done  !>([text %done])
-        %todo  !>([text %todo])
-        %later  !>([text %later])
-    ==
+    [~ !>([text.v -.act])]
   --
 --
