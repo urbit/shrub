@@ -1,63 +1,61 @@
 /@  dm-diff
-/@  message
-=>
-|%
-++  card  card:neo
---
-^-  firm:neo
 |%
 ++  state  %sig
-++  poke  (sy %dm-diff %rely ~)
+++  poke  (sy %dm-diff ~)
 ++  kids
   %-  ~(gas by *kids:neo)
-  :~  :-  ~[|/%da]
-      [%message %sig]
+  :~  :-  ~[|/%p]
+      [%dm-link %dm-link-diff]
   ==
-++  deps
-  %-  ~(gas by *deps:neo)
-  :~  
-  ::
-  :-  %link
-  ::
-  :+  req=|  [%sig %dm-diff]
-  :+  ~  %y
-  %-  ~(gas by *kids:neo)
-  :~  :-  [|/%da]~
-      [%message %sig]
-    ==
-  ==
+++  deps  *deps:neo
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =ever:neo state-vase=vase *]
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo vase)
-    ?:  =(%rely stud)
-      =+  !<([=term =stem:neo] vax)
-      ?>  ?=(%y -.q.stem)
-      =/  =pail:neo  pail:(snag 0 ~(val by kids.q.stem))
-      =+  !<(=message q.pail)
-      ::  TODO handle
-      ?<  =(our.bowl from.message)
-      :_  !>(~)
-      :_  ~  
-      :*                               
-        (welp here.bowl ~[da/now.bowl])
-        %make                 
-        [%message `q.pail ~]
-      ==
     ?>  =(%dm-diff stud)
-    =/  poke  !<(dm-diff vax)
-    ?>  =(our ship.src):bowl
-    ?>  =(%msg -.poke)
-    :_  !>(~)
-    :~  
-      :*
-        (welp were.bowl ~[da/now.bowl])
-        %make 
-        [%message `!>(message.poke) ~]
+    =/  diff  !<(dm-diff vax)
+    ?-  -.diff
+        %create
+      :_  state-vase
+      ^-  (list card:neo)
+      :~
+        ::  XX  hardcoded dm location to ~zod/home/dm
+        [(welp [p/ship.diff]~ /home/dm) %poke %dm-diff !>([%notify our.bowl])]
+        [(welp here.bowl [p/ship.diff]~) %make %dm-link `!>([& &]) ~]
       ==
+    ::
+        %notify
+      :_  state-vase
+      ^-  (list card:neo)
+      :~
+        [(welp [p/ship.diff]~ /home/dm) %poke %dm-diff !>([%approve our.bowl])]
+        [(welp here.bowl [p/ship.diff]~) %make %dm-link `!>([& &]) ~]  ::  XX todo fork on approve
+      ==
+    ::
+        %approve
+      ::  XX  if we've already declined, ignore this poke
+      :_  state-vase
+      ^-  (list card:neo)
+      :~
+        :*  (welp here.bowl [p/ship.diff]~)
+             %make
+             %dm-link
+             `!>([& &])
+             %-  malt
+             :~
+               :-  %link
+               [p/ship.diff %home %dm p/our.bowl ~]
+             ==
+        ==
+      ==
+    ::
+        %decline
+      ~&  %not-implemented
+      `!>(~)
     ==
+    ::
   ++  init
     |=  old=(unit vase)  `!>(~)
   --

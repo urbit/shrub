@@ -1,2 +1,6 @@
-/@  message
-,[%msg =message]
+$%
+  [%create =ship]
+  [%notify =ship]
+  [%approve =ship]
+  [%decline =ship]
+==

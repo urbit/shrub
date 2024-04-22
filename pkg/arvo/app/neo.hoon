@@ -923,6 +923,7 @@
             :~
               [(weld #/[p/our.bowl] here) %make %sky `!>([%system ~ 0]) ~]
               [#/[p/our.bowl]/home/diary %make %diary `!>('') ~]
+              [#/[p/our.bowl]/home/dm %make %dm `!>(~) ~]
               [#/[p/our.bowl]/home/tasks %make %task `!>(['' | ~]) ~]
               [#/[p/our.bowl]/home/iframes/wiki %make %iframe `!>('https://en.wikipedia.org/wiki/Main_Page') ~]
             ==
