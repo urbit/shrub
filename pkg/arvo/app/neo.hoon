@@ -444,12 +444,13 @@
     %+  slap  reef
     !,(*hoon ,~)
   ::
-  ++  make-riff
-    |=  [=pith riff=vase]
-    ^+  run
-    =.  pith  [p/our.bowl pith]
-    (on-card pith %make %ford-riff `!>([`riff ~]) ~)
   --
+++  make-riff
+  |=  [=pith riff=vase]
+  ^+  run
+  =.  pith  [p/our.bowl pith]
+  (on-card pith %make %ford-riff `!>([`riff ~]) ~)
+
 ::
 ++  sync-room
   |=  [=stud:neo =name:neo]
@@ -1278,8 +1279,6 @@
   !,  *hoon
   |=  =pail:neo
   ^-  out
-  ~!  p.pail
-  ~!  grow
   =/  =stud:neo  
     ~|  missing-con/[p.pail grow]
     (~(got by con.fiesta) [p.pail grow])
@@ -1871,7 +1870,21 @@
     =/  pix  (pave:neo pax)
     ?~  pos=~(post omen pix)
       |
-    =(%imp u.pos)
+    =(%imp p.u.pos)
+  =/  is-pro 
+    |=  pax=path
+    ^-  ?
+    =/  pix  (pave:neo pax)
+    ?~  pos=~(post omen pix)
+      |
+    =(%pro p.u.pos)
+  =/  is-con
+    |=  pax=path
+    ^-  ?
+    =/  pix  (pave:neo pax)
+    ?~  pos=~(post omen pix)
+      |
+    =(%con p.u.pos)
   =/  is-ford 
     |=  pax=path
     ^-  ?
@@ -1884,10 +1897,20 @@
   =^  main=(list path)  paths
     ::  [(skip paths is-ford) (skim paths is-ford)]
     [(skip paths is-ford) ~]
+  =^  pros=(list path)  main
+    [(skim main is-pro) (skip main is-pro)]
+  =^  cons=(list path)  main
+    [(skim main is-con) (skip main is-con)]
   =^  imps=(list path)  main
     [(skim main is-imp) (skip main is-imp)]
   |-  ^+  run  =*  loop  $
   ?~  paths
+    ?^  pros
+      loop(paths pros, pros ~) 
+    ?^  cons
+      loop(paths cons, cons ~)
+    =.  run  gen-grab
+    =.  run  gen-grow
     ?^  main
       loop(paths main, main ~)
     ?^  imps
@@ -1897,7 +1920,40 @@
     (read-file i.paths)
   ?~  pat
     loop(paths t.paths)
+  ~&  %skipping
   loop(paths (snoc t.paths u.pat))
+  ++  gen-grab
+    ?.  =(~ ~(tar of:neo (dip:of-top /grab)))
+      run
+    =/  grabs  ~(tap in ~(key by by-grab.fiesta))
+    ~&  genning/grabs
+    |-  
+    ?~  grabs
+      ~&  genned/~(key by ~(tar of:neo (dip:of-top /grab)))
+      run
+    =/  =vase  (all-grab i.grabs)
+    =/  =mark
+      ?>  ?=(@ i.grabs)
+      i.grabs
+    =.  run  (make-riff #/grab/[mark] vase)
+    $(grabs t.grabs)
+  ::
+  ++  gen-grow
+    ?.  =(~ ~(tar of:neo (dip:of-top /grow)))
+      run
+    =/  grabs  ~(tap in ~(key by by-grow.fiesta))
+    ~&  genning/grabs
+    |-  
+    ?~  grabs
+      ~&  genned/~(key by ~(tar of:neo (dip:of-top /grow)))
+      run
+    =/  =vase  (all-grow i.grabs)
+    =/  =mark
+      ?>  ?=(@ i.grabs)
+      i.grabs
+    =.  run  (make-riff #/grow/[mark] vase)
+    $(grabs t.grabs)
+  ::
   ++  build-pipe
     =/  disks  ~(tap in get-disks)
     |-  ^+  run
@@ -2005,9 +2061,13 @@
   ++  file-to-deps
     |=  =file:ford
     ^-  (list [term pith])
-    %+  welp
-      (turn pro.file |=(p=pro:ford [face.p ~(pith pro stud.p)]))
-    (turn lib.file |=(l=lib:ford [face.l %out ~(pith lib loc.l)]))
+    %-  zing
+    :~  (turn pro.file |=(p=pro:ford [face.p ~(pith pro stud.p)]))
+        (turn lib.file |=(l=lib:ford [face.l %out ~(pith lib loc.l)]))
+        (turn grab.file |=(p=pro:ford ?>(?=(@ stud.p) [face.p #/grab/[stud.p]])))
+        (turn grow.file |=(p=pro:ford ?>(?=(@ stud.p) [face.p #/grow/[stud.p]])))
+
+    ==
   ++  make-prelude
     |=  [pax=pith =file:ford]
     ^-  [pith _run]

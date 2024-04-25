@@ -2,6 +2,7 @@
 /@  chat-diff
 /@  chat
 /@  sig
+/>  htmx
 /-  _/thing
 =>
 |%
@@ -61,6 +62,8 @@
     [cards !>(sta)]
   ++  init
     |=  old=(unit vase)
+    ~&  htmx/((htmx [%txt !>('foo')]) bowl)
+    ~&  test/%foo
     `!>(*^state)
   --
 --

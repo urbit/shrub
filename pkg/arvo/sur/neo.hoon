@@ -669,7 +669,8 @@
   ::
   +$  file
     $:  pro=(list pro)
-        :: grab=(list 
+        grow=(list pro)
+        grab=(list pro)
         lib=(list lib)
         =hoon
     ==
@@ -732,6 +733,29 @@
           [mark.stud stud]
         std
       ==
+    ++  grab
+      :: ^-  $-(nail (like ^pro))
+      %+  rune  gal
+      ;~  pose
+        ;~(plug sym ;~(pfix tis std))
+        %+  cook
+          |=  =stud
+          ?@  stud  [stud stud]
+          [mark.stud stud]
+        std
+      ==
+    ++  grow
+      :: ^-  $-(nail (like ^pro))
+      %+  rune  gar
+      ;~  pose
+        ;~(plug sym ;~(pfix tis std))
+        %+  cook
+          |=  =stud
+          ?@  stud  [stud stud]
+          [mark.stud stud]
+        std
+      ==
+    ::
     ++  lib
       %+  rune  hep
       ;~  pose
@@ -772,6 +796,15 @@
     ++  libs
       :: ^-  $-(nail (like (list ^lib)))
       (star lib)
+    ++  grabs
+      :: ^-  $-(nail (like (list ^lib)))
+      (star grab)
+    ++  grows
+      :: ^-  $-(nail (like (list ^lib)))
+      (star grow)
+
+    ::
+
     ++  pros
       :: ^-  $-(nail (like (list ^pro)))
       (star pro)
@@ -783,6 +816,8 @@
       :: ^-  rule
       ;~  plug 
         pros
+        grows
+        grabs
         libs
         hone
       ==
