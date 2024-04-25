@@ -6,7 +6,7 @@
 --
 ^-  firm:neo
 |%
-++  state  %sig
+++  state  %dm
 ++  poke  (sy %dm-diff %rely ~)
 ++  kids
   %-  ~(gas by *kids:neo)
@@ -19,7 +19,7 @@
   ::
   :-  %link
   ::
-  :+  req=|  [%sig %dm-diff]
+  :+  req=|  [%dm %dm-diff]
   :+  ~  %y
   %-  ~(gas by *kids:neo)
   :~  :-  [|/%da |]
@@ -38,7 +38,7 @@
       =/  =pail:neo  pail:(snag 0 ~(val by kids.q.stem))
       =+  !<(=message q.pail)
       ::  TODO handle
-      ?<  =(our.bowl from.message)
+      ::?<  =(our.bowl from.message)
       :_  !>(~)
       :_  ~  
       :*                               
@@ -48,7 +48,7 @@
       ==
     ?>  =(%dm-diff stud)
     =/  poke  !<(dm-diff vax)
-    ?>  =(our ship.src):bowl
+    ::?>  =(our ship.src):bowl
     ?>  =(%msg -.poke)
     :_  !>(~)
     :~  
