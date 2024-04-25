@@ -279,6 +279,14 @@
   ++  slip
     ?:  is-our  slip:h
     slip:j
+  ++  kids
+    ^-  (list iota)
+    ?:  check:l :: are we inside overlay
+      ~(kids dorm [our.bowl inner:l])
+    ~
+  ++  baby
+    ^-  (list pith)
+    ~
   ++  cane
     |=  =care:neo
     ?.  is-our  
@@ -302,8 +310,10 @@
   ++  here
     (sub:pith:neo pith area)
   ++  inner
+    =-  ~&  inner/-  -
     (welp over:deed (sub:pith:neo here (need args)))
   ++  pail
+    ~&  stud/state:deed
     `pail:neo`[state:deed (need value)]
   ++  value
     ^-  (unit vase)
@@ -313,12 +323,14 @@
     =/  deps
       (get-deps deps:land conf:deed)
     =/  =name:neo  [our.bowl inner]
-    (apply:land deps u.args inner (~(cane dorm name) care:land))
+    =/  =cane:neo  (moor quay:land name)
+    (apply:land our.bowl deps u.args inner cane)
   ++  cane
     |=  =care:neo
     ^-  cane:neo
     ?>  ?=(%x care)
-    *cane:neo
+    =|  =cane:neo
+    cane(pail pail)
   ::
   ++  args
     ^-  (unit pith:neo)
@@ -2476,13 +2488,16 @@
   =/  =port:neo  (~(got by want) u.pis)
   (plag state.port pail)
 ::
+::
 ++  moor
   |=  [want=quay:neo =name:neo]
   ^-  cane:neo
   =/  =care:neo  (get-care:quay:neo want)
   =*  d  ~(. dorm name)
   =/  =cane:neo   (cane:d care)
-  =.  pail.cane  (need (plag state.p.want pail.cane))
+  =.  pail.cane  
+    ~|  [state.p.want p.pail.cane]
+    (need (plag state.p.want pail.cane))
   =?  kids.cane  ?=(^ q.want)
     %-  ~(gas by *(map pith:neo [ever:neo pail:neo]))
     %+  murn  ~(tap by kids.cane)

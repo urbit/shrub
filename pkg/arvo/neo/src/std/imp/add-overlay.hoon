@@ -1,11 +1,11 @@
 ^-  land:neo
 |%
 ++  path  ~[%ud]
-++  care  %x
+++  quay  [[%atom %sig] ~]
 ++  state  %atom
 ++  deps  *deps:neo
 ++  apply  
-  |=  [deps=* args=(pole iota) inner=pith:neo =cane:neo]
+  |=  [our=ship deps=* args=(pole iota) inner=pith:neo =cane:neo]
   ^-  (unit vase)
   ?.  ?=([[%ud num=@] ~] args)
     ~

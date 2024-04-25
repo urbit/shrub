@@ -1683,6 +1683,10 @@
       deps=(map term (pair pith cane))
       kids=(map pith pail)
   ==
+::  $wharf: read only $quay
+++  wharf 
+  (pair stud (unit (pair care (map pish stud))))
+::
 ++  quay
   =<  quay
   |%
@@ -1752,11 +1756,12 @@
   ::    e.g. /foo/[arg1=@]/[arg2=@]/[...overlaid-path]
   ::
   ++  path  *(list aura)
-  ::  +care: Perspective on the overlaid path
-  ::    
-  ::    required to maintain care discipline
   ::
-  ++  care  *^care
+  ::  +quay: shape of overlaid data
+  ::
+  ::    XX: poke types not meaningful?
+  ::
+  ++  quay  *(pair port (unit (pair care kids)))
   ::  +state: Type of the produced vase for +apply
   ::    XX: possibly should be 
   ++  state  *stud
@@ -1765,7 +1770,7 @@
   ::  
   ++  deps  *(map term fief)
   ++  apply
-    |~  [deps=(map term (pair pith cane)) args=pith inner=pith =cane]
+    |~  [our=ship deps=(map term (pair pith cane)) args=pith inner=pith =cane]
     *(unit vase)
   --
 ::
