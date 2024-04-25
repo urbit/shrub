@@ -1152,6 +1152,20 @@
       %y  =.(fat snip (~(uni by res) tar))
       %z  (~(uni by res) tar)
     ==
+  ++  pfix
+    =|  res=pith
+    |=  pax=pith
+    ^-  (unit pith)
+    ?~  pax
+      ?~  fil.fat
+        ~
+      `res
+    =/  kid  (~(get by kid.fat) i.pax)
+    ?~  kid  
+      ?~  fil.fat
+        ~
+      `res
+    $(fat u.kid, pax t.pax, res (snoc res i.pax))
   ::
   ++  anc-jab
     |*  [pax=pith fun=$-(* *)]
@@ -1713,6 +1727,47 @@
   ::  in the name
   ++  deps   *(map term fief)
   --
+::  $deed: bookkeeping for land
+::
++$  deed
+  $:  code=stud
+      =conf
+      state=stud
+      turf=(axal turf)
+  ==
+::
+::
+::  $land: virtual namespace overlay
+::
++$  land
+  $_  ^&
+  |%
+  ::  +path: Initial part of path
+  ::
+  ::    Pattern match over start of path
+  ::    i.e. if the doubly virtual shrub is bound at /foo 
+  ::    then the overlay namespace will be
+  ::      :(welp /foo path overlaid-path)
+  ::    e.g. /foo/[arg1=@]/[arg2=@]/[...overlaid-path]
+  ::
+  ++  path  *(list aura)
+  ::  +care: Perspective on the overlaid path
+  ::    
+  ::    required to maintain care discipline
+  ::
+  ++  care  *^care
+  ::  +state: Type of the produced vase for +apply
+  ::    XX: possibly should be 
+  ++  state  *stud
+  ::   +apply: transform overlaid cane to overlay vase
+  ::     .pith is only from the pattern in +path
+  ::  
+  ++  deps  *(map term fief)
+  ++  apply
+    |~  [deps=(map term (pair pith cane)) =pith =cane]
+    *(unit vase)
+  --
+::
 ++  till
   |=  =plot
   ^-  firm

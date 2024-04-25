@@ -74,6 +74,7 @@
 +$  state-0
   $:  %0
       apex=(axal:neo room:neo)
+      title=(axal:neo deed:neo)
       :: diary=(axal:neo memo:neo)
       :: dead=(map @uvH (axal:neo room:neo))
       =sound:neo
@@ -284,6 +285,49 @@
       (cane:r care)
     (cane:h care)
   --
+++  loam
+  |_  =pith:neo
+  ++  area
+    `pith:neo`(need (~(pfix of:neo title) pith))
+  ++  land  ~(land husk code:deed)
+  ++  deed
+    ^-  deed:neo
+    (~(got of:neo title) area)
+  ++  here
+    (sub:pith:neo pith area)
+  ++  inner
+    (sub:pith:neo here (need args))
+  ++  pail
+    [state:deed (need value)]
+  ++  value
+    ^-  (unit vase)
+    =+  args=args
+    ?~  args
+      ~
+    =/  deps
+      (get-deps deps:land conf:deed)
+    =/  =name:neo  [our.bowl inner]
+    (apply:land deps u.args (~(cane dorm name) care:land))
+  ::
+  ++  args
+    ^-  (unit pith:neo)
+    =/  want  path:land
+    =/  have  here
+    =|  res=pith:neo
+    |-
+    ?~  want
+      `res
+    ?~  have
+      ~
+    ?@  i.have
+      ?.  =(i.want %tas)
+        ~
+      $(want t.want, have t.have, res (snoc res i.have))
+    ?.  =(i.want +:i.have)
+      ~
+    $(want t.want, have t.have, res (snoc res i.have))
+  --
+
 ::
 ++  jail
   |_  =name:neo
@@ -2152,6 +2196,9 @@
     ?>  ?=(%icon -.seat.rom)
     =+  !<([cac=(unit ^vase) *] state.icon.seat.rom)
     (need cac)
+  ++  land
+    ^-  land:neo
+    !<(land:neo vase)
   ++  firm
     ^-  firm:neo
     ?.  is-plot
@@ -2159,6 +2206,8 @@
     (till:neo (need plot))
   ++  is-plot
     (~(nest ut -:!>(*plot:neo)) | p:vase)
+  ++  is-land
+    (~(nest ut -:!>(*land:neo)) | p:vase)
   ++  plot
     ^-  (unit plot:neo)
     ?.  is-plot
@@ -2709,8 +2758,22 @@
     =.  apex  (put:of-top here room)
     work
   ::
+  ++  make-land
+    |=  [src=stud:neo =conf:neo]
+    ^+  arvo
+    =/  =land:neo  ~(land husk src)
+    =/  =deed:neo
+      [src conf state:land *(axal:neo turf:neo)]
+    =.  title  (~(put of:neo title) here deed)
+    work
+  ::
   ++  make
     |=  [src=stud:neo init=(unit vase) =conf:neo]
+    ?:  ~(is-land husk src)
+      ~|  %cant-make-plot-w-init
+      ?>  ?=(~ init)
+      (make-land src conf)
+      
     ?:  ~(is-plot husk src)
       ~|  %cant-make-plot-w-init
       ?>  ?=(~ init)
@@ -2773,8 +2836,8 @@
       =.  apex  (put:of-top here room)
       [cards arvo]
     ::
-    ++  si-resolve-kids   kids:(land here)
-    ++  si-resolve-deps   deps:(land here)
+    ++  si-resolve-kids   kids:(ground here)
+    ++  si-resolve-deps   deps:(ground here)
       ::  TODO type this w/ port??
     ++  si-bowl    
       :: =/  hare  pith:(de-pith:name:neo here)
@@ -2935,7 +2998,7 @@
       (sell q:value:(reap pith.name))
     (sell state.icon.seat.u.rom)
   --
-++  land
+++  ground
   |=  here=pith:neo
   =/  =room:neo  (got:of-top here)
   |%
@@ -2950,27 +3013,31 @@
       ~
     `[pith u.ion]
   ++  deps
-    %-  ~(gas by *(map term [pith cane:neo]))
-    ^-  (list [term pith cane:neo])
-    %+  murn  ~(tap by deps:firm)
-    |=  [=term required=? =quay:neo]
-    ^-  (unit [^term pith cane:neo])
-    =/  dep=(unit pith)  (~(get by conf.room) term)
-    ?~  dep
-      ~|  invariant-missing-required-conf/term
-      ?<  required
-      ~
-    =/  =name:neo  (de-pith:name:neo u.dep)
-    =/  =care:neo  (get-care:quay:neo quay)
-    =/  =cane:neo  (moor quay name)
-    `[term u.dep cane]
+    (get-deps deps:firm conf.room)
   --
+++  get-deps
+  |=  [=deps:neo =conf:neo]
+  %-  ~(gas by *(map term [pith cane:neo]))
+  ^-  (list [term pith cane:neo])
+  %+  murn  ~(tap by deps)
+  |=  [=term required=? =quay:neo]
+  ^-  (unit [^term pith cane:neo])
+  =/  dep=(unit pith)  (~(get by conf) term)
+  ?~  dep
+    ~|  invariant-missing-required-conf/term
+    ?<  required
+    ~
+  =/  =name:neo  (de-pith:name:neo u.dep)
+  =/  =care:neo  (get-care:quay:neo quay)
+  =/  =cane:neo  (moor quay name)
+  `[term u.dep cane]
+
 ++  reap
   |=  here=pith:neo
   =/  =room:neo  (got:of-top here)
   |%
-  ++  deps  deps:(land here)
-  ++  kids  kids:(land here)
+  ++  deps  deps:(ground here)
+  ++  kids  kids:(ground here)
   ++  bowl    
     :: =/  hare  pith:(de-pith:name:neo here)
     :: ~&  hare/hare
