@@ -264,9 +264,12 @@
   ++  h  (hall pith.name)
   ++  j  ~(. jail name)
   ++  r  (reap pith.name)
+  ++  l  ~(. loam pith.name)
   ++  pail
-    ?:  is-our  pail:h
-    pail:j
+    ?.  is-our  pail:j
+    ?:  check:l
+      pail:l
+    pail:h
   ++  vial  (pail:soften pail)
   ++  state  q:pail
   ++  state-stud  p:pail
@@ -280,6 +283,8 @@
     |=  =care:neo
     ?.  is-our  
       (cane:j care)
+    ?:  check:l
+      (cane:l care)
     =/  =room:neo  (got:of-top pith.name)
     ?:  ~(is-plot husk code.room)
       (cane:r care)
@@ -287,6 +292,7 @@
   --
 ++  loam
   |_  =pith:neo
+  ++  check   !=(~ (~(pfix of:neo title) pith))
   ++  area
     `pith:neo`(need (~(pfix of:neo title) pith))
   ++  land  ~(land husk code:deed)
@@ -298,7 +304,7 @@
   ++  inner
     (sub:pith:neo here (need args))
   ++  pail
-    [state:deed (need value)]
+    `pail:neo`[state:deed (need value)]
   ++  value
     ^-  (unit vase)
     =+  args=args
@@ -307,7 +313,12 @@
     =/  deps
       (get-deps deps:land conf:deed)
     =/  =name:neo  [our.bowl inner]
-    (apply:land deps u.args (~(cane dorm name) care:land))
+    (apply:land deps u.args inner (~(cane dorm name) care:land))
+  ++  cane
+    |=  =care:neo
+    ^-  cane:neo
+    ?>  ?=(%x care)
+    *cane:neo
   ::
   ++  args
     ^-  (unit pith:neo)
@@ -323,7 +334,7 @@
       ?.  =(i.want %tas)
         ~
       $(want t.want, have t.have, res (snoc res i.have))
-    ?.  =(i.want +:i.have)
+    ?.  =(i.want -:i.have)
       ~
     $(want t.want, have t.have, res (snoc res i.have))
   --
@@ -511,8 +522,13 @@
     [~ ~]
   =/  pax=(pole iota)  (pave:neo t.pax)
   ?+  pax  [~ ~]
+    [%overlay pith=*]               (peek-overlay pith.pax)
     [as=@ car=@ [%p who=@] pith=*]  (run-peek [as car who pith]:pax)
   ==
+++  peek-overlay
+  |=  =pith:neo
+  ``noun+(need ~(value loam pith))
+
 ++  run-peek
   |=  [as=term car=term =name:neo]
   ^-  (unit (unit cage))
@@ -2773,7 +2789,6 @@
       ~|  %cant-make-plot-w-init
       ?>  ?=(~ init)
       (make-land src conf)
-      
     ?:  ~(is-plot husk src)
       ~|  %cant-make-plot-w-init
       ?>  ?=(~ init)
@@ -2945,8 +2960,8 @@
       (slog leaf/"no ford build here" ~)
     (slog leaf/"Ford build" (sell u.vax) ~)
   ++  desc
+    ?>  =(our.bowl ship.name)
     =/  dip
-      ?>  =(our.bowl ship.name)
       (dip:of-top pith.name)
     |=  depth=@ud
     =*  loop  $

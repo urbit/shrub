@@ -1764,7 +1764,7 @@
   ::  
   ++  deps  *(map term fief)
   ++  apply
-    |~  [deps=(map term (pair pith cane)) =pith =cane]
+    |~  [deps=(map term (pair pith cane)) args=pith inner=pith =cane]
     *(unit vase)
   --
 ::
