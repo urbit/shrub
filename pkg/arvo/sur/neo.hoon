@@ -1731,6 +1731,7 @@
 ::
 +$  deed
   $:  code=stud
+      over=pith
       =conf
       state=stud
       turf=(axal turf)

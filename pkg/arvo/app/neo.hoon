@@ -302,7 +302,7 @@
   ++  here
     (sub:pith:neo pith area)
   ++  inner
-    (sub:pith:neo here (need args))
+    (welp over:deed (sub:pith:neo here (need args)))
   ++  pail
     `pail:neo`[state:deed (need value)]
   ++  value
@@ -2778,8 +2778,10 @@
     |=  [src=stud:neo =conf:neo]
     ^+  arvo
     =/  =land:neo  ~(land husk src)
+    =/  over=pith:neo  (~(got by conf) %$)
+    =.  conf  (~(del by conf) %$)
     =/  =deed:neo
-      [src conf state:land *(axal:neo turf:neo)]
+      [src over conf state:land *(axal:neo turf:neo)]
     =.  title  (~(put of:neo title) here deed)
     work
   ::
