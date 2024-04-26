@@ -323,6 +323,11 @@
   ++  slip  [state poke:firm kids:firm]
   ++  cane
     |=  =care:neo
+    =/  items  (~(gas in *(set iota)) pith)
+    %-  ?:  &((~(has in items) %dm) (~(has in items) %home))
+           ~&  pith/pith
+           (slog (sell q:pail) ~)
+        same
     |^  ^-  cane:neo
     :*  care
         ever
@@ -1457,7 +1462,7 @@
   ?~  tours
     loop-changes(changes t.changes)
   =/  =tour:neo  i.tours
-  =/  =stem:neo  (~(gut by stems) tour (make-stem care.tour pax))
+  =/  =stem:neo  (~(gut by stems) tour (make-stem tour))
   ?:  =(pith.tour pax)
     $(stems (~(put by stems) tour stem), tours t.tours)
   ?.  ?=(?(%y %z) -.q.stem)
@@ -2417,7 +2422,9 @@
   =/  =care:neo  (get-care:quay:neo want)
   =*  d  ~(. dorm name)
   =/  =cane:neo   (cane:d care)
-  =.  pail.cane  (need (plag state.p.want pail.cane))
+  =.  pail.cane
+    ~|  [state.p.want p.pail.cane]
+    (need (plag state.p.want pail.cane))
   =?  kids.cane  ?=(^ q.want)
     %-  ~(gas by *(map pith:neo [ever:neo pail:neo]))
     %+  murn  ~(tap by kids.cane)

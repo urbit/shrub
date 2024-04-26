@@ -23,7 +23,7 @@
       :~
         ::  XX  hardcoded dm location to ~zod/home/dm
         [(welp [p/ship.diff]~ /home/dm) %poke %dm-store-diff !>([%notify our.bowl])]
-        [(welp here.bowl [p/ship.diff]~) %make %dm `!>(~) ~]
+        [(welp here.bowl [p/ship.diff]~) %make %dm `!>(ship.diff) ~]
       ==
     ::
         %notify
@@ -34,7 +34,7 @@
         :*  (welp here.bowl [p/ship.diff]~)
              %make
              %dm
-             `!>(~)
+             `!>(ship.diff)
              %-  malt
              :~
                :-  %link
@@ -51,7 +51,7 @@
         :*  (welp here.bowl [p/ship.diff]~)
              %make
              %dm
-             `!>(~)
+             `!>(ship.diff)
              %-  malt
              :~
                :-  %link
