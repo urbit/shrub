@@ -1313,50 +1313,55 @@
   --
 ++  all-grab
   |=  grab=stud:neo
-  ^-  vase :: of $-([to=stud grab-type] vase)
-  =/  in=vase  (need ~(get pro grab))
-  =/  fiesta=vase  !>(fiesta)
+  ^-  vase :: of $-([grow=stud grab-type] vase)
+  =/  arg=vase  (need ~(get pro grab))
+  =/  convs=(map stud:neo $-(vase vase))
+    %-  ~(gas by *(map stud:neo $-(vase vase)))
+    %+  turn  ~(tap in (~(get ju by-grab.fiesta) grab))
+    |=  grow=stud:neo
+    :-  grow
+    =/  =stud:neo  (~(got by con.fiesta) [grab grow])
+    =/  conv  ~(do con stud)
+    |=  =vase
+    (slam run:conv vase)
   %+  slap
     %+  with-faces:ford:neo  get-reef
-    :~  in/in
-        fiesta/fiesta
-        grow/!>(grow)
-        apex/!>(apex)
-        con/!>(con)
-        grab/!>(grab)
+    :~  arg/arg
+        convs/!>(convs)
     ==
   !,  *hoon
-  |=  [to=stud:neo in=in]
+  |=  [grow=stud:neo =arg]
   ^-  vase
-  =/  =stud:neo  
-    ~|  missing-con/[grab to]
-    (~(got by con.fiesta) [grab to])
-  =/  conv  ~(do con stud)
-  (slym run:conv in)
+  =/  conv=$-(vase vase)
+    ~|  missing-con/[grab p.pail]
+    (~(got by convs) [grab grow])
+  (conv !>(arg))
 ::  
 ++  all-grow
   |=  grow=stud:neo
   ^-  vase :: of $-(pail grow-type)
   =/  out=vase  (need ~(get pro grow))
-  =/  fiesta=vase  !>(fiesta)
+  =/  convs=(map stud:neo $-(vase vase))
+    %-  ~(gas by *(map stud:neo $-(vase vase)))
+    %+  turn  ~(tap in (~(get ju by-grow.fiesta) grow))
+    |=  grab=stud:neo
+    :-  grab
+    =/  =stud:neo  (~(got by con.fiesta) [grab grow])
+    =/  conv  ~(do con stud)
+    |=  =vase
+    (slam run:conv vase)
   %+  slap
     %+  with-faces:ford:neo  get-reef
     :~  out/out
-        fiesta/fiesta
-        grow/!>(grow)
-        apex/!>(apex)
-        con/!>(con)
+        convs/!>(convs)
     ==
   !,  *hoon
   |=  =pail:neo
   ^-  out
-  ~!  p.pail
-  ~!  grow
-  =/  =stud:neo  
+  =/  conv=$-(vase vase)
     ~|  missing-con/[p.pail grow]
-    (~(got by con.fiesta) [p.pail grow])
-  =/  conv  ~(do con stud)
-  !<(out (slam run:conv q.pail))
+    (~(got by convs) p.pail)
+  !<(out (conv q.pail))
 ::  
 ++  juice
   |_  =pulp:neo
