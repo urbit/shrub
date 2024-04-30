@@ -46,7 +46,7 @@
       ::  TODO handle
       ?:  =(our.bowl from.message)
         ~
-      ?>  =(her from.message)
+      ::?>  =(her from.message)
       :_  ~  
       :*                               
         (welp here.bowl ~[da/now.bowl])

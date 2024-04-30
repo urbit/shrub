@@ -1,8 +1,8 @@
 /@  dm
 /@  message
 /-  _/dmlib
-:-  [%dm %htmx]
-|=  dim=dm
+:-  [%ship %htmx]
+|=  shi=ship
 |=  =bowl:neo
 ^-  manx
 |^ 
@@ -10,7 +10,7 @@
   =label  "Chat"
   ;div.ma.fc.g2
     =style  "max-width: 650px;"
-    ;div
+    ;div.fc.g2
       =id  "children"
       ;*
       %+  turn
@@ -28,7 +28,7 @@
 ++  refresher
   ;div
     =hx-get  "{(en-tape:pith:neo :(weld /neo/hawk here.bowl))}"
-    =hx-trigger  "load delay:3s"
+    =hx-trigger  "every 3s"
     =hx-target  "#children"
     =hx-select  "#children"
     =hx-swap  "outerHTML"
@@ -45,7 +45,7 @@
     =head  "msg"
     ;date-now;
     ;span.hidden
-      =value  "{(scow %p our.bowl)}"
+      =value  "{(scow %p our.bowl)}"  ::XX this is broken for now and will bunt to ~zod
       ;
     ==
     ;textarea.p2.border.br1
