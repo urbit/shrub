@@ -1,2 +1,2 @@
 /@  message
-,[%msg =message]
+,[%msg contents=@t]

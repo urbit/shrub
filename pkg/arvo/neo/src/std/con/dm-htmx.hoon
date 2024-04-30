@@ -40,14 +40,9 @@
   ;form.fc.g2
     =hx-post  "{(en-tape:pith:neo :(weld /neo/hawk here.bowl))}?stud=dm-diff"
     =hx-on-submit  "this.reset()"
-    =hx-target  "this"
-    =hx-swap  "beforebegin"
+    =hx-target  "#children"
+    =hx-swap  "beforeend"
     =head  "msg"
-    ;date-now;
-    ;span.hidden
-      =value  "{(scow %p our.bowl)}"  ::XX this is broken for now and will bunt to ~zod
-      ;
-    ==
     ;textarea.p2.border.br1
       =placeholder  ". . ."
       =oninput  "this.setAttribute('value', this.value)"

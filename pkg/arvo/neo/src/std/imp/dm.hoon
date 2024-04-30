@@ -46,7 +46,7 @@
       ::  TODO handle
       ?:  =(our.bowl from.message)
         ~
-      ::?>  =(her from.message)
+      ?>  =(her from.message)
       :_  ~  
       :*                               
         (welp here.bowl ~[da/now.bowl])
@@ -61,7 +61,7 @@
       :*
         (welp were.bowl ~[da/now.bowl])
         %make 
-        [%message `!>(message.poke) ~]
+        [%message `!>([our.bowl now.bowl contents.poke]) ~]
       ==
     ==
   ++  init
