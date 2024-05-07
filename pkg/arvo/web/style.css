@@ -1,5 +1,5 @@
 /**    style.css
-  *      ~2024.3.5
+  *      ~2024.4.6
   *
   *    styling resets
   *    and
@@ -41,6 +41,9 @@ a {
 }
 button, input, textarea, iframe {
   border: unset;
+}
+img {
+  max-width: 100%;
 }
 .break {
   word-break: break-word;
@@ -87,6 +90,9 @@ button, input, textarea, iframe {
 }
 .wf {
   width: 100%;
+}
+.mw-page {
+  max-width: 650px;
 }
 .hf {
   height: 100%;
@@ -150,6 +156,9 @@ button, input, textarea, iframe {
   flex-basis: 0%;
   flex-shrink: 1;
 }
+.shrink-0 {
+  flex-shrink: 0;
+}
 .relative {
   position: relative;
 }
@@ -158,6 +167,9 @@ button, input, textarea, iframe {
 }
 .fixed {
   position: fixed;
+}
+.sticky {
+  position: sticky;
 }
 .z-2 {
   z-index: -20;
@@ -230,6 +242,9 @@ button, input, textarea, iframe {
 }
 .scroll-x {
   overflow-x: auto;
+}
+.scroll-hidden {
+  overflow: hidden;
 }
 .loader {
   position: relative;
@@ -363,6 +378,20 @@ button {
 .hover.selected:hover {
   filter: invert(25%);
 }
+.numbered > *:before {
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid var(--f3);
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: var(--f3);
+  min-width: 34px;
+  text-align: right;
+}
+.numbered > * {
+    display: block;
+    counter-increment: line;
+}
 .prose h1 {
   font-size: 1.45rem;
   margin: 1rem 0;
@@ -390,8 +419,19 @@ button {
 .prose details {
   margin-bottom: 1rem;
 }
+.prose a {
+  text-decoration: underline;
+}
 .prose mono {
   font-size: 1em;
+}
+.prose pre {
+  font-variation-settings: "xtab" 500;
+  font-size: 0.8em;
+  overflow-x: auto;
+  width: 100%;
+  display: block;
+  padding: 8px;
 }
 .prose code {
   white-space: pre;

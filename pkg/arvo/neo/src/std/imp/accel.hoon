@@ -2,12 +2,12 @@
 ::
 ^-  firm:neo
 |%
-++  state  %sig
+++  state  %accel
 ++  poke  (sy %accel-diff ~)
 ++  kids
   %-  ~(gas by *kids:neo)
-  :~  :-  [|/%tas |]
-      [%accel-node %sig]
+  :~  :-  [|/%ud |/%ud |]
+      [%accel-cell %sig]
   ==
 ++  deps  *deps:neo
 ++  form
@@ -22,12 +22,12 @@
     ?>  =(%accel-diff stud)
     =/  poke  !<(accel-diff vax)
     ?>  =(our ship.src):bowl
-    ?-    -.poke
-        %new
-      :_  sta
-      :~  :-  (welp here.bowl ~[name.poke])
-          [%make %accel-node `!>(~) (malt refs.poke)]
-      ==
+    :_  sta
+    :~  :-  (welp here.bowl ~[[ud/row.poke] [ud/column.poke]])
+        ?~  ref.poke
+          [%make %accel-cell `!>([text.poke ~ ref.poke]) ~]
+        =/  conf  (malt ~[[%ref u.ref.poke]])
+        [%make %accel-cell `!>([text.poke ~ ref.poke]) conf]
     ==
   --
 --
