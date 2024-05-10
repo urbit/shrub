@@ -1,1 +1,1 @@
-,[from=ship now=time contents=@t]
+,[author=@p time=@da contents=@t]

@@ -3,7 +3,7 @@
 |=  mes=message
 =,  enjs:format
 %-  pairs
-:~  from/s/(scot %p from.mes)
-    when/(time now.mes)
+:~  author/s/(scot %p author.mes)
+    time/(time time.mes)
     contents/s/contents.mes
 ==

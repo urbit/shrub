@@ -4,9 +4,9 @@
 ^-  manx
 ;dl
   ;dt: Author
-  ;dd: {(scow %p from.mes)}
+  ;dd: {(scow %p author.mes)}
   ;dt: Time
-  ;dd: {(scow %da now.mes)}
+  ;dd: {(scow %da time.mes)}
   ;dt: Contents
   ;dd: {(trip contents.mes)}
 ==
