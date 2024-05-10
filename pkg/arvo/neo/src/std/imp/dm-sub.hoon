@@ -2,7 +2,7 @@
 /@  message
 |%
 ++  state  %sig
-++  poke  (sy %dm-pub-poke ~)
+++  poke  (sy %dm-sub-poke ~)
 ++  kids
   %-  ~(gas by *kids:neo)
   :~  :-  [|/%da |]
