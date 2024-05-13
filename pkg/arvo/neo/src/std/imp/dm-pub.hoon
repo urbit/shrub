@@ -31,6 +31,7 @@
     ::
         %remove
       ?>  =(our ship.src):bowl
+      ?>  !=(our.bowl who.poke)
       [~ !>((~(del in memb) who.poke))]
     ::
         %dm
