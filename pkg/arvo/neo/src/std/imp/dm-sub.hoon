@@ -1,8 +1,8 @@
-/@  dm-sub-poke
+/@  dm-message
 /@  message
 |%
 ++  state  %sig
-++  poke  (sy %dm-sub-poke ~)
+++  poke  (sy %dm-message ~)
 ++  kids
   %-  ~(gas by *kids:neo)
   :~  :-  [|/%da |]
@@ -11,7 +11,7 @@
 ++  deps
 %-  ~(gas by *deps:neo)
   :~  :-  %pub
-      :+  req=&  [%members %dm-pub-poke]
+      :+  req=&  [%members %sig]
       :+  ~  %y
       %-  ~(gas by *kids:neo)
       :~  :-  [|/%da |]
@@ -33,12 +33,12 @@
     =/  source  (snag 3 here.bowl)
     =/  name    (snag 4 here.bowl)
     ?+    stud  !!
-        %dm-sub-poke
-      =/  poke  !<(dm-sub-poke vax)
+        %dm-message
+      =/  poke  !<(dm-message vax)
       ?>  =(%dm -.poke)
       :_  state-vase
       :~  :-  ~[source %home %dms source name]
-          [%poke %dm-pub-poke !>([%dm contents.poke])]
+          [%poke %dm-message !>([%dm contents.poke])]
       ==
     ::
         %rely
