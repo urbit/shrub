@@ -20,15 +20,32 @@
   |=  =mane
   ^-  (unit tape)
   (~(get by (malt a.g.a)) mane)
+:: got-attribute
+::
+::   cord of attribute, or crash
+::
+++  got-attribute
+  |=  =mane
+  ^-  cord
+  ~|  (crip "cannont find attribute {<mane>}")
+  (crip (need (get-attribute mane)))
 :: value
 ::
-::  value attribute of first named descendant, or null
+::  value (tape) attribute of first named descendant, or null
 ++  value
   |=  name=tape
   ^-  (unit tape)
   ?~  t=(named name)  ~
   =.  a  u.t
   (get-attribute %value)
+:: volue
+::
+::  value (cord) attribute of first named descendant, or crash
+++  volue
+  |=  name=tape
+  ^-  cord
+  ~|  (crip "cannont find element with name '{<name>}'")
+  (crip (need (value name)))
 :: whitelisted
 ::
 ::   check all tags are in whitelist

@@ -239,7 +239,7 @@ class extends HTMLElement {
     stub.setAttribute("hx-swap", "outerHTML");
     stub.setAttribute("hx-trigger", "load");
     hawk.appendChild(stub);
-    hawk.setAttribute("here", "");
+    hawk.setAttribute("here", here);
     hawk.setAttribute("stud", "txt");
     hawk.setAttribute("label", "Home");
     let s = this.slotted(slot)

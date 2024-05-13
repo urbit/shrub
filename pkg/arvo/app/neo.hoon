@@ -654,7 +654,7 @@
   ++  curr
     ::
     =/  rom  (get:of-top here)
-    =-  -(a.g [[%here (en-tape:pith:neo here)] a.g.-])
+    =-  -(a.g [[%id (en-tape:pith:neo here)] [%here (en-tape:pith:neo here)] a.g.-])
     ^-  manx
     ?~  rom
       ;div.wf.hf.fc.ac.jc(empty ""): nothing here
@@ -673,6 +673,7 @@
       |=  [=pith:neo *]
       -.pith
     ;div.wf.hf.fc.g1.js.ac
+      =id  "kids-{(en-tape:pith:neo here)}"
       =here  (en-tape:pith:neo here)
       =slot  "tree"
       ;*
@@ -782,6 +783,12 @@
         return (xmls.serializeToString(elt));
       }
     });
+    Idiomorph.defaults.ignoreActive = true;
+    Idiomorph.defaults.callbacks.beforeAttributeUpdated = (name, node, type) => {
+      if (name === 'class') {
+        return false;
+      }
+    }
     '''
     ::
   ++  lift
@@ -794,6 +801,7 @@
         ;title: s k y
         ;script(src "https://code.jquery.com/jquery-3.7.1.js");
         ;script(src "https://unpkg.com/htmx.org@1.9.11");
+        ;script(src "https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js");
         ;script(src "https://unpkg.com/htmx.org@1.9.11/dist/ext/response-targets.js");
         ;script: {html-enc-js}
         ;meta
@@ -848,7 +856,7 @@
         ;+  favicon
       ==
       ;body
-        =hx-ext  "html-enc,response-targets"
+        =hx-ext  "html-enc,response-targets,morph"
         =hx-swap  "innerHTML"
         =hx-boost  "true"
         =hx-history  "false"
@@ -935,7 +943,8 @@
           ::  create default tree
           =/  bootstrap
             ^-  (list card:neo)
-            :~  [(weld #/[p/our.bowl] here) %make %sky `!>([%system ~ 0]) ~]
+            :~  [#/[p/our.bowl]/sky %make %sky `!>([%system ~ 0]) ~]
+                [#/[p/our.bowl]/home %make %home `!>([%home ~ 0]) ~]
             ==
             |-
             ?~  bootstrap
@@ -985,8 +994,9 @@
               =-  -(status-code.response-header 400)
               %-  manx-response:gen:serv
               ;div.fc.p2.border.br1.scroll-x.scroll-y.wf.pre.mono
-                =style  "max-height: 400px;"
+                =id  (en-tape:pith:neo pith)
                 =here  (en-tape:pith:neo pith)
+                =style  "max-height: 400px;"
                 ;*
                 %+  turn  (tang p.vert)
                 |=  =tank
@@ -1015,6 +1025,7 @@
                   %-  manx-response:gen:serv
                   ;div.fc.p2.border.br1.scroll-x.scroll-y.wf.pre.mono
                     =style  "max-height: 400px;"
+                    =id  (en-tape:pith:neo pith)
                     =here  (en-tape:pith:neo (pave:neo pax.purl))
                     ;*
                     %+  turn  (tang p.man)

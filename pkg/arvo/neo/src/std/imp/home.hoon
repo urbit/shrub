@@ -19,8 +19,9 @@
         [#/[p/our.bowl]/home/accel/1/2 %make %accel-cell `!>(['~' ~ ~]) ~]
         [#/[p/our.bowl]/home/accel/2/1 %make %accel-cell `!>(['~' ~ ~]) ~]
         [#/[p/our.bowl]/home/accel/2/2 %make %accel-cell `!>(['~' ~ ~]) ~]
-        [#/[p/our.bowl]/home/iframes/wiki %make %iframe `!>('https://en.wikipedia.org/wiki/Main_Page') ~]
+        [#/[p/our.bowl]/home/iframes/wiki %make %iframe `!>('https://docs.urbit.org') ~]
         [#/[p/our.bowl]/home/circle %make %circle ~ ~]
+        [#/[p/our.bowl]/home/oxals %make %oxal ~ ~]
     ==
   ++  poke
     |=  [=stud:neo vax=vase]
