@@ -15,6 +15,12 @@
     `!>(new)
   ++  init
     |=  vas=(unit vase)
-    `(need vas)
+    ^-  (quip card:neo vase)
+    :-
+      :~  [~[p/our.bowl %home] %make %home ~ ~]
+      ==
+    ?~  vas
+      !>(*sky)
+    u.vas
   --
 --

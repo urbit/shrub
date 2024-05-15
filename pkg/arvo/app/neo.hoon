@@ -846,6 +846,7 @@
           document.adoptedStyleSheets = [sharedStyles];
           window.log=function()\{if(this.console)\{console.log(Array.prototype.slice.call(arguments));}};
           jQuery.fn.log=function (msg)\{console.log(msg, this); return this;};
+          jQuery.fn.emit=function (name)\{(this[0]).dispatchEvent(new Event(name, \{ bubbles: true, cancelable: true, composed: true })); return this;};
           """
         ==
         ;script: {(trip date-now)}
@@ -945,7 +946,7 @@
           ::  create default tree
           =/  bootstrap
             ^-  (list card:neo)
-            :~  [(weld #/[p/our.bowl] here) %make %sky `!>([%system ~ 0]) ~]
+            :~  [(weld #/[p/our.bowl] here) %make %sky `!>([%system [~[%home] ~] 1]) ~]
             ==
             |-
             ?~  bootstrap
