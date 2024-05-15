@@ -29,18 +29,18 @@
             =hx-target  "#dashboard"
             =hx-swap  "innerHTML"
             =onclick  "$('.cell-btn').removeClass('toggled');$(this).addClass('toggled');"
-            ;+
-            ?~  result.cell  ;/("")
-            =/  res  (need result.cell)
-            ?-  -.res
-              %.y
-                ;div.mono
-                  ;+
-                  ;/  (of-wall:format (~(win re (sell +.res)) 0 80))
-                ==
-              %.n
-                ;span: ERROR
-            ==
+            ;+  ;/("fix this")
+            ::?~  result.cell  ;/("")
+            ::=/  res  (need result.cell)
+            ::?-  -.res
+            ::  %.y
+            ::    ;div.mono
+            ::      ;+
+            ::      ;/  (of-wall:format (~(win re (sell +.res)) 0 80))
+            ::    ==
+            ::  %.n
+            ::    ;span: ERROR
+            ::==
           ==
         ==
       ==

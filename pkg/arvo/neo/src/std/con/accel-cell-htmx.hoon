@@ -56,19 +56,19 @@
 ++  output
   ;div#output.grow.scroll-x.scroll-y.p1
     ;div.f2.s-2: result
-    ;+
-    ?~  result.accel-cell
-      ;div.prose.p3
-        ;h1: nothing yet
-      ==
-    =/  res  (need result.accel-cell)
-    ?-  -.res
-      %.n  (error +.res)
-        %.y
-      ;div.pre.mono.p2
-        ;+
-        ;/  (of-wall:format (~(win re (sell +.res)) 0 80))
-      ==
-    ==
+    ;+  ;/("XX fix this")
+    ::?~  result.accel-cell
+    ::  ;div.prose.p3
+    ::    ;h1: nothing yet
+    ::  ==
+    ::=/  res  (need result.accel-cell)
+    ::?-  -.res
+    ::  %.n  (error +.res)
+    ::    %.y
+    ::  ;div.pre.mono.p2
+    ::    ;+
+    ::    ;/  (of-wall:format (~(win re (sell +.res)) 0 80))
+    ::  ==
+    ::==
   ==
 --
