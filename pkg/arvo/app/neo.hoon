@@ -2373,7 +2373,6 @@
 ::
 ++  poke-rely
   |=  [from=pith:neo to=pith:neo =rely:neo]
-  ~&  rely/[from to rely]
   (poke-move [p/our.bowl from] to %poke %rely !>(rely))
 ::
 ++  poke-rely-xeno
