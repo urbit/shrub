@@ -3,20 +3,16 @@
 ^-  firm:neo
 =>
 |%
-++  render-hoon
-  |=  [code=@t ref=vase]
-  ^-  (each vase tang)
-  =/  code
-    %-  crip
-    :: (trip 10) = tape of newline
-    :: to ensure that lack of newline at end
-    :: of file doesn't break evaluation
-    (welp (trip code) (trip 10))
-  %-  mule
-  |.
-  %+  slap
-    (slop !>(..zuse) ref(p [%face %ref p.ref]))
-  (ream code)
+::  Overwrite /ref with new vase in response to %rely and in on-init
+++  update-ref
+  |=  =bowl:neo
+  ^-  (list card:neo)
+  =/  ref=(unit (pair pith cane:neo))
+    (~(get by deps.bowl) %ref)
+  ?~  ref  ~
+  :~  :-  (snoc here.bowl %ref)
+      [%make %sig `q.pail.q.u.ref ~]
+  ==
 --
 |%
 ++  state  %accel-cell
@@ -24,9 +20,13 @@
 ++  kids
   %-  ~(gas by *kids:neo)
   :~  :-  [&/%out |]
-    [%sig %sig]
+      [%sig %sig]
+      ::
       :-  [&/%err |]
-    [%tang %sig]
+      [%tang %sig]
+      ::
+      :-  [&/%ref |]
+      [%sig %sig]
   ==
 ++  deps
   %-  ~(gas by *deps:neo)
@@ -39,24 +39,14 @@
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo vase)
-    ?.  =(stud %rely)  [~ state-vase]
+    ?>  =(stud %rely)
     :_  state-vase
-    :~  [(snoc here.bowl %err) %make %tang ?:(-.res `!>(~) `!>(p.res)) ~]
-        [(snoc here.bowl %out) %make %sig ?:(-.res `p.res `!>(~)) ~]
-    ==
-    :::~  [(snoc here.bowl %out) %make stud `vax ~]
-    ::==
+    (update-ref bowl)
+  ::
   ++  init
     |=  old=(unit vase)
     =/  cell  !<(accel-cell (need old))
-    =/  ref=(unit (pair pith cane:neo))
-      (~(get by deps.bowl) %ref)
-    ?~  ref  `!>(cell)
-    =/  vax=vase  q.pail.q.u.ref
-    =/  res=(each vase tang)  (render-hoon code.cell vax)
     :_  !>(cell)
-    :~  [(snoc here.bowl %err) %make %tang ?:(-.res `!>(~) `!>(p.res)) ~]
-        [(snoc here.bowl %out) %make %sig ?:(-.res `p.res `!>(~)) ~]
-    ==
+    (update-ref bowl)
   --
 --
