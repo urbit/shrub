@@ -706,6 +706,7 @@
       %-  u.man
       =+  b=*bowl.neo  :: manually constructing a bowl. this is ugly
       %=  b
+        our  our.bowl
         here  here
         kids
           %-  ~(run by (kid:of-top here))
@@ -977,6 +978,7 @@
         %-  u.man
         =+  b=*bowl.neo
         %=  b
+          our  our.bowl
           here  here
           kids
             %-  ~(run by (kid:of-top here))
@@ -1019,6 +1021,7 @@
                   %-  p.man
                   =+  b=*bowl.neo
                   %=  b
+                    our  our.bowl
                     here  pith
                   ==
                 %.n
@@ -1055,6 +1058,7 @@
             %-  u.man
             =+  b=*bowl.neo  :: manually constructing a bowl. this is ugly
             %=  b
+              our  our.bowl
               here  (pave:neo pax.purl)
             ==
           ;div: some sorta error occured
