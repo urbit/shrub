@@ -1,4 +1,4 @@
-/@  accel-cell
+::/@  accel-cell
 ::
 ^-  firm:neo
 =>
@@ -27,6 +27,12 @@
       ::
       :-  [&/%ref |]
       [%sig %sig]
+      ::
+      :-  [&/%code |]
+      [%txt %sig]
+      ::
+      :-  [&/%link |]
+      [%pith %sig]
   ==
 ++  deps
   %-  ~(gas by *deps:neo)
@@ -45,7 +51,6 @@
   ::
   ++  init
     |=  old=(unit vase)
-    =/  cell  !<(accel-cell (need old))
     :_  !>(cell)
     (update-ref bowl)
   --

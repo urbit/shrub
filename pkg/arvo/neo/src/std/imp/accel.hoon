@@ -25,7 +25,7 @@
 ++  kids
   %-  ~(gas by *kids:neo)
   :~  :-  [|/%ud |/%ud |]
-      [%accel-cell %sig]
+      [%sig %sig] ::  FIXME: use %accel-cell when %z works
   ==
 ++  deps  *deps:neo
 ++  form
