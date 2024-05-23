@@ -43,16 +43,33 @@
       ==
     ::
         %nest
-      :_  !>  this(order `(list pith)`(snoc order.this `pith`[`@tas`name.diff ~]))
-      :_  ~
-      :*  (snoc here.bowl name.diff)
-          %make  %task  `!>(task.diff)  ~
+      =/  name=@t
+        %-  crip  
+        %+  weld
+          "t"
+        ^-  tape
+        %+  slag 
+          (sub (lent (scow %da now.bowl)) 4)
+        (scow %da now.bowl)
+      =/  new-order
+        `(list pith)`(snoc order.this `pith`[`@tas`name ~])
+      :_  !>  this(order new-order)
+      :~  :-  (snoc here.bowl name)
+              [%make %task `!>(task.diff) ~]
       ==
     ::
         %prep
-      :_  !>  this(order `(list pith)`[[name.diff ~] order.this])
+      =/  name=@t
+        %-  crip  
+        %+  weld
+          "t"
+        ^-  tape
+        %+  slag 
+          (sub (lent (scow %da now.bowl)) 4)
+        (scow %da now.bowl)
+      :_  !>  this(order `(list pith)`[[name ~] order.this])
       :_  ~
-      :*  (snoc here.bowl name.diff)
+      :*  (snoc here.bowl name)
           %make  %task  `!>(task.diff)  ~
       ==
     ::
