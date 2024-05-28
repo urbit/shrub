@@ -7,8 +7,7 @@ $%  [%inc-width ~]
         row=@ud
         column=@ud
         text=@t
-        refa=(unit pith)
-        refb=(unit pith)
+        refs=(list pith)
         target=(unit [pith stud:neo])
     ==
 ==
