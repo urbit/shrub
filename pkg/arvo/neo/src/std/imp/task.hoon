@@ -6,7 +6,7 @@
 ++  kids   
   ^-  kids:neo
   %-  ~(gas by *kids:neo)
-  :~  :-  [|/%tas |]
+  :~  :-  [|/%ud |]
     [%task %task-diff]
   ==
 ++  deps   *deps:neo
@@ -43,33 +43,57 @@
       ==
     ::
         %nest
-      =/  name=@t
-        %-  crip  
-        %+  weld
-          "t"
-        ^-  tape
-        %+  slag 
-          (sub (lent (scow %da now.bowl)) 4)
-        (scow %da now.bowl)
+      =/  id=@ud
+        ?~  ~(key by kids.bowl)  1
+        =/  piths-ud=(set @ud)
+            %-  %~  run  in 
+                    ~(key by kids.bowl)
+                |=  =pith 
+                  +:(,[%ud @ud] (rear pith))
+        ::
+        =/  last-id=@ud  (rear (sort ~(tap in piths-ud) lth))
+        ::
+        =/  id-missing=(list @ud)
+          %~  tap  in
+          %-  %~  dif  in
+              %-  silt 
+                  %+  gulf  1 
+                      last-id
+              piths-ud
+        ?~  id-missing  +(last-id)
+        (rear id-missing)
+      ~&  >>>  ['id' id]
       =/  new-order
-        `(list pith)`(snoc order.this `pith`[`@tas`name ~])
+        `(list pith)`(snoc order.this `pith`[ud/id ~])
+      ~&  >>>  ['new-order' new-order]
       :_  !>  this(order new-order)
-      :~  :-  (snoc here.bowl name)
+      :~  :-  (welp here.bowl ~[ud/id])
               [%make %task `!>(task.diff) ~]
       ==
     ::
         %prep
-      =/  name=@t
-        %-  crip  
-        %+  weld
-          "t"
-        ^-  tape
-        %+  slag 
-          (sub (lent (scow %da now.bowl)) 4)
-        (scow %da now.bowl)
-      :_  !>  this(order `(list pith)`[[name ~] order.this])
+      =/  id=@ud
+        ?~  ~(key by kids.bowl)  1
+        =/  piths-ud=(set @ud)
+            %-  %~  run  in 
+                    ~(key by kids.bowl)
+                |=  =pith 
+                  +:(,[%ud @ud] (rear pith))
+        ::
+        =/  last-id=@ud  (rear (sort ~(tap in piths-ud) lth))
+        ::
+        =/  id-missing=(list @ud)
+          %~  tap  in
+          %-  %~  dif  in
+              %-  silt 
+                  %+  gulf  1 
+                      last-id
+              piths-ud
+        ?~  id-missing  +(last-id)
+        (rear id-missing)
+      :_  !>  this(order `(list pith)`[~[ud/id] order.this])
       :_  ~
-      :*  (snoc here.bowl name)
+      :*  (welp here.bowl ~[ud/id])
           %make  %task  `!>(task.diff)  ~
       ==
     ::
