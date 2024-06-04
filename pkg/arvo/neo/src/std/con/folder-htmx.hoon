@@ -43,6 +43,7 @@
                 %circle
                 %diary
                 %iframe
+                %deck
                 %task
                 %txt
                 %sail

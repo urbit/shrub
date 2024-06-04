@@ -1,0 +1,4 @@
+$:
+  title=@t
+  code=@t
+==
