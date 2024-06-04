@@ -16,9 +16,11 @@
         [#/[p/our.bowl]/home/tasks %make %task `!>(['' | ~]) ~]
         [#/[p/our.bowl]/home/sail %make %sail `!>(['' 'prose p3' ~]) ~]
         [#/[p/our.bowl]/home/accel %make %accel ~ ~]
-        [#/[p/our.bowl]/home/iframes/wiki %make %iframe `!>('https://docs.urbit.org') ~]
         [#/[p/our.bowl]/home/circle %make %circle ~ ~]
-        [#/[p/our.bowl]/home/files %make %folder ~ ~]
+        [#/[p/our.bowl]/home/files %make %folder `!>(~[%groups %feeds %rumors]) ~]
+        [#/[p/our.bowl]/home/files/rumors %make %iframe `!>('https://migrev-dolseg.com/rumors') ~]
+        [#/[p/our.bowl]/home/files/groups %make %iframe `!>('https://migrev-dolseg.com/apps/groups') ~]
+        [#/[p/our.bowl]/home/files/feeds %make %iframe `!>('https://migrev-dolseg.com/feeds/~/recent') ~]
         [#/[p/our.bowl]/home/planner %make %planner ~ ~]
     ==
   ++  poke

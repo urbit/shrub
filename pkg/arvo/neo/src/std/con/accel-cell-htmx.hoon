@@ -12,11 +12,11 @@
     =hx-indicator  "#spinner"
     =row  (scow %ud +:x)
     =col  (scow %ud +:y)
-    ;div.fc.border.grow.basis-half.wf
+    ;div.fc.bd1.grow.basis-half.wf
       ;+  cell-header
       ;+  input
     ==
-    ;div#config.grow.border.basis-half.fc.scroll-x.scroll-y
+    ;div#config.grow.bd1.basis-half.fc.scroll-x.scroll-y
       ;+  spinner
       ;+  depsa
       ;+  depsb
@@ -39,9 +39,9 @@
     ;span.loading: ---
   ==
 ++  cell-header
-  ;div.b1.border.fr.ac.jb.p1
+  ;div.b1.bd1.fr.ac.jb.p1
     ;span.p1.mono.s-1: /{(scow %ud +:x)}/{(scow %ud +:y)}
-    ;button.br1.border.b1.hover
+    ;button.br1.b1.hover
       =style  "padding: 4px 8px;"
       =type  "button"
       =pith  "/{(scow %p our.bowl)}{(en-tape:pith:neo here.bowl)}"
@@ -61,7 +61,7 @@
 ++  depsa
   ;label.fc.p1
     ;span.f3.s-2.p1: a
-    ;input.border.wf
+    ;input.bd1.wf
       =placeholder  "/{(scow %p our.bowl)}/path/to/dep"
       =value  ?~(refa.accel-cell "" (en-tape:pith:neo u.refa.accel-cell))
       =autocomplete  "off"
@@ -73,7 +73,7 @@
 ++  depsb
   ;label.fc.p1
     ;span.f3.s-2.p1: b
-    ;input.border.wf
+    ;input.bd1.wf
       =placeholder  "/{(scow %p our.bowl)}/path/to/dep"
       =value  ?~(refb.accel-cell "" (en-tape:pith:neo u.refb.accel-cell))
       =autocomplete  "off"

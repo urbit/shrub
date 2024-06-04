@@ -18,7 +18,7 @@
     %+  slap
       %+  slop
         %+  slop
-          !>(..zuse) 
+          !>(..zuse)
         a(p [%face %a p.a])
       b(p [%face %b p.b])
     (ream code)
@@ -68,7 +68,7 @@
   :_  !>(cell)
   ?~  target.cell  ~
   ?~  result.cell  ~
-  ?-  -.u.result.cell  
+  ?-  -.u.result.cell
     %.n  ~
     %.y  [pith.u.target.cell %poke [stud.u.target.cell p.u.result.cell]]~
   ==
@@ -89,7 +89,7 @@
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo vase)
-    ?.  =(stud %rely)  
+    ?.  =(stud %rely)
       [~ state-vase]
     =+  !<([=term =stem:neo] vax)
     ?>  ?=(%x -.q.stem)
@@ -100,6 +100,6 @@
     |=  old=(unit vase)
     ^-  (quip card:neo vase)
     =/  cell  !<(accel-cell (need old))
-    (update cell bowl) 
+    (update cell bowl)
   --
 --

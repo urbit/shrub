@@ -28,25 +28,27 @@
         ;*
         %+  turn  (gulf 1 10)
         |=  n=@
-        ;th.mono.f2.tc: {<n>}
+        ;th.mono.f3.tc.p2: {<n>}
       ==
       ;*
       %+  turn  (gulf 1 10)
       |=  x=@
       ;tr
-        ;td.mono.tr.f2(style "width: 1px;"): {<x>}
+        ;td.mono.tr.f3.p2(style "width: 1px;"): {<x>}
         ;*
         %+  turn  (gulf 1 10)
         |=  y=@
         =/  val=(unit pail:neo)  (~(get by kids.bowl) ~[ud/x ud/y])
         =/  vaf  (fall val [%accel-cell !>(*accel-cell)])
-        ;td.border
+        ;td.bd1
           ;+
           =/  cell  !<(accel-cell +:vaf)
-          ;button.b1.scroll-none.hover.cell-btn.p2.wf.hf
+          ;button
+            =class  "b1 scroll-none hover cell-btn p2 wf hf"
             =id  "cell-{id}-{<x>}-{<y>}"
             =hx-get  "/neo/hawk{(en-tape:pith:neo here.bowl)}/{<x>}/{<y>}"
             =hx-target  "#dashboard-{id}"
+            =hx-select  "form"
             =hx-swap  "innerHTML"
             =morph-retain  "class"
             =onclick  "$('.cell-btn').removeClass('toggled');$(this).addClass('toggled');"
@@ -55,7 +57,12 @@
             =/  res  (need result.cell)
             ?-  -.res
               %.y
-                ;div.mono
+                =/  opacity
+                  ?:  =('n' +<+<.res)  :: if empty
+                    "o2"
+                  "o10"
+                ;div
+                  =class  "{opacity} mono"
                   ;+
                   ;/  (of-wall:format (~(win re (sell +.res)) 0 80))
                 ==
