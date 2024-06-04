@@ -28,7 +28,6 @@
 ++  deps  *deps:neo
 ++  form
   ^-  form:neo
-  ::|_  [=bowl:neo =ever:neo sta=vase *]
   |_  [=bowl:neo =aeon:neo =pail:neo]
   ++  init
     |=  old=(unit pail:neo)

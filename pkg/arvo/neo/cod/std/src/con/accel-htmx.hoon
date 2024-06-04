@@ -13,7 +13,7 @@
 ++  id
   ^-  tape
   %-  zing
-  %+  turn  (pout here.bowl)
+  %+  turn  (pout (slag 1 here.bowl))
   |=  smeg=@ta
   %+  weld  "--"
   (trip smeg)
@@ -38,7 +38,11 @@
         ;*
         %+  turn  (gulf 1 10)
         |=  y=@
-        =/  val=(unit pail:neo)  ~::(~(get by kids.bowl) ~[ud/x ud/y])
+        =/  ide=(unit idea:neo)
+          (~(get of:neo kids.bowl) ~[ud/x ud/y])
+        =/  val=(unit pail:neo)
+          ?~  ide  ~
+          `pail.u.ide
         =/  vaf  (fall val [%accel-cell !>(*accel-cell)])
         ;td.border
           ;+
@@ -47,6 +51,7 @@
             =id  "cell-{id}-{<x>}-{<y>}"
             =hx-get  "/neo/hawk{(en-tape:pith:neo here.bowl)}/{<x>}/{<y>}"
             =hx-target  "#dashboard-{id}"
+            =hx-select  "form"
             =hx-swap  "innerHTML"
             =morph-retain  "class"
             =onclick  "$('.cell-btn').removeClass('toggled');$(this).addClass('toggled');"
