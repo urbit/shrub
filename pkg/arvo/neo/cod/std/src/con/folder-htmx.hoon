@@ -46,6 +46,7 @@
                 %task
                 %txt
                 %sail
+                %atom
             ==
           |=  t=@tas
           ^-  manx

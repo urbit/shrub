@@ -19,6 +19,9 @@
         [#/[p/our.bowl]/home/circle %make %circle ~ ~]
         [#/[p/our.bowl]/home/files %make %folder ~ ~]
         [#/[p/our.bowl]/home/planner %make %planner ~ ~]
+        [#/[p/our.bowl]/home/number %make %atom `atom/!>(3) ~]
+        [#/[p/our.bowl]/home/acc %make %accumulator `atom/!>(3) ~]
+        [#/[p/our.bowl]/home/ove %make %inc-ove ~ ~]
     ==
   ++  poke
     |=  =pail:neo

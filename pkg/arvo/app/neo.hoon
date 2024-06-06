@@ -38,7 +38,7 @@
       =dive:neo       :: build
     ::
       =gang:neo       :: overlay
-      =pawn:neo       :: virtual
+      =boys:neo       :: %chap
     ::
       =mate:neo       :: peers
     ::
@@ -434,11 +434,58 @@
   ?:  ?=($@(~ [~ ~]) res)
     res
   ``(~(got of:neo u.u.res) /)
+++  need-look
+  |=  =hunt:neo
+  ^-  [epic:neo _run]
+  [(need (need -)) +]:(look hunt)
 ::
 ++  look
   |=  =hunt:neo
-  ^-  (unit (unit epic:neo))
-  (~(peek till:aux [loam farm]) hunt)
+  ^-  [(unit (unit epic:neo)) _run]
+  =/  res  (~(peek till:aux [loam farm]) hunt)
+  ?.  ?=($?(~ [~ ~]) res)
+    [res run]
+  =/  =name:neo  (de-pith:name:neo pith.hunt)
+  ?.  =(ship.name our.bowl)
+    [~ run]
+  =/  ove=(unit pith:neo)  (~(pfix of:neo gang) pith.name)
+  ?~  ove
+    [`~ run]
+  ~?  !=(%x care.hunt)
+    'warning: non %x cares unsupported rn'
+  =/  inner=pith:neo  (dif:pith:neo pith.name u.ove)
+  =.  run  +:(fight u.ove inner)
+  :_(run (~(peek till:aux [loam farm]) hunt))
+::
+++  fight
+  |=  [over=pith:neo inner=pith:neo]
+  ^-  [(unit pail:neo) _run]
+  =/  =cove:neo  (~(got of:neo gang) over)
+  =/  =bruh:neo  ~(bruh husk code.cove)
+  =/  =crew:neo  (~(put by crew.cove) over.cove inner)
+  =/  pal=(unit pail:neo)  (mole |.(~(make form:bruh (lime deps:bruh crew))))
+  =.  run  +:(take-dirt-card [p/our.bowl (welp over inner)] ?~(pal cull/~ [%grow u.pal ~ *oath:neo]))
+  [pal run]
+::
+++  lime
+  |=  [=band:neo =crew:neo]
+  %-  ~(gas by *(map term [pith lore:neo]))
+  ^-  (list [term pith lore:neo])
+  %+  murn  ~(tap by band)
+  |=  [=term required=? =quay:neo]
+  ^-  (unit [^term pith:neo lore:neo])
+  =/  dep=(unit pith)  (~(get by crew) term)
+  ?~  dep
+    ~|  invariant-missing-required-conf/term
+    ?<  required
+    ~
+  =/  =name:neo  (de-pith:name:neo u.dep)
+  =/  =care:neo  (get-care:quay:neo quay)
+  ?~  lor=(moor quay name)
+    ?<  required
+    ~
+::      %-  (slog term (epic:dbug:neo epic) ~)
+  `[term u.dep u.lor]
 
 ::  +sale: synchronisation
 ++  sale
@@ -736,10 +783,13 @@
   ++  yuga
     |=  =care:neo
     ^-  yuga:neo
-    ?~  pic=(need (look care p/our.bowl pith))
+    =^  pic  run
+      (look care p/our.bowl pith)
+    ?>  ?=(^ pic)
+    ?~  u.pic
       *yuga:neo
     ~&  epic/u.pic
-    (epic-to-yuga u.pic)
+    (epic-to-yuga u.u.pic)
   ::
   ++  stop
     |=  [=care:neo =path]
@@ -801,7 +851,20 @@
     =/  rav  (fall (~(get of:neo riot) pith.hunt) *rave:neo)
     =.  rav  (fume-add rav care.hunt howl)
     =.  riot  (~(put of:neo riot) pith.hunt rav)
-    run
+    (chase hunt howl)
+  ++  chase
+    |=  [=hunt:neo =howl:neo]
+    =/  =name:neo  (de-pith:name:neo pith.hunt)
+    ?.  =(our.bowl ship.name)
+      run
+    ?~  fen=(bond-fren pith.name)
+      run
+    ?.  ?=(%bruh u.fen)
+      run
+    =/  ove=pith:neo  (need (~(pfix of:neo gang) pith.name))
+    =/  =cove:neo  (~(got of:neo gang) ove)
+    ?>  ?=(%x care.hunt)
+    (stalk [care.hunt (dif:pith:neo pith.name ove)] %rely over.cove pith.hunt)
   ++  fury
     |=  gis=(list gift:dirt:neo)
     %-  gas-leaf
@@ -981,6 +1044,8 @@
   ++  fren
     ^-  fren:neo
     ?:  (~(nest ut -:!>(*kook:neo)) | p:vase)
+      %kook
+    ?:  (~(nest ut -:!>(~)) | p:vase)
       %kook
     ?:  (~(nest ut -:!>(*chap:neo)) | p:vase)
       %chap
@@ -1743,6 +1808,7 @@
     ==
   ++  inside  (cury is-parent init)
   ++  echo  arvo  :: TODO walk done
+  ++  fren  (bond-fren here)
   ++  grow
     |=  =pail:neo
     ^+  arvo
@@ -1769,9 +1835,22 @@
     $(arvo new-arvo, done (snoc done nex))
   ++  poke
     |=  =pail:neo
-    ^+  arvo ::    
+    ^+  arvo ::
+    =/  fen  (need fren)
     =^  cards=(list card:neo)  arvo
-      (soft-surf |.(su-abet:(su-poke:surf pail)))
+      ?-    fen
+          %kook
+        (soft-surf |.(su-abet:(su-poke:surf pail)))
+      ::
+          %bruh
+        ?.  =(p.pail %rely)
+          !! :: XX: handle poke unrolling
+        =.  run  +:(look %x [p/our.bowl here])
+        `arvo
+      ::
+          %chap
+        !!
+      ==
     (ingest cards)
   ::
   ::  XX: a hack
@@ -1829,26 +1908,31 @@
   ::
   ++  jazz
     |=  [=conf:neo =deps:neo]
-    ^-  [bad=(set term) block=(set tour:neo)]
-    %+  roll  ~(tap by deps)
-    |=  [[=term required=? =quay:neo] bad=(set term) block=(set hunt:neo)]
+    ^-  [bad=(set term) _run]
+    =/  deps  ~(tap by deps)
+    =|  bad=(set term)
+    |-
+    ?~  deps
+      [bad run]
+    =/  [=term required=? =quay:neo]  i.deps
+    =>  .(deps t.deps)
     =/  =care:neo  (get-care:quay:neo quay)
     ?:  &(required !(~(has by conf) term))
-      :_(block (~(put in bad) term))
+      $(bad (~(put in bad) term))
     ?:  &(!required !(~(has by conf) term))
-      [bad block]
+      $
     =/  pit=pith:neo   (~(got by conf) term)
-    =/  res  (look care pit)
+    =^  res  run  (look care pit)
     =/  nam=name:neo  (de-pith:name:neo pit)
     ?~  res  
       ?:  =(our.bowl ship.nam)
         ?.  required
-          [bad block]
-        :_(block (~(put in bad) term))
-      [bad (~(put in block) care pit)]
-    ?~  u.res
-      :_(block (~(put in bad) term))
-    [bad block] ::
+          $
+        $(bad (~(put in bad) term))
+      $(get.block (~(put in get.block) care pit))
+    ?^  u.res
+      $
+    $(bad (~(put in bad) term))
   ::
   ++  dance
     |=  [=crew:neo =band:neo]
@@ -1884,15 +1968,49 @@
 ::    ~&  >>>  %kids-no-match
 ::    &
     & :: XX: enforce conformance
-  ++  make-plot
-    |=  [src=stud:neo =conf:neo]
+  ::  XX: these are both broken in the event of a %y or %z dependency on
+  ::  the parent
+  ++  make-bruh
+    |=  [src=stud:neo =crew:neo]
+    =/  deps  deps:~(bruh husk src)
+    =^  bad=(set term)   run
+      (jazz crew deps)
+    ?.  =(~ get.block)
+      arvo
+    =/  bad  ~(tap in bad)
+    ?>  =((lent bad) 1)
+    =/  over=term  (snag 0 bad)
+    =.  arvo  (dance crew (~(del by deps) over))
+    =/  =cove:neo  [crew over src *rime:neo]
+    =.  gang  (~(put of:neo gang) here cove)
+    work
+  ++  make-chap
+    |=  [src=stud:neo =crew:neo]
+    =^  bad=(set term)   run
+      (jazz crew deps:~(bruh husk src))
+    ?.  =(~ bad)
+      ~|  bad-chap-crew/bad
+      !!
+    ?.  =(~ get.block)
+      arvo
+    =/  =pawn:neo  [src crew]
+    =.  boys  (~(put of:neo boys) here pawn)
     work
   ::
   ++  make
     |=  [src=stud:neo init=(unit pail:neo) =crew:neo]
+    =/  fen  ~(fren husk src)
+    ?-  fen
+      %kook  (make-kook src init crew)
+      %chap  ?>(=(~ init) (make-chap src crew))
+      %bruh  ?>(=(~ init) (make-bruh src crew))
+    
+    ==
+  ++  make-kook
+    |=  [src=stud:neo init=(unit pail:neo) =crew:neo]
     =/  =wave:neo  [src ~(dock husk src) crew]
     =.  tide  (~(put of:neo tide) here wave)
-    =^  bad=(set term)   get.block
+    =^  bad=(set term)   run
       (jazz crew deps:~(kook husk src))
     ?.  =(~ get.block)
       arvo
@@ -1962,25 +2080,7 @@
       ?~  ion=(scion q.u.kids pith saga)
         ~
       `[pith u.ion]
-    ++  su-deps
-      :: =-  ((slog (deps:dbug:neo -) ~) -)
-      %-  ~(gas by *(map term [pith lore:neo]))
-      ^-  (list [term pith lore:neo])
-      %+  murn  ~(tap by deps:kook)
-      |=  [=term required=? =quay:neo]
-      ^-  (unit [^term pith:neo lore:neo])
-      =/  dep=(unit pith)  (~(get by crew.wave) term)
-      ?~  dep
-        ~|  invariant-missing-required-conf/term
-        ?<  required
-        ~
-      =/  =name:neo  (de-pith:name:neo u.dep)
-      =/  =care:neo  (get-care:quay:neo quay)
-      ?~  lor=(moor quay name)
-        ?<  required
-        ~
-::      %-  (slog term (epic:dbug:neo epic) ~)
-      `[term u.dep u.lor]
+    ++  su-deps  (lime deps:kook crew.wave)
     ::
     ++  su-form  ~(. form:kook [su-bowl su-saga])
     ++  su-abet ::  TODO: bump
@@ -2417,7 +2517,8 @@
   |=  [want=quay:neo =name:neo]
   ^-  (unit lore:neo)
   =/  =care:neo  (get-care:quay:neo want)
-  =/  pic  (~(peek till:aux [loam farm]) care (en-pith:name:neo name))
+  =^  pic=(unit (unit epic:neo))  run
+    (look care (en-pith:name:neo name))
   ?:  ?=($@(~ [~ ~]) pic)
     ~&  lost-moor/name
     ~
@@ -2578,5 +2679,18 @@
   :~  leaf/"Path: {(en-tape:pith:neo pith)}"
       leaf/"{<p.pail>}"
   ==
+++  bond-fren
+  |=  =pith:neo
+  ^-  (unit fren:neo)
+  ?:  (~(has of:neo tide) pith)
+    `%kook
+  ?^  (~(pfix of:neo gang) pith)
+    `%bruh
+  ?^  (~(pfix of:neo boys) pith)
+    `%chap
+  ~
+
+
+
 --
 

@@ -34,8 +34,10 @@
     ++  produce
       |=  =bowl:neo
       ^-  pail:neo
+      =/  pre  (get-prelude bowl)
+      %-  (slog (sell pre) ~)
       =/  res=(each vase tang)
-        (mule |.((slap (get-prelude bowl) (ream hoon.conf))))
+        (mule |.((slap pre (ream hoon.conf))))
       ?:  ?=(%& -.res)
         vase/p.res
       tang/!>(p.res)
@@ -59,8 +61,8 @@
       ^-  (quip card:neo pail:neo)
       =/  new=pail:neo  (produce bowl)
       ?:  =(new pail)
-        `pail
-      :_  pail
+        `new
+      :_  new
       %+  turn  ~(tap by poke.conf)
       |=  [=pith:neo =stud:neo]
       [pith %poke [stud q.pail]]

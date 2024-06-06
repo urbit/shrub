@@ -1317,6 +1317,7 @@
   $%  [%sell ~]
       [%rely =term =pith]
       [%halt ~]
+      [%over =pith]
   ==
 +$  howl  tone
 ::  $wail: change result
@@ -1625,6 +1626,18 @@
     ?~  +.low
       [pax fil.fat]
     low
+  ::
+  ++  pfix
+    =|  res=(unit pith)
+    =|  here=pith
+    |=  pax=pith
+    ^-  (unit pith)
+    =?  res  ?=(^ fil.fat)
+      `here
+    =/  nex  (dif:pith here pax)
+    ?~  nex
+      res
+    $(fat (~(gut by kid.fat) i.nex [~ ~]), here (snoc here i.nex))
   ::
   ++  has
     |=  pax=pith
@@ -2158,16 +2171,22 @@
   ++  state  *curb
   ++  poke   *(set stud)
   ++  deps  *band
-  ++  form
-    $_  ^|
-    |_  deps=(map term lore)
-    ++  poke
-      |~  =pail
-      *(list card)
-    ++  make
-      *pail
-    --
+  ++  form  *brah
   --
++$  brah
+  $_  ^|
+  |_  deps=(map term (pair pith lore))
+  ++  poke
+    |~  [=stud val=vase]
+    *(list card)
+  ++  make  *pail
+  --
+++  pawn 
+  $:  code=stud
+      =crew
+  ==
+::
+++  boys  (axal pawn)
 ++  axle
   |$  [item]  
   [fil=(unit item) kid=(map zeta $)]
@@ -2200,10 +2219,6 @@
       *(axal pail) 
     --
   --
-+$  pawn
-  $:  code=stud
-      ~
-  ==
 +$  fren
   ?(%chap %bruh %kook)
 ::
