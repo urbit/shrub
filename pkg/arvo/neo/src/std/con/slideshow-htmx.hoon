@@ -283,7 +283,7 @@
     .slide {
       overflow-y: auto;
       padding: 4cqw 6cqw;
-      font-size: 3cqw;
+      font-size: 2.4cqw;
     }
   '''
   ==

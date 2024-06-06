@@ -219,7 +219,7 @@
       if (!kidsDiv.children.length) {
         let here = el.parentNode.parentNode.getAttribute('here');
         let stub = document.createElement("div");
-        stub.setAttribute("hx-get", `/neo/hawk${here}`);
+        stub.setAttribute("hx-get", `/neo/hawk${here}?no-save`);
         stub.setAttribute("hx-trigger", 'load');
         stub.setAttribute("hx-target", 'this');
         stub.setAttribute("hx-select", '.kids');
@@ -263,7 +263,10 @@
     =here  (en-tape:pith:neo here.bowl)
     =style  "max-width: 650px; padding-bottom: 50vh; padding-top: 30px;"
     ;+  script
-    ;+  form-edit
+    ;+
+      ?:  (lth (lent here.bowl) 3)
+        ;h1.s3.bold.tc: nested tasks
+      form-edit
     ;div.fc.g1.kids
       ::;+  ?~  (lent order.t)  ;/("")  (form-create %prep "+")
       ::;+  ?~  (lent order.t)  (form-create %nest "+")  ;/("")

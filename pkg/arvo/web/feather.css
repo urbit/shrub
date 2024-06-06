@@ -547,31 +547,31 @@ button {
 }
 
 .s-2 {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   }
 .s-1 {
-  font-size: 0.85rem;
+  font-size: 0.85em;
 }
 .s0 {
-  font-size: 1rem;
+  font-size: 1em;
 }
 .s1 {
-  font-size: 1.15rem;
+  font-size: 1.15em;
 }
 .s2 {
-  font-size: 1.3rem;
+  font-size: 1.3em;
 }
 .s3 {
-  font-size: 1.45rem;
+  font-size: 1.45em;
 }
 .s4 {
-  font-size: 1.6rem;
+  font-size: 1.6em;
 }
 .s5 {
-  font-size: 2rem;
+  font-size: 2em;
 }
 .s6 {
-  font-size: 2.4rem;
+  font-size: 2.4em;
 }
 .bd0 {
   border: none;
@@ -652,7 +652,6 @@ button {
 }
 .prose p {
   margin-bottom: 1rem;
-  font-size: 1em;
   line-height: var(--line-height);
 }
 .prose img {

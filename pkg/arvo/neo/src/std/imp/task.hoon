@@ -3,7 +3,7 @@
 |%
 ++  state  %task
 ++  poke   (sy %task-diff ~)
-++  kids   
+++  kids
   ^-  kids:neo
   %-  ~(gas by *kids:neo)
   :~  :-  [|/%tas |]
