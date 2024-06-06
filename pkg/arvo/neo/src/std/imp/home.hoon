@@ -17,6 +17,7 @@
         [#/[p/our.bowl]/home/sail %make %sail `!>(['' 'prose p3' ~]) ~]
         [#/[p/our.bowl]/home/accel %make %accel ~ ~]
         [#/[p/our.bowl]/home/circle %make %circle ~ ~]
+        [#/[p/our.bowl]/home/landscape %make %iframe `!>('https://migrev-dolseg.com/apps/landscape') ~]
         [#/[p/our.bowl]/home/files %make %folder `!>(~[%groups %feeds %rumors %test-deck]) ~]
         [#/[p/our.bowl]/home/files/test-deck %make %deck ~ ~]
         [#/[p/our.bowl]/home/files/rumors %make %iframe `!>('https://migrev-dolseg.com/rumors') ~]

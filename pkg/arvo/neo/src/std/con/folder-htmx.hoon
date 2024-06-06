@@ -44,6 +44,7 @@
                 %diary
                 %iframe
                 %deck
+                %slideshow
                 %task
                 %txt
                 %sail

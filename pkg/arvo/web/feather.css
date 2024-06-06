@@ -8,7 +8,6 @@
   **/
 
 :root {
-
   /* --font: 'Urbit Sans';
      --font-mono: 'Monaco';
      --mono-scale: 0.8;
@@ -133,9 +132,7 @@
     --f4:  var(--dark-f4);
   }
 }
-* {
-  font-size: var(--font-size);
-}
+
 /*
 @media (max-width: 900px) {
   :root {
@@ -635,22 +632,27 @@ button {
     counter-increment: line;
 }
 .prose h1 {
-  font-size: 1.45rem;
+  font-size: 2em;
   margin: 1rem 0;
 }
 .prose h2 {
-  font-size: 1.3rem;
+  font-size: 1.75em;
   margin: 1rem 0;
 }
 .prose h3 {
-  font-size: 1.15rem;
+  font-size: 1.5em;
   margin: 1rem 0;
 }
-.prose h1, .prose h2, .prose h3 {
+.prose h4 {
+  font-size: 1.25em;
+  margin: 1rem 0;
+}
+.prose h1, .prose h2, .prose h3, .prose h4 {
   font-weight: bold;
 }
 .prose p {
   margin-bottom: 1rem;
+  font-size: 1em;
   line-height: var(--line-height);
 }
 .prose img {
@@ -688,11 +690,16 @@ button {
 .prose ol {
   padding-left: 29px;
   line-height: calc(calc(1 + var(--line-height)) / 2);
+  font-size: 1em;
   margin-bottom: 0.6rem;
+}
+.prose li {
+  font-size: 1em;
 }
 .prose ul p,
 .prose ol p {
   margin-bottom: 0;
+  font-size: 1em;
   line-height: var(--line-height);
 }
 .prose ul ul,
