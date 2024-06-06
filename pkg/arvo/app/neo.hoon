@@ -38,7 +38,7 @@
       =dive:neo       :: build
     ::
       =gang:neo       :: overlay
-      =lads:neo       :: virtual
+      =pawn:neo       :: virtual
     ::
       =mate:neo       :: peers
     ::
@@ -978,9 +978,25 @@
 ::
 ++  husk
   |_  =stud:neo
+  ++  fren
+    ^-  fren:neo
+    ?:  (~(nest ut -:!>(*kook:neo)) | p:vase)
+      %kook
+    ?:  (~(nest ut -:!>(*chap:neo)) | p:vase)
+      %chap
+    ?:  (~(nest ut -:!>(*bruh:neo)) | p:vase)
+      %bruh
+    !!
+  ::
   ++  dock
     ^-  dock:neo
-    [state poke kids]:kook
+    ~!  kook  ~!  fren 
+    =/  fen  fren
+    ?-  fen
+      %kook  [state poke kids]:kook
+      %chap  *dock:neo
+      %bruh  [state poke ~]:bruh
+    ==
   ::
   ++  pith
     ^-  pith:neo
@@ -1013,7 +1029,8 @@
         `(need pal)
       --
     --
-  ::
+  ++  chap  !<(chap:neo vase)
+  ++  bruh  !<(bruh:neo vase)
   ++  kook
     ^-  kook:neo
     ~|  kook/pith

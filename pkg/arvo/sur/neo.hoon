@@ -2143,11 +2143,69 @@
     *(quip card pail)
   --
 +$  gang  (axal cove)
++$  rime  (map term case)
 +$  cove
   $:  =crew
+      over=term
       code=stud
-      rime=case
+      init=rime
+      :: rime=case
   ==
+::  $bruh: overlay namespace
++$  bruh
+  $_  ^&
+  |%
+  ++  state  *curb
+  ++  poke   *(set stud)
+  ++  deps  *band
+  ++  form
+    $_  ^|
+    |_  deps=(map term lore)
+    ++  poke
+      |~  =pail
+      *(list card)
+    ++  make
+      *pail
+    --
+  --
+++  axle
+  |$  [item]  
+  [fil=(unit item) kid=(map zeta $)]
+
+::  $chap: reshape overlay
+::
+::    example:
+::      /chat/test
+::      /chat/test/received/[id] -> %time (kook)
+::      /chat/test/messages/[id] -> %msg (kook)
+::
+::      /chat/test/sorted/[time] -> (list path)
+::        (axal (list path))
+::
+::      /chat/test/by-ship/[@p] -> (list path)
+::        (axal (list path))
++$  chap
+  $_  ^&
+  |%
+  ++  state  *(axle curb)
+  ++  poke   *(axle (set stud))
+  ++  deps  *band
+  ++  form
+    $_  ^|
+    |_  deps=(map term lore)
+    ++  poke
+      |~  =pail
+      *(list card)
+    ++  make
+      *(axal pail) 
+    --
+  --
++$  pawn
+  $:  code=stud
+      ~
+  ==
++$  fren
+  ?(%chap %bruh %kook)
 ::
 ++  peon
   |%
