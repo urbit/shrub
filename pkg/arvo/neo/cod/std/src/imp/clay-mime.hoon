@@ -22,7 +22,7 @@
     ^-  (unit card)
     ?.  =(%mime p.cage)
       ~
-    `[(welp here.bowl (pave:neo path)) %make %mime `[%mime q.cage] ~]
+    `[(welp here.bowl (pave:neo (snip path))) %make %mime `[%mime q.cage] ~]
   ++  init
     |=  old=(unit pail:neo)
     =+  !<(=desk q:(need old))

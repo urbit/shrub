@@ -272,7 +272,9 @@
 ++  on-move
   |=  =move:neo
   ^+  run
-  %-  (slog leaf/"{(en-tape:pith:neo p.move)} -> {(en-tape:pith:neo p.q.move)}: {<-.q.q.move>}" ~)
+  %-  ?.  ripe
+         same
+      (slog leaf/"{(en-tape:pith:neo p.move)} -> {(en-tape:pith:neo p.q.move)}: {<-.q.q.move>}" ~)
   =/  src=name:neo  (de-pith:name:neo p.move)
   =/  dst=name:neo  (de-pith:name:neo p.q.move)
   ?>  =(src.bowl ship.src)
@@ -1272,7 +1274,6 @@
     !=(txt q.q.u.pal)
   ++  read-txt
     |=  pax=path
-    ~&  reading-txt/pax
     =+  .^(src=@t %cx `path`(welp root pax))
     =.  pax  (snip pax)
     =.  run  (write-txt pax src)
@@ -1282,7 +1283,6 @@
   ++  read-file
     |=  pax=path
     ^+  run
-    ~&  reading/pax
     ?.  =((rear pax) %hoon)
       (read-txt pax)
     =+  .^(src=@t %cx `path`(welp root pax))
@@ -1297,8 +1297,7 @@
           p.res
         (mean p.res)
       %-   mule   |.
-      (scan (trip src) (rein:ford:neo [our.bowl (pave:neo (snip pax))]))
-    ~&  [lib=lib pro=pro]:file
+      (scan (trip src) (rein:ford:neo [our.bowl (pave:neo (snip pax))] ~))
     =/  has-imports=?
       ?&  (levy pro.file |=(pro:ford:neo ~(exists pro stud)))
           (levy lib.file |=(lib:ford:neo ~(exists lib stud)))
@@ -1524,10 +1523,11 @@
   ++  make-riff-slap
     |=  [wer=pith:neo reef=vase txt=@t]
     ~|  wer
-    =;  =vase
-      (make-riff wer vase)
-    %-  need
-    %-  mole  |.
+    =;  res=(each vase tang)
+      ?.  ?=(%& -.res)
+        (mean p.res)
+      (make-riff wer p.res)
+    %-  mule  |.
     =+  vaz=(vang & (pout wer))
     %+  slap  reef
     (scan (trip txt) (full (ifix [gay gay] tall:vaz)))
@@ -1719,6 +1719,7 @@
     "{(en-tape:pith:neo p.move)} -> {(en-tape:pith:neo p.q.move)}: {<-.q.q.move>}"
   ++  trace
     |=  =tang
+    ?.  ripe  same
     ?.  verb  same
     %.  tang
     %*  .  slog
@@ -1939,9 +1940,16 @@
         *lore:neo
       %-  gas-lore
       =/  child  (dall:aux (~(peek till:aux [loam farm]) p.u.kids [p/our.bowl here]) *epic:neo)
+      ~?  =(here #/cod/~met/herb)
+        ~(key by ~(tar of:neo child))
       %+  murn  ~(tap by ~(tar of:neo child))
       |=  [=pith:neo =saga:neo]
+      =-  ~?  =(here #/cod/~met/herb)
+             kid/[pith !=(~ -)]
+           -
       ^-  (unit [pith:neo idea:neo])
+      ?:  =(pith ~)
+        ~
       ?~  ion=(scion q.u.kids pith saga)
         ~
       `[pith u.ion]
@@ -2047,6 +2055,13 @@
   ++  call
     |=  [src=pith:neo dst=pith:neo =note:neo]
     ?>  ?=(%poke -.note) :: XX: all shanes should be virtualised and hand deliver acks
+    ?:  =(%ack p.pail.note)
+      =+  !<(ack=(unit quit:neo) q.pail.note)
+      %.  run
+      ?~  ack
+        same
+      (slog (print-quit:neo u.ack))
+    ~|   p.pail.note
     ?>  ?=(%clay-req p.pail.note)
     =+  !<(=req:clay:neo q.pail.note)
     ?-    -.req

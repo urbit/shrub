@@ -4,7 +4,12 @@
 ++  get-face
   |=  =bowl:neo
   ^-  @tas
+  ::
+  ::
   =/  =lore:neo  q:(~(got by deps.bowl) %face)
+  =/  =pith:neo  p:(~(got by deps.bowl) %face)
+  ~|  pith=pith
+  ::
   =/  =idea:neo  ~(rot of:neo lore)
   !<(@tas q.pail.idea)
 ::
@@ -29,6 +34,7 @@
   :~  sut/dep:ford:neo
       face/[& [pro/%term ~] ~]
   ==
+::
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =saga:neo]

@@ -4,8 +4,14 @@
 |=  =bowl:neo
 =/  =name:neo
   [our here]:bowl
+=/  =disk:neo
+  =/  =road:neo  pith.name
+  ?.  ?=([%cod [%p ship=@] desk=@ *] road)
+    ~
+  [ship desk]:road
+
 =/  =file:ford:neo
-  (scan (trip hon) (rein:ford:neo name))
+  (scan (trip hon) (rein:ford:neo name disk))
 =/  src=wain
   (to-wain:format hon)
 ^-  manx

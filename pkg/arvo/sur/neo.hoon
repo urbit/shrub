@@ -1039,7 +1039,7 @@
   ::
   ++  run
     |=  txt=@t
-    (scan (trip txt) (rein *name))
+    (scan (trip txt) (rein *name ~))
   +$  loc
     [=disk =pith]
   ::  $lib:ford: Specification of library import
@@ -1073,18 +1073,13 @@
     ==
   ::  +rein:ford: Parse code with imports
   ++  rein
-    |=  =name
+    |=  [=name =disk]
     =<  apex
     |%
-    ++  dis  
-      ;~  pose
-        (cold ~ cab)
-        ;~((glue bar) ;~(pfix sig fed:ag) sym)
-      ==
     ::  +lib-loc: Parse library location
     ::
     ++  lib-loc
-      ;~(plug dis stip)
+      ;~(plug (cold ~ cab) stip)
     ::  +old-nam: Parse file path (deprecated: XX revisit)
     ::
     ::     Examples:
@@ -1104,6 +1099,11 @@
         ;~(pfix cen ;~(plug (star ket) stip))                     :: relative
         ;~(plug ;~(pfix fas sig fed:ag) stip) :: absolute
       ==
+    ++  dis
+      ;~  pose
+        (cold disk cab)
+        ;~((glue fas) ;~(pfix sig fed:ag) sym)
+      ==
     ::  +std:rein:ford: Parse import directive
     ::
     ::    Either  name:~ship/desk
@@ -1111,7 +1111,12 @@
     ::
     ++  std
       ;~  pose
-        ;~(plug sym ;~(pfix col sig fed:ag) ;~(pfix fas sym))
+        %+  cook  
+          |=  [=term d=_disk]
+          ^-  stud
+          ?~  d  term
+          [term d]
+        ;~(plug sym ;~(pfix col dis))
         sym
       ==
     ::  +pro:rein:ford: Parse protocol import directive
@@ -2154,14 +2159,33 @@
   ++  match
     |=  [nedl=pish hstk=pith]
     ^-  ?
+    =/  log  
+      ?=([%src *] hstk)
+    ~?  log
+      start/[nedl hstk]
+    =-
+      ~?  log
+        end/-
+      -
+    |-  
     ?@  nedl
+      ~?  log
+        %fin
       |(nedl =(~ hstk))
     ?~  hstk
+      ~?  log
+        %empty-hstk
       |
     ?:  ?=(%& -.i.nedl)
+      ~?  log
+        checking-head/[i.nedl i.hstk]
       &(=(p.i.nedl i.hstk) $(nedl t.nedl, hstk t.hstk))
     ?@  i.hstk
+      ~?  log
+        checking-tas/p.i.nedl
       =(p.i.nedl %tas)
+    ~?  log
+        checking-aura/[i.nedl i.hstk]
     &(=(-.i.hstk p.i.nedl) $(nedl t.nedl, hstk t.hstk))
       
   ++  find

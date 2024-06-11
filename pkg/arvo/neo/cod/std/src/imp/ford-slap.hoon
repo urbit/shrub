@@ -23,9 +23,14 @@
   |.  ^-  hoon
   =/  [pax=pith:neo =lore:neo]  (~(got by deps.bowl) %hoon)
   =/  =name:neo  (de-pith:name:neo pax)
+  =/  =disk:neo
+    =/  =road:neo  pith.name
+    ?.  ?=([%cod [%p ship=@] desk=@ *] road)
+      ~
+    [ship desk]:road
   =+  !<(src=@t q.pail:~(rot of:neo lore))
   =/  =file:ford:neo
-    (scan (trip src) (rein:ford:neo name))
+    (scan (trip src) (rein:ford:neo name disk))
   hoon.file
 
 +$  state  [cache=(unit vase) ~]

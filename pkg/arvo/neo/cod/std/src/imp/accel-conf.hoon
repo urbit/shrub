@@ -85,7 +85,6 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     =+  !<(conf=accel-conf q.pail)
-    %-  (slog leaf/"have {<stud>}," (sell vax) ~)
     =.  conf
       ?+  stud  !!
         %hoon        conf(ready |, hoon !<(@t vax))
