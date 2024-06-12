@@ -85,10 +85,15 @@ Here's the same thing in Shrubery.
 /@  counter-diff
 ^-  kook:neo
 |%
-++  state  pro/%number
-++  poke   (sy %counter-diff ~)
-++  kids   *kids:neo
-++  deps   *deps:neo
+++  state
+  ^-  curb:neo
+  [%pro %number]
+++  poke
+  ^-  (set stud:neo)
+  (sy %counter-diff ~)
+++  deps
+  ^-  deps:neo
+  *deps:neo
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
@@ -96,13 +101,14 @@ Here's the same thing in Shrubery.
     ++  init
       |=  old=(unit pail:neo)
       ^-  ((list card:neo) pail:neo)
-      `(need old)
+      [~ (need old)]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  ((list card:neo) pail:neo)
-      =/  act  !<(counter-diff vaz)
+      =/  act
+        !<(counter-diff vaz)
       ?>  =(-.act %inc)
-      `number/!>(+(state))
+      [~ [%number !>(+(state))]]
   --
 --
 ```
