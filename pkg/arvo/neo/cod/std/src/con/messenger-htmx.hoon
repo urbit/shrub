@@ -10,7 +10,7 @@
 ::
 ++  view
 ^-  manx
-;div.p2.fc.ac.view.g1.ma
+;div.p2.fc.ac.view.g2.ma
   ;style:  {style}
   ;+  make-chat
   ;+  all-chats
@@ -54,7 +54,7 @@
     =name  "invites"
     =type  "text"
     =required  ""
-    =placeholder  "~zod ~bus"
+    =placeholder  "Start chat (e.g. ~sampel-palnet)"
     =oninput  (trip 'this.setAttribute("value", this.value); if (this.value.includes(" ~")){this.parentNode.setAttribute("head", "new-groupchat"); this.nextElementSibling.classList.remove("hidden");}else{this.parentNode.setAttribute("head", "new-dm"); this.nextElementSibling.classList.add("hidden");}')
     =autocomplete  "off"
     ;
@@ -81,7 +81,7 @@
         =(p.pail.idea %groupchat)
   ^-  manx
   ;div.fc.as.g1.w70
-    ;div.fc.ac.g2.wf
+    ;div.fc.ac.g1.wf
     ;*  %+  turn  q.kids
         |=  [=pith =idea:neo]
         ?~  pith  
@@ -100,7 +100,7 @@
           ;h3.s-1.p2:  {<ship>}
         ==
     ==
-    ;div.fc.ac.g2.wf
+    ;div.fc.ac.g1.wf
       ;*  %+  turn  p.kids
           |=  [=pith =idea:neo]
           ?~  pith  ;span.hidden:  no groupchats
