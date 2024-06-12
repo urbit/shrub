@@ -67,9 +67,7 @@ $:  %0
       %noun
     =/  act
       !<(counter-action vase)
-    ?+  -.act
-      (on-poke:def mark vase)
-    ::
+    ?-  -.act
         %inc
       :-  ~
       %=  this
