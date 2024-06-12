@@ -8,9 +8,9 @@ You'll also get a glimpse of how one shrub can accomodate various frontend inter
 
 This chapter is the only real "tutorial" in that Counter doesn't currently exist on your ship. You can build Counter yourself following along this guide. The remaining three chapters will discuss shrubs that already exists in your `%neo` desk: Diary, Messenger, and Tasks.
 
-In the Diary tutorial, you'll see how read and write data to the namepsace. In Messenger, you'll see how shrubs can interact with eachtoher through the dependencies system as well as pokes. In the Tasks chatper, we'll mostly look at how a full-featured UI works in the current system.
+In the Diary tutorial, you'll see how to write and read data to and from the namepsace. In Messenger, you'll see how shrubs can interact via the dependencies system. In the Tasks chapter, we'll look at how a full-featured UI works in the current system.
 
-This chapter is largely about pattern-matching what you know about Gall to the new system.
+This chapter is focused on pattern-matching what you know about Gall to the new system.
 
 ## Counter in Gall and Shrubbery
 Here's the Gall agent you'll reimplement in Shrubbery. It stores one number and takes one poke, `%inc`, to increment the number.
@@ -115,7 +115,7 @@ Let's look at the structure of `/imp/counter`.
 /@  counter-diff
 ```
 
-These lines import two types from our `/pro` folder: `number` and `counter-diff`. To import from `/pro` we use the `/@` rune, which is new for Shrubbery.
+These lines import two types from our `/pro` folder: `number` and `counter-diff`. To import from `/pro` we use `/@` as a new Ford-style rune.
 
 ```hoon
 ,@ud
@@ -167,15 +167,13 @@ The `form` is where the Gall agent-like application logic lives. We only need tw
 |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
 ::
 ::  like +on-init, run some logic when this shrub is created
-::  unlike +on-init, potentially accept some injected
-::  state as the initial state
+::  unlike +on-init, potentially accept some injected initial state
 ++  init
   |=  old=(unit pail:neo)
   ^-  ((list card:neo) pail:neo)
   !!
 ::
-::  like +on-poke, route pokes based on head tags, apply
-::  state changes, and send new pokes accordingly
+::  like +on-poke, run some logic when this shrub is poked
 ++  poke
   |=  [=stud:neo vaz=vase]
   ^-  ((list card:neo) pail:neo)
@@ -208,13 +206,12 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
 |%
 ::
 ::  the state of counter is a number
-::  %pro is part of the curb:neo, which defines types
 ++  state
   ^-  curb:neo
   [%pro %number]
 ::
 ::  the set of pokes counter takes only contains %counter-diff
-::  a stud:neo is like a mark in Gall
+::  a stud:neo is like a mark
 ++  poke
   ^-  (set stud:neo)
   (sy %counter-diff ~)
@@ -227,17 +224,18 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
 ::  inner core
 ++  form
   ^-  form:neo
-  ::  sample has context like bowl, version numbers, and
-  ::  counter's previous state
+  ::
+  ::  the sample is populated with context like bowl, version number, and
+  ::  counter's current state
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
     ::
-    ::  de-vase counter's old state
+    ::  de-vase counter's state
     +*  state  !<(number state-vase)
     ::
     ::  +init, like +on-init
     ++  init
       ::
-      ::  return no cards and old state
+      ::  return no cards and the initial given state
       ::  pail:neo is a (pair stud:neo vase),
       ::  like a cell of a mark and data
       |=  old=(unit pail:neo)
@@ -249,7 +247,7 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
       |=  [=stud:neo vaz=vase]
       ^-  ((list card:neo) pail:neo)
       ::
-      ::  de-vase the poke's data
+      ::  de-vase the poke
       =/  act
         !<(counter-diff vaz)
       ::
@@ -268,12 +266,14 @@ Once you've saved `/imp/counter.hoon` and the `/pro` files, run `|commit %base` 
 ## Poking the shrub
 A `card:neo` is a `(pair pith note)`.
 
-A `pith` is a list of head-tagged cells forming a typed path. This is the location of the shrub to which your card will be sent.
-* The path `/examples/counter/one` will be a pith `~[%examples %counter %one]`.
-* The path `/~sampel/examples/counter/one` will be a pith `~[[%p ~sampel] %examples %counter %one]`.
-* The path `/~sampel/examples/counter/1` will be a pith `~[[%p ~sampel] %examples %counter [%ud 1]]`.
+A `pith` is a `(list iota)`, and an `iota` is either a `term` or a head-tagged noun. For instance:
+* `/examples/counter/one` would be represented as `~[%examples %counter %one]`.
+* `/~sampel/examples/counter/one` would be represented as `~[[%p ~sampel] %examples %counter %one]`.
+* `/~sampel/examples/counter/1` would be represented as `~[[%p ~sampel] %examples %counter [%ud 1]]`.
 
 (You might also see a `pith` written in this irregular form `#/[p/our.bowl]/examples/counter/one`.)
+
+Data in Shrubbery is stored by `pith`.
 
 A `note` is one of the four types of command any shrub will accept.
 
@@ -282,33 +282,29 @@ A `note` is one of the four types of command any shrub will accept.
   $%  [%make made]             ::  create a shrub
       [%poke =pail]            ::  poke a shrub
       [%tomb cas=(unit case)]  ::  tombstone a case of the shrub
-      [%cull ~]                ::  replace a shrub with ~
+      [%cull ~]                ::  forward delete
   ==
 ```
 
-If the `pith` doesn’t correspond to the location of an existing shrub, you’ll have to `%make` a shrub there before doing anything else.
-
-Let’s `%make` a shrub at path `/examples/counters/one` from the Dojo, giving it an initial state of `0`. We’ll explain the structure of the `%make` note in more detail in the Diary tutorial.
+Let’s `%make` a shrub at path `/foo/bar` from the Dojo, giving it an initial state of `0`. We’ll explain the structure of the `%make` note in more detail in the Diary tutorial.
 
 ```
-:neo &neo-card [~[[%p our] %examples %counters %one] [%make %counter `[%number !>(0)] ~]]
+:neo &neo-card [~[[%p our] %foo %bar] [%make %counter `[%number !>(0)] ~]]
 ```
 
-You should see `>> %make /examples/counters/one` in the Dojo if successful.
+You should see `>> %make /foo/bar` in the Dojo if successful.
 
 Now we can now send a `%poke` to the counter shrub at this path.
 
 ```
-:neo &neo-card [~[[%p our] %examples %counters %one] [%poke [%counter-diff !>([%inc ~])]]]
+:neo &neo-card [~[[%p our] %foo %bar] [%poke [%counter-diff !>([%inc ~])]]]
 ```
 
 ## Counter frontend in Sky
-Shrubbery aims to be interface-agnostic. One part of that vision is `/con` files, which make it possible to convert data from one backend type to any frontend type, and one frontend type to any backend type. Here are Counter’s `/con` files.
+Shrubbery aims to be interface-agnostic. One part of that vision is `/con` files, which make it possible to convert data from one type to another. Here are Counter’s `/con` files.
 
 ### /con/number-htmx.hoon
-This converts the `number` type to a `manx`, specifically targeting a frontend that uses the [HTMX](https://htmx.org/) library. You don’t need to know HTMX to build shrubbery frontends or to follow the rest of this tutorial.
-
-This isn’t a 1:1 conversion from one data type to another; we’re not converting Hoon `number=1` to JSON `{ "number": 1 }`. If a frontend asks for a `number` in the form of HTMX, we return some [Sail](https://docs.urbit.org/language/hoon/guides/sail) that interpolates the `number` in a basic interface consisting of a heading, the number, and one button to send an `%inc` poke to the Counter shrub.
+This converts data stored as the `number` protocol (which is just a `@ud`) to the `htmx` protocol. When you open a shrub in Sky, Sky will attempt to convert its data to the `htmx` type (because Sky includes the [HTMX](https://htmx.org/) library in its frontend) using the appropriate `/con` file. In practice, this means that our `/con` file will take in our shrub's state (and bowl) and output some [Sail](https://docs.urbit.org/language/hoon/guides/sail) that interpolates the `number` in a basic interface consisting of a heading, the number itself, and one button to send an `%inc` poke to the Counter shrub.
 
 ```hoon
 /@  number  ::  @ud
@@ -317,8 +313,9 @@ This isn’t a 1:1 conversion from one data type to another; we’re not convert
 ::  declare that this is a conversion from number to HTMX
 :-  [%number %$ %htmx]
 ::
-::  this gate accepts a number and a bowl:neo;
-::  we'll access bowl:neo in the UI to access the
+::  this gate accepts a number and
+::  a gate that accepts a bowl:neo;
+::  we'll use bowl:neo to get the
 ::  here.bowl of the shrub that's using this /con file
 |=  =number
 |=  =bowl:neo
@@ -341,7 +338,7 @@ This isn’t a 1:1 conversion from one data type to another; we’re not convert
   ;form
     ::
     ::  hx-post will issue a POST request to the provided
-    ::  url and swap response into the DOM
+    ::  url and swap the response into the DOM
     =hx-post  "/neo/hawk{(en-tape:pith:neo here.bowl)}?stud=counter-diff"
     ::
     ::  hx-target specifies the target for hx-post's DOM
@@ -376,7 +373,7 @@ This isn’t a 1:1 conversion from one data type to another; we’re not convert
 ```
 
 ### /con/node-counter-diff.hoon
-This is a more straightforward conversion from a dynamic XML node (in this case, HTMX), to a `%counter-diff`. Using the [manx-utils](https://github.com/tinnus-napbus/manx-utils) Hoon library for brevity, we extract the XML node’s `head` attribute (which has been converted to the term `%inc` on its way here) and use that to form the `%counter-diff`, which is `[%inc ~]`.
+This is a more straightforward conversion from a dynamic XML node (in this case, HTMX), to a `%counter-diff`. Using a modified version of the [manx-utils](https://github.com/tinnus-napbus/manx-utils) Hoon library for brevity, we extract the XML node’s `head` attribute and use that to form the `%counter-diff`, which is `[%inc ~]`.
 
 ```hoon
 /@  node          ::  manx
@@ -397,12 +394,10 @@ This is a more straightforward conversion from a dynamic XML node (in this case,
 =/  head  (?(%inc) (got:mu %head))
 ::
 ::  return the [%inc ~] poke
-::  if we wanted to handle multiple pokes,
-::  we'd switch on the type of head here
 [head ~]
 ```
 
-Testing the Counter in Sky
+## Testing the Counter in Sky
 The Sky homepage shows you one tile for all of the shrubs who are the immediate children of your `/home` shurb, which was made for you upon booting `%neo` for the first time. You won’t see a Counter tile there because there is no `/counter` shrub beneath `/home`, so let’s make one.
 
 ```
@@ -412,8 +407,7 @@ The Sky homepage shows you one tile for all of the shrubs who are the immediate 
 If you refresh your browser you should now see a tile labelled “counter”. Click there to see the Counter frontend from the `/con` file and increment the state of the `/counter` shrub.
 
 ## Building on the Counter
-If you know your way around Gall, you should now be able to make some minor changes to the counter example above. Try the following:
+You should now be able to make some minor changes to the counter example above. Try the following:
 
 * Initialize the shrub with a default state if the given `(unit vase)` in `+init` is empty.
-* Add more pokes like `%dec`, `%add`, and `%sub` on the backend.
-* Add those pokes to the frontend interface, with one button per poke.
+* Add pokes for `%dec`, `%add`, and `%sub`.
