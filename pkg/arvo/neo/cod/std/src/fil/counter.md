@@ -307,7 +307,11 @@ Now we can now send a `%poke` to the counter shrub at this path.
 ## Counter frontend in Sky
 Shrubbery aims to be interface-agnostic. One part of that vision is `/con` files, which make it possible to convert data from one backend type to any frontend type, and one frontend type to any backend type. Here are Counter’s `/con` files.
 
-### Converting number to HTMX
+### /con/number-htmx.hoon
+This converts the `number` type to a `manx`, specifically targeting a frontend that uses the [HTMX](https://htmx.org/) library. You don’t need to know HTMX to build shrubbery frontends or to follow the rest of this tutorial.
+
+This isn’t a 1:1 conversion from one data type to another; we’re not converting Hoon `number=1` to JSON `{ "number": 1 }`. If a frontend asks for a `number` in the form of HTMX, we return some [Sail](https://docs.urbit.org/language/hoon/guides/sail) that interpolates the `number` in a basic interface consisting of a heading, the number, and one button to send an `%inc` poke to the Counter shrub.
+
 ```hoon
 /@  number  ::  @ud
 ::  import /lib/feather-icons (see feather-intro.txt)
@@ -373,11 +377,9 @@ Shrubbery aims to be interface-agnostic. One part of that vision is `/con` files
 ==  ::  </div>
 ```
 
-This converts the `number` type to a `manx`, specifically targeting a frontend that uses the [HTMX](https://htmx.org/) library. You don’t need to know HTMX to build shrubbery frontends or to follow the rest of this tutorial.
+### /con/node-counter-diff.hoon
+This is a more straightforward conversion from a dynamic XML node (in this case, HTMX), to a `%counter-diff`. Using the [manx-utils](https://github.com/tinnus-napbus/manx-utils) Hoon library for brevity, we extract the XML node’s `head` attribute (which has been converted to the term `%inc` on its way here) and use that to form the `%counter-diff`, which is `[%inc ~]`.
 
-This isn’t a 1:1 conversion from one data type to another; we’re not converting Hoon `number=1` to JSON `{ "number": 1 }`. If a frontend asks for a `number` in the form of HTMX, we return some [Sail](https://docs.urbit.org/language/hoon/guides/sail) that interpolates the `number` in a basic interface consisting of a heading, the number, and one button to send an `%inc` poke to the Counter shrub.
-
-### Converting Node to %counter-diff
 ```hoon
 /@  node          ::  manx
 /@  counter-diff  ::  [%inc ~]
@@ -401,8 +403,6 @@ This isn’t a 1:1 conversion from one data type to another; we’re not convert
 ::  we'd switch on the type of head here
 [head ~]
 ```
-
-This is a more straightforward conversion from a dynamic XML node (in this case, HTMX), to a `%counter-diff`. Using the [manx-utils](https://github.com/tinnus-napbus/manx-utils) Hoon library for brevity, we extract the XML node’s `head` attribute (which has been converted to the term `%inc` on its way here) and use that to form the `%counter-diff`, which is `[%inc ~]`.
 
 Testing the Counter in Sky
 The Sky homepage shows you one tile for all of the shrubs who are the immediate children of your `/home` shurb, which was made for you upon booting `%neo` for the first time. You won’t see a Counter tile there because there is no `/counter` shrub beneath `/home`, so let’s make one.
