@@ -26,7 +26,7 @@
   }
   '''
   ==
-::::
+::
 ++  script 
   ;script
   ;+  ;/  %-  trip
@@ -40,14 +40,14 @@
 ::
 ++  refresher
   |=  =bowl:neo
-  ;div.absolute
+  ;div.absolute.hidden
     =style  "top: 1em; left: 1em;"
     ;div.loader.refresher
       =hx-get  "{(en-tape:pith:neo :(weld /neo/hawk here.bowl))}?no-save"
       =hx-trigger  "every 7s, refresh"
       =hx-target  "closest .top"
       =hx-select  ".top"
-      =hx-swap  "morph"
+      =hx-swap  "outerHTML"
       ;span.loaded;
       ;span.loading
         ;+  loading.feather-icons
@@ -113,17 +113,11 @@
 ::
 ++  render-sender
   |=  [=bowl:neo location=pith]
-  :: =-  
-  :: =/  that  -
-  ::   ?~  location  
-  ::     that(a.g [[%hx-post "/neo/hawk{(pith-tape here.bowl)}?stud=groupchat-diff"] [%head "post-to-host"] a.g.that])
-  ::   that(a.g [[%hx-post "/neo/hawk{(pith-tape (welp here.bowl location))}?stud=message"] [%head "msg"] a.g.that])
   ^-  manx
   ;form.fc.g2.wf
     =hx-post  "/neo/hawk{(pith-tape (welp here.bowl location))}?stud=message"
-    =hx-swap  "beforeend swap:1s"
+    =hx-swap  "none"
     =hx-on-submit  "this.reset()"
-    =hx-target  "previous #messages"
     =head  "msg"
     =id  "render-sender"
     ;textarea.p2.border.br1
