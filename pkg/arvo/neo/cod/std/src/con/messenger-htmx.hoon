@@ -11,7 +11,6 @@
 ++  view
 ^-  manx
 ;div.p2.fc.ac.view.g2.ma
-  ;+  script
   ;style:  {style}
   ;+  make-chat
   ;+  all-chats
@@ -47,37 +46,42 @@
     '''
 ::
 ++  make-chat
+  =/  oninput
+    """
+    this.setAttribute("value", this.value); this.nextElementSibling.nextElementSibling.setAttribute('hx-get', '/neo/hawk{(pith-tape here.bowl)}/dms/' + this.value); htmx.process(document.body);
+    """
   ;form.fr.jc.g1.w70
-  =hx-post  "/neo/hawk{(pith-tape here.bowl)}?stud=messenger-diff"
-  =head  "new-dm"
-  =hx-target  "find .loading"
-  :: =hx-trigger  "find a"
+    =hx-post  "/neo/hawk{(pith-tape here.bowl)}?stud=messenger-diff"
+    =head  "new-dm"
+    =hx-swap  "none"
+    =hx-on-htmx-after-request  "$(this).find('.redirect').emit('messenger-created')"
     ;input.grow.bc1.p2.br1
-    =name  "invites"
-    =type  "text"
-    =required  ""
-    =placeholder  "Start chat (e.g. ~sampel-palnet)"
-    =oninput  (weld (trip 'this.setAttribute("value", this.value);') "this.nextElementSibling.nextElementSibling.setAttribute('href', '/neo/hawk{(pith-tape here.bowl)}/dms/' + this.value);")
-    ::if (this.value.includes(" ~")){this.parentNode.setAttribute("head", "new-groupchat"); this.nextElementSibling.classList.remove("hidden");}else{this.parentNode.setAttribute("head", "new-dm"); this.nextElementSibling.classList.add("hidden");}')
-    =autocomplete  "off"
-    ;
+      =name  "invites"
+      =type  "text"
+      =required  ""
+      =placeholder  "Start chat (e.g. ~sampel-palnet)"
+      =oninput  oninput
+      =autocomplete  "off"
+      ;
     ==
     ;input.hidden.grow.bc1.p2.br1
-    =type  "text"
-    =name  "name"
-    =placeholder  "chat name"
-    =oninput  (trip 'this.setAttribute("value", this.value);')
-    ;
+      =type  "text"
+      =name  "name"
+      =placeholder  "chat name"
+      =oninput  (trip 'this.setAttribute("value", this.value);')
+      ;
     ==
-    :: ;a
-    :: =hx-swap  "outerHTML"
-    :: =hx-target  "closest .hawk"
-      ;button.loader.br1.hover.p2.b0.bc1
-        ;span.loaded;  >
-        ;span.loading
-          ;+  loading.feather-icons
-        ==
-      :: ==
+    ;div.redirect.hidden
+      =hx-target  "closest .hawk"
+      =hx-swap  "outerHTML"
+      =hx-trigger  "messenger-created"
+      ;
+    ==
+    ;button.loader.br1.hover.p2.b0.bc1
+      ;span.loaded;  >
+      ;span.loading
+        ;+  loading.feather-icons
+      ==
     ==
   ==
 ::
