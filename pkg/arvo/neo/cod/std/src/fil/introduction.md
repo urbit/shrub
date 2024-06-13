@@ -1,6 +1,6 @@
 # Chapter 0: Introduction
 
-Shrubbery is a new in-development application model for Urbit. This guide will introduce the foundational Shrubbery concepts and get you started writing shrubs of your own. *It is aimed at Urbit developers who have at least been through App Academy, or otherwise have at least written a Gall agent.*
+Shrubbery is a new in-development application model for Urbit. This guide will introduce the foundational Shrubbery concepts and get you started writing shrubs of your own. *It is aimed at Urbit developers who have at least been through App Academy, or are otherwise familiar with Gall agents.*
 
 At time of writing, Shrubbery's build system lives in a Gall agent called `%neo`. You can install this agent on a comet or moon with `|install ~met %neo`. You can install this desk on a fakeship from the GitHub repo, as detailed below.
 
@@ -33,4 +33,4 @@ Of note:
 - The way Shrubbery handles user interfaces is the most undercooked part of the system that we spend significant time on in these guides. Accessing `bowl:neo` within the `/con` files is a hack and will be deprecated.  `/con` files may or may not exist in the final product.
 - `/imp/txt.hoon` and "stub" implementations like it are a hack.
 
- This guide launched at the June 2024 Lake Summit, and has an expiration date of sometime in Q3.
+This guide launched at the June 2024 Lake Summit, and has an expiration date of sometime in Q3.
