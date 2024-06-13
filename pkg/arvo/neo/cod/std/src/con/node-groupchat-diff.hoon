@@ -14,4 +14,7 @@
       %remove
     =/  =ship  `@p`(slav %p (got:mu %pith))
     [head ship]
+      %post-to-host
+    =/  text=cord  (vol:mu "text")
+    [head text]
 ==

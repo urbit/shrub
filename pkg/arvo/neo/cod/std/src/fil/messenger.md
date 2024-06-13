@@ -1,4 +1,4 @@
-# Chapter 3: Messenger
+# Tutorial 3: Messenger
 The last major aspect of shrubbery that we need to cover is the dependency system. This consists of the `+deps` arm and the `%rely` poke.
 
 By the end of this tutorial you’ll understand how dependencies work and how to use them. You should also start to see how you can design functionality that involves multiple shrubs interacting across multiple ships.
@@ -17,11 +17,11 @@ We'll skip covering the Messenger frontend. While there are new ideas here, it's
 
 ## /imp/message-sub
 ```hoon
-/@  message
+/@  message  ::  [from=ship now=time contents=@t]
 ^-  kook:neo
 |%
 ++  state  pro/%sig
-++  poke  (silt %rely ~)
+++  poke  ~
 ++  kids
   :+  ~  %y
   %-  ~(gas by *lads:neo)
@@ -31,7 +31,7 @@ We'll skip covering the Messenger frontend. While there are new ideas here, it's
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :-  %pub
-      :+  req=|  [pro/%sig (sy %sig ~)]
+      :+  req=&  [pro/%sig (sy %sig ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
       :~  :-  [|/%da |]
@@ -51,21 +51,21 @@ We'll skip covering the Messenger frontend. While there are new ideas here, it's
     ^-  (quip card:neo pail:neo)
     ?>  =(%rely stud)
     :_  state
-    =+  !<([=term =leaf:neo] vax)
+    =+  !<([=term =stem:neo] vax)
+    ?>  ?=(%y -.q.stem)
     ::  only get new kids
-    %+  murn
-      ~(tap by ~(tar of:neo q:(~(got by deps.bowl) %pub)))
-    |=  [=pith:neo =idea:neo]
-    ^-  (unit card:neo)
-    ~&  pith/pith
-    ?.  ?=([[%da @] ~] pith)
+    =/  kids
+      %+  skim
+        ~(val by kids.q.stem)
+      |=  [=ever:neo =mode:neo =pail:neo]
+      =(%add mode)
+    ?:  =(~ kids)
       ~
-    ?:  (~(has of:neo kids.bowl) pith)
-      ~
-    ?.  =(%message p.pail.idea)
-      ~
-    ~&  making/~
-    `[(welp here.bowl pith) %make %message `pail.idea ~]
+    =/  pai=pail:neo  pail:(snag 0 kids)
+    =/  mes  !<(message q.pai)
+    :~  :-  (welp here.bowl ~[da/now.mes])
+        [%make [%message `pai ~]]
+    ==
   --
 --
 ```
@@ -86,7 +86,7 @@ The only part of this system that needs to define its dependencies is `/imp/mess
       ::  this dependency within this +deps arm
       :*  %pub
           ::  fief:neo is [required=? =quay]
-          req=|
+          req=&
           ::  quay:neo is (pair lash:neo (unit port:neo))
           ::  lash:neo defines the shrub's state and pokes
           [[%pro %sig] (sy %sig ~)]
@@ -101,17 +101,17 @@ The only part of this system that needs to define its dependencies is `/imp/mess
   ==
 ```
 
-With regards to the lifecycle of the shrub, the `+deps` arm types the shrubs whose names and locations are passed in as an argument in the `%make` card when this shrub is created by `/imp/groupchat`.
+With regards to the lifecycle of the shrub, the `+deps` arm types the shrubs whose names and locations are passed in as an argument in the `%make` card when this shrub is created.
 
 ```hoon
 [%make %message-sub ~ (malt ~[[%pub (snoc host.poke %pub)]])]
 ```
 
-In this card, `+malt` creates a `(map term pith:neo)` where the `term` is `%pub` and the path represented by the `pith` is `/foo/bar/pub`. At `/foo/bar/pub`, there’s a shrub which is the canonical “publisher” or “host” of a chat, whether that’s a group chat or a DM. Whenever there’s a state change in the publisher shrub, the `/imp/message-sub` created in this card will be notified about it, but we’ll cover that in more detail in the next section.
+In this card, `+malt` creates a `(map term pith:neo)` where the `term` is `%pub` and the path represented by the `pith` is `/path/to/pub`. At `/path/to/pub`, there’s a shrub which is the canonical “publisher” or “host” of a chat, whether that’s a group chat or a DM. Whenever there’s a state change in the publisher shrub, the `/imp/message-sub` created in this card will be notified about it, but we’ll cover that in more detail in the next section.
 
 The `%pub` term will act as the key in the map of dependencies, corresponding to the`%pub` key that `/imp/message-sub` used as a tag in its `+deps` arm. This term allows us to differentiate between shrubs being given to us in the `%make` card’s `conf:neo`.
 
-The `required` flag specifies that when this shrub is made, it must be passed in a `conf:neo` that contains paths to existing shrubs. If we don't pass in a conf, or if no publisher exists at `/foo/bar/pub`, the `/imp/message-sub` we’re trying to `%make` here will fail to build. It can only exist with reference to the publisher shrub.
+The `required` flag specifies that when this shrub is made, it must be passed in a `conf:neo` that contains paths to existing shrubs. If we don't pass in a conf, or if no publisher exists at `/path/to/pub`, the `/imp/message-sub` we’re trying to `%make` here will fail to build. It can only exist with reference to the publisher shrub.
 
 The last “new” idea here is `%sig`. This is a special case of `stud:neo` which tells `/app/neo` that the shrub has no state. We can do the same thing for pokes, as above with `(sy %sig ~)`.
 
@@ -126,7 +126,7 @@ In its `+deps` arm, the `/imp/message-sub` shrub declares the type and behaviour
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :*  %pub
-          req=|
+          req=&
           [[%pro %sig] (sy %sig ~)]
           %-  some
           :-  %y
@@ -160,22 +160,41 @@ Let’s see how `/imp/message-sub` handles the `%rely` pokes it recevives from d
   ?>  =(%rely stud)
   ::  we don't change our own state
   :_  state
-  ::  the vase we receive from the publisher is a (pair term leaf:neo)
-  =+  !<([=term =leaf:neo] vax)
-  ::  only get new kids
-   %+  murn
-     ~(tap by ~(tar of:neo q:(~(got by deps.bowl) %pub)))
-   |=  [=pith:neo =idea:neo]
-   ^-  (unit card:neo)
-   ~&  pith/pith
-   ?.  ?=([[%da @] ~] pith)
-     ~
-   ?:  (~(has of:neo kids.bowl) pith)
-     ~
-   ?.  =(%message p.pail.idea)
-     ~
-   ~&  making/~
-   `[(welp here.bowl pith) %make %message `pail.idea ~]
+  ::  the vase we receive from the publisher is a (pair term stem:neo)
+  =+  !<([=term =stem:neo] vax)
+  ::
+  ::  assert the care in the stem is %y, so the publisher
+  ::  is telling us about itself or one of its kids
+  ?>  ?=(%y -.q.stem)
+  =/  kids
+    ::  get newly-created kids from the stem we received
+    %+  skim
+      ::  kids.q.stem is a (map pith [=ever:neo =mode:neo =pail:neo])
+      ~(val by kids.q.stem)
+    ::
+    ::  ever:neo is the publisher shrub's version numbers
+    ::  mode:neo is ?(%add %dif %del)
+    ::  pail:neo is a (pair stud vase)
+    |=  [=ever:neo =mode:neo =pail:neo]
+    ::  return every kid whose mode is %add, meaning it's just been created
+    =(%add mode)
+  ?:  =(~ kids)
+    ::  if there are no new kids, do nothing
+    ~
+  ::  if there are new kids, assume there's only one new kid and
+  ::  get the pail of the first new kid in the list of kids we created
+  =/  pai=pail:neo
+    pail:(snag 0 kids)
+  ::  get the message from the pail of the
+  ::  new kid the publisher has told us about
+  =/  mes
+    !<(message q.pai)
+  ::  make a new kid of our own that contains the new message from
+  ::  the publisher, keeping our /message-sub namespace in
+  ::  sync with the publisher's namespace
+  :~  :-  (welp here.bowl ~[da/now.mes])
+      [%make [%message `pai ~]]
+  ==
 ```
 
 The above is mostly self-explanatory, but it’s worth expanding on `stem:neo` and `mode:neo`.
@@ -190,79 +209,26 @@ The above is mostly self-explanatory, but it’s worth expanding on `stem:neo` a
   ==
 ```
 
-The `stem` is head-tagged with a `care:neo`. Even if we're listening to a shrub with a `%z` care, we can still distinguish between stems relating to the dependency, its kids, or other descendants.
+The `stem` is head-tagged with a `care:neo`. If the shrub’s dependent is listening with a `%z` care, it can still distinguish between `stem`s relating to the dependency, its kids, or its other descendants.
 
-Stems tagged with a `%y` or `%z` care come with an `ever`, which contains version numbers for the dependency and its descendants.
-
-Stems tagged with `%x` come with a `pail` with the new state of the dependency. Stems tagged with `%y` and `%z` come with a `pail:neo` for the dependency, and a map containing all state changes for the descendants of that dependency. The `pith` keys in that map give us the location of each descendant that has changed, and the `[=ever =mode =pail]` values give us those descendants' version numbers, their `mode`, and their current state.
+All stems come with an `ever`, which contains version numbers for the dependency and its descendants. `%x` `stem`s come with a `pail` with the new state of the dependency shrub. The `%y` and `%z` `stem`s come with a `pail` for the dependency shrub, and a map containing all the relevant descendants of that dependency shrub. The `pith` keys in that map give us the locations of the descendants, and the `[=ever =mode =pail]` values give us their own version numbers, their `mode`, and their current state.
 
 The `mode` of these kids is either `%add`, `%dif`, or `%del`. If it’s `%add`, the dependency is telling us it’s a new kid. If `%dif`, the kid isn’t new but its state has changed. If `%del`, it’s telling us the kid was deleted and giving us its final state.
 
 ## Messenger: Overview
 There are several shrubs working in tandem here to provide groupchat and DM functionality. Now that we know how `/imp/message-sub` works, let's look at the overall structure.
 
-### /imp/message-pub
-The only part of the Messenger backend left to consider is `/imp/message-pub`. This only imports `/pro/txt` and `/pro/message`.
+### DMs in shrubbery
+If you wanted to implement 1-on-1 DMs in your shrub, you could just include `/imp/dm` in your `+deps` arm and send `%make` and `%poke` cards to it. If that doesn't do what you need, you could base your own DM functionality on this.
 
-#### kook:neo
-`/imp/message-pub` only has one job, and that's to `%make` `%message`s as kids. Shrubs don't know anything about the shrubs above them that they weren't explicitly told in their `%make` card, so `/imp/message-pub` doesn't know or care whether it's being used to publish DMs or groupchat messages.
-
-```hoon
-++  state  [%pro %sig]
-++  poke   (sy %message %txt ~)
-++  kids
-  %-  some
-  :-  %y
-  %-  ~(gas by *lads:neo)
-  :~  :-  [[%.n %da] %.n]
-      [[%pro %message] (sy %sig ~)]
-  ==
-++  deps  *deps:neo
-++  form
-  ...
-```
-
-#### +init
-Like `/imp/messenger`, `/imp/message-pub` takes no state.
-
-```hoon
-++  init
-  |=  old=(unit pail:neo)
-  ^-  (quip card:neo pail:neo)
-  [~ [%sig !>(~)]]
-```
-
-#### +poke
-All that happens in the `+poke` arm is this shrub creating `%message`s below it in the namespace. The `%txt` is not actually necessary, but as a primitive it might be nice for `/imp/message-pub` to be able to construct messages without the developer having to specify the metadata.
-
-```hoon
-++  poke
-  |=  [=stud:neo vax=vase]
-  ^-  (quip card:neo pail:neo)
-  ?>  =(our ship.src):bowl
-  :_  state
-  ?+    stud  !!
-      %message
-    =/  msg  !<(message vax)
-    :~  :-  (welp here.bowl ~[da/now.msg])
-        [%make %message `message/vax ~]
-    ==
-      %txt
-    =/  contents=@t  !<(txt vax)
-    :~  :-  (welp here.bowl ~[da/now.bowl])
-        [%make %message `message/!>([ship.src.bowl now.bowl contents]) ~]
-    ==
-  ==
-```
-
-### /imp/dm
-If you wanted to implement 1-on-1 DMs in your own shrub, you could just `%make` an `/imp/dm`. If that doesn't do waht you need, you could base your own DM functionality on this.
+`/imp/dm` is short and simple enough that it might be nice to show an equivalent `/app/dm` Gall agent, but there isn't one. `/imp/dm` delegates a lot of functionality to service providers in a way that Gall apps theoretically could, but in practice never do. With the constraints they can set in the `+kids` and `+deps` arms, shrubs can make guarantees about the functionality of third-party service providers in other shrubs and/or other desks. Those service providers can make breaking changes to that functionality, but as long as they have some way of converting data to the type that their parents or dependents accept, those shrubs will still be able to interoperate.
 
 #### kook:neo
 
 ```hoon
-++  state  [%pro %ship]  :: who I'm chatting with
-++  poke   (sy %dm-diff ~)
+::  /imp/dm.hoon
+++  state  [%pro %ship]
+++  poke  (sy %dm-diff ~)
 ++  kids
   %-  some
   :-  %y
@@ -277,7 +243,7 @@ If you wanted to implement 1-on-1 DMs in your own shrub, you could just `%make` 
   ...
 ```
 
-A DM shrub only stores one ship, the `@p` of whoever you're chatting with. It only has two kids: `/path/to/this/dm/theirs` and `/path/to/this/dm/mine`. At these two paths it uses the `/imp/message-pub` and `/imp/message-sub` primitives to store the state of `/theirs` and `/mine`.
+A DM shrub only stores one ship, the `@p` of whoever you're chatting with. It only has two kids: `/path/to/this/dm/theirs` and `/path/to/this/dm/mine`. It chooses the service providers at `/imp/message-pub` and `/imp/message-sub` to store the state of `/theirs` and `/mine`, while setting no constraints on the types of poke those service providers can take. In other words, it delegates the functionality to two new instances of `/imp/message-pub` and `/imp/message-sub` rather than subscribing to existing Gall agents that may or may not exist.
 
 ```hoon
 $%  [%initiate partner=ship provider=pith]
@@ -290,8 +256,8 @@ $%  [%initiate partner=ship provider=pith]
 ```
 
 `/imp/dm` takes four pokes: `%initiate`, `%invited`, `%acked`, and `%post`.
-- `%initiate`: we initiate a DM, specifying the other ship and the `/message-pub` primitive we want to use.
-- `%invited`: someone invites us to a DM, giving their `@p` and the `pith` for us to send DMs to them.
+- `%initiate`: we initiate a DM, specifying the other ship and the service provider we want to use.
+- `%invited`: someone invites us to a DM, specifying their `@p` and the `pith` for us to send DMs to them.
 - `%acked`: acknowledge creation of a DM.
 - `%post`: send a DM.
 
@@ -313,7 +279,7 @@ Cells like `[%pro %ship]` and `[%pro %message-pub]` are examples of `$curb:neo`.
 In all of the shrubs we've looked at in these tutorials we could replace every `%pro` curb with the likes of `[%only %ship]` and `[%only %message-pub]` and lose none of the functionality we've looked at. The `[%only %ship]` curb just declares that the state is exclusively a `ship`. However, the `[%pro ship]` curb says that the state can be any type *which can be converted to a `ship` through an available `/con` file*. This has implications for interoperability and state transitions we have not yet fully explored.
 
 #### form:neo
-When `/imp/dm` is first created with a `%make` card, it needs to be created with some pre-defined state. The intial state it accepts has to be a `%dm-diff`. Taking a poke type as the initial state type is an unusual choice that was done as an experiment, but the result is essentially the same as a Gall agent sending a poke to itself `+on-init`.
+When `/imp/dm` is first created with a `%make` card, it needs to be created with some pre-defined state. The intial state it accepts has to be a `%dm-diff`. This is a little unusual, but it's essentially the same as a Gall agent sending a poke to itself `+on-init`, except the poke is defined by the external service provider. Since the service provider could be on our ship or someone else's, the `+init` arm takes both `%initiate` and `%invited` pokes. The `+init` arm is the only context in which these pokes are handles.
 
 ```hoon
 ++  init
@@ -331,7 +297,7 @@ When `/imp/dm` is first created with a `%make` card, it needs to be created with
         [%make %message-pub ~ ~]
         ::
         :-  provider.poke
-        [%poke dm-diff/!>([%invited our.bowl here.bowl])]
+        [%poke dm-diff/!>([%invited here.bowl])]
     ==
   ::
       :: create me with a pith to an inviter's dm
@@ -350,9 +316,7 @@ When `/imp/dm` is first created with a `%make` card, it needs to be created with
   ==
 ```
 
-The `+poke` arm handles `%acked` and `%post` pokes.
-
-DM state is symmetrical: both ships are publishing to each other and subscribed to each other. When we receive an `%acked` poke, we create an `/imp/message-sub` to subscribe to DMs from the "publisher", which is whoever we're going to talk to. When we receive a `%post` poke, we add that new post to our `/pub` shrub and the other ship's `/imp/message-sub` will mirror it in its own state.
+The `+poke` arm handles `%acked` and `%post` pokes. When we receive an `%acked`, we create an `/imp/message-sub` to subscribe to DMs from the "publisher", which is whoever we're going to talk to. (DM state is symmetrical: both ships are publishing to eachtoher and subscribed to eachother.) When we receive a `%post` from the publisher, we add it to our service provider at `/path/to/this/dm/pub`, which publishes the DM state to the other ship.
 
 ```hoon
 ++  poke
@@ -380,17 +344,17 @@ DM state is symmetrical: both ships are publishing to each other and subscribed 
   ==
 ```
 
-### /imp/groupchat
-`/imp/groupchat` uses exactly the same primitives as `/imp/dm` for publishing and subscribing to messages. The only difference is that it's negotiating state between several ships using a one-to-many flow, rather than mirroring state between two ships.
+### Group chats in shrubbery
+`/imp/groupchat` uses exactly the same service providers as `/imp/dm` for publishing and subscribing to messages. The only difference is that it's negotiating state between several ships using a one-to-many flow, rather than carefully mirroring state between two ships.
 
 #### kook:neo
-Like `/imp/dm`, `/imp/groupchat` just defines two kids at `/.../pub` and `/.../sub` to do most of the heavy lifting for it.
+Like `/imp/dm`, `/imp/groupchat` just defines two kids at `/.../pub` and `/.../sub` for service providers.
 
 ```hoon
 ++  state  [%pro %groupchat]
 ++  poke   (sy %groupchat-diff ~)
 ++  kids
-  %-  some
+  :-  some
   :-  %y
   %-  ~(gas by *lads:neo)
   :~  :-  [[%.n %pub] %.n]
@@ -431,7 +395,7 @@ $%  [%invite =ship provider=pith]
 ```
 
 #### +init
-When it's initialized, `/imp/groupchat` has either been created by a host on their own ship, or it's been created in response to an invitation from the host.
+When it's initialized, `/imp/groupchat` has either been created by a host on their own ship, or it's been created on a new member's ship by the host.
 
 If it has no state, it creates the new chat with `%message-pub` and `%message-sub` providers. If it does have some initial state, it assumes it's being created by a foreign host ship and takes that state to be the chat history. It only needs to create a `%message-sub` to receive new messages from the publisher.
 
@@ -440,7 +404,8 @@ If it has no state, it creates the new chat with `%message-pub` and `%message-su
   |=  old=(unit pail:neo)
   ^-  (quip card:neo pail:neo)
   ::  default case: make new groupchat with self as only member,
-  ::  and subscribe to that publisher
+    ::  and subscribe to that publisher
+  ::  XX - maybe move ordering is unpredictable here
   ?~  old
     :_  :-  %groupchat
         !>([(sy our.bowl ~) ~ here.bowl])
@@ -456,7 +421,8 @@ If it has no state, it creates the new chat with `%message-pub` and `%message-su
   =/  poke  !<(groupchat-diff q.u.old)
   ?+    -.poke  !!
       %invited
-    :_  groupchat/!>([~ ~ host.poke])
+    :_  :-  %groupchat
+        !>([~ ~ host.poke])
     :~  :-  (snoc here.bowl %sub)
         [%make %message-sub ~ (malt ~[[%pub (snoc host.poke %pub)]])]
         ::
@@ -469,9 +435,9 @@ If it has no state, it creates the new chat with `%message-pub` and `%message-su
 #### +poke
 In the `+poke` arm we handle `%invite`, `%remove`, `%acked`, and `%post-to-host`, which is mostly a wrapper around `%host-to-pub`.
 
-Even though it doesn't handle messages — just access control — `/imp/groupchat` has some state to manage. Moreso than anything we've seen before, the below should look a lot like a Gall agent.
+Even though it doesn't handle messages — just access control — `/imp/groupchat` has some state to manage. Moreso than antyhing we've seen before, the below should look a lot like a Gall agent.
 
-Now is a good time to address when developers should store data inside a shrub's state vs. storing it as a kid. There's no right answer, but a good rule of thumb would be "would any other shrub care about this piece of data?" If so, it's more readily available at its own node in the namespace; if not, there's no downside to storing it in the shrub's internal state. You don't want to have to handle kids' state change just to do basic bookkeeping.
+{what's the heuristic for "should I store this data in "top-level" shrub state or in the namespace below it?}
 
 ```hoon
 ++  poke
@@ -530,24 +496,24 @@ Now is a good time to address when developers should store data inside a shrub's
   ==
 ```
 
-### /imp/messenger
-`/imp/messenger` is the top-level interface through which users can create, post in, and manage groupchats and DMs. This is the shrub that corresponds to the main "Messenger" UI within Sky.
-
-This is a nice way to handle groupchats and DMs all in one place, but it's also a requirement of the way this system is built. There's a chicken-and-egg problem with DMs where ~tex can't invite ~mex to a DM chat unless ~mex already has a DM chat (`/imp/dm`) with ~tex in which to receieve that poke, so DMs rely on `/imp/messenger` to negotiate that with the `%new-dm` poke.
+### Messenger shrub
+`/imp/messenger` is the top-level interface through which users can create, post in, and manage groupchats and DMs. This is the only part of the system that has a UI.
 
 #### kook:neo
 Messenger has no state. This shrub is just an interface for creating groupchats and DMs, which are its kids. If those kids are `/imp/dm`s they take `%dm-diff`s, and if they're `/imp/groupchat`s they take `%groupchat-diff`s.
 
+{what's going on with the `%t` piths?}
+
 ```hoon
 ++  state  [%pro %sig]
-++  poke   (sy %dm-diff %groupchat-diff %messenger-diff ~)
+++  poke  (sy %dm-diff %groupchat-diff ~)
 ++  kids
   %-  some
   :-  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [[%.y %dms] [%.n %p] %.n]
+  :~  :-  [[%.n %t] %.n]
       [[%pro %dm] (sy %dm-diff ~)]
-      :-  [[%.y %groupchats] [%.n %p] [%.n %t] %.n]
+      :-  [[%.n %t] %.n]
       [[%pro %groupchat] (sy %groupchat-diff ~)]
   ==
 ++  deps  *deps:neo
@@ -559,8 +525,8 @@ Messenger only supports three user actions: creating a new DM, creating a new gr
 
 ```hoon
 $%  [%new-dm partner=ship]
-    [%new-groupchat name=@t invites=(set ship)]
-    [%invite-to-groupchat name=@t invites=(set ship)]
+    [%new-groupchat name=@t]
+    [%invite-to-groupchat name=@t =ship]
 ==
 ```
 
@@ -577,14 +543,14 @@ Messenger does nothing much on `+init`. Here's `%sig` again, this time head-tagg
 #### +poke
 `/imp/messenger` takes `%messenger-diff`s, but it also takes `%dm-diff`s and `%groupchat-diff`s and, if they're invites to those chats, `%make`s the chat at the right location in the namespace.
 
+{what is the difference between `%invite-to-groupchat` and `%invited` `%groupchat-diff`?}
+
 ```hoon
 ++  poke
   |=  [=stud:neo vax=vase]
   ^-  (quip card:neo pail:neo)
-  ~&  >>  stud
   ?+    stud  !!
       %dm-diff
-    ~&  >>>  'got dm diff'
     =/  poke  !<(dm-diff vax)
     ?>  =(%invited -.poke)
     :_  state
@@ -607,8 +573,6 @@ Messenger does nothing much on `+init`. Here's `%sig` again, this time head-tagg
     =/  poke  !<(messenger-diff vax)
     ?-    -.poke
         %new-dm
-      ?:  (~(has of:neo kids.bowl) ~[%dms p/partner.poke])
-        [~ state]
       =/  provider  ~[p/partner.poke %home %messenger]
       :_  state
       :~  :-  (welp here.bowl ~[%dms p/partner.poke])
@@ -616,17 +580,70 @@ Messenger does nothing much on `+init`. Here's `%sig` again, this time head-tagg
       ==
     ::
         %new-groupchat
-      =/  location
-        (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
       :_  state
-      :-  [location [%make %groupchat ~ ~]]
-      (send-invites invites.poke location)
+      :~  :-  (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
+          [%make %groupchat ~ ~]
+      ==
     ::
         %invite-to-groupchat
-      =/  location
-        (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
+      =/  provider  ~[p/ship.poke %home %messenger]
       :_  state
-      (send-invites invites.poke location)
+      :~  :-  (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
+          [%poke groupchat-diff/!>([%invite ship.poke provider])]
+      ==
+    ==
+  ==
+```
+
+### /imp/message-pub
+The only part of the Messenger backend left to consider is `/imp/message-pub`. This only imports `/pro/txt` and `/pro/message`.
+
+#### kook:neo
+`/imp/message-pub` only has one job, and that's to `%make` `%message`s as kids. Shrubs don't know anything about the shrubs above them that they weren't explicitly told in their `%make` card, so `/imp/message-pub` doesn't know or care whether it's being used to publish DMs or groupchat messages.
+
+```hoon
+++  state  pro/%sig
+++  poke  (sy %message %txt ~)
+++  kids
+  :+  ~  %y
+  %-  ~(gas by *lads:neo)
+  :~  :-  [|/%da |]
+      [pro/%message (sy %sig ~)]
+  ==
+++  deps  *deps:neo
+++  form
+  ...
+```
+
+#### +init
+Like `/imp/messenger`, `/imp/message-pub` takes no state.
+
+```hoon
+++  init
+  |=  old=(unit pail:neo)
+  ^-  (quip card:neo pail:neo)
+  [~ sig/!>(~)]
+```
+
+#### +poke
+All that happens in the `+poke` arm is this shrub creating `%message`s below it in the namespace. {But in what context are we receiving well-formed `%message`s and when are we receiving `%txt`s which we have to use to construct valid `%message`s?}
+
+```hoon
+++  poke
+  |=  [=stud:neo vax=vase]
+  ^-  (quip card:neo pail:neo)
+  ?>  =(our ship.src):bowl
+  :_  state
+  ?+    stud  !!
+      %message
+    =/  msg  !<(message vax)
+    :~  :-  (welp here.bowl ~[da/now.msg])
+        [%make %message `message/vax ~]
+    ==
+      %txt
+    =/  contents=@t  !<(txt vax)
+    :~  :-  (welp here.bowl ~[da/now.bowl])
+        [%make %message `message/!>([ship.src.bowl now.bowl contents]) ~]
     ==
   ==
 ```

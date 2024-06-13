@@ -1,3 +1,0 @@
-$%  [%meet =ship]
-    [%part =ship]
-==

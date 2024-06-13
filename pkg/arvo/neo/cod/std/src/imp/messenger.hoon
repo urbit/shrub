@@ -21,9 +21,9 @@
 ++  kids
   :+  ~  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [&/%dms |/%p |]
+  :~  :-  [|/%t |]
       [pro/%dm (sy %dm-diff ~)]
-      :-  [&/%groupchats |/%p |/%t |]
+      :-  [|/%t |]
       [pro/%groupchat (sy %groupchat-diff ~)]
   ==
 ++  deps  *deps:neo
@@ -64,8 +64,6 @@
       =/  poke  !<(messenger-diff vax)
       ?-    -.poke
           %new-dm
-        ?:  (~(has of:neo kids.bowl) ~[%dms p/partner.poke])
-          [~ state]
         =/  provider  ~[p/partner.poke %home %messenger]
         :_  state
         :~  :-  (welp here.bowl ~[%dms p/partner.poke])
@@ -73,14 +71,14 @@
         ==
       ::
           %new-groupchat
-        =/  location
+        =/  location  
           (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
         :_  state
         :-  [location [%make %groupchat ~ ~]]
         (send-invites invites.poke location)
       ::
           %invite-to-groupchat
-        =/  location
+        =/  location  
           (welp here.bowl ~[%groupchats p/our.bowl t/name.poke])
         :_  state
         (send-invites invites.poke location)

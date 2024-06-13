@@ -1,3 +1,0 @@
-$%  [%put =ship]
-    [%del =ship]
-==

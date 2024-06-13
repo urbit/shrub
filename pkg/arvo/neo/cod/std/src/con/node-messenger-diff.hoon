@@ -31,6 +31,7 @@
         ==
   ~&  >  parsed-invites
   =/  value  (val:mu "name")
+  ~&  >  invites
   =/  name=cord 
   ::  TODO: if invites are longer than some amount of character
     ?~  value  (crip invites)

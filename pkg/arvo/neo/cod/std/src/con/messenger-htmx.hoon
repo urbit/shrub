@@ -11,6 +11,7 @@
 ++  view
 ^-  manx
 ;div.p2.fc.ac.view.g2.ma
+  ;+  script
   ;style:  {style}
   ;+  make-chat
   ;+  all-chats
@@ -48,14 +49,16 @@
 ++  make-chat
   ;form.fr.jc.g1.w70
   =hx-post  "/neo/hawk{(pith-tape here.bowl)}?stud=messenger-diff"
-  =hx-target  "find button .loading"
-  =hx-swap  "outerHTML"
+  =head  "new-dm"
+  =hx-target  "find .loading"
+  :: =hx-trigger  "find a"
     ;input.grow.bc1.p2.br1
     =name  "invites"
     =type  "text"
     =required  ""
     =placeholder  "Start chat (e.g. ~sampel-palnet)"
-    =oninput  (trip 'this.setAttribute("value", this.value); if (this.value.includes(" ~")){this.parentNode.setAttribute("head", "new-groupchat"); this.nextElementSibling.classList.remove("hidden");}else{this.parentNode.setAttribute("head", "new-dm"); this.nextElementSibling.classList.add("hidden");}')
+    =oninput  (weld (trip 'this.setAttribute("value", this.value);') "this.nextElementSibling.nextElementSibling.setAttribute('href', '/neo/hawk{(pith-tape here.bowl)}/dms/' + this.value);")
+    ::if (this.value.includes(" ~")){this.parentNode.setAttribute("head", "new-groupchat"); this.nextElementSibling.classList.remove("hidden");}else{this.parentNode.setAttribute("head", "new-dm"); this.nextElementSibling.classList.add("hidden");}')
     =autocomplete  "off"
     ;
     ==
@@ -66,11 +69,15 @@
     =oninput  (trip 'this.setAttribute("value", this.value);')
     ;
     ==
-    ;button.loader.br1.hover.p2.b0.bc1
-      ;span.loaded;  >
-      ;span.loading
-        ;+  loading.feather-icons
-      ==
+    :: ;a
+    :: =hx-swap  "outerHTML"
+    :: =hx-target  "closest .hawk"
+      ;button.loader.br1.hover.p2.b0.bc1
+        ;span.loaded;  >
+        ;span.loading
+          ;+  loading.feather-icons
+        ==
+      :: ==
     ==
   ==
 ::

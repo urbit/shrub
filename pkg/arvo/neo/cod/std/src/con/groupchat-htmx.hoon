@@ -16,6 +16,6 @@
         =id  "children"
         ;+  (render-messages:messages bowl)
       ==
-      ;+  (render-sender:messages [bowl /pub])
+      ;+  (render-sender:messages [bowl ~])
   ==
 ==

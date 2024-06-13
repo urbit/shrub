@@ -13,12 +13,12 @@
   ;style
   ;+  ;/  %-  trip
   '''
-   .fe {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-end
+  .fe {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end
     }
   .msg{
     max-width: 70%;
@@ -42,6 +42,7 @@
   ^-  manx
   ;div.fc.g2.p1
     =label  "Messages"
+    =id  "messages"
   ;*
     %+  turn
       %+  sort
@@ -73,7 +74,9 @@
       ;p.s-2.f3: {(scow %p from.msg)}
       ;p.s-2.f3: {(scow %da now.msg)}
     ==
-    ;p: {(trip contents.msg)}
+    ;div.border.br1.p3
+      ;p: {(trip contents.msg)}
+    ==
   ==
 ::
 ++  render-our-message
@@ -91,12 +94,17 @@
 ::
 ++  render-sender
   |=  [=bowl:neo location=pith]
+  :: =-  
+  :: =/  that  -
+  ::   ?~  location  
+  ::     that(a.g [[%hx-post "/neo/hawk{(pith-tape here.bowl)}?stud=groupchat-diff"] [%head "post-to-host"] a.g.that])
+  ::   that(a.g [[%hx-post "/neo/hawk{(pith-tape (welp here.bowl location))}?stud=message"] [%head "msg"] a.g.that])
   ^-  manx
   ;form.fc.g2.wf
     =hx-post  "/neo/hawk{(pith-tape (welp here.bowl location))}?stud=message"
-    =hx-swap  "innerHTML"
-    ::=hx-on-submit  "this.reset()"
-    =hx-target  "find button .loading"
+    =hx-swap  "beforeend swap:1s"
+    =hx-on-submit  "this.reset()"
+    =hx-target  "previous #messages"
     =head  "msg"
     =id  "render-sender"
     ;textarea.p2.border.br1
@@ -106,6 +114,7 @@
       =rows  "4"
       =required  ""
       =autocomplete  "off"
+      =maxlength  "2048"
       ;
     ==
     ;input.hidden
@@ -119,7 +128,7 @@
     ;
     ==
     ;button.p2.b1.br1.bd1.wfc.hover.loader
-      ;span.loaded.s2:  create
+      ;span.loaded.s2:  send
       ;span.loading
         ;+  loading.feather-icons
       ==

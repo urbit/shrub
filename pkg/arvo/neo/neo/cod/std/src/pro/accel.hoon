@@ -1,3 +1,0 @@
-$:  width=@ud
-    height=@ud
-==

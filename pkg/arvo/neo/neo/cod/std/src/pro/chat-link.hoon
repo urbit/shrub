@@ -1,3 +1,0 @@
-/@  chat
-,[=chat unread=@ud]
-

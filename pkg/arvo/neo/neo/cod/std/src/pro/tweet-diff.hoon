@@ -1,3 +1,0 @@
-$%  [%add-fave ~]
-    [%del-fave ~]
-==
