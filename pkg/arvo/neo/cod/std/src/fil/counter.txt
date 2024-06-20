@@ -92,6 +92,9 @@ Here's the same thing in Shrubery.
 ++  poke
   ^-  (set stud:neo)
   (sy %counter-diff ~)
+++  kids
+  ^-  kids:neo
+  *kids:neo
 ++  deps
   ^-  deps:neo
   *deps:neo
@@ -101,11 +104,12 @@ Here's the same thing in Shrubery.
     +*  state  !<(number state-vase)
     ++  init
       |=  old=(unit pail:neo)
-      ^-  ((list card:neo) pail:neo)
+      ^-  (quip card:neo pail:neo)
       [~ (need old)]
     ++  poke
       |=  [=stud:neo vaz=vase]
-      ^-  ((list card:neo) pail:neo)
+      ^-  (quip card:neo pail:neo)
+      ?>  =(%counter-diff stud)
       =/  act
         !<(counter-diff vaz)
       ?>  =(-.act %inc)
@@ -170,13 +174,13 @@ The `form` is where the Gall agent-like application logic lives. We only need tw
 ::  unlike +on-init, potentially accept some injected initial state
 ++  init
   |=  old=(unit pail:neo)
-  ^-  ((list card:neo) pail:neo)
+  ^-  (quip card:neo pail:neo)
   !!
 ::
 ::  like +on-poke, run some logic when this shrub is poked
 ++  poke
   |=  [=stud:neo vaz=vase]
-  ^-  ((list card:neo) pail:neo)
+  ^-  (quip card:neo pail:neo)
   !!
 --
 ```
@@ -219,6 +223,9 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
 ++  poke
   ^-  (set stud:neo)
   (sy %counter-diff ~)
+++  kids
+  ^-  kids:neo
+  *kids:neo
 ::
 ::  counter has no dependencies
 ++  deps
@@ -243,13 +250,16 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
       ::  pail:neo is a (pair stud:neo vase),
       ::  like a cell of a mark and data
       |=  old=(unit pail:neo)
-      ^-  ((list card:neo) pail:neo)
+      ^-  (quip card:neo pail:neo)
       [~ (need old)]
     ::
     ::  +poke, like +on-poke
     ++  poke
       |=  [=stud:neo vaz=vase]
-      ^-  ((list card:neo) pail:neo)
+      ^-  (quip card:neo pail:neo)
+      ::
+      ::  assert that the poke's stud is %counter-diff
+      ?>  =(%counter-diff stud)
       ::
       ::  de-vase the poke
       =/  act
