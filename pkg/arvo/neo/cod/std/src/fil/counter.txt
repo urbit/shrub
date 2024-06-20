@@ -281,10 +281,13 @@ Once you've saved `/imp/counter.hoon` and the `/pro` files, run `|commit %base` 
 
 A `card:neo` is a `(pair pith note)`.
 
-A `pith` is a `(list iota)`, and an `iota` is either a `term` or a head-tagged noun. For instance:
-* `/examples/counter/one` would be represented as `~[%examples %counter %one]`.
-* `/~sampel/examples/counter/one` would be represented as `~[[%p ~sampel] %examples %counter %one]`.
-* `/~sampel/examples/counter/1` would be represented as `~[[%p ~sampel] %examples %counter [%ud 1]]`.
+A `pith` is a `(list iota)`, and an `iota` is either a `term` or a head-tagged noun.
+
+For instance:
+
+- `/examples/counter/one` would be represented as `~[%examples %counter %one]`.
+- `/~sampel/examples/counter/one` would be represented as `~[[%p ~sampel] %examples %counter %one]`.
+- `/~sampel/examples/counter/1` would be represented as `~[[%p ~sampel] %examples %counter [%ud 1]]`.
 
 (You might also see a `pith` written in this irregular form `#/[p/our.bowl]/examples/counter/one`.)
 
