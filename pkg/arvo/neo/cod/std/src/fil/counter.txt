@@ -310,13 +310,15 @@ Let’s `%make` a shrub at path `/foo/bar` from the Dojo, giving it an initial s
 :neo &neo-card [~[[%p our] %counter] [%make %counter `[%number !>(0)] ~]]
 ```
 
-You should see `>> %make /foo/bar` in the Dojo if successful.
+You should see `>>  /~zod/~/sys -> /~zod/counter: make` in the Dojo if successful.
 
 Now we can now send a `%poke` to the counter shrub at this path.
 
 ```
 :neo &neo-card [~[[%p our] %counter] [%poke [%counter-diff !>([%inc ~])]]]
 ```
+
+TODO: How can the reader verify that the poke worked?
 
 ## Counter frontend in Sky
 
