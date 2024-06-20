@@ -310,7 +310,7 @@
         ;div.pre.mono.scroll-x.p2
           ;+  ;/
           =/  size  (met 3 (jam q.q.pail))
-          ?:  (gth size 750)  "vase too large to print: {<size>}"
+          ?:  (gth size 5.000)  "vase too large to print: {<size>}"
           (of-wall:format (~(win re (sell q.pail)) 0 80))
         ==
       ==

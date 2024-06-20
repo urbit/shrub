@@ -1,0 +1,3 @@
+/-  github
+(list issue:github)
+

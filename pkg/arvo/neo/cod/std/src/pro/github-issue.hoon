@@ -1,0 +1,2 @@
+/-  github
+issue:github
