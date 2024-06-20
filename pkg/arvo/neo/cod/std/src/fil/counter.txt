@@ -307,7 +307,7 @@ A `note` is one of the four types of command any shrub will accept.
 Let’s `%make` a shrub at path `/foo/bar` from the Dojo, giving it an initial state of `0`. We’ll explain the structure of the `%make` note in more detail in the Diary tutorial.
 
 ```
-:neo &neo-card [~[[%p our] %foo %bar] [%make %counter `[%number !>(0)] ~]]
+:neo &neo-card [~[[%p our] %counter] [%make %counter `[%number !>(0)] ~]]
 ```
 
 You should see `>> %make /foo/bar` in the Dojo if successful.
@@ -315,7 +315,7 @@ You should see `>> %make /foo/bar` in the Dojo if successful.
 Now we can now send a `%poke` to the counter shrub at this path.
 
 ```
-:neo &neo-card [~[[%p our] %foo %bar] [%poke [%counter-diff !>([%inc ~])]]]
+:neo &neo-card [~[[%p our] %counter] [%poke [%counter-diff !>([%inc ~])]]]
 ```
 
 ## Counter frontend in Sky
