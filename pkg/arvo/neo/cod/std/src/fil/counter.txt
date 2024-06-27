@@ -319,7 +319,7 @@ Now we can now send a `%poke` to the counter shrub at this path.
 :neo &neo-card [~[[%p our] %path %to %counter] [%poke [%counter-diff !>([%inc ~])]]]
 ```
 
-TODO: How can the reader verify that the poke worked?
+You'll know the poke worked if you see `>>  /~zod/~/sys -> /~zod/counter: %poke %counter-diff` in the Dojo. In the next section, we'll build a simple frontend that will enable us to view and modify the state of the shrub.
 
 ## Counter frontend in Sky
 
