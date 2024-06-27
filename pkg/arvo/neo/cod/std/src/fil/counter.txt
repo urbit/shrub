@@ -282,19 +282,17 @@ Once you've saved `/imp/counter.hoon` and the `/pro` files, run `|commit %base` 
 
 ## Poking the shrub
 
-A `card:neo` is a `(pair pith note)`.
+A `card:neo` is a `(pair pith note:neo)`. Data in Shrubbery is stored at its `pith`.
 
 A `pith` is a `(list iota)`, and an `iota` is either a `term` or a head-tagged noun.
 
 For instance:
 
-- `/examples/counter/one` would be represented as `~[%examples %counter %one]`.
-- `/~sampel/examples/counter/one` would be represented as `~[[%p ~sampel] %examples %counter %one]`.
-- `/~sampel/examples/counter/1` would be represented as `~[[%p ~sampel] %examples %counter [%ud 1]]`.
+- `/path/to/counter/one` would be represented as `~[%path %to %counter %one]`.
+- `/~sampel/path/to/counter/one` would be represented as `~[[%p ~sampel] %path %to %counter %one]`.
+- `/~sampel/path/to/counter/1` would be represented as `~[[%p ~sampel] %path %to %counter [%ud 1]]`.
 
-(You might also see a `pith` written in this irregular form `#/[p/our.bowl]/examples/counter/one`.)
-
-Data in Shrubbery is stored by `pith`.
+(You might also see a `pith` written in this irregular form `#/[p/our.bowl]/path/to/counter/one`.)
 
 A `note` is one of the four types of command any shrub will accept.
 
@@ -307,18 +305,18 @@ A `note` is one of the four types of command any shrub will accept.
   ==
 ```
 
-Let’s `%make` a shrub at path `/foo/bar` from the Dojo, giving it an initial state of `0`. We’ll explain the structure of the `%make` note in more detail in the Diary tutorial.
+Let’s `%make` a shrub at an arbitrary path `/path/to/counter` from the Dojo, giving it an initial state of `0`. We’ll explain the structure of the `%make` note in more detail in the Diary tutorial.
 
 ```
-:neo &neo-card [~[[%p our] %counter] [%make %counter `[%number !>(0)] ~]]
+:neo &neo-card [~[[%p our] %path %to %counter] [%make %counter `[%number !>(0)] ~]]
 ```
 
-You should see `>>  /~zod/~/sys -> /~zod/counter: make` in the Dojo if successful.
+You should see `>>  /~zod/~/sys -> /~zod/path/to/counter: make` in the Dojo if successful.
 
 Now we can now send a `%poke` to the counter shrub at this path.
 
 ```
-:neo &neo-card [~[[%p our] %counter] [%poke [%counter-diff !>([%inc ~])]]]
+:neo &neo-card [~[[%p our] %path %to %counter] [%poke [%counter-diff !>([%inc ~])]]]
 ```
 
 TODO: How can the reader verify that the poke worked?
