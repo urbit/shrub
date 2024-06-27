@@ -223,6 +223,9 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
 ++  poke
   ^-  (set stud:neo)
   (sy %counter-diff ~)
+::
+::  counter does not constrain the state/pokes of shrubs
+::  underneath it in the namespace
 ++  kids
   ^-  kids:neo
   *kids:neo
@@ -236,8 +239,8 @@ There are lots of new types here which are flagged with the `:neo` suffix in cod
 ++  form
   ^-  form:neo
   ::
-  ::  the sample is populated with context like bowl, version number, and
-  ::  counter's current state
+  ::  the sample is populated with context like bowl,
+  ::  version number, and counter's current state
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
     ::
     ::  de-vase counter's state
