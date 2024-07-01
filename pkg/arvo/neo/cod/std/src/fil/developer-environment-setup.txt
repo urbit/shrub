@@ -1,0 +1,16 @@
+# Developer Environment Setup
+
+The quickest way to get set up to play with Shrubbery and Sky is to boot a comet and run `|install ~met %neo`.
+
+If you want to work from the GitHub repo…
+- Clone [urbit/shrub](https://github.com/urbit/shrub) to your machine. The `develop` branch is the latest stable build.
+- Boot a fakeship
+- `|new-desk %neo` on the fakeship
+- `|mount %neo`
+- `rsync -avL /path/to/pkg/shrub/* /path/to/fakeship/neo`
+- `|commit %neo`
+- `|install our %neo`
+
+This will start the %neo agent which runs the Shrubbery prototype. Once that's finished booting, which will take a few minutes, go to `<localhost>/neo/sky` to access Sky.
+
+When you want to move changes from your local repo to the fakeship, use `rsync -avL`. The %neo agent can do incremental builds and will make changes to your `/con` and `/imp` files as you'd excpect, but if you make a change to a `/pro` file you'll have to `|nuke %neo` and `|revive %neo`.
