@@ -1,12 +1,36 @@
 # Shrubbery Types
 
+This doesn't cover every type defined in `/sur/neo.hoon`. It does cover all of the types you'll regularly work while writing userspace shrubs, and the types you need to know about to fully understand those types.
+
+## `aeon`
+
+Total version numbers and signature for a shrub. [How is the signature being used here?]
+
+```
++$  aeon  (pair ever oath)
+```
+
+## `axal`
+
+Fundamental node, recursive.
+
+This mold builder creates a representation of a node in Clay like an [arch](https://docs.urbit.org/language/hoon/reference/arvo#arch) (a file or a directory) or [axil](https://docs.urbit.org/language/hoon/reference/arvo#axil) (fundamental node), but the directory map contains more axals, so it contains the entire subtree rather than just one level.
+
+```
+++  axal
+  |$  [item]
+  [fil=(unit item) kid=(map iota $)]
+```
+
 ## `band`
 
-[dependencies]
+Dependency map.
 
 ```
 +$  band  $+(band (map term fief))
 ```
+
+The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that shrub is created, the `conf` will have to include a map of all the required dependencies.
 
 ## `bowl`
 
@@ -28,7 +52,7 @@
 - `src`: source ship and path [of what?].
 - `our`: our ship.
 - `were`: ???
-- `here`: ???
+- `here`: location of this shrub.
 - `now`: current datetime.
 - `eny`: entropy.
 - `deps`: ???
@@ -62,7 +86,7 @@ Perspective on a path.
 
 The cares `%x`, `%y`, and `%z` appear throughout the system: you’ll use them while defining `kids` and `deps`, and state updates will be head-tagged with one of these cares.
 
-[not sure about %a, %b, %c]
+[not sure about %a, %b, %c; i know the correspond to x y z but not sure about usage]
 
 ## `conf`
 
@@ -98,15 +122,31 @@ Constraint on the state of a shrub.
 
 ## `dare`
 
-A `%y` or `%z` care. (Think: "dare is a downward care".)
+A `%y` or `%z` care. (Think "dare is a downward care".)
 
 ```
 +$  dare  ?(%y %z)
 ```
 
+Used while constraining descendants.
+
+## `deed`
+
+Whether or not a depdenency must already exist in order for this shrub to build.
+
+```
++$  deed
+  $@  ?
+  $:  time=(unit @dr)
+      req=?
+  ==
+```
+
+[in what case is `time` used?]
+
 ## `deps`
 
-???
+Dependency map.
 
 ```
 +$  deps  band
@@ -114,18 +154,10 @@ A `%y` or `%z` care. (Think: "dare is a downward care".)
 
 ## `dita`
 
-Either `[%.y iota]` or `[%.n aura]`.
+A cell of either `%.y` and an `iota` or `%.n` and an `aura`.
 
 ```
 +$  dita  (each iota aura)
-```
-
-## `dock`
-
-???
-
-```
-+$  dock  [state=curb poke=(set stud) =kids]
 ```
 
 See `pish` for usage.
@@ -150,15 +182,15 @@ Total version numbers for a shrub and its descendants.
 
 - “Exe” is only incremented when the shrub itself updates it state. (i.e. `%x` care.)
 - “Why” is incremented when the shrub or any of its immediate children updates. (i.e. `%y` care.)
-- “Zed” is incremented when the shrub or any of its decendants updates. (i.e. `%z` care.)
+- “Zed” is incremented when the shrub or any of its descendants updates. (i.e. `%z` care.)
 
-[life, rift]
+[what about life, rift]
 
-[time]
+[what about time]
 
 ## `fief`
 
-???
+Declares whether a shrub must already exist to use it as a depdenency, and constrain that shrub and its descendants.
 
 ```
 +$  fief  [=deed =quay]
@@ -191,6 +223,42 @@ Unsigned 256-bit hash.
 ```
 +$  hash   @uvH
 ```
+
+## `idea`
+
+Pail transformation rule. [i think?]
+
+```
++$  idea
+  $:  =saga
+      thru=(unit stud)
+      =pail
+  ==
+```
+
+## `iota`
+
+Typed path segment.
+
+```
++$  iota
+  $+  iota
+  $~  [%n ~]
+  $@  @tas
+  $%  [%ub @ub]  [%uc @uc]  [%ud @ud]  [%ui @ui]
+      [%ux @ux]  [%uv @uv]  [%uw @uw]
+      [%sb @sb]  [%sc @sc]  [%sd @sd]  [%si @si]
+      [%sx @sx]  [%sv @sv]  [%sw @sw]
+      [%da @da]  [%dr @dr]
+      [%f ?]     [%n ~]
+      [%if @if]  [%is @is]
+      [%t @t]    [%ta @ta]
+      [%p @p]    [%q @q]
+      [%rs @rs]  [%rd @rd]  [%rh @rh]  [%rq @rq]
+  ==
+```
+
+Either a `term` or a head-tagged `aura`, `?`, or `~`. Used to type `pith`s.
 
 ## `kook`
 
@@ -244,6 +312,14 @@ Data version numbers.
 
 The head is the data version, the tail the type version.
 
+## `lore`
+
+[??? - need this to fully explain bowl:neo]
+
+```
++$  lore  (axal idea)
+```
+
 ## `made`
 
 Type, state, and dependency values for making a new shrub.
@@ -252,13 +328,11 @@ Type, state, and dependency values for making a new shrub.
 +$  made  [=stud init=(unit pail) =conf]
 ```
 
-The `stud` is required.
-
-The `init` unit can be `~` to create a shrub with no initial state, and the `conf` map can be empty to create a shrub with no dependencies.
+The `stud` is required. The `init` unit can be `~` to create a shrub with no initial state, and the `conf` map can be empty to create a shrub with no dependencies.
 
 ## `mode`
 
-Change corresponding a shrub in a `%gift` update. [`%rely` too?]
+Change corresponding to a shrub's new status in a `%rely` update, which the shrub receives when a dependency's state changes.
 
 ```
 +$  mode  ?(%add %dif %del)
@@ -304,7 +378,7 @@ The `note` type only works with shrubs, not Arvo. These `note`s sent in `card`s 
 
 ## `oath`
 
-[Pair of unsigned 256-bit hash and a corresponding signature?]
+[Pair of unsigned 256-bit hash and a corresponding signature? Not sure about usage]
 
 ```
 +$  oath  (pair hash seal)
@@ -317,24 +391,6 @@ Partial version information for a shrub.
 ```
 +$  once  [?(%x %y %z) p=case]
 ```
-
-Identifies a shrub by either `%x`, `%y`, `%z`, and includes a `case` value.
-
-## `over`
-
-Range of time, used for case bookkeeping.
-
-```
-+$  over
-  $:  why=(pair @ud @ud)
-      why-mut=(pair @ud @ud)
-      zed=(pair @ud @ud)
-      zed-mut=(pair @ud @ud)
-      =rift
-  ==
-```
-
-“Why” and “zed” correspond to `%y` and `%z`. [What about mut and rift?]
 
 ## pail
 
@@ -362,18 +418,28 @@ The `pish` ends with a `?`. If that ending is `%.y`, this path may continue. If 
 
 ## `port`
 
-Scope for constraining a shrub’s children (dare is `%y`) or descendants (dare is `%z`).
+Constraint on a shrub’s immediate children or all descendants.
 
 ```
 +$  port  (pair dare lads)
 ```
 
+If the `dare` is `%y` this only constrains children. If the `dare` is `%z` this constrains all descendants. The `lads` defines acceptable paths, state, and pokes for the descendants.
+
 ## `quay`
 
-???
+Define a depdenency's state and pokes, constrain the depdenency's descendants' state and pokes.
 
 ```
 +$  quay  (pair lash (unit port))
+```
+
+## `saga`
+
+Versioned pail. [Maybe? How is this used?]
+
+```
++$  saga  (pair aeon pail)
 ```
 
 ## `seal`
