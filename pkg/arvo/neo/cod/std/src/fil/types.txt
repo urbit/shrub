@@ -1,0 +1,401 @@
+# Shrubbery Types
+
+## `band`
+
+[dependencies]
+
+```
++$  band  $+(band (map term fief))
+```
+
+## `bowl`
+
+`bowl:neo`, similar to `bowl:gall`.
+
+```
++$  bowl
+  $:  src=name
+      our=@p
+      were=pith
+      here=pith
+      now=@da
+      eny=@uvJ
+      deps=(map term (pair pith lore))
+      kids=lore
+  ==
+```
+
+- `src`: source ship and path [of what?].
+- `our`: our ship.
+- `were`: ???
+- `here`: ???
+- `now`: current datetime.
+- `eny`: entropy.
+- `deps`: ???
+- `kids`: ???
+
+## `card`
+
+An instruction for a shrub, similar to a `card:agent:gall`.
+
+```
++$  card  (pair pith note)
+```
+
+The `pith` is the shrub this card will be sent to. The `note` will be of type `%make`, `%poke`, `%tomb`, or `%cull`.
+
+## `care`
+
+Perspective on a path.
+
+```
++$  care
+  $~  %x
+  $?  %x
+      %y
+      %z
+      %a
+      %b
+      %c
+  ==
+```
+
+The cares `%x`, `%y`, and `%z` appear throughout the system: you’ll use them while defining `kids` and `deps`, and state updates will be head-tagged with one of these cares.
+
+[not sure about %a, %b, %c]
+
+## `conf`
+
+Dependency configuration for a new shrub.
+
+```
++$  conf  (map term pith)
+```
+
+This can be included in a `%make` card when we want to pass dependencies into a new shrub.
+
+The `term`s are arbitrary tags the new shrub has defined, and the `pith`s are locations of the relevant shrubs whose state will be tracked for the new shrub to respond to.
+
+## `curb`
+
+Constraint on the state of a shrub.
+
+```
++$  curb
+  $~  [%pro %$]
+  $%  [%or p=(list curb)]
+      [%only p=stud]
+      [%rol p=stud q=curb]
+      [%not p=curb q=curb]
+      [%pro p=stud]
+      [%any ~]
+  ==
+```
+
+[explain each individually]
+
+[how can they be combined, why would you do that?]
+
+## `dare`
+
+A `%y` or `%z` care. (Think: "dare is a downward care".)
+
+```
++$  dare  ?(%y %z)
+```
+
+## `deps`
+
+???
+
+```
++$  deps  band
+```
+
+## `dita`
+
+Either `[%.y iota]` or `[%.n aura]`.
+
+```
++$  dita  (each iota aura)
+```
+
+## `dock`
+
+???
+
+```
++$  dock  [state=curb poke=(set stud) =kids]
+```
+
+See `pish` for usage.
+
+## `ever`
+
+Total version numbers for a shrub and its descendants.
+
+```
++$  ever
+  $:  exe=lock
+      why=lock
+      zed=lock
+    ::
+      shrub-life=@ud
+      ship-life=@ud
+      ship-rift=@ud
+    ::
+      =time
+  ==
+```
+
+- “Exe” is only incremented when the shrub itself updates it state. (i.e. `%x` care.)
+- “Why” is incremented when the shrub or any of its immediate children updates. (i.e. `%y` care.)
+- “Zed” is incremented when the shrub or any of its decendants updates. (i.e. `%z` care.)
+
+[life, rift]
+
+[time]
+
+## `fief`
+
+???
+
+```
++$  fief  [=deed =quay]
+```
+
+## `form`
+
+A shrub’s I/O logic.
+
+```
++$  form
+  $_  ^|
+  |_  [=bowl =saga]
+  ++  poke
+    |~  [=stud val=vase]
+    *(quip card pail)
+  ++  init
+    |~  old=(unit pail)
+    *(quip card pail)
+  --
+```
+
+- `+poke`: handle incoming pokes, return a list of `card`s and a `pail` of the new state.
+- `+init`: initial I/O when this shrub is created, handle any data passed in through the `%make` card, return list of `card`s and a `pail` of the new state.
+
+## `hash`
+
+Unsigned 256-bit hash.
+
+```
++$  hash   @uvH
+```
+
+## `kook`
+
+Type of a shrub.
+
+```
++$  kook
+  $_  ^&
+  |%
+  ++  state  *curb
+  ++  poke   *(set stud)
+  ++  form   *^form
+  ++  kids   *(unit port)
+  ++  deps   *(map term fief)
+  --
+```
+
+- `+state`: the type of this shrub’s state.
+- `+poke`: the types of request that can change this shrub’s state.
+- `+form`: I/O logic for a shrub.
+- `+kids`: the type of the values beneath this shrub in the namespace.
+- `+deps`: the types of values this shrub will accept from dependencies.
+
+## `lads`
+
+Constraint on the paths and types of a shurb’s descendants.
+
+```
++$  lads  $+(lads (map pish lash))
+```
+
+Constraining `pish` defines the paths that can be created below this shrub in the namespace, and constraining `lash` defines the state and pokes of those shrubs.
+
+## `lash`
+
+Shrub’s state and accepted pokes to change that state.
+
+```
++$  lash  [state=curb poke=(set stud)]
+```
+
+Used to constrain descendants.
+
+## `lock`
+
+Data version numbers.
+
+```
++$  lock  (pair @ud @ud)
+```
+
+The head is the data version, the tail the type version.
+
+## `made`
+
+Type, state, and dependency values for making a new shrub.
+
+```
++$  made  [=stud init=(unit pail) =conf]
+```
+
+The `stud` is required.
+
+The `init` unit can be `~` to create a shrub with no initial state, and the `conf` map can be empty to create a shrub with no dependencies.
+
+## `mode`
+
+Change corresponding a shrub in a `%gift` update. [`%rely` too?]
+
+```
++$  mode  ?(%add %dif %del)
+```
+
+In a state update, all relevant shrubs will be included and tagged with a `mode`.
+
+- `%add`: This shrub has been added since the last update.
+- `%dif`: This shrub is not new, but the value at this path has changed since the last update.
+- `%del`: This shrub has been deleted since the last update.
+
+Like `%add` and `%dif`, the `%del` `mode` will carry the data at the relevant path so that subscribers can act on that data however they like.
+
+## `myth`
+
+Binding, possibly tombstoned.
+
+```
++$  myth
+  $:  pail=(unit pail)
+      =aeon
+  ==
+```
+
+## `note`
+
+Shrubbery’s note type, analogous to `note:agent:gall`.
+
+```
++$  note
+  $%  [%make made]
+      [%poke =pail]
+      [%tomb cas=(unit case)]
+      [%cull ~]
+  ==
+```
+
+The `note` type only works with shrubs, not Arvo. These `note`s sent in `card`s give Shrubbery one of five commands:
+- `%make`: create a shrub at the `card`’s `pith` with these initial values.
+- `%poke`: poke the shrub with this `pail`.
+- `%tomb`: tombstone the shrub at this case.
+- `%cull`: delete the shrub.
+
+## `oath`
+
+[Pair of unsigned 256-bit hash and a corresponding signature?]
+
+```
++$  oath  (pair hash seal)
+```
+
+## `once`
+
+Partial version information for a shrub.
+
+```
++$  once  [?(%x %y %z) p=case]
+```
+
+Identifies a shrub by either `%x`, `%y`, `%z`, and includes a `case` value.
+
+## `over`
+
+Range of time, used for case bookkeeping.
+
+```
++$  over
+  $:  why=(pair @ud @ud)
+      why-mut=(pair @ud @ud)
+      zed=(pair @ud @ud)
+      zed-mut=(pair @ud @ud)
+      =rift
+  ==
+```
+
+“Why” and “zed” correspond to `%y` and `%z`. [What about mut and rift?]
+
+## pail
+
+Pair of stud and vase.
+
+```
++$  pail  (pair stud vase)
+```
+
+In most cases a stud is used as a mark, so you can think of a `pail` as a of “mark and vase”.
+
+## `pish`
+
+Pattern match over a path.
+
+```
++$  pish
+  $+  pish
+  $@(? [i=dita t=pish])
+```
+
+Either a `?` or a recursive list whose head is `dita` and whose tail is a `pish`.
+
+The `pish` ends with a `?`. If that ending is `%.y`, this path may continue. If th ending is `%.n`, the path stops.
+
+## `port`
+
+Scope for constraining a shrub’s children (dare is `%y`) or descendants (dare is `%z`).
+
+```
++$  port  (pair dare lads)
+```
+
+## `quay`
+
+???
+
+```
++$  quay  (pair lash (unit port))
+```
+
+## `seal`
+
+[256-bit hash, signed with [a shrub’s?] private key.]
+
+```
++$  seal   @uvH
+```
+
+## `stud`
+
+Name for a build system output, usually used like a mark.
+
+```
++$  stud
+  $@  @tas
+  $:  mark=@tas
+      [=ship =desk]
+  ==
+```
+
+Local studs can be referred to by their `@tas` without further complication, but foreign studs need to be addressed by their source `ship` and `desk`.
+
+[What is a foreign stud? From another ship or from any other shrub?]
