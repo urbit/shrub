@@ -684,7 +684,10 @@
   .prose code {
     font-family: var(--font-mono);
     font-size: calc(1em * var(--mono-scale));
-    color: var(--f2);
+    color: var(--f0);
+    background-color: var(--b1);
+    border-radius: 3px;
+    padding: 2px;
   }
   .prose ul,
   .prose ol {
