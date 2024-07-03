@@ -678,7 +678,7 @@
     display: block;
     padding: 8px;
     margin-bottom: 1rem;
-    background-color: var(--b4);
+    background-color: var(--b1);
     border-radius: 3px;
   }
   .prose code {
