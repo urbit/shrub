@@ -312,7 +312,7 @@ Data version numbers.
 +$  lock  (pair @ud @ud)
 ```
 
-The head is the data version, the tail the type version.
+The head is the data version, the tail the type version. Used in `ever`.
 
 ## `lore`
 
@@ -347,17 +347,6 @@ In a state update, all relevant shrubs will be included and tagged with a `mode`
 - `%del`: This shrub has been deleted since the last update.
 
 Like `%add` and `%dif`, the `%del` `mode` will carry the data at the relevant path so that subscribers can act on that data however they like.
-
-## `myth`
-
-Binding, possibly tombstoned.
-
-```
-+$  myth
-  $:  pail=(unit pail)
-      =aeon
-  ==
-```
 
 ## `note`
 
