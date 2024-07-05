@@ -30,7 +30,7 @@ Dependency map.
 +$  band  $+(band (map term fief))
 ```
 
-The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that shrub is created, the `conf` will have to include a map of all the required dependencies.
+The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that shrub is created, the `%make` card's `conf` will have to include a map of all the required dependencies.
 
 ## `bowl`
 
@@ -51,12 +51,14 @@ The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that s
 
 - `src`: source ship and path [of what?].
 - `our`: our ship.
-- `were`: ???
+- `were`: Deprecated; use `here` instead.
 - `here`: location of this shrub.
 - `now`: current datetime.
 - `eny`: entropy.
 - `deps`: ???
 - `kids`: ???
+
+[above are dependencies and descendants yeah but need `lore` to explain the types and what they do here]
 
 ## `card`
 
@@ -122,7 +124,7 @@ Constraint on the state of a shrub.
 
 ## `dare`
 
-A `%y` or `%z` care. (Think "dare is a downward care".)
+A `%y` or `%z` care. (Mnemonic: "dare is a downward care".)
 
 ```
 +$  dare  ?(%y %z)
@@ -184,7 +186,7 @@ Total version numbers for a shrub and its descendants.
 - “Why” is incremented when the shrub or any of its immediate children updates. (i.e. `%y` care.)
 - “Zed” is incremented when the shrub or any of its descendants updates. (i.e. `%z` care.)
 
-[what about life, rift]
+[what about shrub-life, ship-rift, etc?]
 
 [what about time]
 
@@ -226,7 +228,7 @@ Unsigned 256-bit hash.
 
 ## `idea`
 
-Pail transformation rule. [i think?]
+State and history of a node. `thru` is the `/imp` corresponding to that node's API.
 
 ```
 +$  idea
@@ -322,7 +324,7 @@ The head is the data version, the tail the type version.
 
 ## `made`
 
-Type, state, and dependency values for making a new shrub.
+Type, state, and dependency values for making a new shrub. Used in `%make` cards.
 
 ```
 +$  made  [=stud init=(unit pail) =conf]
@@ -436,7 +438,7 @@ Define a depdenency's state and pokes, constrain the depdenency's descendants' s
 
 ## `saga`
 
-Versioned pail. [Maybe? How is this used?]
+Versioned pail. [Seems like part of the aeon's `ever` increments when state changes, but is that `exe` or the `life`?]
 
 ```
 +$  saga  (pair aeon pail)
@@ -445,6 +447,8 @@ Versioned pail. [Maybe? How is this used?]
 ## `seal`
 
 [256-bit hash, signed with [a shrub’s?] private key.]
+
+[How are signatures used between shrubs?]
 
 ```
 +$  seal   @uvH
