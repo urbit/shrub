@@ -41,7 +41,7 @@ One way to think of the Shrubbery namespace is as a filesystem, where files coul
 
 ## `+anc-jab`
 
-??? - apply gate to nodes?
+[??? - apply gate to nodes?]
 
 ```
 ++  anc-jab
@@ -176,43 +176,75 @@ Returns `%.y` if the node exists, `%.n` if not.
 
 ## `+kid`
 
-Lorem
+???
 
 ```
-code
+++  kid
+  |=  pax=pith
+  ^-  (map pith _?>(?=(^ fil.fat) u.fil.fat))
+  =.  fat  (dip pax)
+  =.  fat  snip
+  =.  fil.fat  ~
+  tar
 ```
 
-Ipsum
+Returns a `(map pith *)` where `*` is the type of the node in the sample axal.
 
 ## `+kids`
 
-Lorem
+Get the kids of the node at the given path.
 
 ```
-code
+++  kids
+  |=  pax=pith
+  ^-  (axil _?>(?=(^ fil.fat) u.fil.fat))
+  :-  (get pax)
+  (kid pax)
 ```
 
-Ipsum
+Returns an [`axil`](https://docs.urbit.org/language/hoon/reference/arvo#axil).
+
+[why an axil? not sure what the different usage is in this case]
 
 ## `+lop`
 
-Lorem
+Recursively remove nodes from the tree. [??? - need to play around with this but i think the idea is that if given path /foo/bar/baz it will remove the nodes at addresses /foo, /bar, and /baz]
 
 ```
-code
+++  lop
+  |=  pax=pith
+  ^+  fat
+  ?~  pax  fat
+  |-
+  ?~  t.pax  fat(kid (~(del by kid.fat) i.pax))
+  =/  kid  (~(get by kid.fat) i.pax)
+  ?~  kid  fat
+  fat(kid (~(put by kid.fat) i.pax $(fat u.kid, pax t.pax)))
 ```
 
-Ipsum
+Returns an axal.
 
 ## `+parent`
 
-Lorem
+???
 
 ```
-code
+++  parent
+  =|  res=(unit pith)
+  =|  cur=pith
+  |=  pax=pith
+  |-  ^+  res
+  ?~  pax
+    res
+  =?  res  ?=(^ fil.fat)
+    `cur
+  =/  nex  (~(get by kid.fat) i.pax)
+  ?~  nex
+    res
+  $(fat u.nex, pax t.pax, cur (snoc cur i.pax))
 ```
 
-Ipsum
+Returns a `(unit pith)`.
 
 ## `+put`
 
@@ -233,7 +265,7 @@ Returns an axal with the given node `dat` added at the given path `pax`.
 
 ## `+snip`
 
-Prune empty nodes from the children of this node. [???]
+Prune empty nodes from the descendants of this node.
 
 ```
 ++  snip
@@ -249,7 +281,7 @@ Prune empty nodes from the children of this node. [???]
   ==
 ```
 
-Returns an `+axal`.
+Returns an `axal`.
 
 ## `+tap`
 
@@ -286,7 +318,7 @@ Returns a `(map pith *)` where `*` is the type of the node in the axal given as 
 
 ## `+view`
 
-View the node or tree at a given path, with a specific `$care:neo`.
+View a subtree of the sample axal.
 
 ```
 ++  view
@@ -302,5 +334,5 @@ View the node or tree at a given path, with a specific `$care:neo`.
   ==
 ```
 
-Ipsum
+Returns a subtree of the sample axal. Depending on the given care this subtree will be the node at the given path, the node and its immediate children, or the entire subtree below the node at the given path.
 
