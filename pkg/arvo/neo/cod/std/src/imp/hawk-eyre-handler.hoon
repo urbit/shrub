@@ -362,7 +362,7 @@
     '}'
   ++  lift
     ^-  manx
-    ;div.hawk.fc.wf.hf.br1
+    ;div.hawk.fc.wf.hf.br1.relative
       =id  "hawk-{idt}"
       =hawk-id  (scow %da id)
       =slot  slot-tag
@@ -371,6 +371,11 @@
       =hx-target  "closest .hawk"
       =hx-target-x  "closest .rendered"
       =hx-target-404  "this"
+      =ondragover  "hawkDragAllow(event)"
+      =ondragenter  "hawkDragEnter(event)"
+      =ondragleave  "hawkDragLeave(event)"
+      =ondrop  "hawkDrop(event)"
+      ;+  drag-overlay
       ;+  header
       ;div
         =class  "raw wf hf b0 scroll-y scroll-x {(trip ?:(has-app 'hidden' ''))}"
@@ -383,6 +388,8 @@
         ;+  main
       ==
     ==
+  ++  drag-overlay
+    ;div.drag-overlay.absolute.wf.hf.b3.droppable.o7.hidden(style "z-index: 999;");
   ++  header
     ;header.b2.frw.g1.ac
       =id  "hawk-header-{idt}"
@@ -394,12 +401,12 @@
           $(this).toggleClass('toggled');
           $(this).closest('.hawk').find('.raw').toggleClass('hidden');
           $(this).closest('.hawk').find('.rendered').toggleClass('hidden');
-          $(this).closest('header').children('.hawk-tog').toggleClass('hidden');
+          // $(this).closest('header').children('.hawk-tog').toggleClass('hidden');
           """
         ;+  outline:feather-icons
       ==
       ;div
-        =class  "hawk-tog frw g1 ac grow {(trip ?:(has-app '' 'hidden'))}"
+        =class  "hawk-tog frw ac b2 grow {(trip ?:(has-app '' 'hidden'))}"
         ;*
           =<  p
           %^  spin  here
@@ -413,7 +420,7 @@
               ;+  chevron-right.feather-icons
             ==
             ;a
-              =class  "hover b2 {pad} s0 loader fc ac jc"
+              =class  "hover b2 {pad} s-1 f1 loader fc ac jc"
               =style  "height: 2rem;"
               =href  "/neo/hawk{(en-tape:pith:neo (scag +(a) here))}"
               ;span.loaded
@@ -426,7 +433,18 @@
               ==
             ==
           ==
-        ;div.grow;
+        ;button.grow.b2.pointer(style "height: 2rem; min-width: 50px;")
+          =onmouseover  "$(this).parent().addClass('hover');"
+          =onmouseleave  "$(this).parent().removeClass('hover');"
+          =onclick
+            """
+            $(this).closest('header').children('.hawk-tog').toggleClass('hidden');
+            let search = $(this).closest('header').find('form input').get(0);
+            search.focus();
+            search.setSelectionRange(999, 999)
+            """
+          ;
+        ==
       ==
       ;form
         =class  "hawk-tog grow fr ac m0 relative {(trip ?:(has-app 'hidden' ''))}"
@@ -446,6 +464,7 @@
           =style  "margin-left: 5px; padding: 2px 4px;"
           =type  "text"
           =value  (en-tape:pith:neo here)
+          =onfocusout  "$(this).closest('header').children('.hawk-tog').toggleClass('hidden');"
           =oninput
             """
             $(this).attr('value', this.value);
@@ -458,7 +477,7 @@
       ;div.fr.ac.jc.g1.hawk-actions
         =id  "hawk-actions-{idt}"
         =hx-ext  "ignore:html-enc"
-        ;button.p1.hover.b2.br1.loader.s-1
+        ;button.p1.hover.b2.br1.loader.s-1.hidden
           =hx-post  "/neo/hawk/{our-tape}/sky?stud=sky-diff&head=slide-up"
           =hx-on-htmx-after-request
             """
@@ -482,7 +501,7 @@
             ;+  loading.feather-icons
           ==
         ==
-        ;button.p1.hover.b2.br1.loader.s-1
+        ;button.p1.hover.b2.br1.loader.s-1.hidden
           =hx-post  "/neo/hawk/{our-tape}/sky?stud=sky-diff&head=slide-down"
           =hx-on-htmx-after-request
             """
@@ -510,16 +529,51 @@
           =hx-post  "/neo/hawk/{our-tape}/sky?stud=sky-diff&head=minimize"
           =hx-swap  "none"
           =type  "button"
-          =hx-on-htmx-after-request
+          =hx-on-htmx-before-send
             """
             let air = $(this).closest('a-i-r');
             let now = parseInt(air.attr('hawks')) - 1;
             air.attr('hawks', now);
             $(this).closest('[slot]')[0].removeAttribute('slot');
+            """
+          =hx-on-htmx-after-request
+            """
             $(this).emit('hawks-moved');
             """
           ;span.loaded
-            ;+  minimize:feather-icons
+            ;+  remove.feather-icons
+          ==
+          ;span.loading
+            ;+  loading.feather-icons
+          ==
+        ==
+        ;button.p1.hover.b2.br1.loader.s-1
+          =hx-post  "/neo/hawk/{our-tape}/sky?stud=sky-diff&head=close"
+          =hx-swap  "none"
+          =type  "button"
+          =hx-on-htmx-before-send
+            """
+            let air = $(this).closest('a-i-r');
+            let now = parseInt(air.attr('hawks')) - 1;
+            air.attr('hawks', now);
+            $(this).closest('[slot]').remove();
+            """
+          =hx-on-htmx-after-request
+            """
+            $('a-i-r').emit('hawks-moved');
+            """
+          ;span.loaded
+            ;+  close:feather-icons
+          ==
+          ;span.loading
+            ;+  loading.feather-icons
+          ==
+        ==
+        ;div.loader.grabbable.o5
+          =draggable  "true"
+          =ondragstart  "hawkDrag(event)"
+          ;span.loaded
+            ;+  dot-grid.feather-icons
           ==
           ;span.loading
             ;+  loading.feather-icons

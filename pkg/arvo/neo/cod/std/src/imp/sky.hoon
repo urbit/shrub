@@ -88,6 +88,12 @@
                 (slag (add 2 slot.poke) hawks.this)
               ==
             sky/!>(this)
+          %swap-hawks
+            :-  ~
+            =/  tmp  (snag from.poke hawks.this)
+            =.  hawks.this  (snap hawks.this from.poke (snag to.poke hawks.this))
+            =.  hawks.this  (snap hawks.this to.poke tmp)
+            sky/!>(this)
           ::
         ==
       ::

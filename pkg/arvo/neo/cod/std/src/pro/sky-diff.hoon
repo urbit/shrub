@@ -9,4 +9,5 @@ $%
   [%close slot=@ud]
   [%slide-up slot=@ud]
   [%slide-down slot=@ud]
+  [%swap-hawks from=@ud to=@ud]
 ==

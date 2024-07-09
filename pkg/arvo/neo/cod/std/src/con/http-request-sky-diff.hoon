@@ -20,4 +20,6 @@
     [head (slav %ud (got:bod 'slot'))]
   %minimize
     [head (slav %ud (got:bod 'slot'))]
+  %swap-hawks
+    [head (slav %ud (got:bod 'from')) (slav %ud (got:bod 'to'))]
 ==
