@@ -2350,7 +2350,7 @@
     ^-  (unit span)
     ?~  a   ~
     |-
-    ?~  r.a  `n.a
+    ?~  r.a  `p.n.a
     $(a r.a)
   ++  got
     |*  k=@
@@ -2405,13 +2405,14 @@
   ::
   ++  snoc
     |*  [b=@ l=@ c=*]
-    ^-  [span _a]
+    ^+  a
+    =>  .(c ^+(?>(?=(^ a) q.n.a) c))
     =/  =span  [b 1 0]
     =/  las  last
     ?~  las
       ?>  =(1 l)
-      [span (put span c)]
+      (put span c)
     =.  a  +:(cap k.u.las (dec l))
-    [span (put span c)]
+    (put span c)
   --
 --
