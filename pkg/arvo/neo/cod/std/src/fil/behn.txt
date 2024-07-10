@@ -1,0 +1,72 @@
+# Behn
+
+Behn takes one request —  to set a timer or cancel one —  and gives one response to say a timer went off.
+
+```
+++  behn
+  |%
+  ::  $req: Timer request
+  ::
+  ::    %wait: Set timer
+  ::    %rest: Cancel timer
+  ::
+  +$  req  $>(?(%rest %wait) task:^behn)
+  ::  $res: Timer response
+  ::
+  ::    %wake: Timer went off
+  ::
+  +$  res  $>(%wake gift:^behn)
+  --
+```
+
+The request is a regular `task:behn`, the code above just filters for `task:behn`s head-tagged with `%rest` and `%wait`. The response is a regular `gift:behn`, but filtered for `%wake` `gift`s. [???] 
+
+The Behn shane itself is just a `(jug @da pith)`, as we see in `/sur/neo.hoon`. This is Shrubbery's conception of Behn's state.
+
+```
++$  behn  (jug @da pith)
+```
+
+***
+
+## Tasks
+
+[explain $ pith]
+
+[explain %behn-req]
+
+### `%wait`
+
+In this example, we set a behn timer to go off five seconds after the shrub has been initialized.
+
+```
+++  init
+  |=  old=(unit pail:neo)
+  ^-  (quip card:neo pail:neo)
+  :_  old
+  :~  [#/[p/our.bowl]/$/behn %poke %behn-req !>([%wait (add now.bowl ~5s)])]
+  ==
+```
+
+### `%rest`
+
+This shrub accepts a poke that cancels a specific timer. We identify the timer to cancel by passing in the time it was supposed to go off.
+
+```
+++  poke
+  |=  [=stud:neo vaz=vase]
+  ^-  (quip card:neo pail:neo)
+  =/  act  !<(example-diff vaz)
+  ?>  =(-.act %rest)
+  :_  state
+  ::  cancel timer that was set to go off at ~2024.7.10..15.0.0
+  :~  [#/[p/our.bowl]/$/behn %poke %behn-req !>([%rest ~2024.7.10..15.0.0])]
+  ==
+```
+
+## Gifts
+
+### `%wake`
+
+[Example usage]
+
