@@ -92,7 +92,7 @@
 +$  book  (pair tale pail)
 +$  poem  (pair tale (unit pail))
 ::
-+$  aeon  (pair ever oath)
++$  aeon  (trel ever oath (set stud))
 +$  tale  (pair case oath)
 +$  oath  (pair hash seal)
 +$  yuga  (axal aeon)
@@ -296,8 +296,6 @@
   ++  tar
     (~(gas by *(map pith _?>(?=(^ fil.fat) u.fil.fat))) tap)
   --
-::  $span: 
-+$  span  (pair @ud seal)
 ::  $case: Canonical (%x) version
 +$  case  @ud
 ::  $soil: aeons, indexed by x
@@ -1692,6 +1690,11 @@
       kid  t.kid
       out  ^$(pax (weld pax /[p.i.kid]), fat q.i.kid)
     ==
+  ++  sap
+    %+  sort  tap
+    |*  [[a=pith *] [b=pith *]]
+    (sort:pith a b)
+
   ::  Serialize to map
   ::
   ++  tar
@@ -2275,4 +2278,140 @@
       |=  [c=term *]
     ~[a c]
   ==
++$  span  [k=@ l=@ r=@]
+::  +mip: interval map
+++  mip  
+  |$  [val]
+  $|  (tree (pair span val))
+  |=(a=(tree (pair)) &) :: ?:(=(~ a) & ~(apt by a)))
+++  or
+  =|  a=(mip)
+  |@
+  ::  +apt: verify horizontal and vertical orderings
+  ::
+  ++  apt
+    ~/  %apt
+    =|  [l=(unit @) r=(unit @)]
+    |-  ^-  ?
+    ::  empty tree is valid
+    ::
+    ?~  a  %.y
+    ::  nonempty trees must maintain several criteria
+    ::
+    ?&  ::  if .n.a is left of .u.l, assert horizontal comparator
+        ::
+        ?~(l %.y (lte k.p.n.a u.l))
+        ::  if .n.a is right of .u.r, assert horizontal comparator
+        ::
+        ?~(r %.y (lte u.r k.p.n.a))
+        ::  if .a is not leftmost element, assert vertical order between
+        ::  .l.a and .n.a and recurse to the left with .n.a as right
+        ::  neighbor
+        ::
+        ?~(l.a %.y &((mor k.p.n.a k.p.n.l.a) $(a l.a, l `k.p.n.a)))
+        ::  if .a is not rightmost element, assert vertical order
+        ::  between .r.a and .n.a and recurse to the right with .n.a as
+        ::  left neighbor
+        ::
+        ?~(r.a %.y &((mor k.p.n.a k.p.n.r.a) $(a r.a, r `k.p.n.a)))
+    ==
+  ::
+  ++  put
+    |*  [b=span c=*]
+    ^+  a
+    ::  base case: replace null with single-item tree
+    ::
+    ?~  a  [n=[b c] l=~ r=~]
+    ::  base case: overwrite existing .key with new .val
+    ::
+    ?:  =(k.p.n.a k.b)  a(q.n c, p.n b)
+    ::  if item goes on left, recurse left then rebalance vertical order
+    ::
+    ?:  (lte k.b k.p.n.a)
+      =/  l  $(a l.a)
+      ?>  ?=(^ l)
+      ?:  (mor k.p.n.a k.p.n.l)
+        a(l l)
+      l(r a(l r.l))
+    ::  item goes on right; recurse right then rebalance vertical order
+    ::
+    =/  r  $(a r.a)
+    ?>  ?=(^ r)
+    ?:  (mor k.p.n.a k.p.n.r)
+      a(r r)
+    r(l a(r l.r))
+  ::  +pit: update interval
+  ++  pit
+    |*  b=span
+    =/  v  (got k.b)  
+    (put b v)
+  ::
+  ++  last
+    ^-  (unit span)
+    ?~  a   ~
+    |-
+    ?~  r.a  `n.a
+    $(a r.a)
+  ++  got
+    |*  k=@
+    (need (get k))
+  ++  get
+    |*  k=@
+    ^-  (unit _?>(?=(^ a) q.n.a))
+    ?~  res=(gat k)
+      ~
+    `q.u.res
+  ::  +git: get interval at key or return ~
+  ::
+  ++  git
+    ~/  %git
+    |=  b=@
+    ^-  (unit span)
+    ?~  res=(gat b)
+      ~
+    `p.u.res
+  ::
+  ++  wit
+    |*  in=@
+    ^-  (unit _?>(?=(^ a) q.n.a))
+    |-
+    ?~  a   ~
+    ?:  (lth in l.p.n.a)
+      $(a l.a)
+    ?:  (gth in r.p.n.a)
+      $(a r.a)
+    `q.n.a
+  ::
+  ::  +gat: get everything at key
+  ::
+  ++  gat
+    ~/  %gat
+    |*  b=@
+    ^-  (unit _?>(?=(^ a) n.a))
+    ?~  a  ~
+    ?:  =(b k.p.n.a)
+      `n.a
+    ?:  (lte b k.p.n.a)
+      $(a l.a)
+    $(a r.a)
+  ::
+  ++  cap
+    |*  [k=@ r=@]
+    ^-  [? _a]
+    ?~  san=(git k)
+      |/a
+    =.  r.u.san  r
+    &/(pit u.san)
+  ::
+  ++  snoc
+    |*  [b=@ l=@ c=*]
+    ^-  [span _a]
+    =/  =span  [b 1 0]
+    =/  las  last
+    ?~  las
+      ?>  =(1 l)
+      [span (put span c)]
+    =.  a  +:(cap k.u.las (dec l))
+    [span (put span c)]
+  --
 --
