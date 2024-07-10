@@ -1694,7 +1694,10 @@
     %+  sort  tap
     |*  [[a=pith *] [b=pith *]]
     (sort:pith a b)
-
+  ++  aap
+    %+  sort  tap
+    |*  [[a=pith *] [b=pith *]]
+    (lte-pith a b)
   ::  Serialize to map
   ::
   ++  tar

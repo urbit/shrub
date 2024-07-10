@@ -4,6 +4,7 @@
 ++  of  of:neo
 ++  or  or:neo
 ++  t
+  ^~
   |%
   ::
   +$  case  @ud
@@ -30,7 +31,7 @@
     +$  body  ((mop case soul) lte)    
     --
   ::  $moss: mapping from path to children history
-  +$  moss  (map pith body)
+  +$  moss  (axal:neo body)
   ::  $mire: mapping from x case to dare cases
   ++  mire
     =<  mire
@@ -38,19 +39,114 @@
     ++  on    ((^on case (set case)) lte)
     ++  mire  ((mop case (set case)) lte)
     --
-  +$  peat  (map pith mire)
+  +$  peat  (axal:neo mire)
   +$  farm
     $:  our=ship
         =soil
-        =moss
-        =peat
+        exe=peat
+        why=moss
+        zed=moss
     ==
-  +$  seed  (axal:neo [=pail:neo poke=(set stud:neo)])
+  +$  seed  (axal:neo note)
   +$  note 
     $%  [%grow cas=(unit (pair rift case)) =pail:neo poke=(set stud:neo)]
         [%cull rif=(unit rift)]
     ==
   --
+++  etch
+  =>
+    |%
+    ++  split
+      |=  [a=tape b=@ud]
+      ^-  [tape tape]
+      [(scag b a) (slag b a)]
+    ++  stop  `@ud`2
+    ++  cape  (pair @ud tape)
+    --
+  =|  ind=@ud
+  =/  edg=@ud  80
+  =|  res=(list cape)
+  |%
+  ++  etch  .
+  ++  abet  res
+  ++  print
+    |-  ^+  same
+    ?~  res
+      same
+    ~>  %slog.[p.i.res leaf/q.i.res]
+    $(res t.res)
+  ++  tab   etch(ind (add ind stop))
+  ++  untab  etch(ind (sub ind stop))
+  ++  print-tank
+    |=  a=tank
+    =/  tan=wall  (~(win re a) [ind edg])
+    |-  ^+  etch
+    ?~  tan
+      etch
+    =.  res  (snoc res [0 i.tan])
+    $(tan t.tan)
+  ++  print-ln
+    |=  a=tape
+    (print-ln-raw 0 a)
+  ::
+  ++  print-ln-raw
+    |=  [pri=@ud a=tape]
+    ^+  etch
+    =/  cap  (sub edg ind)
+    ?:  (gth cap (lent a))
+      =.  res  (snoc res [pri (welp `tape`(reap ind ' ') a)])
+      etch
+    |-  
+    =/  [next=tape cont=tape]
+      [(scag cap a) (slag cap a)]
+    ~&  printing/[next cont]
+    =.  etch  (print-ln next)
+    ?:  =(cont ~)
+      etch
+    $(a cont)
+  ++  farm
+    |=  f=farm:t
+    ^+  etch
+    =<  +
+    %+  roll  ~(aap of soil.f)
+    |=  [[=pith:neo l=loam:t] [prev=pith:neo e=_etch]]
+    ^+  [prev e]
+    =/  is-child   (gth (lent pith) (lent prev))
+    ~&  is-child/[is-child pith prev]
+::  =.  e 
+::    ?:  is-child  tab:e  untab:e
+    =.  e  
+      %+  print-ln-raw:e  1
+      %-  en-tape:pith:neo 
+      pith 
+      :: ?:  is-child
+        :: (sub:pith:neo pith prev)
+      :: pith
+    :-  pith
+    (loam:e l)
+  ++  loam
+    |=  l=loam:t
+    ^+  etch
+    =/  last  (need ~(last or l))
+    =/  val   (~(got or l) k.last)
+    =.  etch  (print-ln "Current rift: {(scow %ud k.last)}")
+    =.  etch
+      ?~  val  (print-ln "No value at current rift")
+      =.  etch  (print-ln "Versions starting at {(scow %ud l.last)}")
+      untab:(dirt:tab u.val)
+    etch
+  ++  dirt
+    |=  d=dirt:t
+    ^+  etch
+    =<  -
+    %^  (dip:on:dirt:t _etch)  d  etch
+    |=  [e=_etch [case=@ud =data:t]]
+    ^-  [(unit data:t) stop=? _e]
+    :+  `data  stop=|
+    =.  e  (print-ln:e "value for version: {(scow %ud case)}:")
+    untab:(print-tank:tab:e (sell q.pail.data))
+  --
+::
 ++  plow
   |_  farm:t
   +*  farm  +<
@@ -113,8 +209,10 @@
   ++  plant
     |=  =seed:t
     =/  ls   ~(sap of seed)
-    ^+  farm
-    farm
+    |-  ^+  farm
+    ?~  ls 
+      farm
+    $(farm (call i.ls), ls t.ls)
   ++  call
     |=  [=pith:neo not=note:t]
     ^+  farm
@@ -190,10 +288,11 @@
   ++  cull-at
     |=  [=pith:neo =rift]
     ^+  farm
+    ~&  cull-at/[pith rift]
     ?~  lom=(~(get of soil) pith)
       ~|  weird-cull-nothing/pith
       !!
-    ?:  (lte 1 rift)
+    ?:  (lte rift 1)
       ~|  weird-cull-rift/[pith rift]
       !!
     ?~  dir=(~(got or u.lom) (dec rift))
