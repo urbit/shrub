@@ -28,14 +28,19 @@
   =.  farm  (~(plant plow farm) one)
   =/  two=seed:t
     %-  gas-seed
-    :~  [#/~met/baz/foo %grow ~ (atom 3) pokes]
-        [#/~met/baz/foo/bar %grow ~ (atom 5) pokes]
-    ==
-  =.  farm  (~(plant plow farm) two)
-  =/  tri=seed:t
-    %-  gas-seed
     :~  [#/~met/foo %grow ~ (atom 4) pokes]
         [#/~met/foo/bar %grow ~ (atom 6) pokes]
+        [#/~met/foo/baz %grow ~ (atom 3) pokes]
+    ==
+  ::
+  =.  farm  (~(plant plow farm) two)
+  %-  print:(farm:etch farm)
+  =/  tri=seed:t
+    %-  gas-seed
+    :~  [#/~met/foo %grow ~ (atom 5) pokes]
+        [#/~met/foo/bar %grow ~ (atom 7) pokes]
+        [#/~met/foo/bar/qux %grow ~ (atom 10) pokes]
+        [#/~met/foo/baz %grow ~ (atom 1) pokes]
     ==
   =.  farm  (~(plant plow farm) tri)
   =/  fur=seed:t

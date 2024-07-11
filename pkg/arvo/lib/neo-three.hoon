@@ -75,6 +75,15 @@
       same
     ~>  %slog.[p.i.res leaf/q.i.res]
     $(res t.res)
+  ++  mean
+    !.
+    |-  ^+  !!
+    ?~  res
+      !!
+    =/  tap  |.(leaf/q.i.res)
+    ~>  %mean.tap
+    $(res t.res)
+
   ++  tab   etch(ind (add ind stop))
   ++  untab  etch(ind (sub ind stop))
   ++  print-tank
@@ -107,23 +116,24 @@
   ++  farm
     |=  f=farm:t
     ^+  etch
-    =<  +
     %+  roll  ~(aap of soil.f)
-    |=  [[=pith:neo l=loam:t] [prev=pith:neo e=_etch]]
-    ^+  [prev e]
-    =/  is-child   (gth (lent pith) (lent prev))
-    ~&  is-child/[is-child pith prev]
-::  =.  e 
-::    ?:  is-child  tab:e  untab:e
+    |=  [[=pith:neo l=loam:t] e=_etch]
+    ^+  e
     =.  e  
       %+  print-ln-raw:e  1
       %-  en-tape:pith:neo 
       pith 
-      :: ?:  is-child
-        :: (sub:pith:neo pith prev)
-      :: pith
-    :-  pith
+    =.  e  (body:e (~(gut of why.f) pith *body:t))
     (loam:e l)
+  ::
+  ++  body
+    |=  b=body:t
+    ^+  etch
+    (print-tank >b<)
+::  =/  [key=@ *]  (need (ram:on:body:t b))
+::  (print-ln "y case {(scow %ud key)}")
+  ++  loam-verb  `?`&
+  ::
   ++  loam
     |=  l=loam:t
     ^+  etch
@@ -131,9 +141,15 @@
     =/  val   (~(got or l) k.last)
     =.  etch  (print-ln "Current rift: {(scow %ud k.last)}")
     =.  etch
-      ?~  val  (print-ln "No value at current rift")
-      =.  etch  (print-ln "Versions starting at {(scow %ud l.last)}")
-      untab:(dirt:tab u.val)
+      ?.  loam-verb
+        ?~  val  (print-ln "No value at current rift, case {(scow %ud l.last)}")
+        =.  etch  (print-ln "Versions starting at {(scow %ud l.last)}")
+        untab:(dirt:tab u.val)
+      %+  roll  ~(tap by l)
+      |=  [[=span:neo dir=(unit dirt:t)] e=_etch]
+      ?~  dir  (print-ln:e "No value at rift {(scow %ud k.span)}, case {(scow %ud l.span)}")
+      =.  e  (print-ln:e "Versions starting at {(scow %ud l.span)}")
+      untab:(dirt:tab:e u.dir)
     etch
   ++  dirt
     |=  d=dirt:t
@@ -206,13 +222,83 @@
       ^-  (unit epic:neo)
       mystery
     --
+  ++  get-case
+    |=  =pith:neo
+    ^-  @ud
+    ?~  lom=(~(get of soil) pith)
+      0
+    ?~  san=~(last or u.lom)
+      0
+    ?~  dir=(~(got or u.lom) k.u.san)
+      l.u.san
+    =/  [key=@ *]  (need (ram:on:dirt:t u.dir))
+    key
+  ::
   ++  plant
     |=  =seed:t
     =/  ls   ~(sap of seed)
     |-  ^+  farm
     ?~  ls 
-      farm
+      till
     $(farm (call i.ls), ls t.ls)
+  ++  get-why
+    ^-  [@ud soul:t]
+    =/  plot  ~(snip of soil.farm)
+    :-
+      %-  roll
+      :_  |:([a=0 b=0] (add a b))
+      ^-  (list @ud)
+      %+  turn  ~(tap of plot)
+      |=  [=pith:neo *]
+      (get-case pith)
+    =.  fil.plot  ~
+    %-  ~(run by ~(tar of plot))
+    |=  =loam:t
+    ~&  loam/loam
+    ?~  san=~(last or loam)
+      ~&  %weird
+      0
+    ?~  dir=(~(got or loam) k.u.san)
+      ~&   ~(key by loam)
+      l.u.san
+    =/  [key=@ud *]  (need (ram:on:dirt:t u.dir))
+    key
+  ++  rep
+    |=  [=pith f=farm:t]
+    ^+  farm
+    %_  farm
+      soil  (~(rep of soil.farm) pith soil.f)
+      exe   (~(rep of exe.farm) pith exe.f)
+      why   (~(rep of why.farm) pith why.f)
+      zed   (~(rep of zed.farm) pith zed.f)
+    ==
+  ++  dip
+    |=  =pith
+    %_  farm
+      soil  (~(dip of soil.farm) pith)
+      exe   (~(dip of exe.farm) pith)
+      why   (~(dip of why.farm) pith)
+      zed   (~(dip of zed.farm) pith)
+    ==
+
+    
+  ::  +till: update dares
+  ::
+  ::    XX: potentially wrong if updates do not come in order 
+  ++  till
+    |-  =*  loop  $
+    ^+  farm 
+    =/  [dare=@ud =soul:t]  get-why
+    =/  =body:t   (~(gut of why.farm) / *body:t)
+    =.  body  (put:on:body:t body dare soul)
+    =.  why.farm  (~(put of why.farm) / body)
+    =/  kid   ~(tap in ~(key by kid.soil.farm))
+    |-
+    ?~  kid
+      farm
+    =.  farm  (rep ~[i.kid] loop(farm (dip ~[i.kid])))
+    $(kid t.kid)
+  ::
   ++  call
     |=  [=pith:neo not=note:t]
     ^+  farm
@@ -279,11 +365,22 @@
     ::  assert
     ?~  lom=(~(get of soil) pith)
       ~|  weird-cull-nothing/pith
-      !!
+      mean:(farm:etch farm)
     ?~  san=~(last or u.lom)
       ~|  weird-cull-empty-loam/pith
       !!
-    (cull-at pith +(k.u.san))
+    =.  farm  (cull-at pith +(k.u.san))
+    %+  roll  ~(tap by (~(kid of soil.farm) pith))
+    |=  [[kid=pith:neo =loam:t] f=_farm]
+    =/  pit   (welp pith kid)
+    ?~  san=~(last or loam)
+      f
+    ?~  dir=(~(got or loam) k.u.san)
+      f
+    =.  farm  f
+    (cull-at pit `@`+(k.u.san))
+
+    
   ::
   ++  cull-at
     |=  [=pith:neo =rift]
