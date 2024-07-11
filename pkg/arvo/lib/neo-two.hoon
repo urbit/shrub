@@ -401,7 +401,7 @@
     ?~  ver=(get:on:land:neo land.u.val case)
       [~ ~]
     =/  =ever:neo  (nail u.ver plot.u.val case)
-    ``[[ever q.p.u.u.mit] u.q.u.u.mit]
+    ``[[ever q.p.u.u.mit ~] u.q.u.u.mit]
   ++  peek-x
     |=  =pith:neo
     ^-  (unit (unit saga:neo))

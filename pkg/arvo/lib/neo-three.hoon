@@ -6,10 +6,66 @@
 ++  t
   ^~
   |%
+  +$  gang
+    $@  open=?  :: if 
+    $%  [%chum =pith]
+        [%shut =pith]
+    ==
+  +$  pail  pail:neo
+  +$  ever  ever:neo
+  ++  axal  axal:neo
+  +$  zion  (axal fern)
+  +$  over
+    $:  =ever:neo
+        code=vase
+    ==
+  +$  hunt  hunt:neo
+  +$  saga  saga:neo
+  +$  stud  stud:neo
+  +$  chit  ~
+  ++  fern
+    =<  fern
+    |%
+    +$  task  
+      %+  pair  pith
+      $%  [%note =pith =note]
+          [%hear =hunt =saga]
+          [%have =ship =chit]
+      ==
+    +$  note
+      $%  [%poke =pail]
+          [%cull ~]
+          [%make code=stud init=(unit pail) xtra=pail]
+      ==
+    +$  gift
+      $%  [%meet =ship pact=(set stud)]  :: perform service discovery on ship
+        ::
+          [%hark =hunt]  :: listen to changes
+        ::
+          [%shun =hunt]  :: stop listening to changes
+        ::
+          [%note =pith =note] :: deliver external note
+      ==
+    +$  step
+      $:  =seed
+          io=(list gift)
+          vase :: *
+      ==
+    +$  fern
+      $:  code=vase
+          anew=(axal over)
+      ==
+    +$  mien
+      $:  our=@p
+          now=@da 
+          eny=@uvJ
+          heed=(set hunt)
+      ==
+    --
   ::
   +$  case  @ud
   ::  $data: resolved data in space
-  +$  data  [=oath:neo =pail:neo poke=(set stud:neo)]
+  +$  data  [=oath:neo =gang =pail:neo poke=(set stud:neo)]
   ::  +dirt: Mapping from x case to datum
   ++  dirt  
     =<  dirt
@@ -108,7 +164,6 @@
     |-  
     =/  [next=tape cont=tape]
       [(scag cap a) (slag cap a)]
-    ~&  printing/[next cont]
     =.  etch  (print-ln next)
     ?:  =(cont ~)
       etch
@@ -129,9 +184,8 @@
   ++  body
     |=  b=body:t
     ^+  etch
-    (print-tank >b<)
-::  =/  [key=@ *]  (need (ram:on:body:t b))
-::  (print-ln "y case {(scow %ud key)}")
+    =/  [key=@ *]  (need (ram:on:body:t b))
+    (print-ln "y case {(scow %ud key)}")
   ++  loam-verb  `?`&
   ::
   ++  loam
@@ -254,12 +308,10 @@
     =.  fil.plot  ~
     %-  ~(run by ~(tar of plot))
     |=  =loam:t
-    ~&  loam/loam
     ?~  san=~(last or loam)
       ~&  %weird
       0
     ?~  dir=(~(got or loam) k.u.san)
-      ~&   ~(key by loam)
       l.u.san
     =/  [key=@ud *]  (need (ram:on:dirt:t u.dir))
     key
@@ -340,7 +392,7 @@
             poke=(set stud:neo)
         ==
     ^+  farm
-    =/  =data:t  [=oath:neo pail poke]
+    =/  =data:t  [=oath:neo & pail poke]
     =/  =loam:t  (fall (~(get of soil) pith) *loam:t)
     =/  [=span:neo =dirt:t]
       =/  res  (~(gat or loam) p.at)
@@ -379,13 +431,10 @@
       f
     =.  farm  f
     (cull-at pit `@`+(k.u.san))
-
-    
   ::
   ++  cull-at
     |=  [=pith:neo =rift]
     ^+  farm
-    ~&  cull-at/[pith rift]
     ?~  lom=(~(get of soil) pith)
       ~|  weird-cull-nothing/pith
       !!
