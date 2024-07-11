@@ -26,13 +26,13 @@
   ++  fern
     =<  fern
     |%
-    +$  task  
-      %+  pair  pith
-      $%  [%note =pith =note]
+    +$  task   (pair pith note)
+    +$  note
+      $%  [%work =pith =work]
           [%hear =hunt =saga]
           [%have =ship =chit]
       ==
-    +$  note
+    +$  work
       $%  [%poke =pail]
           [%cull ~]
           [%make code=stud init=(unit pail) xtra=pail]
@@ -47,19 +47,20 @@
           [%note =pith =note] :: deliver external note
       ==
     +$  step
-      $:  =seed
-          io=(list gift)
+      $:  [=seed io=(list gift)]
           vase :: *
       ==
     +$  fern
       $:  code=vase
-          anew=(axal over)
+          anew=(axal ever)
+          heed=(set hunt)
       ==
     +$  mien
       $:  our=@p
           now=@da 
           eny=@uvJ
           heed=(set hunt)
+          =farm
       ==
     --
   ::

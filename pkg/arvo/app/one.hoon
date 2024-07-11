@@ -4,15 +4,8 @@
 /+  dbug
 /+  libverb=verb
 /+  serv=server
-/*  txt-hoon-imp    %hoon   /neo/cod/std/src/imp/hoon/hoon
-/*  txt-term-imp    %hoon   /neo/cod/std/src/imp/term/hoon
-/*  txt-ford-same   %hoon   /neo/cod/std/src/imp/ford-same/hoon
-/*  txt-ford-slop   %hoon   /neo/cod/std/src/imp/ford-slop/hoon
-/*  txt-ford-slap   %hoon   /neo/cod/std/src/imp/ford-slap/hoon
-/*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
-/*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
-/*  txt-ford-reef   %hoon   /neo/cod/std/src/imp/ford-reef/hoon
-/*  txt-ford-text   %hoon   /neo/cod/std/src/imp/ford-text/hoon
+/*  txt-root-fern   %hoon   /one/root/hoon
+=/  prelude=vase  !>(.)
 =>
   |%
   ++  dev  |
@@ -27,6 +20,7 @@
 +$  state-0
   $+  state-0
   $:  =zion:t
+      =farm:t
   ==
 --
 =|  state-0
@@ -97,16 +91,14 @@
 ++  def   ~(. (default-agent run %|) bowl)
 ++  boot
   ^+  run
-  run
+  =.  our.farm  our.bowl
+  (install / (slap prelude (ream txt-root-fern)))
 ++  on-poke
   |=  [=mark =vase]
   ^+  run
   ?>  =(%one-task mark)
-  =+  !<(=task:t vase)
-  (
-  ?+  task  !!
-    %
-  ==
+  =+  !<(=task:fern:t vase)
+  abet:(call:(fe p.task) q.task)
 ++  on-peer
   |=  [=path stop=?]
   ^+  run
@@ -123,15 +115,32 @@
   |=  =path
   ^-  (unit (unit cage))
   [~ ~]
+++  install
+  |=  [=pith:t vax=vase]
+  =/  =fern:t
+    :*  vax
+        *(axal:t ever:t)
+        *(set hunt:t)
+    ==
+  =.  zion  (~(put of zion) pith fern)
+  run
+::
 ++  fe
   |=  =pith:t
   =/  =fern:t  (~(got of zion) pith)
   |%
-  ++  abet  (~(put of 
-  ++  code  code
+  ++  abet  run(zion (~(put of zion) pith fern))
+  ++  fe  .
+  ++  mien
+    ^-  mien:fern:t
+    [our.bowl now.bowl eny.bowl heed.fern (~(dip plow farm) pith)]
+  ++  code  code.fern(+6.q mien)
   ++  call
-
-    
-
+    |=  =note:fern:t
+    =/  res=vase  (slym (slap code limb/%call) note)
+    =+  !<([=seed:t io=(list gift:fern:t)] (slot 2 res))
+    =.  code.fern  (slot 3 res)
+    fe
+  --
 --
 
