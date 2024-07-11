@@ -6,8 +6,6 @@ For userspace developers, axals are useful when you're writing `/con` files for 
 
 We work with axals using the `+of` core defined in `/sur/neo.hoon`, whose arms are documented below.
 
-[note on piths and paths, how `of:neo` is used and how to work with piths and paths, convert from path to pith, etc.]
-
 The `+axal` type itself looks like this.
 
 ```
@@ -19,42 +17,6 @@ The `+axal` type itself looks like this.
 One way to think of the Shrubbery namespace is as a filesystem, where files could be data, code, or something in between. So the `+axal` represents a directory of such files. The `fil` is the state of the file, which may or may not be null. The `kid` map stores everything below this file in the directory. The map's keys are the path segments immediately below this layer of the directory, and its values are the subtrees that correspond to those paths.
 
 ***
-
-## `+anc`
-
-[??? - i see what this is doing just dk why]
-
-```
-++  anc
-  =|  res=(list pith)
-  =|  cur=pith
-  |=  pax=pith
-  ^-  (set pith)
-  ?~  pax
-    (~(gas in *(set pith)) res)
-  =?  res  ?=(^ fil.fat)
-    [cur res]
-  $(fat (~(got by kid.fat) i.pax), pax t.pax, cur (snoc cur i.pax))
-```
-
-???
-
-## `+anc-jab`
-
-[??? - apply gate to nodes?]
-
-```
-++  anc-jab
-  |*  [pax=pith fun=$-(* *)]
-  ^+  fat
-  ?~  pax
-    fat
-  =?  fil.fat  ?=(^ fil.fat)
-    `(fun u.fil.fat)
-  fat(kid (~(put by kid.fat) i.pax $(fat (~(got by kid.fat) i.pax), pax t.pax)))
-```
-
-???
 
 ## `+del`
 
@@ -74,7 +36,7 @@ Returns an axal with the node at path `pax` removed.
 
 ## `+dip`
 
-Descend to the axal at this path, [which does what]
+Descend to the axal at the given path. 
 
 ```
 ++  dip
@@ -111,7 +73,7 @@ Returns a `(pair pith *)` where `*` is the node at the given path `pax`.
 
 Merge a list of `(pair pith *)` with the axal.
 
-[??? that's what it looks like this should do but i'd expect a `|-` in here]
+(Note: currently broken.)
 
 ```
 ++  gas
@@ -174,22 +136,6 @@ Check if the axal contains a node as this path.
 
 Returns `%.y` if the node exists, `%.n` if not.
 
-## `+kid`
-
-???
-
-```
-++  kid
-  |=  pax=pith
-  ^-  (map pith _?>(?=(^ fil.fat) u.fil.fat))
-  =.  fat  (dip pax)
-  =.  fat  snip
-  =.  fil.fat  ~
-  tar
-```
-
-Returns a `(map pith *)` where `*` is the type of the node in the sample axal.
-
 ## `+kids`
 
 Get the kids of the node at the given path.
@@ -202,13 +148,11 @@ Get the kids of the node at the given path.
   (kid pax)
 ```
 
-Returns an [`axil`](https://docs.urbit.org/language/hoon/reference/arvo#axil).
-
-[why an axil? not sure what the different usage is in this case]
+Returns an [`axil`](https://docs.urbit.org/language/hoon/reference/arvo#axil), for secret reasons.
 
 ## `+lop`
 
-Recursively remove nodes from the tree. [??? - need to play around with this but i think the idea is that if given path /foo/bar/baz it will remove the nodes at addresses /foo, /bar, and /baz]
+Recursively remove nodes from the tree. 
 
 ```
 ++  lop
@@ -224,9 +168,11 @@ Recursively remove nodes from the tree. [??? - need to play around with this but
 
 Returns an axal.
 
+If given path `/foo/bar/baz`, `+lop` will remove the nodes at addressses `/foo`, `/bar`, and `/baz`. Removing `/foo` does not remove its children at `/bar` and `/baz`.
+
 ## `+parent`
 
-???
+Walk up the axal, starting at the node specified by `cur` to find the closest ancestor node with state.
 
 ```
 ++  parent
@@ -244,7 +190,7 @@ Returns an axal.
   $(fat u.nex, pax t.pax, cur (snoc cur i.pax))
 ```
 
-Returns a `(unit pith)`.
+Returns a `(unit pith)` of the closest ancestor node with state.
 
 ## `+put`
 
