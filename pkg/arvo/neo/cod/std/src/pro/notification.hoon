@@ -1,1 +1,1 @@
-,[read=flag =time =pith =cord]
+,[=flag =time =pith =cord]

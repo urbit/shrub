@@ -2,7 +2,8 @@
 ^-  kook:neo
 |%
 ++  state
-  *state:neo
+  ^-  curb:neo
+  [%pro %sig]
 ::
 ++  poke
   ^-  (set stud:neo)
@@ -26,15 +27,26 @@
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
-      [~ *state:neo]
+      [~ [%sig !>(~)]]
     ::
     ++  poke
+      ::  XX mute and block
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(stud %notification)
-      =/  new  !<(notification vaz)
-      :_  *state:neo
-      :~  [#/[time.new] [%make %notification `[%notification !>(new)] ~]]
+      =/  not  !<(notification vaz)
+      ?<  =('' cord.not)
+      ?<  (gth time.not now.bowl)
+      ?>  =(pith.not pith.src.bowl)
+      :_  [%sig !>(~)]
+      ?.  flag.not
+        =.  flag.not  %.y
+        :~  :-  #/[here.bowl]/[da/now.bowl]
+            [%make %notification `[%notification !>(not)] ~]
+        ==
+      :~  :-  #/[here.bowl]/[da/now.bowl]
+          [%make %notification `[%notification !>(not)] ~]
+          ::  XX send push notification
       ==
   --
 --
