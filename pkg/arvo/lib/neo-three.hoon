@@ -230,8 +230,8 @@
   ++  scry
     |=  [=hunt:neo =case]
     ^-  (unit epic:neo)
-    =/  =name:neo  (de-pith:name:neo pith.hunt)
-    =/  is-our=?  =(ship.name our)
+    :: =/  =name:neo  (de-pith:name:neo pith.hunt)
+    =/  is-our=?  &
     |^
     ?+  care.hunt  ~ :: XX: wrong deal with abc
       %x  read-x
@@ -283,6 +283,13 @@
       ^-  (unit epic:neo)
       mystery
     --
+  ++  look
+    |=  =hunt:neo
+    =/  =case:neo
+      (get-case pith.hunt)
+    ~&  case
+    (scry hunt (get-case pith.hunt))
+  ::
   ++  get-case
     |=  =pith:neo
     ^-  @ud

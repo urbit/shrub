@@ -144,10 +144,10 @@
   ++  fe-abet  run(zion (~(put of zion) pith fern))
   ++  fe  .
   ++  fe-farm  (~(dip plow farm) pith)
-  ++  mien
+  ++  fe-mien
     ^-  mien:fern:t
     [our.bowl now.bowl eny.bowl heed.fern fe-farm]
-  ++  fe-code  code.fern(+6.q mien)
+  ++  fe-code  code.fern(+6.q fe-mien)
   ++  fe-call
     |=  =note:fern:t
     =/  res=vase  (slym (slap fe-code limb/%call) note)

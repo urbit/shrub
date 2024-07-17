@@ -2381,6 +2381,8 @@
     ?~  a   ~
     ?:  (lth in l.p.n.a)
       $(a l.a)
+    ?:  =(0 r.p.n.a)
+      `q.n.a
     ?:  (gth in r.p.n.a)
       $(a r.a)
     `q.n.a
