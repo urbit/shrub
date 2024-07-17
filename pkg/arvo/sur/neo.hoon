@@ -1512,6 +1512,27 @@
   |@ 
   ++  rot
     (need fil.fat)
+  ++  wyt
+    |-  ^-  @ud
+    =*  loop  $
+    %+  add
+      ?~(fil.fat 0 1)
+    %+  roll  ~(val by kid.fat)
+    |*  [ax=_fat out=@ud]
+    (add out loop(fat ax))
+  ::
+  ++  uni
+    |*  taf=_fat
+    |- 
+    =*  loop  $
+    =?  fil.fat  =(~ fil.fat)
+      fil.taf
+    :-  ?~(fil.fat fil.taf fil.fat)
+    %-  (~(uno by kid.fat) kid.taf)
+    |=  [k=iota l=_fat r=_taf]
+    loop(fat l, taf r)
+  ::
+
 
   ++  view
     =|  res=(map pith _?>(?=(^ fil.fat) u.fil.fat))

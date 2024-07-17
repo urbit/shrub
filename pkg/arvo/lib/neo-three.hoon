@@ -43,7 +43,7 @@
     +$  task   (pair pith note)
     +$  note
       $%  [%bush =move:bush]
-          [%hear =hunt =saga]
+          [%hear =hunt]
           [%have =ship =chit]
       ==
     +$  gift
