@@ -1,13 +1,13 @@
 /-  neo
-/+  *neo-three
+/+  util=neo-three
 /+  default-agent
 /+  dbug
 /+  libverb=verb
 /+  serv=server
 /*  txt-root-fern   %hoon   /one/root/hoon
-=/  prelude=vase  !>(.)
 =>
   |%
+  ++  prelude  !>(util)
   ++  dev  |
 ::  =>  !@(dev ((slog leaf/"tape" ~) .) .)
   ++  mute
@@ -15,6 +15,7 @@
     |*  *
     !.  +<
   --
+=,  util
 |%
 +$  card  $+(card card:agent:gall)
 +$  state-0
@@ -92,13 +93,24 @@
 ++  boot
   ^+  run
   =.  our.farm  our.bowl
-  (install / (slap prelude (ream txt-root-fern)))
+  =/  vaz  (vang & /root)
+  =/  hon  (scan (trip txt-root-fern) (full (ifix [gay gay] tall:vaz)))
+  (install ~ (slap prelude hon))
 ++  on-poke
   |=  [=mark =vase]
   ^+  run
+  ?:  =(%noun mark)
+    ?+    q.vase
+      =+  ;;(=task:fern:t q.vase)
+      fe-abet:(fe-call:(fe p.task) q.task)
+    ::
+        %dbug
+      %-  print:(farm:etch farm)
+      run
+    ==
   ?>  =(%one-task mark)
   =+  !<(=task:fern:t vase)
-  abet:(call:(fe p.task) q.task)
+  fe-abet:(fe-call:(fe p.task) q.task)
 ++  on-peer
   |=  [=path stop=?]
   ^+  run
@@ -129,16 +141,18 @@
   |=  =pith:t
   =/  =fern:t  (~(got of zion) pith)
   |%
-  ++  abet  run(zion (~(put of zion) pith fern))
+  ++  fe-abet  run(zion (~(put of zion) pith fern))
   ++  fe  .
+  ++  fe-farm  (~(dip plow farm) pith)
   ++  mien
     ^-  mien:fern:t
-    [our.bowl now.bowl eny.bowl heed.fern (~(dip plow farm) pith)]
-  ++  code  code.fern(+6.q mien)
-  ++  call
+    [our.bowl now.bowl eny.bowl heed.fern fe-farm]
+  ++  fe-code  code.fern(+6.q mien)
+  ++  fe-call
     |=  =note:fern:t
-    =/  res=vase  (slym (slap code limb/%call) note)
+    =/  res=vase  (slym (slap fe-code limb/%call) note)
     =+  !<([=seed:t io=(list gift:fern:t)] (slot 2 res))
+    =.  farm  (~(rep plow farm) pith (~(plant plow fe-farm) seed))
     =.  code.fern  (slot 3 res)
     fe
   --

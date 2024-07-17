@@ -1,10 +1,10 @@
 /-  neo
 |%
+++  neo  ^neo
 +$  case  @ud
 ++  of  of:neo
 ++  or  or:neo
 ++  t
-  ^~
   |%
   +$  gang
     $@  open=?  :: if 
@@ -23,19 +23,28 @@
   +$  saga  saga:neo
   +$  stud  stud:neo
   +$  chit  ~
+  ++  bush
+    |%
+    ::  $move: IO with source
+    ::
+    +$  move  (pair pith card)
+    ::  $card: addressed IO
+    +$  card  (pair pith note)
+    ::  $note: IO request at a location
+    +$  note
+      $%  [%poke =pail]
+          [%cull ~]
+          [%make code=stud init=(unit pail) xtra=pail]
+      ==
+    --
   ++  fern
     =<  fern
     |%
     +$  task   (pair pith note)
     +$  note
-      $%  [%work =pith =work]
+      $%  [%bush =move:bush]
           [%hear =hunt =saga]
           [%have =ship =chit]
-      ==
-    +$  work
-      $%  [%poke =pail]
-          [%cull ~]
-          [%make code=stud init=(unit pail) xtra=pail]
       ==
     +$  gift
       $%  [%meet =ship pact=(set stud)]  :: perform service discovery on ship
@@ -46,10 +55,7 @@
         ::
           [%note =pith =note] :: deliver external note
       ==
-    +$  step
-      $:  [=seed io=(list gift)]
-          vase :: *
-      ==
+    +$  step  [=seed io=(list gift)]
     +$  fern
       $:  code=vase
           anew=(axal ever)
