@@ -111,6 +111,7 @@
         zed=moss
     ==
   +$  seed  (axal:neo note)
+  +$  muck  (axal:neo tale:neo)
   +$  note 
     $%  [%grow cas=(unit (pair rift case)) =pail:neo poke=(set stud:neo)]
         [%cull rif=(unit rift)]
@@ -241,9 +242,10 @@
     ++  lift
       |=  =data:t
       ^-  saga:neo
+      =/  =poem:neo  [*stud:neo poke.data]
       =/  =aeon:neo
-        [*ever:neo oath.data poke.data]
-      [aeon pail.data]
+        [*ever:neo oath.data]
+      [aeon poem pail.data]
     ::
     ++  wrap
       =|  =epic:neo

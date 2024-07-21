@@ -5,6 +5,7 @@
 /+  libverb=verb
 /+  serv=server
 /*  txt-root-fern   %hoon   /one/root/hoon
+/*  txt-root-neo    %hoon   /one/neo/hoon
 =>
   |%
   ++  prelude  !>(util)
@@ -100,7 +101,7 @@
   ^+  run
   =.  our.farm  our.bowl
   =/  vaz  (vang & /root)
-  =/  hon  (scan (trip txt-root-fern) (full (ifix [gay gay] tall:vaz)))
+  =/  hon  (scan (trip txt-root-neo) (full (ifix [gay gay] tall:vaz)))
   (install ~ (slap prelude hon))
 ++  on-poke
   |=  [=mark =vase]

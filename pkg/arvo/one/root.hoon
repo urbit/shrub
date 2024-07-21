@@ -17,9 +17,13 @@
   ^-  [step:f _this]
   ?-  -.note
     %bush  (burn +.note)
-    %hear  ~&  got-hear/+.note  [*step:f this]
+    %hear  (hear +.note)
     %have  !!
   ==
+++  hear
+  |=  =note:fern:t
+  ^-  [step:f _this]
+  [*step:f this]
 ++  trace
   |*  [sut=* tap=(trap tang)]
   ^~  !@(verb ((slog (tap)) sut) sut)

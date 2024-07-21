@@ -90,14 +90,14 @@
 ::
 +$  vial  (pair stud *)
 +$  book  (pair tale pail)
-+$  poem  (pair tale (unit pail))
++$  poem  (pair stud (set stud))
 ::
-+$  aeon  (trel ever oath (set stud))
-+$  tale  (pair case oath)
++$  aeon  (pair ever oath)
++$  tale  (pair poem pail)
 +$  oath  (pair hash seal)
 +$  yuga  (axal aeon)
 :: 
-+$  saga  (pair aeon pail)
++$  saga  (pair aeon tale)
 +$  pail  (pair stud vase)
 ::
 +$  epic  $+(epic (axal saga))
@@ -1512,6 +1512,15 @@
   |@ 
   ++  rot
     (need fil.fat)
+  ++  run
+    |*  b=gate
+    |- 
+    =*  loop  $
+    :-  (bind fil.fat b)
+    %-  ~(run by kid.fat)
+    |=  ax=_fat
+    loop(fat ax)
+  ::
   ++  wyt
     |-  ^-  @ud
     =*  loop  $
@@ -1625,7 +1634,7 @@
   ::
   ++  gas
     |*  lit=(list (pair pith _?>(?=(^ fil.fat) u.fil.fat)))
-    ^+  fat
+    |-  ^+  fat
     ?~  lit  fat
     $(fat (put p.i.lit q.i.lit), lit t.lit)
   ++  got
@@ -2169,7 +2178,7 @@
 ::
 +$  form
   $_  ^|
-  |_  [=bowl =saga]
+  |_  [=bowl =aeon pal=pail]
   ::  +reduce: apply %poke, producing state and IO
   ::
   ::    ('liam'' ~) [%add who='ruby'] -> ('liam' 'ruby')
