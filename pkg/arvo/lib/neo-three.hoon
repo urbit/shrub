@@ -63,6 +63,7 @@
       ==
     +$  mien
       $:  our=@p
+          pfix=pith
           now=@da 
           eny=@uvJ
           heed=(set hunt)

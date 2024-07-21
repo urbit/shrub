@@ -172,7 +172,7 @@
   ++  fe-farm  (~(dip plow farm) pith)
   ++  fe-mien
     ^-  mien:fern:t
-    [our.bowl now.bowl eny.bowl heed.fern fe-farm]
+    [our.bowl pith now.bowl eny.bowl heed.fern fe-farm]
   ++  fe-code  code.fern(+6.q fe-mien)
   ++  fe-reap
     |=  new=seed:t

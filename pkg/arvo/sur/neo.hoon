@@ -1947,6 +1947,8 @@
 +$  diff  [=pith =ever dat=(unit vial)]
 :: +$  mace  [=pith =ever =diff]
 ::
+::
++$  muck  (axal tale)
 ++  sign
   |^
   $%  [%poke status=response-status]
@@ -2030,7 +2032,7 @@
       now=@da
       eny=@uvJ
       deps=(map term (pair pith lore))
-      kids=lore
+      kids=muck
   ==
 ++  dbug
   |%
