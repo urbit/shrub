@@ -16,17 +16,32 @@
         ~
     ==
   ++  reap
-    |=  [=farm:n =seed:f]
-    ^-  mire:f 
-    =|  =mire:f
-    =/  fam  ~(tap of farm)
-    =/  =mire:f
-      %-  ~(run of farm)
-      |=  
-    
-    |-  
-
-    %-
+    |=  [=farm:f =seed:f]
+    ^-  muck:f 
+    =/  =epic:n
+      (need (~(look plow farm) [%z /]))
+    =/  =muck:f  
+      %-  ~(run of epic)
+      |=  =saga:n
+      q.saga
+    =/  sed=(list (pair pith note:t))  ~(aap of seed)
+    |-
+    ?~  sed
+      muck
+    ?-    -.q.i.sed
+        %grow 
+      ?^  cas.q.i.sed
+        $(sed t.sed)
+      =/  =poem:n  [*stud:n poke.q.i.sed]
+      =.  muck  (~(put of muck) p.i.sed poem pail.q.i.sed)
+      $(sed t.sed)
+    ::
+        %cull
+      ?^  rif.q.i.sed
+        $(sed t.sed)
+      =.  muck  (~(del of muck) p.i.sed)
+      $(sed t.sed)
+    ==
   --
 =|  state-0
 |_  =mien:fern:t  
@@ -78,7 +93,6 @@
   ++  make
     |=  [code=stud:n init=(unit pail:n) xtra=pail:n]
     ^+  arvo
-    =/  
     arvo
   ++  poke
     |=  pok=pail:n

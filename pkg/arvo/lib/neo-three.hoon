@@ -256,60 +256,93 @@
       =/  =saga:neo  (lift data.i.ls)
       $(epic (~(put of epic) pith.i.ls saga), ls t.ls)
     ++  not-found
-      ^-  (unit epic:neo)
-      `*epic:neo
+      ^-  (unit (unit saga:neo))
+      [~ ~]
     ++  mystery
-      ^-  (unit epic:neo)
-      ?:(is-our not-found ~)
+      ^-  (unit (unit saga:neo))
+      ?:(is-our [~ ~] ~)
     ++  read-x
       ^-  (unit epic:neo)
-      ?~  lom=(~(get of soil) pith.hunt)
+      =/  res  (read-x-raw pith.hunt case)
+      ?-  res
+        ~         ~
+        [~ ~]    `*epic:neo
+        [~ ~ *]  `(~(put of *epic:neo) / u.u.res)
+      ==
+    ++  read-x-raw
+      |=  [pit=pith:neo cas=@ud]
+      ^-  (unit (unit saga:neo))
+      ?~  lom=(~(get of soil) pit)
         mystery
-      ?~  dir=(~(wit or u.lom) case)
+      ?~  dir=(~(wit or u.lom) cas)
         mystery
       ?~  u.dir
         not-found
-      ?^  ver=(get:on:dirt:t u.u.dir case)
-        `(wrap [/ u.ver] ~)
+      ?^  ver=(get:on:dirt:t u.u.dir cas)
+        ``(lift u.ver)
       ?~  lat=(ram:on:dirt:t u.u.dir)
         ~
-      ?:  (lte case key.u.lat)
+      ?:  (lte cas key.u.lat)
         not-found
       ~
     ::
     ++  read-y
       ^-  (unit epic:neo)
-      mystery
+      ?~  bod=(~(get of why) pith.hunt)
+        ~
+      ?~  sol=(get:on:body:t u.bod case)
+        ~
+      :-  ~
+      %-  ~(gas of *epic:neo)
+      %+  murn  ~(tap by u.sol)
+      |=  [=pith:neo cas=@ud]
+      ?~  res=(need (read-x-raw pith cas))
+        ~
+      `[pith u.res]
     ::
     ++  read-z
       ^-  (unit epic:neo)
-      mystery
+      ~
     --
   ++  look
     |=  =hunt:neo
     =/  =case:neo
-      (get-case pith.hunt)
+      (get-case hunt)
     ~&  case
-    (scry hunt (get-case pith.hunt))
+    (scry hunt (get-case hunt))
   ::
   ++  get-case
-    |=  =pith:neo
+    |=  =hunt:neo
     ^-  @ud
-    ?~  lom=(~(get of soil) pith)
-      0
-    ?~  san=~(last or u.lom)
-      0
-    ?~  dir=(~(got or u.lom) k.u.san)
-      l.u.san
-    =/  [key=@ *]  (need (ram:on:dirt:t u.dir))
-    key
+    ?-    care.hunt
+        ?(%x %a)
+      ?~  lom=(~(get of soil) pith.hunt)
+        0
+      ?~  san=~(last or u.lom)
+        0
+      ?~  dir=(~(got or u.lom) k.u.san)
+        l.u.san
+      =/  [key=@ *]  (need (ram:on:dirt:t u.dir))
+      key
+    ::
+        ?(%y %b)
+      ?~  bod=(~(get of why) pith.hunt)
+        0
+      key:(need (ram:on:body:t u.bod))
+    ::
+        ?(%z %c)
+      ?~  bod=(~(get of zed) pith.hunt)
+        0
+      key:(need (ram:on:body:t u.bod))
+    ==
   ::
   ++  plant
     |=  =seed:t
     =/  ls   ~(sap of seed)
     |-  ^+  farm
     ?~  ls 
-      till
+      =.  farm  (till %y)
+      (till %z)
     $(farm (call i.ls), ls t.ls)
   ++  get-why
     ^-  [@ud soul:t]
@@ -320,7 +353,7 @@
       ^-  (list @ud)
       %+  turn  ~(tap of plot)
       |=  [=pith:neo *]
-      (get-case pith)
+      (get-case %x pith)
     =.  fil.plot  ~
     %-  ~(run by ~(tar of plot))
     |=  =loam:t
@@ -331,6 +364,30 @@
       l.u.san
     =/  [key=@ud *]  (need (ram:on:dirt:t u.dir))
     key
+  ++  get-zed
+    ^-  [@ud soul:t]
+    =/  plot  soil.farm
+    :-
+      %-  roll
+      :_  |:([a=0 b=0] (add a b))
+      ^-  (list @ud)
+      %+  turn  ~(tap of plot)
+      |=  [=pith:neo *]
+      (get-case %x pith)
+    =.  fil.plot  ~
+    %-  ~(gas by *soul:t) 
+    ^-  (list [pith:neo @ud])
+    %+  murn  ~(tap of plot)
+    |=  [=pith:neo =loam:t]
+    ^-  (unit [pith:neo @ud])
+    ?~  san=~(last or loam)
+      ~&  %weird
+      ~
+    ?~  dir=(~(got or loam) k.u.san)
+      `[pith l.u.san]
+    =/  [key=@ud *]  (need (ram:on:dirt:t u.dir))
+    `[pith key]
+
   ++  rep
     |=  [=pith f=farm:t]
     ^+  farm
@@ -354,12 +411,22 @@
   ::
   ::    XX: potentially wrong if updates do not come in order 
   ++  till
-    |-  =*  loop  $
+    |=  kind=?(%y %z)
+    =*  loop  $
     ^+  farm 
-    =/  [dare=@ud =soul:t]  get-why
-    =/  =body:t   (~(gut of why.farm) / *body:t)
+    =/  [dare=@ud =soul:t]
+      ?:  =(kind %y)
+        get-why
+      get-zed
+    =/  =body:t
+      ?:  =(kind %y)
+        (~(gut of why.farm) / *body:t)
+      (~(gut of zed.farm) / *body:t)
     =.  body  (put:on:body:t body dare soul)
-    =.  why.farm  (~(put of why.farm) / body)
+    =.  farm
+      ?:  =(kind %y)
+        farm(why (~(put of why.farm) / body))
+      farm(zed (~(put of zed.farm) / body))
     =/  kid   ~(tap in ~(key by kid.soil.farm))
     |-
     ?~  kid

@@ -1514,12 +1514,19 @@
     (need fil.fat)
   ++  run
     |*  b=gate
-    |- 
+    |-  
+    =+  c=`(axal _?>(?=(^ fil.fat) (b u.fil.fat)))`[~ ~]
+    ^+  c
     =*  loop  $
-    :-  (bind fil.fat b)
-    %-  ~(run by kid.fat)
-    |=  ax=_fat
-    loop(fat ax)
+    =?  fil.c  ?=(^ fil.fat)
+      `(b u.fil.fat)
+    %=    c
+        kid
+      %-  ~(run by kid.fat)
+      |=  ax=_fat
+      ^+  c
+      loop(fat ax)
+    ==
   ::
   ++  wyt
     |-  ^-  @ud
@@ -1541,8 +1548,6 @@
     |=  [k=iota l=_fat r=_taf]
     loop(fat l, taf r)
   ::
-
-
   ++  view
     =|  res=(map pith _?>(?=(^ fil.fat) u.fil.fat))
     |=  [=care pax=pith]
