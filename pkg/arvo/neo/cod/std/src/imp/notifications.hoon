@@ -47,7 +47,7 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?+      stud
-            [~ [%notifications-controller !>(state)]]
+            !!
           %notifications-controller
         ::  XX need to check vaz?
         [~ [%notifications-controller vaz]]
