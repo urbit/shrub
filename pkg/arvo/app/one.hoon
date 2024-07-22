@@ -6,6 +6,14 @@
 /+  serv=server
 /*  txt-root-fern   %hoon   /one/root/hoon
 /*  txt-root-neo    %hoon   /one/neo/hoon
+/*  txt-ford-same   %hoon   /neo/cod/std/src/imp/ford-same/hoon
+/*  txt-ford-slop   %hoon   /neo/cod/std/src/imp/ford-slop/hoon
+/*  txt-ford-slap   %hoon   /neo/cod/std/src/imp/ford-slap/hoon
+/*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
+/*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
+/*  txt-ford-reef   %hoon   /neo/cod/std/src/imp/ford-reef/hoon
+/*  txt-ford-text   %hoon   /neo/cod/std/src/imp/ford-text/hoon
+
 =>
   |%
   ++  prelude  !>(util)
@@ -101,8 +109,17 @@
   ^+  run
   =.  our.farm  our.bowl
   =/  vaz  (vang & /root)
-  =/  hon  (scan (trip txt-root-neo) (full (ifix [gay gay] tall:vaz)))
-  (install ~ (slap prelude hon))
+  =/  hon  
+    (road |.((scan (trip txt-root-neo) (full (ifix [gay gay] tall:vaz)))))
+  %+  install  ~
+  %+  slym  (slap prelude hon)
+  :_  ~
+  :~  [%ford-same txt-ford-same]
+      [%ford-face txt-ford-face]
+      [%ford-slop txt-ford-slop]
+      [%ford-text txt-ford-text]
+      [%ford-slap txt-ford-slap]
+  ==
 ++  on-poke
   |=  [=mark =vase]
   ^+  run
@@ -117,7 +134,7 @@
       %-  print:(farm:etch farm)
       run
     ==
-  ?>  =(%one-task mark)
+  ?>  |(=(%fern-task mark) =(%one-task mark))
   =+  !<(=task:fern:t vase)
   fe-abet:(fe-call:(fe p.task) q.task)
 ++  on-peer
@@ -144,7 +161,8 @@
         *(set hunt:t)
     ==
   =.  zion  (~(put of zion) pith fern)
-  run
+  fe-abet:fe-boot:(fe pith)
+::
 ++  harvest
   |=  crop=seed:t
   ^+  run
@@ -167,7 +185,8 @@
   |=  =pith:t
   =/  =fern:t  (~(got of zion) pith)
   |%
-  ++  fe-abet  run(zion (~(put of zion) pith fern))
+  ++  fe-abet  
+    run(zion (~(put of zion) pith fern))
   ++  fe  .
   ++  fe-farm  (~(dip plow farm) pith)
   ++  fe-mien
@@ -183,16 +202,20 @@
   ++  fe-hear
     |=  =hunt:neo
     (fe-call %hear hunt)
-  ::
-  ++  fe-call
-    |=  =note:fern:t
-    =/  res=vase  (slym (slap fe-code limb/%call) note)
+  ++  fe-boot
+    (fe-ingest (slap fe-code limb/%boot))
+  ++  fe-ingest
+    |=  res=vase
     =+  !<([new=seed:t io=(list gift:fern:t)] (slot 2 res))
     =.  seed  (~(uni of seed) new)
     =.  farm  (~(rep plow farm) pith (~(plant plow fe-farm) seed))
     =.  fe    (fe-deal io)
     =.  code.fern  (slot 3 res)
     fe
+  ::
+  ++  fe-call
+    |=  =note:fern:t
+    (fe-ingest (slym (slap fe-code limb/%call) note))
   ++  fe-deal
     |=  io=(list gift:fern:t)
     ^+  fe

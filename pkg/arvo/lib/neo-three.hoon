@@ -64,6 +64,7 @@
       |^  ,[=seed io=(list gift)]
       ++  merge
         |=  [a=$ b=$]
+        ~&  merging/[a=~(key by ~(tar of seed.a)) b=~(key by ~(tar of seed.b))]
         ^+  a
         %_  a
           seed  (~(uni of seed.a) seed.b)
@@ -165,6 +166,11 @@
 
   ++  tab   etch(ind (add ind stop))
   ++  untab  etch(ind (sub ind stop))
+  ++  print-vase
+    |=  vax=vase
+    ?:  (gth (met 3 (jam q.vax)) 1.000)
+      (print-ln "too large to print")
+    (print-tank (sell vax))
   ++  print-tank
     |=  a=tank
     =/  tan=wall  (~(win re a) [ind edg])
@@ -191,6 +197,34 @@
     ?:  =(cont ~)
       etch
     $(a cont)
+  ++  seed
+    |=  s=seed:fern:t
+    =.  etch  (print-ln-raw 2 "Seed")
+    =<  (print-ln-raw 2 "seed done")
+    %+  roll  ~(aap of s)
+    |=  [[=pith:neo =note:t] e=_etch]
+    ^+  e
+    =.  e  
+      %+  print-ln-raw:e  1
+      %-  en-tape:pith:neo 
+      pith 
+    ?-  -.note
+      %grow  untab:(print-vase:tab:e q.pail.note)
+      %cull  e
+   ==
+  ++  epic
+    |=  p=epic:neo
+    ~>  %slog.[2 leaf/"Epic"]
+    =<  (print-ln-raw 2 "Done")
+    %+  roll  ~(aap of p)
+    |=  [[=pith:neo =saga:t] e=_etch]
+    ^+  e
+    =.  e  
+      %+  print-ln-raw:e  1
+      %-  en-tape:pith:neo 
+      pith 
+    untab:(print-vase:tab:e q.q.q.saga)
+  ::
   ++  farm
     |=  f=farm:t
     ^+  etch
@@ -201,14 +235,15 @@
       %+  print-ln-raw:e  1
       %-  en-tape:pith:neo 
       pith 
-    =.  e  (body:e (~(gut of why.f) pith *body:t))
+    =.  e  (body:e %y (~(gut of why.f) pith *body:t))
+    =.  e  (body:e %z (~(gut of zed.f) pith *body:t))
     (loam:e l)
   ::
   ++  body
-    |=  b=body:t
+    |=  [kind=?(%y %z) b=body:t]
     ^+  etch
     =/  [key=@ *]  (need (ram:on:body:t b))
-    (print-ln "y case {(scow %ud key)}")
+    (print-ln "{<kind>} case {(scow %ud key)}")
   ++  loam-verb  `?`&
   ::
   ++  loam
@@ -237,7 +272,7 @@
     ^-  [(unit data:t) stop=? _e]
     :+  `data  stop=|
     =.  e  (print-ln:e "value for version: {(scow %ud case)}:")
-    untab:(print-tank:tab:e (sell q.pail.data))
+    untab:(print-vase:tab:e q.pail.data)
   --
 ::
 ++  plow
@@ -317,13 +352,22 @@
     ::
     ++  read-z
       ^-  (unit epic:neo)
-      ~
+      ?~  bod=(~(get of zed) pith.hunt)
+        ~
+      ?~  sol=(get:on:body:t u.bod case)
+        ~
+      :-  ~
+      %-  ~(gas of *epic:neo)
+      %+  murn  ~(tap by u.sol)
+      |=  [=pith:neo cas=@ud]
+      ?~  res=(need (read-x-raw pith cas))
+        ~
+      `[pith u.res]
     --
   ++  look
     |=  =hunt:neo
     =/  =case:neo
       (get-case hunt)
-    ~&  case
     (scry hunt (get-case hunt))
   ::
   ++  get-case

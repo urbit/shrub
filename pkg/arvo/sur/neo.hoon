@@ -1344,13 +1344,20 @@
   |@
   ++  raw  ((on iota *) lte-iota)
   +$  item  [key=iota =val]
-  +$  val  _?>(?=(^ a) +.n.a)
+  +$  val  ,_?>(?=(^ a) +.n.a)
   +$  tre   (tree item)
   ++  run
     |*  fun=gate
-    |-  ^+  a
+    |-
     ?~  a  a
     [n=[key.n.a (fun val.n.a)] l=$(a l.a) r=$(a r.a)]
+  ++  gas
+    |*  b=(list [p=* q=*])
+    =>  .(b `(list _?>(?=(^ a) n.a))`b)
+    |-  ^+  a
+    ?~  b
+      a
+    $(b t.b, a (put i.b))
   ::
   ++  rut
     |*  fun=gate
@@ -1359,7 +1366,7 @@
     [n=[key.n.a (fun key.n.a val.n.a)] l=$(a l.a) r=$(a r.a)]
   ::
   ++  uno
-    ~/  %uni
+    ~/  %uno
     |*  b=_a
     |*  meg=$-([* * *] *)
     |-  ^+  a
@@ -1374,12 +1381,28 @@
     ?:  (lte-iota key.n.a key.n.b)
       $(l.b $(b l.b, r.a ~), a r.a)
     $(r.b $(b r.b, l.a ~), a l.a)
+  ::
+  ++  uni
+    ~/  %uni
+    |*  b=_a
+    |-  ^+  b
+    ?~  b  a
+    ?~  a  b
+    ?:  =(key.n.a key.n.b)
+      [n=n.b l=$(a l.a, b l.b) r=$(a r.a, b r.b)]
+    ?:  (mor key.n.a key.n.b)
+      ?:  (lte-iota key.n.b key.n.a)
+        $(l.a $(a l.a, r.b ~), b r.b)
+      $(r.a $(a r.a, l.b ~), b l.b)
+    ?:  (lte-iota key.n.a key.n.b)
+      $(l.b $(b l.b, r.a ~), a r.a)
+    $(r.b $(b r.b, l.a ~), a l.a)
+
 
 
   ::  +put: ordered item insert
   ::
   ++  put
-    ~/  %put
     |*  [b=iota c=*]
     |-  ^+  a
     ::  base case: replace null with single-item tree
@@ -1406,12 +1429,20 @@
   ::  +ram: produce tail (rightmost item) or null
   ::
   ++  ram
-    ~/  %ram
     ^-  (unit item)
     ?~  a    ~
     |-
     ?~  r.a  `n.a
     $(a r.a)
+  ::  +pry: produce head (leftmost item) or null
+  ::
+  ++  pry
+    ^-  (unit item)
+    ?~  a    ~
+    |-
+    ?~  l.a  `n.a
+    $(a l.a)
+
   ++  tap
     ^-  (list item)
     =|  b=(list item)
@@ -1421,7 +1452,6 @@
   ::  +get: get val at key or return ~
   ::
   ++  get
-    ~/  %get
     |=  b=iota
     ^-  (unit val)
     ?~  a  ~
@@ -1479,6 +1509,41 @@
 ++  of
   =|  fat=(axal)
   |@ 
+  ::  XX: strange moist
+  ++  set
+    |*  [pax=pith ls=_kid.fat]
+    ^+  fat
+    :: =/  l  ~(tap aon ls)
+    %+  rep  pax
+    =.  fat  (dip pax)
+    :: |-
+    =.  kid.fat  (~(uni aon ls) kid.fat)
+    fat
+
+  ::  XX: TODO: clarify whether ram/pry get lowest existing, or lowest
+  ::  subtree
+  ++  pry
+    |*  pax=pith
+    ^-  (unit [key=iota val=_?>(?=(^ fil.fat) u.fil.fat)])
+    =/  res=(unit [key=iota val=_fat])
+      ~(pry aon kid:(dip pax))
+    ?~  res
+      ~
+    ?~  fil.val.u.res
+      ~
+    [~ u=[key=key.u.res val=u.fil.val.u.res]] ::
+
+  ++  ram
+    |*  pax=pith
+    ^-  (unit [key=iota val=_?>(?=(^ fil.fat) u.fil.fat)])
+    =/  res=(unit [key=iota val=_fat])
+      ~(ram aon kid:(dip pax))
+    ?~  res
+      ~
+    ?~  fil.val.u.res
+      ~
+    [~ u=[key=key.u.res val=u.fil.val.u.res]] ::
+  ::
   ++  rot
     (need fil.fat)
   ++  run
@@ -1544,9 +1609,9 @@
     =|  res=(list pith)
     =|  cur=pith
     |=  pax=pith
-    ^-  (set pith)
+    ^-  (^set pith)
     ?~  pax
-      (~(gas in *(set pith)) res)
+      (~(gas in *(^set pith)) res)
     =?  res  ?=(^ fil.fat)
       [cur res]
     $(fat (~(got aon kid.fat) i.pax), pax t.pax, cur (snoc cur i.pax))
@@ -2405,7 +2470,6 @@
   ::  +gat: get everything at key
   ::
   ++  gat
-    ~/  %gat
     |*  b=@
     ^-  (unit _?>(?=(^ a) n.a))
     ?~  a  ~

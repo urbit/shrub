@@ -5,7 +5,10 @@
 ::     /cod/ - Build system
 ::     /int/ - interfaces
 
+=/  prelude  !>(.)
+|=  neo-args=[ford=(list [=stud:neo txt=@t]) user=(list [=pith:neo =vial:neo])]
 =>
+  ::  |=  init=[build=(list [=post:neo txt=@t]) user=(list card:neo)]
   |%
   ++  riff
     => 
@@ -40,6 +43,7 @@
   +$  state-0
     $:  following=(jug pith:n pith:n)
         ripe=_|
+        booting=_&
         ~
     ==
   ++  is-parent
@@ -83,35 +87,60 @@
 =|  state-0
 |_  =mien:fern:t  
 ++  plow  ~(. ^plow farm.mien)
-++  grab
-  |=  =pith:n
-  ^-  (unit pail:n)
-  ?~  res=(look:plow %x pith)
-    ~
-  ?~  val=(~(get of u.res) /)
-    ~
-  `q.q.u.val
 ::
 ++  this  .
 ++  our  our.mien
+++  here  pfix.mien
 ++  boot
   ^-  [step:f _this]
-  |^
-  =/  ls=(list card:b)  cards
+  |^  ^-  [step:f _this]
   =|  =step:f
-  =.  seed.step  (~(put of seed.step) #/$/cod/riff %grow ~ riff/!>(riff) *(set stud:neo))
-  :: =.  io.step  (snoc io.step 
-  |-
-  ?~  ls
-    [step this]
-  =^  s=step:f  this
-    abet:(arvo #/$/boot i.ls)
-  $(ls t.ls, step (merge:step:f step s))
-  ++  cards
+  =.  seed.step  (~(put of seed.step) (~(pith press:n imp/%riff) %out) %grow ~ riff/!>(riff) *(set stud:neo))
+  =.  seed.step  (~(put of seed.step) ~ %grow ~ sig/!>(~) *(set stud:neo))
+  =.  seed.step  (~(put of seed.step) #/cod/reef %grow ~ riff/prelude *(set stud:neo))
+  =/  pit=pith:n  #/$/boot
+  =.  seed.step  (hatch seed.step)
+  =.  io.step  (snoc io.step `gift:f`[%drip ~])
+  [step this]
+  ::
+  ++  make-riff
+    |=  [=post:n riff=vase]
+    ^-  card:b
+    [(pess post) %make %riff `vase/riff sig/!>(~)]
+  ::
+  ++  pess
+    |=  =post:n
+    ^-  pith:n
+    (~(pith press:n post) %out)
+  ::
+  ++  slap-riff
+    |=  [=post:n hon=hoon]
+    (make-riff post (slap prelude hon))
+  ::
+  ++  hatch
+    |=  sed=seed:f
+    ^+  sed
+    =<  +
+    %-  roll
+    :_  |=  [=card:b idx=@ out=_sed]
+        ^-  [@ seed:f]
+        =/  =note:t
+          [%grow ~ bush-card/!>(card) *(set stud:n)]
+        [+(idx) (~(put of out) #/$/boot/[ud/idx] note)]
     ^-  (list card:b)
-    *(list card:b)
-::  :~  [#/cod ~]
-::  ==
+    %+  welp
+      :~  [(slap-riff pro/%hoon !,(*hoon @t))]
+          [(slap-riff pro/%txt !,(*hoon @t))]
+          ::[(~(pith press:n imp/%desk) (make-riff (slap prelude !,(*hoon desk))))]
+      ==
+    %+  turn   ford.neo-args
+    |=  [=stud:n txt=@t]
+    =;  hon=hoon
+      (slap-riff imp/stud hon)
+    %-  road  |.
+    =/  wer=path  (~(path press:n imp/stud) %src)
+    =+  vaz=(vang & (pout wer))
+    (scan (trip txt) (full (ifix [gay gay] tall:vaz)))
   --
 ++  call
   |=  =note:fern:t
@@ -124,7 +153,31 @@
   ==
 ++  drip
   ^-  [step:f _this]
-  [*step:f this]
+  =|  =step:f
+  ?:  booting
+    =/  =epic:n
+      (need (~(look plow farm.mien) [%z /]))
+    %-  print:(epic:etch epic)
+    %-  (slog leaf/"Checking for more boot cards" ~)
+    ?~  nex=(~(pry of epic) #/$/boot)
+      ~&  >  %finished-booting
+      [step this(booting |)]
+    =.  seed.step  (~(put of seed.step) #/$/boot/[key.u.nex] %cull ~)
+    =/  =saga:n  val.u.nex
+    =/  =tale:n   q.saga
+    =/  =pail:n   q.tale
+    =/  vax=vase  q.pail
+    =+  !<(=card:b vax)
+    ~&  larval/[step=`@`+:key.u.nex dst=p.card]
+    =^  s=step:f  this
+      abet:(arvo #/$/xeno/[da/now.mien] card)
+    =.  step  (merge:step:f step s)
+    =.  io.step  (snoc io.step %drip ~)
+    %-  print:(seed:etch seed.step)
+    [step this]
+  ~&  %neo-funny-drip
+  [step this]
+  
 ++  hear
   |=  =hunt:n 
   ^-  [step:f _this]
@@ -258,7 +311,7 @@
   ++  vase
     ^-  ^vase
     ~|  husk/stud
-    q:(need (grab pith))
+    q:(need (grab pith *step:f))
   ++  is-bunted
     (~(nest ut -:!>(~)) | p:vase)
   ++  default-kook
@@ -302,6 +355,16 @@
     (pout pith)
   --
 ++  sys-pith  #/$/sys
+++  grab
+  |=  [=pith:n =step:f]
+  =/  new  (~(get of seed.step) pith)
+  ?:  &(?=(^ new) ?=(%grow -.u.new))
+    `pail.u.new
+  ?~  res=(look:plow %x pith)
+    ~
+  ?~  val=(~(get of u.res) /)
+    ~
+  `q.q.u.val
 ::
 ++  arvo
   =|  =block:n
@@ -312,21 +375,30 @@
           =gift:n             :: changelist not gifted
       ==
   |=  =move:b
-  =/  src=name:n  (de-pith:name:n p.move)
-  =/  init=[src=name:n dst=name:n]
-    [src (de-pith:name:n p.q.move)]
+  :: =/  src=name:n  (de-pith:name:n p.move)
+  =/  [src=pith:n dst=pith:n]  [p p.q]:move
+  =/  init=[src=pith:n dst=pith:n]
+    [p p.q]:move
   =/  init-move  move
-  =/  here  pith.dst.init
-  ?>  =(our.mien ship.dst.init)
+  =/  here  dst.init
+  :: ?>  =(our.mien ship.dst.init)
   ::  XX: blocking semantives
   =<  (start move)
   |%
+  ++  grab
+
+    |=  =pith:n
+    ^-  (unit pail:n)
+    (^grab pith step)
+
   ++  grow
     |=  [=pith:n =tale:n]
     =.  seed.step  (~(put of seed.step) pith %grow ~ q.tale *(set stud:n))
+    ~&  >>>  %growing
+    %-  print:(seed:etch seed.step)
     arvo
-
-  ++  abet  [step this]
+  ++  abet  
+    [step this]
   ++  arvo  .
   ++  start
     |=  =move:b
@@ -344,9 +416,9 @@
     |=  =move:n
     ?.  =(~ err.block)
       arvo
-    =.  src  (de-pith:name:n p.move)
-    =/  =name:n  (de-pith:name:n p.q.move)
-    =.  here       +:p.q.move
+    =:  src   p.move   
+        here  p.q.move
+      ==
     ?+  -.q.q.move  !!
       %make  (make +.q.q.move)
       %poke  (poke +.q.q.move)
@@ -356,18 +428,24 @@
     |=  [code=stud:n init=(unit pail:n) =crew:n]
     ^+  arvo
     =|  =dock:n  :: XX: wrong, fix
-    =/  wav=pail:n  (fall (grab %int here) neo-wave/!>([src dock crew &]))
+    =/  wav=pail:n  (fall (grab %int here) neo-wave/!>(`wave:n`[code dock crew &]))
     ?>  =(%neo-wave p.wav)
     =/  =band:n  deps:~(kook husk code)
     =+  !<(=wave:n q.wav)
+    =.  code.wave  code  :: XX: api change req
+    =.  live.wave  &  :: will turn off again if invalid
     =^  bad=(set term)  arvo
       (jazz crew band)
     ?.  =(~ bad)
       ~|  make-no-dep/~(tap in bad)
       !!
     =.  arvo  (dance crew band)
-    =^  cards=(list card:n)  arvo
+    =.  crew.wave  crew :: XX: check
+    =.  arvo  (grow int/here [*poem:n neo-wave/!>(wave)])
+    =^  cards=(list card:n)  arvo 
       (soft-surf |.(su-abet:(su-make:surf init)))
+    ~&  %neo-done-make
+    %-  print:(seed:etch seed.step)
     (ingest cards)
   ++  jazz :: XX: fix
     =|  bad=(set term)
@@ -427,17 +505,20 @@
     |=  tap=(trap (quip card:n _arvo))
     ^-  (quip card:n _arvo)
     ::  do not virtualise fastboot
-    ?:  &(!ripe =((de-pith:name:n sys-pith) src.init))
-      (tap)
+    :: ?:  &(!ripe =(sys-init)
+      :: (tap)
     =/  res=(each (quip card:n _arvo) tang)
       (mule tap)
+    ~&  surf/[here -.res]
     ?:  ?=(%& -.res)
       p.res
+    %-  (slog leaf/"wipeout {<here>}" p.res)
     =.  err.block  `[%goof p.res]
     `arvo
   ++  surf
     =/  wav  (need (grab %int here))
     =+  !<(=wave:n q.wav)
+    ~&  wave/wave
     =|  cards=(list card:n)
     =/  =kook:n  ~(kook husk code.wave)
     =.  dock.wave  ~(dock husk code.wave)
@@ -450,7 +531,7 @@
     ++  su-bowl
       =/  hare  (welp pfix.mien here)
       ^-  bowl:n
-      :*  src
+      :*  [our.mien src]
           our.mien
           hare
           hare
@@ -511,8 +592,8 @@
     ++  su-grow
       |=  =pail:n
       ^+  su-core
-      ?.  (blow state:kook p.pail)
-        (mean leaf/"Returned bad state stud, wanted {<state.kook>}, have {<p.pail>}" ~)
+::    ?.  (blow state:kook p.pail)
+::      (mean leaf/"Returned bad state stud, wanted {<state.kook>}, have {<p.pail>}" ~)
       =.  arvo  (grow here *poem:n pail)
       su-core
     ::

@@ -20,7 +20,7 @@
   ==
 ++  form
   ^-  form:neo
-  |_  [=bowl:neo =saga:neo]
+  |_  [=bowl:neo =aeon:neo =pail:neo]
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
