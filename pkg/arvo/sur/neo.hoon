@@ -133,169 +133,6 @@
 ++  axil
   |$  [item]
   [fil=(unit item) kid=(map pith item)]
-++  of
-  =|  fat=(axal)
-  |@ 
-  ++  view
-    =|  res=(map pith _?>(?=(^ fil.fat) u.fil.fat))
-    |=  [=care pax=pith]
-    =.  fat  (dip pax)
-    =?  res  ?=(^ fil.fat)
-     (~(put by res) ~ u.fil.fat)
-    ?+  care  !!
-      %x  res
-      %y  =.(fat snip (~(uni by res) tar))
-      %z  (~(uni by res) tar)
-    ==
-  ::
-  ++  anc-jab
-    |*  [pax=pith fun=$-(* *)]
-    ^+  fat
-    ?~  pax
-      fat
-    =?  fil.fat  ?=(^ fil.fat)
-      `(fun u.fil.fat)
-    fat(kid (~(put by kid.fat) i.pax $(fat (~(got by kid.fat) i.pax), pax t.pax)))
-    
-  ::
-  ++  anc
-    =|  res=(list pith)
-    =|  cur=pith
-    |=  pax=pith
-    ^-  (set pith)
-    ?~  pax
-      (~(gas in *(set pith)) res)
-    =?  res  ?=(^ fil.fat)
-      [cur res]
-    $(fat (~(got by kid.fat) i.pax), pax t.pax, cur (snoc cur i.pax))
-  ++  parent
-    =|  res=(unit pith)
-    =|  cur=pith
-    |=  pax=pith
-    |-  ^+  res
-    ?~  pax
-      res
-    =?  res  ?=(^ fil.fat)
-      `cur
-    =/  nex  (~(get by kid.fat) i.pax)
-    ?~  nex
-      res
-    $(fat u.nex, pax t.pax, cur (snoc cur i.pax))
-  ++  snip
-    |-  ^+  fat
-    =*  loop  $
-    %_    fat
-        kid
-      %-  ~(run by kid.fat)
-      |=  f=_fat
-      ?^  fil.f
-        [`u.fil.f ~]
-      loop(fat f)
-    ==
-  ::
-  ++  kid
-    |=  pax=pith
-    ^-  (map pith _?>(?=(^ fil.fat) u.fil.fat))
-    =.  fat  (dip pax)
-    =.  fat  snip
-    =.  fil.fat  ~
-    tar
-  ::
-  ++  kids
-    |=  pax=pith
-    ^-  (axil _?>(?=(^ fil.fat) u.fil.fat))
-    :-  (get pax)
-    (kid pax)
-  ::
-  ++  del
-    |=  pax=pith
-    ^+  fat
-    ?~  pax  [~ kid.fat]
-    =/  kid  (~(get by kid.fat) i.pax)
-    ?~  kid  fat
-    fat(kid (~(put by kid.fat) i.pax $(fat u.kid, pax t.pax)))
-  ::
-  ::  Descend to the axal at this path
-  ::
-  ++  dip
-    |=  pax=pith
-    ^+  fat
-    ?~  pax  fat
-    =/  kid  (~(get by kid.fat) i.pax)
-    ?~  kid  [~ ~]
-    $(fat u.kid, pax t.pax)
-  ::
-  ++  gas
-    |*  lit=(list (pair pith _?>(?=(^ fil.fat) u.fil.fat)))
-    ^+  fat
-    ?~  lit  fat
-    $(fat (put p.i.lit q.i.lit), lit t.lit)
-  ++  got
-    |=  pax=pith
-    ~|  missing-room/pax
-    (need (get pax))
-  ++  gut
-    |*  [pax=pith dat=*]
-    =>  .(dat `_?>(?=(^ fil.fat) u.fil.fat)`dat, pax `pith`pax)
-    ^+  dat
-    (fall (get pax) dat)
-  ::
-  ++  get
-    |=  pax=pith
-    fil:(dip pax)
-  ::  Fetch file at longest existing prefix of the path
-  ::
-  ++  fit
-    |=  pax=pith
-    ^+  [pax fil.fat]
-    ?~  pax  [~ fil.fat]
-    =/  kid  (~(get by kid.fat) i.pax)
-    ?~  kid  [pax fil.fat]
-    =/  low  $(fat u.kid, pax t.pax)
-    ?~  +.low
-      [pax fil.fat]
-    low
-  ::
-  ++  has
-    |=  pax=pith
-    !=(~ (get pax))
-  ::  Delete subtree
-  ::
-  ++  lop
-    |=  pax=pith
-    ^+  fat
-    ?~  pax  fat
-    |-
-    ?~  t.pax  fat(kid (~(del by kid.fat) i.pax))
-    =/  kid  (~(get by kid.fat) i.pax)
-    ?~  kid  fat
-    fat(kid (~(put by kid.fat) i.pax $(fat u.kid, pax t.pax)))
-  ::
-  ++  put
-    |*  [pax=pith dat=*]
-    =>  .(dat `_?>(?=(^ fil.fat) u.fil.fat)`dat, pax `pith`pax)
-    |-  ^+  fat
-    ?~  pax  fat(fil `dat)
-    =/  kid  (~(gut by kid.fat) i.pax ^+(fat [~ ~]))
-    fat(kid (~(put by kid.fat) i.pax $(fat kid, pax t.pax)))
-  ::
-  ++  tap
-    =|  pax=pith
-    =|  out=(list (pair pith _?>(?=(^ fil.fat) u.fil.fat)))
-    |-  ^+   out
-    =?  out  ?=(^ fil.fat)  :_(out [pax u.fil.fat])
-    =/  kid  ~(tap by kid.fat)
-    |-  ^+   out
-    ?~  kid  out
-    %=  $
-      kid  t.kid
-      out  ^$(pax (weld pax /[p.i.kid]), fat q.i.kid)
-    ==
-  ::  Serialize to map
-  ::
-  ++  tar
-    (~(gas by *(map pith _?>(?=(^ fil.fat) u.fil.fat))) tap)
-  --
 ::  $case: Canonical (%x) version
 +$  case  @ud
 ::  $soil: aeons, indexed by x
@@ -357,8 +194,6 @@
     $%  [%grow p=saga]
     ==
   --
---
-|%
 +$  sync  (trel pith hunt ?(%start %stop))
 ::  $curb: Constraint
 +$  curb
@@ -1501,9 +1336,143 @@
   --
 ++  axol  axal:..zuse
 ++  axol-of  of:..zuse
+++  uon
+  |$  [val]
+  ((mop iota val) lte-iota)
+++  aon
+  =|  a=((mop iota *) lte-iota)
+  |@
+  ++  raw  ((on iota *) lte-iota)
+  +$  item  [key=iota =val]
+  +$  val  _?>(?=(^ a) +.n.a)
+  +$  tre   (tree item)
+  ++  run
+    |*  fun=gate
+    |-  ^+  a
+    ?~  a  a
+    [n=[key.n.a (fun val.n.a)] l=$(a l.a) r=$(a r.a)]
+  ::
+  ++  rut
+    |*  fun=gate
+    |-  ^+  a
+    ?~  a  a
+    [n=[key.n.a (fun key.n.a val.n.a)] l=$(a l.a) r=$(a r.a)]
+  ::
+  ++  uno
+    ~/  %uni
+    |*  b=_a
+    |*  meg=$-([* * *] *)
+    |-  ^+  a
+    ?~  b  a
+    ?~  a  b
+    ?:  =(key.n.a key.n.b)
+      [n=[key=key.n.a val=(meg key.n.a val.n.a val.n.b)] l=$(a l.a, b l.b) r=$(a r.a, b r.b)]
+    ?:  (mor key.n.a key.n.b)
+      ?:  (lte-iota key.n.b key.n.a)
+        $(l.a $(a l.a, r.b ~), b r.b)
+      $(r.a $(a r.a, l.b ~), b l.b)
+    ?:  (lte-iota key.n.a key.n.b)
+      $(l.b $(b l.b, r.a ~), a r.a)
+    $(r.b $(b r.b, l.a ~), a l.a)
+
+
+  ::  +put: ordered item insert
+  ::
+  ++  put
+    ~/  %put
+    |*  [b=iota c=*]
+    |-  ^+  a
+    ::  base case: replace null with single-item tree
+    ::
+    ?~  a  [n=[b c] l=~ r=~]
+    ::  base case: overwrite existing .key with new .val
+    ::
+    ?:  =(key.n.a b)  a(val.n c)
+    ::  if item goes on left, recurse left then rebalance vertical order
+    ::
+    ?:  (lte-iota b key.n.a)
+      =/  l  $(a l.a)
+      ?>  ?=(^ l)
+      ?:  (mor key.n.a key.n.l)
+        a(l l)
+      l(r a(l r.l))
+    ::  item goes on right; recurse right then rebalance vertical order
+    ::
+    =/  r  $(a r.a)
+    ?>  ?=(^ r)
+    ?:  (mor key.n.a key.n.r)
+      a(r r)
+    r(l a(r l.r))
+  ::  +ram: produce tail (rightmost item) or null
+  ::
+  ++  ram
+    ~/  %ram
+    ^-  (unit item)
+    ?~  a    ~
+    |-
+    ?~  r.a  `n.a
+    $(a r.a)
+  ++  tap
+    ^-  (list item)
+    =|  b=(list item)
+    |-  
+    ?~  a  b
+    $(a l.a, b [n.a $(a r.a)])
+  ::  +get: get val at key or return ~
+  ::
+  ++  get
+    ~/  %get
+    |=  b=iota
+    ^-  (unit val)
+    ?~  a  ~
+    ?:  =(b key.n.a)
+      `val.n.a
+    ?:  (lte-iota b key.n.a)
+      $(a l.a)
+    $(a r.a)
+  ++  got
+    |=  b=iota
+    (need (get b))
+  ++  gut
+    |*  [b=iota c=*]
+    (fall (get b) c)
+
+
+  ::  +del: delete .key from .a if it exists, producing value iff deleted
+  ::
+  ++  del
+    ~/  %del
+    |*  b=iota
+    |-  ^+  a
+    ?~  a  [~ ~]
+    ::  we found .key at the root; delete and rebalance
+    ::
+    ?:  =(b key.n.a)
+      [`val.n.a nip]
+    ::  recurse left or right to find .key
+    ::
+    ?:  (lte-iota b key.n.a)
+      =+  [found lef]=$(a l.a)
+      [found a(l lef)]
+    =+  [found rig]=$(a r.a)
+    [found a(r rig)]
+  ++  nip
+    ~/  %nip
+    |-  ^+  a
+    ?>  ?=(^ a)
+    ::  delete .n.a; merge and balance .l.a and .r.a
+    ::
+    |-  ^-  (tree item)
+    ?~  l.a  r.a
+    ?~  r.a  l.a
+    ?:  (mor key.n.l.a key.n.r.a)
+      l.a(r $(l.a r.l.a))
+    r.a(l $(r.a l.r.a))
+  --
+  
 ++  axal
   |$  [item]  
-  [fil=(unit item) kid=(map iota $)]
+  [fil=(unit item) kid=(uon $)]
 ++  axil
   |$  [item]
   [fil=(unit item) kid=(map pith item)]
@@ -1522,7 +1491,7 @@
       `(b u.fil.fat)
     %=    c
         kid
-      %-  ~(run by kid.fat)
+      %-  ~(run aon kid.fat)
       |=  ax=_fat
       ^+  c
       loop(fat ax)
@@ -1539,13 +1508,14 @@
   ::
   ++  uni
     |*  taf=_fat
-    |- 
+    |-  ^+  fat
     =*  loop  $
     =?  fil.fat  =(~ fil.fat)
       fil.taf
     :-  ?~(fil.fat fil.taf fil.fat)
-    %-  (~(uno by kid.fat) kid.taf)
+    %-  (~(uno aon kid.fat) kid.taf)
     |=  [k=iota l=_fat r=_taf]
+    ^+  fat
     loop(fat l, taf r)
   ::
   ++  view
@@ -1567,7 +1537,7 @@
       fat
     =?  fil.fat  ?=(^ fil.fat)
       `(fun u.fil.fat)
-    fat(kid (~(put by kid.fat) i.pax $(fat (~(got by kid.fat) i.pax), pax t.pax)))
+    fat(kid (~(put aon kid.fat) i.pax $(fat (~(got aon kid.fat) i.pax), pax t.pax)))
     
   ::
   ++  anc
@@ -1579,7 +1549,7 @@
       (~(gas in *(set pith)) res)
     =?  res  ?=(^ fil.fat)
       [cur res]
-    $(fat (~(got by kid.fat) i.pax), pax t.pax, cur (snoc cur i.pax))
+    $(fat (~(got aon kid.fat) i.pax), pax t.pax, cur (snoc cur i.pax))
   ++  parent
     =|  res=(unit pith)
     =|  cur=pith
@@ -1589,7 +1559,7 @@
       res
     =?  res  ?=(^ fil.fat)
       `cur
-    =/  nex  (~(get by kid.fat) i.pax)
+    =/  nex  (~(get aon kid.fat) i.pax)
     ?~  nex
       res
     $(fat u.nex, pax t.pax, cur (snoc cur i.pax))
@@ -1598,7 +1568,7 @@
     =*  loop  $
     %_    fat
         kid
-      %-  ~(run by kid.fat)
+      %-  ~(run aon kid.fat)
       |=  f=_fat
       ?^  fil.f
         [`u.fil.f ~]
@@ -1623,9 +1593,9 @@
     |=  pax=pith
     ^+  fat
     ?~  pax  [~ kid.fat]
-    =/  kid  (~(get by kid.fat) i.pax)
+    =/  kid  (~(get aon kid.fat) i.pax)
     ?~  kid  fat
-    fat(kid (~(put by kid.fat) i.pax $(fat u.kid, pax t.pax)))
+    fat(kid (~(put aon kid.fat) i.pax $(fat u.kid, pax t.pax)))
   ::
   ::  Descend to the axal at this path
   ::
@@ -1633,7 +1603,7 @@
     |=  pax=pith
     ^+  fat
     ?~  pax  fat
-    =/  kid  (~(get by kid.fat) i.pax)
+    =/  kid  (~(get aon kid.fat) i.pax)
     ?~  kid  [~ ~]
     $(fat u.kid, pax t.pax)
   ::
@@ -1661,7 +1631,7 @@
     |=  pax=pith
     ^+  [pax fil.fat]
     ?~  pax  [~ fil.fat]
-    =/  kid  (~(get by kid.fat) i.pax)
+    =/  kid  (~(get aon kid.fat) i.pax)
     ?~  kid  [pax fil.fat]
     =/  low  $(fat u.kid, pax t.pax)
     ?~  +.low
@@ -1678,16 +1648,16 @@
     ^+  fat
     ?~  pax  fat
     |-
-    ?~  t.pax  fat(kid (~(del by kid.fat) i.pax))
-    =/  kid  (~(get by kid.fat) i.pax)
+    ?~  t.pax  fat(kid (~(del aon kid.fat) i.pax))
+    =/  kid  (~(get aon kid.fat) i.pax)
     ?~  kid  fat
-    fat(kid (~(put by kid.fat) i.pax $(fat u.kid, pax t.pax)))
+    fat(kid (~(put aon kid.fat) i.pax $(fat u.kid, pax t.pax)))
   ++  rep
     |*  [pax=pith fit=_fat]
     |-  ^+  fat
     ?~  pax  fit
-    =/  kid  (~(gut by kid.fat) i.pax ^+(fat [~ ~]))
-    fat(kid (~(put by kid.fat) i.pax $(fat kid, pax t.pax)))
+    =/  kid  (~(gut aon kid.fat) i.pax ^+(fat [~ ~]))
+    fat(kid (~(put aon kid.fat) i.pax $(fat kid, pax t.pax)))
   ::
   ++  jab
     |*  [pax=pith fun=$-(_?>(?=(^ fil.fat) u.fil.fat) _?>(?=(^ fil.fat) u.fil.fat))]
@@ -1701,8 +1671,8 @@
     =>  .(dat `_?>(?=(^ fil.fat) u.fil.fat)`dat, pax `pith`pax)
     |-  ^+  fat
     ?~  pax  fat(fil `dat)
-    =/  kid  (~(gut by kid.fat) i.pax ^+(fat [~ ~]))
-    fat(kid (~(put by kid.fat) i.pax $(fat kid, pax t.pax)))
+    =/  kid  (~(gut aon kid.fat) i.pax ^+(fat [~ ~]))
+    fat(kid (~(put aon kid.fat) i.pax $(fat kid, pax t.pax)))
   ::
   ++  rut
     =|  here=pith
@@ -1710,7 +1680,7 @@
     ^+  fat
     %=  fat
       fil  ?~(fil.fat ~ `(fun here u.fil.fat))
-      kid  (~(rut by kid.fat) |=([iot=iota f=_fat] ^$(here (snoc here iot), fat f)))
+      kid  (~(rut aon kid.fat) |=([iot=iota f=_fat] ^$(here (snoc here iot), fat f)))
     ==
   ::
   ++  tap
@@ -1718,8 +1688,10 @@
     =|  out=(list (pair pith _?>(?=(^ fil.fat) u.fil.fat)))
     |-  ^+   out
     =?  out  ?=(^ fil.fat)  :_(out [pax u.fil.fat])
-    =/  kid  ~(tap by kid.fat)
+    =/  kid=(list (pair iota (axal _?>(?=(^ fil.fat) u.fil.fat))))
+      ~(tap aon kid.fat)
     |-  ^+   out
+    ~!  out
     ?~  kid  out
     %=  $
       kid  t.kid
@@ -2287,6 +2259,12 @@
       ?^(i.a i.a [%tas i.a])
     ?^(i.b i.b [%tas i.b])
   $(a t.a, b t.b)
+++  lte-iota
+  |=  [a=iota b=iota]
+  ?:  =(a b)  &
+  %+  lte-dime
+    ?^(a a [%tas a])
+  ?^(b b [%tas b])
 ::
 ++  lte-dime
   |=  [a=dime b=dime]
