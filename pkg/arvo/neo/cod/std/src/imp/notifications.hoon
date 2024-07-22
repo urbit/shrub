@@ -2,6 +2,20 @@
 /@  notifications-config
 /@  notifications-controller
 ^-  kook:neo
+=>
+::
+::  helper core
+|%
+++  has-pith-in-any
+  |=  [piths=(set pith) query=pith]
+  ^-  ?
+  %-  ~(any in piths)
+  |=  =pith
+  ^-  ?
+  =(query (scag (lent query) pith))
+--
+::
+::  main core
 |%
 ++  state
   ^-  curb:neo
@@ -69,14 +83,14 @@
         ::     this is to handle killing/muting entire subtrees
         ::
         ::
-        ?:  (~(has in kill.config) pith.not)
+        ?:  (has-pith-in-any kill.config pith.not)
           ~
-        ?:  (~(has in mute.config) pith.not)
+        ?:  (has-pith-in-any mute.config pith.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
           ==
-        ?:  (~(has in buzz.config) pith.not)
+        ?:  (has-pith-in-any buzz.config pith.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
