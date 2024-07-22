@@ -34,8 +34,8 @@
       ^-  (quip card:neo pail:neo)
       ?^  old
         [~ u.old]
-      :_  [%notifications-controller !>(|=(notification /default)]
-      :~  :-  #/[here.bowl]/default
+      :_  [%notifications-controller !>(|=(notification /default))]
+      :~  :-  (welp here.bowl ~[%default])
           :*  %make
               %notifications-config
               `[%notifications-config !>(*notifications-config)]
@@ -67,25 +67,27 @@
         ::     probably check if first iota in pith.not is first iota of a
         ::     kill.config pith, if yes check second iota, etc.
         ::     this is to handle killing/muting entire subtrees
+        ::
+        ::
         ?:  (~(has in kill.config) pith.not)
           ~
         ?:  (~(has in mute.config) pith.not)
           =.  flag.not  %.y
-          :~  :-  #/[here.bowl]/[da/now.bowl]
-              [%make %notification `[%notification !>(not)]]
+          :~  :-  (welp here.bowl ~[[da/now.bowl]])
+              [%make %notification `[%notification !>(not)] ~]
           ==
         ?:  (~(has in buzz.config) pith.not)
           =.  flag.not  %.y
-          :~  :-  #/[here.bowl]/[da/now.bowl]
-              [%make %notification `[%notification !>(not)]]
+          :~  :-  (welp here.bowl ~[[da/now.bowl]])
+              [%make %notification `[%notification !>(not)] ~]
               ::  XX send push notification
           ==
         ?.  flag.not
           =.  flag.not  %.y
-          :~  :-  #/[here.bowl]/[da/now.bowl]
+          :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
           ==
-        :~  :-  #/[here.bowl]/[da/now.bowl]
+        :~  :-  (welp here.bowl ~[[da/now.bowl]])
             [%make %notification `[%notification !>(not)] ~]
             ::  XX send push notification
         ==

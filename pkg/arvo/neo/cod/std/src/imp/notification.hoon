@@ -19,13 +19,15 @@
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
-      ?<  =(~ old)
-      [~ u.old]
+      ?^  old
+        [~ u.old]
+      ~|  "notification: no notification provided"
+      !!
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(stud %flag)
       ?>  =(our.bowl ship.src.bowl)
-      [~ [%notification [!<(flag vaz) time.state pith.state cord.state]]]
+      [~ [%notification !>([!<(flag vaz) time.state pith.state cord.state])]]
   --
 --
