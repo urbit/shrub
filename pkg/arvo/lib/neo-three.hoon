@@ -45,6 +45,7 @@
       $%  [%bush =move:bush]
           [%hear =hunt]
           [%have =ship =chit]
+          [%drip ~]
       ==
     +$  gift
       $%  [%meet =ship pact=(set stud)]  :: perform service discovery on ship
@@ -54,8 +55,21 @@
           [%shun =hunt]  :: stop listening to changes
         ::
           [%note =pith =note] :: deliver external note
+        ::
+          [%drip ~]
+        ::
+          [%arvo hand=pith note=note-arvo]
       ==
-    +$  step  [=seed io=(list gift)]
+    ++  step  
+      |^  ,[=seed io=(list gift)]
+      ++  merge
+        |=  [a=$ b=$]
+        ^+  a
+        %_  a
+          seed  (~(uni of seed.a) seed.b)
+          io    (welp io.a io.b)
+        ==
+      --
     +$  fern
       $:  code=vase
           anew=(axal ever)

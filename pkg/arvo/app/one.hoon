@@ -199,11 +199,17 @@
     ?~  io
       fe
     =/  =gift:fern:t  i.io
-    ?+    -.gift   $(io t.io) :: XX: fixme
+    ?+    -.gift   
+       ~&   skipping-fern-gift/-.gift
+       $(io t.io) :: XX: fixme
         %hark
       ~&  new-listener-for/hunt.gift
       =.  heed.fern  (~(put in heed.fern) hunt.gift)
       =.  ears  (~(put ju ears) hunt.gift pith)
+      $(io t.io)
+    ::
+        %drip
+      =.  run  (emit %pass /drip %agent [our dap]:bowl %poke fern-task/!>(`task:fern:t`[pith %drip ~]))
       $(io t.io)
     ==
   --

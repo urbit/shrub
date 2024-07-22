@@ -3,10 +3,36 @@
 ::   Reserved namespace
 ::
 ::     /cod/ - Build system
-::     /int - interfaces
+::     /int/ - interfaces
 
 =>
   |%
+  ++  riff
+    => 
+    |%
+    ++  card  card:neo
+    --
+    ^-  kook:neo
+    |%
+    ++  state  pro/%vase
+    ++  poke   *(set stud:neo)
+    ++  kids  ~
+    ++  deps  ~
+    ++  form
+      ^-  form:neo
+      |_  [=bowl:neo =aeon:neo =pail:neo]
+      +*  sta  !<([cache=(unit vase) ~] state-vase)
+      ++  poke
+        |=  pail:neo  
+        ^-  (quip card:neo pail:neo)
+        `pail
+      ::
+      ++  init
+        |=  old=(unit pail:neo)
+        ^-  (quip card:neo pail:neo)
+        `(need old)
+      --
+    --
   ++  verb  &
   ++  f   fern:t
   ++  b   bush:t
@@ -70,15 +96,35 @@
 ++  our  our.mien
 ++  boot
   ^-  [step:f _this]
-  [*step:f this]
+  |^
+  =/  ls=(list card:b)  cards
+  =|  =step:f
+  =.  seed.step  (~(put of seed.step) #/$/cod/riff %grow ~ riff/!>(riff) *(set stud:neo))
+  :: =.  io.step  (snoc io.step 
+  |-
+  ?~  ls
+    [step this]
+  =^  s=step:f  this
+    abet:(arvo #/$/boot i.ls)
+  $(ls t.ls, step (merge:step:f step s))
+  ++  cards
+    ^-  (list card:b)
+    *(list card:b)
+::  :~  [#/cod ~]
+::  ==
+  --
 ++  call
   |=  =note:fern:t
   ^-  [step:f _this]
   ?-  -.note
     %bush  abet:(arvo +.note)
     %hear  (hear +.note)
+    %drip  drip
     %have  !!
   ==
+++  drip
+  ^-  [step:f _this]
+  [*step:f this]
 ++  hear
   |=  =hunt:n 
   ^-  [step:f _this]
@@ -332,7 +378,7 @@
     |=  [=crew:n =band:n]
     ^+  arvo
     arvo
-
+  ::
   ++  ingest
     |=  caz=(list card:n)
     =/  =pith:n  (welp pfix.mien here)
