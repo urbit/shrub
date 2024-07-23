@@ -1,3 +1,4 @@
+/@  txt
 /@  notification
 /@  notifications-config
 /@  notifications-controller
@@ -23,7 +24,7 @@
 ::
 ++  poke
   ^-  (set stud:neo)
-  (sy %notification ~)
+  (sy %txt %notification ~)
 ::
 ++  kids
   ^-  kids:neo
@@ -34,6 +35,8 @@
       [[%pro %notification] ~]
       :-  [[%.n %tas] %.n]
       [[%pro %notifications-config] ~]
+      :-  [[%.n %t] %.n]
+      [[%pro %txt] ~]
   ==
 ::
 ++  deps
@@ -75,14 +78,6 @@
           !<  notifications-config
           q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
         :_  [%notifications-controller !>(state)]
-        ::
-        ::  XX algo has to be more sophisticated than this;
-        ::     has to say "is whole pith.not contained in a kill.config path?"
-        ::     probably check if first iota in pith.not is first iota of a
-        ::     kill.config pith, if yes check second iota, etc.
-        ::     this is to handle killing/muting entire subtrees
-        ::
-        ::
         ?:  (has-pith-in-any kill.config pith.not)
           ~
         ?:  (has-pith-in-any mute.config pith.not)
