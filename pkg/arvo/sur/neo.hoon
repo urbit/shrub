@@ -90,7 +90,10 @@
 ::
 +$  vial  (pair stud *)
 +$  book  (pair tale pail)
-+$  poem  (pair stud (set stud))
++$  poem  
+  $:  code=stud 
+      poke=(set stud)
+  ==
 ::
 +$  aeon  (pair ever oath)
 +$  tale  (pair poem pail)
@@ -738,7 +741,7 @@
 ::
 ::    If sig case, then refers to the %std disk
 +$  disk
-  $@(~ [=ship =term])
+  $@(~ [=ship =desk])
 ::  $tack: Type of code being distributed
 ::
 ::    %con: CONverter of protocols
@@ -2280,7 +2283,7 @@
     ?>  ?=([kind:ford tack @ *] pith)
     =/  =kind:ford  i.pith
     =/  =tack  i.t.pith
-    :+  kind  [tack ?@(dis i.t.t.pith [i.t.t.pith ship.dis term.dis])]
+    :+  kind  [tack ?@(dis i.t.t.pith [i.t.t.pith ship.dis desk.dis])]
     t.t.t.pith
     
   ++  slip
@@ -2315,7 +2318,7 @@
     ^-  ^pith
     ?@  disk
       #/std
-    [p/ship.disk term.disk ~]
+    [p/ship.disk desk.disk ~]
   --
 ++  lte-pith
   |=  [a=pith b=pith]

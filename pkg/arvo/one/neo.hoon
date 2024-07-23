@@ -6,7 +6,7 @@
 ::     /int/ - interfaces
 
 =/  prelude  !>(.)
-|=  neo-args=[ford=(list [=stud:neo txt=@t]) user=(list [=pith:neo =vial:neo])]
+|=  neo-args=[ford=(list [=stud:neo txt=@t]) src=(axal:neo [kind=?(%hoon %txt) src=@t]) user=(list [=pith:neo =vial:neo])]
 =>
   ::  |=  init=[build=(list [=post:neo txt=@t]) user=(list card:neo)]
   |%
@@ -131,16 +131,27 @@
     %+  welp
       :~  [(slap-riff pro/%hoon !,(*hoon @t))]
           [(slap-riff pro/%txt !,(*hoon @t))]
+          [(slap-riff pro/%disk !,(*hoon disk:neo))]
           ::[(~(pith press:n imp/%desk) (make-riff (slap prelude !,(*hoon desk))))]
       ==
-    %+  turn   ford.neo-args
-    |=  [=stud:n txt=@t]
-    =;  hon=hoon
-      (slap-riff imp/stud hon)
-    %-  road  |.
-    =/  wer=path  (~(path press:n imp/stud) %src)
-    =+  vaz=(vang & (pout wer))
-    (scan (trip txt) (full (ifix [gay gay] tall:vaz)))
+    %+  welp
+      ::  ford combinators
+      %+  turn   ford.neo-args
+      |=  [=stud:n txt=@t]
+      =;  hon=hoon
+        (slap-riff imp/stud hon)
+      ~|  stud=stud
+      %-  road  |.
+      =/  wer=path  (~(path press:n imp/stud) %src)
+      =+  vaz=(vang & (pout wer))
+      (scan (trip txt) (full (ifix [gay gay] tall:vaz)))
+    :: then, desk shrub
+    :-  [#/cod/std %make %ford-desk `disk/!>(`disk:n`~) sig/!>(~)]
+    :: fill with files
+    %+  turn  ~(tap of src.neo-args)
+    |=  [=pith:neo kind=?(%hoon %txt) src=@t]
+    ^-  card:b
+    [(welp #/cod/std/src pith) %make kind `kind^!>(src) sig/!>(sig)]
   --
 ++  call
   |=  =note:fern:t
@@ -308,6 +319,7 @@
   ++  pith
     ^-  pith:n
     (~(pith press:n imp/stud) %out)
+  ++  has  !=(~ (grab pith *step:f))
   ++  vase
     ^-  ^vase
     ~|  husk/stud
@@ -339,6 +351,8 @@
   ++  kook
     ^-  kook:n
     ~|  kook/pith
+    ?.  has
+      default-kook
     =/  vax  vase
     ?:  is-bunted
       default-kook
@@ -394,8 +408,6 @@
   ++  grow
     |=  [=pith:n =tale:n]
     =.  seed.step  (~(put of seed.step) pith %grow ~ q.tale *(set stud:n))
-    ~&  >>>  %growing
-    %-  print:(seed:etch seed.step)
     arvo
   ++  abet  
     [step this]
@@ -408,7 +420,10 @@
         %cull  (apply move)
   ::
         %make
-      =+  !<(=crew:n q.xtra.q.q.move)
+      =/  =crew:n
+        ?:  =(p.xtra.q.q.move %crew)
+          !<(=crew:n q.xtra.q.q.move)
+        *crew:n
       =,  move
       (apply p p.q %make code.q.q init.q.q crew)
   ==
@@ -430,7 +445,8 @@
     =|  =dock:n  :: XX: wrong, fix
     =/  wav=pail:n  (fall (grab %int here) neo-wave/!>(`wave:n`[code dock crew &]))
     ?>  =(%neo-wave p.wav)
-    =/  =band:n  deps:~(kook husk code)
+    =/  =kook:n  ~(kook husk code)  
+    =/  =band:n  deps:kook
     =+  !<(=wave:n q.wav)
     =.  code.wave  code  :: XX: api change req
     =.  live.wave  &  :: will turn off again if invalid
@@ -441,7 +457,9 @@
       !!
     =.  arvo  (dance crew band)
     =.  crew.wave  crew :: XX: check
-    =.  arvo  (grow int/here [*poem:n neo-wave/!>(wave)])
+    =/  =poem:n
+      [code poke:kook]
+    =.  arvo  (grow int/here [poem neo-wave/!>(wave)])
     =^  cards=(list card:n)  arvo 
       (soft-surf |.(su-abet:(su-make:surf init)))
     ~&  %neo-done-make

@@ -1,7 +1,6 @@
-/@  ford-desk
 ^-  kook:neo
 |%
-++  state  pro/%ford-desk
+++  state  pro/%disk
 ++  poke   (sy %gift ~)
 ++  kids   
   :+  ~  %z
@@ -15,18 +14,18 @@
 ++  form
   ^-  form:neo
   =<
-  |_  [=bowl:neo =aeon:neo stud:neo state-vase=vase]
-  +*  run  ~(. +> [bowl ~ !<(ford-desk state-vase)])
+  |_  [=bowl:neo =aeon:neo =pail:neo]
+  +*  run  ~(. +> [bowl ~ !<(disk:neo q.pail)])
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     =+  !<(=gift:neo vax)
-    =+  !<(sta=ford-desk state-vase)
+    =+  !<(=disk:neo q.pail)
     =|  cards=(list card:neo)
     =/  gis  ~(tap of:neo gift)
     |-
     ?~  gis
-      [cards ford-desk/!>(sta)]
+      [cards pail]
     =/  [=pith:neo =loot:neo]  i.gis
     ?:  =(mode.loot %dif)
       $(gis t.gis)
@@ -37,16 +36,29 @@
         %dif  $(gis t.gis)
         %del  $(cards (welp cards (handle-del:run pith)), gis t.gis)
         %add
-      =^  caz=(list card:neo)  sta
+      =^  caz=(list card:neo)  disk
         (handle-add:run prop)
       $(cards (welp cards caz), gis t.gis)
     ==
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    `(need pal)
+    =/  src  (~(dip of kids.bowl) /src)
+    =.  pail  (need pal)
+    =+  !<(=disk:neo q.pail)
+    =/  ls  ~(tap of src)
+    =|  cards=(list card:neo)
+    |-
+    ?~  ls 
+      [cards disk/!>(sta)]
+    =/  [=pith:neo =tale:neo]  i.ls
+    =/  pop  (pith-to-prop-soft pith)
+    ?~  pop  $(ls t.ls)
+    =^  caz=(list card:neo)  sta
+      (handle-add:run u.pop)
+    $(cards (welp cards caz), ls t.ls)
   --
-  |_  [=bowl:neo cards=(list card:neo) sta=ford-desk]
+  |_  [=bowl:neo cards=(list card:neo) sta=disk:neo]
   ++  abet  [(flop cards) sta]
   ++  emit  |=(=card:neo run(cards [card cards]))
   ++  run  .
@@ -65,7 +77,7 @@
   ++  build-file
     |=  =prop:neo 
     =/  pax  (prop-pith prop)
-    =+  !<(src=@t q.pail:(~(got of:neo kids.bowl) pax))
+    =+  !<(src=@t q.q:(~(got of:neo kids.bowl) pax))
     =/  =file:ford:neo
       ~|  parsing/pax
       (scan (trip src) (rein:ford:neo [our.bowl (tail (welp here.bowl pax))]))
@@ -83,7 +95,7 @@
     ^+  run
     ?~  pos
       run
-    ?:  ?@(i.pos & =([ship desk]:i.pos [ship desk]:sta))
+    ?:  ?@(i.pos & =([ship desk]:i.pos ?@(sta ~ [ship desk]:sta)))
       $(pos t.pos)
     =.  run  (build-pro ?>(?=(^ i.pos) mark.i.pos))
     $(pos t.pos)
@@ -166,8 +178,15 @@
   ::
   ++  pith-to-prop
     |=  =road:neo
-    ?>  ?=([=tack:neo =mark ~] road)
-    [tack mark]:road
+    (need (pith-to-prop-soft road))
+  ::
+  ++  pith-to-prop-soft
+    |=  =road:neo
+    ^-  (unit prop:neo)
+    ?.  ?=([=tack:neo =mark ~] road)
+      ~
+    `[tack mark]:road
+
   ++  exists
     |=  =prop:neo
     ^-  ?

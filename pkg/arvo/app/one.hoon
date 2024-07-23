@@ -13,6 +13,8 @@
 /*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
 /*  txt-ford-face   %hoon   /neo/cod/std/src/imp/ford-face/hoon
 /*  txt-ford-reef   %hoon   /neo/cod/std/src/imp/ford-reef/hoon
+/*  txt-ford-desk   %hoon   /neo/cod/std/src/imp/ford-desk/hoon
+/*  txt-ford-desp   %hoon   /neo/cod/std/src/pro/ford-desk/hoon
 /*  txt-ford-text   %hoon   /neo/cod/std/src/imp/ford-text/hoon
 
 =>
@@ -47,6 +49,8 @@
       [%cd =pith:neo]
       [%poke p=hoon]
       [%commit ~]
+      [%nuke ~]
+      [%pill ~]
   ==
 ::
 +$  state-0
@@ -162,12 +166,23 @@
     (road |.((scan (trip txt-root-neo) (full (ifix [gay gay] tall:vaz)))))
   %+  install  ~
   %+  slym  (slap prelude hon)
-  :_  ~
-  :~  [%ford-same txt-ford-same]
-      [%ford-face txt-ford-face]
-      [%ford-slop txt-ford-slop]
-      [%ford-text txt-ford-text]
-      [%ford-slap txt-ford-slap]
+  :*  
+    :~  [%ford-same txt-ford-same]
+        [%ford-face txt-ford-face]
+        [%ford-slop txt-ford-slop]
+        [%ford-text txt-ford-text]
+        [%ford-slap txt-ford-slap]
+        [%ford-desk txt-ford-desk]
+    ==
+  ::  install source
+    =/  pax=path  (en-beam byk.bowl(r da/now.bowl) default-pill-tub)
+    ~&  reading-pil/pax
+    ?~  jam=(file:space:userlib pax)
+      ~&  %no-pill-skipping
+      *(axal:neo [kind=?(%txt %hoon) src=@t])
+    ;;((axal:neo [kind=?(%txt %hoon) src=@t]) (cue ;;(@ u.jam)))
+  ::
+    ~
   ==
 ++  on-poke
   |=  [=mark =vase]
@@ -182,6 +197,9 @@
         %dbug
       %-  print:(farm:etch farm)
       run
+    ::
+        [%pill path=*]
+      (make-pill ;;(pax=path path.q.vase))
     ==
   ?>  |(=(%fern-task mark) =(%one-task mark))
   =+  !<(=task:fern:t vase)
@@ -202,6 +220,34 @@
   |=  =path
   ^-  (unit (unit cage))
   [~ ~]
+++  default-pill-tub
+  /neo-jam/atom
+++  write-jamfile
+  |=  jam=@
+  ^+  run
+  =;  =toro:clay
+    (emit %pass /file %arvo %c %info toro)
+  (foal:space:userlib (en-beam byk.bowl default-pill-tub) atom/!>(jam))
+
+++  make-pill
+  |=  pax=path
+  ^+  run
+  =+  .^(files=(list path) %ct pax)
+  =.  files  (turn files (cury slag (sub (lent pax) 3)))
+  ~&  files/files
+  =|  pill=(axal:neo [kind=?(%hoon %txt) src=@t])
+  |-  
+  ?~  files
+    ~&  writing-pill/~(key by ~(tar of pill))
+    (write-jamfile (jam pill))
+  =+  .^(src=@t %cx `path`(welp pax i.files))
+  =/  ext=knot  (rear i.files)
+  ?.  ?=(?(%hoon %txt) ext)
+    ~&  unknown-ext-skipping/[ext i.files]
+    $(files t.files)
+  =.  pill  (~(put of pill) (snip i.files) [ext src])
+  $(files t.files)
+::
 ++  install
   |=  [=pith:t vax=vase]
   =/  =fern:t
@@ -310,13 +356,11 @@
     ^-  (list (list dime))
     ?~  pic=(~(look plow farm) %y pith)
       *(list (list dime))
-    ~&  pic/~(key by ~(tar of u.pic))
     =<  +
     %+  roll  ~(tap of u.pic)
     |=  [[kid=pith:neo =saga:neo] seen=(set pith:neo) res=(list (list dime))]
     ^-  [(set pith:neo) (list (list dime))]
     =.  kid  (scag depth kid)
-    ~&  desc/[kid=kid depth=depth]
     ?:  (~(has in seen) kid)
       [seen res]
     :-  (~(put in seen) kid)
@@ -349,7 +393,8 @@
             ud/0
         ==
       :~  t/(spat (pout pith))
-          t/(code p.p.q.u.u.sag)
+          t/(code code.p.q.u.u.sag)
+          t/(code p.q.q.u.u.sag)
           ud/0
           ud/0
       ==
@@ -419,8 +464,11 @@
         'cd'^leaf/"Change directory"
         '.'^leaf/"Print node at path"
         't'^leaf/"List child shrubs at current path, recursively"
-        'p'^leaf/"manual poke (takes [=stud val=*])"
-        'r'^leaf/"start form (takes form-name)"
+        'd'^leaf/"make pill"
+        'b'^leaf/"Run |commit %{(trip q.byk.bowl)}"
+        'n'^leaf/"Nuke, commit, restart"
+        :: 'p'^leaf/"manual poke (takes [=stud val=*])"
+        :: 'r'^leaf/"start form (takes form-name)"
     ==
   ++  tab
     |=  query=@t 
@@ -463,7 +511,12 @@
     --
   ++  parser
     |^  ^+  |~(nail *(like [? hull]))
-    =-  ;~(pose (stag & (cold commit/~ (jest 'b'))) -)
+    =-  ;~  pose
+          (stag & (cold commit/~ (jest 'b')))
+          (stag & (cold nuke/~ (jest 'n')))
+          (stag & (cold pill/~ (jest 'd')))
+          -
+        ==
     %+  stag  |
     ;~  pose
       :: (csym %ls (easy ~))
@@ -516,11 +569,30 @@
         %cd     abet:(set:cwd:peel pith.hull)
         %poke   (do-poke p.hull)
         %tree   (tree depth.hull)
-        %commit   (emit %pass / %agent [our %hood] %poke %kiln-commit !>([q.byk.bowl |]))
+        %commit   commit
+        %pill     (make-pill (en-beam byk.bowl /neo/cod/std/src))
+        %nuke
+      =.  run   (poke-hood kiln-nuke/!>([dap.bowl |]))
+      =.  run   commit
+      %-  poke-hood
+      ::
+      =+  .^(=cone:clay %cx /(scot %p our.bowl)//(scot %da now.bowl)/domes)
+      =/  =dome:clay  (~(gut by cone) [our.bowl q.byk.bowl] *dome:clay)
+      =+  ((slog ?:(=(%live liv.dome) ~ ['kiln: desk not live' ~])) ~)
+      :-  %kiln-rein
+      !>([q.byk.bowl (~(put by ren.dome) dap.bowl &)])
+    ::
         %show
       =/  =effect:sole  [%tan show:tell:peel]
       (shoe-ef %sole effect)
     ==
+    ++  commit
+      (emit %pass / %agent [our %hood] %poke %kiln-commit !>([q.byk.bowl |]))
+    ++  poke-hood
+      |=  =cage
+      ^+  run
+      (emit %pass / %agent [our %hood] %poke cage)
+    ::
     ++  do-poke
       |=  =hoon
       =/  vax=vase
@@ -539,8 +611,8 @@
      |=  depth=@ud
       %-  shoe-ef  
       :-  %table  
-      :+  (limo tas/%path tas/%code tas/%node tas/%tree ~)
-        (limo 40 40 6 6 ~)
+      :+  (limo tas/%path tas/%code tas/%data tas/%node tas/%tree ~)
+        (limo 40 40 40 6 6 ~)
       (desc:tell:peel depth)
     --
   --

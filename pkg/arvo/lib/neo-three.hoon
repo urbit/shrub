@@ -77,7 +77,6 @@
       |^  ,[=seed io=(list gift)]
       ++  merge
         |=  [a=$ b=$]
-        ~&  merging/[a=~(key by ~(tar of seed.a)) b=~(key by ~(tar of seed.b))]
         ^+  a
         %_  a
           seed  (~(uni of seed.a) seed.b)
@@ -227,6 +226,8 @@
    ==
   ++  epic
     |=  p=epic:neo
+    ?:  =(1 1)
+      etch
     ~>  %slog.[2 leaf/"Epic"]
     =<  (print-ln-raw 2 "Done")
     %+  roll  ~(aap of p)
@@ -356,20 +357,17 @@
       ::  /foo/bar/baz
       =/  [=pith:n bod=(unit body:t)]
         (~(fit of why) pith.hunt)
-      ~&  parent/pith
       ?~  bod
         ~
       =/  pfix  (dif:pith:n pith.hunt pith)
       ?~  sol=(get:on:body:t u.bod case)
         ~
-      ~&  pfix/pfix
       :-  ~
-      =-  (print:(epic:etch -) (~(dip of -) pfix))
+      =-  (~(dip of -) pfix)
       %-  ~(gas of *epic:neo)
       %+  murn  ~(tap by u.sol)
       |=  [kid=pith:neo cas=@ud]
       =.  kid  (welp pfix kid)
-      ~&  kid/kid
       ?~  res=(need (read-x-raw kid cas))
         ~
       `[kid u.res]
@@ -392,7 +390,6 @@
     |=  =hunt:neo
     =/  =case:neo
       (get-case hunt)
-    ~&  look/case=case
     (scry hunt (get-case hunt))
   ::
   ++  get-case
