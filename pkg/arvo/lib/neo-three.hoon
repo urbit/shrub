@@ -100,7 +100,7 @@
   ::
   +$  case  @ud
   ::  $data: resolved data in space
-  +$  data  [=oath:neo =gang =pail:neo poke=(set stud:neo)]
+  +$  data  [=oath:neo =gang =pail:neo =poem:neo]
   ::  +dirt: Mapping from x case to datum
   ++  dirt  
     =<  dirt
@@ -141,7 +141,7 @@
   +$  seed  (axal:neo note)
   +$  muck  (axal:neo tale:neo)
   +$  note 
-    $%  [%grow cas=(unit (pair rift case)) =pail:neo poke=(set stud:neo)]
+    $%  [%grow cas=(unit (pair rift case)) =pail:neo =poem:neo]
         [%cull rif=(unit rift)]
     ==
   --
@@ -306,10 +306,9 @@
     ++  lift
       |=  =data:t
       ^-  saga:neo
-      =/  =poem:neo  [*stud:neo poke.data]
       =/  =aeon:neo
         [*ever:neo oath.data]
-      [aeon poem pail.data]
+      [aeon poem.data pail.data]
     ::
     ++  wrap
       =|  =epic:neo
@@ -530,37 +529,37 @@
     |=  $:  =pith
             cas=(unit (pair rift case))
             =pail:neo
-            poke=(set stud:neo)
+            =poem:neo
         ==
     ::  XX: check manual casing if foreign ship
     ^+  farm
     ?^  cas
-      (grow-at pith u.cas pail poke)
+      (grow-at pith u.cas pail poem)
     ?~  lom=(~(get of soil) pith)
       ::  never bound before
-      (grow-at pith [1 1] pail poke)
+      (grow-at pith [1 1] pail poem)
     ?~  las=~(last or u.lom)
       ~&  weird-empty-loam/pith
-      (grow-at pith [1 1] pail poke)
+      (grow-at pith [1 1] pail poem)
     ?~  dir=(~(got or u.lom) k.u.las)
       ::  binding over empty, inc breach
       =/  [=rift =case]   [+(k.u.las) r.u.las]
-      (grow-at pith [rift case] pail poke)
+      (grow-at pith [rift case] pail poem)
     ?~  cas=(ram:on:dirt:t u.dir)
       ~|  weird-empty-dirt/pith
       !!
     ::  binding over normal, no breach
     ::  XX: enforce that =((~(uni in new-poke) old-poke) new-poke)
-    (grow-at pith [k.u.las +(key.u.cas)] pail poke)
+    (grow-at pith [k.u.las +(key.u.cas)] pail poem)
   ::
   ++  grow-at
     |=  $:  =pith
             at=(pair rift case)
             =pail:neo
-            poke=(set stud:neo)
+            =poem:neo
         ==
     ^+  farm
-    =/  =data:t  [=oath:neo & pail poke]
+    =/  =data:t  [=oath:neo & pail poem]
     =/  =loam:t  (fall (~(get of soil) pith) *loam:t)
     =/  [=span:neo =dirt:t]
       =/  res  (~(gat or loam) p.at)

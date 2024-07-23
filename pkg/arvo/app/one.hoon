@@ -51,6 +51,8 @@
       [%commit ~]
       [%nuke ~]
       [%pill ~]
+      [%over =pith:neo]
+      :: [%make =vial:neo]
   ==
 ::
 +$  state-0
@@ -530,6 +532,7 @@
       :: (stag %poke ;~(pfix (jest 'p') ace van))
     ::
       cd
+      (stag %over ;~(pfix (jest 'o') ace stip:neo))
       :: ;~(pfix wut (cold clay/~ (jest 'clay')))
       :: ;~(pfix hax (cold comm/~ (star prn)))
     ==
@@ -566,6 +569,7 @@
     |^  ^+  run
     ?-    -.hull 
         %ls     (tree 1)
+        %over   abet:(set:cwd:peel (welp pith.hull get:cwd:peel))
         %cd     abet:(set:cwd:peel pith.hull)
         %poke   (do-poke p.hull)
         %tree   (tree depth.hull)

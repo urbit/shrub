@@ -10,6 +10,12 @@
 =>
   ::  |=  init=[build=(list [=post:neo txt=@t]) user=(list card:neo)]
   |%
+  ++  riff-poem
+    ^-  poem:neo
+    [%riff *(set stud:neo)]
+  ++  wave-poem
+    ^-  poem:neo
+    [%wave *(set stud:neo)]
   ++  riff
     => 
     |%
@@ -73,8 +79,7 @@
         %grow 
       ?^  cas.q.i.sed
         $(sed t.sed)
-      =/  =poem:n  [*stud:n poke.q.i.sed]
-      =.  muck  (~(put of muck) p.i.sed poem pail.q.i.sed)
+      =.  muck  (~(put of muck) p.i.sed [poem pail]:q.i.sed)
       $(sed t.sed)
     ::
         %cull
@@ -95,9 +100,9 @@
   ^-  [step:f _this]
   |^  ^-  [step:f _this]
   =|  =step:f
-  =.  seed.step  (~(put of seed.step) (~(pith press:n imp/%riff) %out) %grow ~ riff/!>(riff) *(set stud:neo))
-  =.  seed.step  (~(put of seed.step) ~ %grow ~ sig/!>(~) *(set stud:neo))
-  =.  seed.step  (~(put of seed.step) #/cod/reef %grow ~ riff/prelude *(set stud:neo))
+  =.  seed.step  (~(put of seed.step) (~(pith press:n imp/%riff) %out) %grow ~ riff/!>(riff) riff-poem)
+  =.  seed.step  (~(put of seed.step) ~ %grow ~ sig/!>(~) riff-poem)
+  =.  seed.step  (~(put of seed.step) #/cod/reef %grow ~ riff/prelude riff-poem)
   =/  pit=pith:n  #/$/boot
   =.  seed.step  (hatch seed.step)
   =.  io.step  (snoc io.step `gift:f`[%drip ~])
@@ -125,7 +130,7 @@
     :_  |=  [=card:b idx=@ out=_sed]
         ^-  [@ seed:f]
         =/  =note:t
-          [%grow ~ bush-card/!>(card) *(set stud:n)]
+          [%grow ~ bush-card/!>(card) [%bush-card *(set stud:neo)]]
         [+(idx) (~(put of out) #/$/boot/[ud/idx] note)]
     ^-  (list card:b)
     %+  welp
@@ -148,7 +153,7 @@
     :: then, desk shrub
     :-  [#/cod/std %make %ford-desk `disk/!>(`disk:n`~) sig/!>(~)]
     :: fill with files
-    %+  turn  ~(tap of src.neo-args)
+    %+  turn  (scag 10 ~(tap of src.neo-args))
     |=  [=pith:neo kind=?(%hoon %txt) src=@t]
     ^-  card:b
     [(welp #/cod/std/src pith) %make kind `kind^!>(src) sig/!>(sig)]
@@ -407,7 +412,7 @@
 
   ++  grow
     |=  [=pith:n =tale:n]
-    =.  seed.step  (~(put of seed.step) pith %grow ~ q.tale *(set stud:n))
+    =.  seed.step  (~(put of seed.step) pith %grow ~ q.tale p.tale)
     arvo
   ++  abet  
     [step this]
@@ -443,8 +448,9 @@
     |=  [code=stud:n init=(unit pail:n) =crew:n]
     ^+  arvo
     =|  =dock:n  :: XX: wrong, fix
-    =/  wav=pail:n  (fall (grab %int here) neo-wave/!>(`wave:n`[code dock crew &]))
-    ?>  =(%neo-wave p.wav)
+    ~&  code/code
+    =/  wav=pail:n  (fall (grab %int here) wave/!>(`wave:n`[code dock crew &]))
+    ?>  =(%wave p.wav)
     =/  =kook:n  ~(kook husk code)  
     =/  =band:n  deps:kook
     =+  !<(=wave:n q.wav)
@@ -459,7 +465,7 @@
     =.  crew.wave  crew :: XX: check
     =/  =poem:n
       [code poke:kook]
-    =.  arvo  (grow int/here [poem neo-wave/!>(wave)])
+    =.  arvo  (grow int/here wave-poem wave/!>(wave))
     =^  cards=(list card:n)  arvo 
       (soft-surf |.(su-abet:(su-make:surf init)))
     ~&  %neo-done-make
@@ -598,6 +604,8 @@
       `[term u.dep u.lor]
     ::
     ++  su-form  ~(. form:kook [su-bowl *aeon:n su-pail])
+    ++  su-poem
+      [code.wave poke:kook]
     ++  su-abet ::  TODO: bump
       :: =.  tide  (~(put of:n tide) here wave)
       [cards arvo]
@@ -612,7 +620,7 @@
       ^+  su-core
 ::    ?.  (blow state:kook p.pail)
 ::      (mean leaf/"Returned bad state stud, wanted {<state.kook>}, have {<p.pail>}" ~)
-      =.  arvo  (grow here *poem:n pail)
+      =.  arvo  (grow here su-poem pail)
       su-core
     ::
     ++  su-give
