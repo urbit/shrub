@@ -46,6 +46,7 @@
       [%tree depth=@ud]
       [%cd =pith:neo]
       [%poke p=hoon]
+      [%commit ~]
   ==
 ::
 +$  state-0
@@ -309,13 +310,18 @@
     ^-  (list (list dime))
     ?~  pic=(~(look plow farm) %y pith)
       *(list (list dime))
-    %+  murn  ~(tap of u.pic)
-    |=  [kid=pith:neo =saga:neo]
-    ^-  (unit (list dime))
-    ?:  (gth (lent kid) depth)
-      ~
+    ~&  pic/~(key by ~(tar of u.pic))
+    =<  +
+    %+  roll  ~(tap of u.pic)
+    |=  [[kid=pith:neo =saga:neo] seen=(set pith:neo) res=(list (list dime))]
+    ^-  [(set pith:neo) (list (list dime))]
+    =.  kid  (scag depth kid)
+    ~&  desc/[kid=kid depth=depth]
+    ?:  (~(has in seen) kid)
+      [seen res]
+    :-  (~(put in seen) kid)
     =.  pith  (welp pith kid)
-    `row:item
+    (snoc res row:item)
   ++  item
     =/  sag   get
     |%
@@ -331,9 +337,17 @@
     ++  row
       ^-  (list dime)
       ?~  sag
-        ~
+        :~  t/(spat (pout pith))
+            t/'Directory'
+            ud/0
+            ud/0
+        ==
       ?~  u.sag
-        ~
+       :~  t/(spat (pout pith))
+           t/'Empty'
+            ud/0
+            ud/0
+        ==
       :~  t/(spat (pout pith))
           t/(code p.p.q.u.u.sag)
           ud/0
@@ -449,6 +463,7 @@
     --
   ++  parser
     |^  ^+  |~(nail *(like [? hull]))
+    =-  ;~(pose (stag & (cold commit/~ (jest 'b'))) -)
     %+  stag  |
     ;~  pose
       :: (csym %ls (easy ~))
@@ -457,6 +472,7 @@
       (cold show/~ dot)
       :: (cold ford/~ (jest 'f'))
       (stag %tree ;~(pfix (jest 't') dem:ag))
+
       :: (stag %race ;~(pfix (jest 'r') ace sym))
       :: (stag %poke ;~(pfix (jest 'p') ace van))
     ::
@@ -496,10 +512,11 @@
     |=  =hull
     |^  ^+  run
     ?-    -.hull 
-        %ls     (tree 0)
+        %ls     (tree 1)
         %cd     abet:(set:cwd:peel pith.hull)
         %poke   (do-poke p.hull)
         %tree   (tree depth.hull)
+        %commit   (emit %pass / %agent [our %hood] %poke %kiln-commit !>([q.byk.bowl |]))
         %show
       =/  =effect:sole  [%tan show:tell:peel]
       (shoe-ef %sole effect)
@@ -528,4 +545,3 @@
     --
   --
 --
-

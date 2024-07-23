@@ -1,9 +1,22 @@
 /-  neo
 |%
 ++  neo  ^neo
+++  n  neo
 +$  case  @ud
 ++  of  of:neo
 ++  or  or:neo
+++  u
+  |%
+  ++  is-parent
+    |=  [parent=pith:n kid=pith:n]
+    ^-  ?
+    ?~  parent  &
+    ?~  kid     |
+    ?.  =(i.parent i.kid)
+      |
+    $(parent t.parent, kid t.kid)
+  --
+::
 ++  t
   |%
   +$  gang
@@ -338,17 +351,28 @@
     ::
     ++  read-y
       ^-  (unit epic:neo)
-      ?~  bod=(~(get of why) pith.hunt)
+      ::  /foo/bar <- pith.hunt
+      ::  /foo  <- pith
+      ::  /foo/bar/baz
+      =/  [=pith:n bod=(unit body:t)]
+        (~(fit of why) pith.hunt)
+      ~&  parent/pith
+      ?~  bod
         ~
+      =/  pfix  (dif:pith:n pith.hunt pith)
       ?~  sol=(get:on:body:t u.bod case)
         ~
+      ~&  pfix/pfix
       :-  ~
+      =-  (print:(epic:etch -) (~(dip of -) pfix))
       %-  ~(gas of *epic:neo)
       %+  murn  ~(tap by u.sol)
-      |=  [=pith:neo cas=@ud]
-      ?~  res=(need (read-x-raw pith cas))
+      |=  [kid=pith:neo cas=@ud]
+      =.  kid  (welp pfix kid)
+      ~&  kid/kid
+      ?~  res=(need (read-x-raw kid cas))
         ~
-      `[pith u.res]
+      `[kid u.res]
     ::
     ++  read-z
       ^-  (unit epic:neo)
@@ -368,6 +392,7 @@
     |=  =hunt:neo
     =/  =case:neo
       (get-case hunt)
+    ~&  look/case=case
     (scry hunt (get-case hunt))
   ::
   ++  get-case
@@ -385,12 +410,16 @@
       key
     ::
         ?(%y %b)
-      ?~  bod=(~(get of why) pith.hunt)
+      =/  [=pith:n bod=(unit body:t)]
+        (~(fit of why) pith.hunt)
+      ?~  bod
         0
       key:(need (ram:on:body:t u.bod))
     ::
         ?(%z %c)
-      ?~  bod=(~(get of zed) pith.hunt)
+      =/  [=pith:n bod=(unit body:t)]
+        (~(fit of zed) pith.hunt)
+      ?~  bod
         0
       key:(need (ram:on:body:t u.bod))
     ==

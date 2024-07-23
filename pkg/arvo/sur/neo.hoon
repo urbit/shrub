@@ -1291,6 +1291,9 @@
     ?.  =(i.long i.curt)
       ~
     $(long t.long, curt t.curt, res [i.long res])
+  ++  is-prefix
+    |=  [long=$ curt=$]
+    !=(~ (prefix long curt))
   ::
   ++  suffix
     |=  [long=$ curt=$]
