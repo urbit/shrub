@@ -179,9 +179,47 @@
         }
         '''
       ==
+<<<<<<< HEAD
 >>>>>>> 13d77f915b (Draft frontend code)
 =======
 >>>>>>> a9b223316b (Remove push notification stuff from sky-htmx)
+=======
+      ;script: {(trip a-i-r)}
+      ;script: {(trip date-now)}
+      ::
+      ::  set up push notifications for this browser
+      ;script
+        ;+  ;/  %-  trip
+        '''
+        const push = require('../fil/web-push.js')
+
+        addEventListener('load', async () => {
+            let sw = await navigator.serviceWorker.register('../fil/push-sw.js')
+            console.log(sw)
+            subscribeToNotifications()
+        });
+
+        async function subscribeToNotifications() {
+            let sw = await navigator.serviceWorker.ready
+            const vapidKeys = push.generateVAPIDKeys()
+            let pushSubscriptionDetails = await sw.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: `${vapidKeys.publicKey}`
+            });
+
+            sendSubscriptionToServer(pushSubscriptionDetails)
+
+            // console.log(JSON.stringify(pushSubscriptionDetails))
+        }
+
+        function sendSubscriptionToServer(pushSubscriptionDetails) {
+            document.getElementById('push-subscription-details').value =
+              JSON.stringify(pushSubscriptionDetails)
+            document.getElementById('subscription-form').submit()
+        }
+        '''
+      ==
+>>>>>>> 13d77f915b (Draft frontend code)
       ;+  favicon
       ;+  manifest
     ==
@@ -199,10 +237,14 @@
       ;+  menu-btn-style
       ;+  theme-style
 <<<<<<< HEAD
+<<<<<<< HEAD
       ;+  notifications-subscription
 >>>>>>> 13d77f915b (Draft frontend code)
 =======
 >>>>>>> a9b223316b (Remove push notification stuff from sky-htmx)
+=======
+      ;+  notifications-subscription
+>>>>>>> 13d77f915b (Draft frontend code)
     ==
   ==
 --

@@ -1,3 +1,4 @@
+/@  txt
 /@  notification
 /@  notifications-controller
 ^-  kook:neo
@@ -22,7 +23,7 @@
 ::
 ++  poke
   ^-  (set stud:neo)
-  (sy %notification ~)
+  (sy %txt %notification ~)
 ::
 ++  kids
   ^-  kids:neo
@@ -33,6 +34,8 @@
       [[%pro %notification] ~]
       :-  [[%.y %config] [%.n %tas] %.n]
       [[%pro %notifications-config] ~]
+      :-  [[%.n %t] %.n]
+      [[%pro %txt] ~]
   ==
 ::
 ++  deps
@@ -90,6 +93,22 @@
         ::       ::  XX send push notifications to subscribers
         ::   ==
         :_  [%notifications-controller !>(state)]
+<<<<<<< HEAD
+=======
+        ?:  (has-pith-in-any kill.config pith.not)
+          ~
+        ?:  (has-pith-in-any mute.config pith.not)
+          =.  flag.not  %.y
+          :~  :-  (welp here.bowl ~[[da/now.bowl]])
+              [%make %notification `[%notification !>(not)] ~]
+          ==
+        ?:  (has-pith-in-any buzz.config pith.not)
+          =.  flag.not  %.y
+          :~  :-  (welp here.bowl ~[[da/now.bowl]])
+              [%make %notification `[%notification !>(not)] ~]
+              ::  XX send push notification
+          ==
+>>>>>>> 13d77f915b (Draft frontend code)
         ?.  flag.not
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
