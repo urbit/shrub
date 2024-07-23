@@ -1,9 +1,10 @@
-/-  neo
+/-  neo, sole-sur=sole
 /+  util=neo-three
 /+  default-agent
 /+  dbug
 /+  libverb=verb
 /+  serv=server
+/+  shoe
 /*  txt-root-fern   %hoon   /one/root/hoon
 /*  txt-root-neo    %hoon   /one/neo/hoon
 /*  txt-ford-same   %hoon   /neo/cod/std/src/imp/ford-same/hoon
@@ -26,12 +27,33 @@
   --
 =,  util
 |%
-+$  card  $+(card card:agent:gall)
++$  card  $+(card card:shoe)
++$  shell
+  $:  cwd=pith:neo
+      ~
+  ==
+++  sole
+  |%
+  +$  id  sole-id:sole-sur
+  +$  action  sole-action:sole-sur
+  +$  effect  sole-effect:sole-sur
+  --
+
+::
++$  hull
+  $%  [%ls ~]
+      [%show ~]
+      [%tree depth=@ud]
+      [%cd =pith:neo]
+      [%poke p=hoon]
+  ==
+::
 +$  state-0
   $+  state-0
   $:  =zion:t
       =farm:t
       ears=(jug hunt:neo pith:neo)
+      shells=(map id:sole shell)
   ==
 --
 =|  state-0
@@ -40,6 +62,7 @@
   %+  libverb  |
   %-  agent:dbug
   ^-  agent:gall
+  %-  (agent:shoe hull)
   |_  =bowl:gall
   +*  this  .
       run   ~(. +> [bowl ~ *seed:t])
@@ -89,6 +112,31 @@
     [cards this]
   ++  on-fail  on-fail:def
   ++  on-peek  on-peek:run
+  ++  command-parser
+    |=  =id:sole
+    ~(parser walk:run id)
+  ++  tab-list
+    |=  [=id:sole query=@t]
+    (~(tab walk:run id) query)
+  ++  on-command
+    |=  [=id:sole =hull] 
+    =^  cards  state
+      abet:(~(do walk:run id) hull)
+    [cards this]
+  ::
+  ++  can-connect
+    |=  =id:sole
+    =(our src):bowl
+  ++  on-connect
+    |=  =id:sole
+    =^  cards  state
+      abet:(conn:run id)
+    [cards this]
+  ++  on-disconnect
+    |=  =id:sole
+    =^  cards  state
+      abet:~(drop walk:run id)
+    [cards this]
   --
 |_  [=bowl:gall cards=(list card) =seed:t]
 ::  |aux: auxilliary helpers
@@ -180,6 +228,11 @@
   =.  run
     fe-abet:(fe-hear:(fe i.listeners) hunt)
   $(listeners t.listeners)
+++  on-bush-move
+  |=  =move:bush:t
+  ^+  run
+  =/  pit=pith:neo  -:(~(fit of zion) p.q.move)
+  fe-abet:(fe-call:(fe pit) %bush move)
 ::
 ++  fe
   |=  =pith:t
@@ -235,6 +288,244 @@
       =.  run  (emit %pass /drip %agent [our dap]:bowl %poke fern-task/!>(`task:fern:t`[pith %drip ~]))
       $(io t.io)
     ==
+  --
+++  conn
+  |=  =id:sole
+  =/  =shell  [~ ~]
+  =.  shells  (~(put by shells) id shell)
+  ~(start walk id)
+::
+++  tell
+  |_  =pith:neo
+  ++  get
+    ^-  (unit (unit saga:neo))
+    ?~  pic=(~(look plow farm) %x pith)
+      ~
+    `(~(get of u.pic) /)
+  ++  kids  desc
+  ++  desc
+    |=  depth=@ud
+    |-  =*  loop  $
+    ^-  (list (list dime))
+    ?~  pic=(~(look plow farm) %y pith)
+      *(list (list dime))
+    %+  murn  ~(tap of u.pic)
+    |=  [kid=pith:neo =saga:neo]
+    ^-  (unit (list dime))
+    ?:  (gth (lent kid) depth)
+      ~
+    =.  pith  (welp pith kid)
+    `row:item
+  ++  item
+    =/  sag   get
+    |%
+    ++  code
+      |=  =stud:neo
+      ^-  @t
+      %-  spat
+      ^-  path
+      ?@  stud
+        /kelvin/(scot %ud zuse)/[stud]
+      =,  stud
+      /(scot %p ship)/[desk]/[mark]
+    ++  row
+      ^-  (list dime)
+      ?~  sag
+        ~
+      ?~  u.sag
+        ~
+      :~  t/(spat (pout pith))
+          t/(code p.p.q.u.u.sag)
+          ud/0
+          ud/0
+      ==
+    --
+  ++  show
+    ^-  (list tank)
+    =/  sag   get
+    %-  lure
+    ^-  tank
+    ?-  sag
+      ~         leaf/"Unbound"
+      [~ ~]     leaf/"Bound, empty"
+      [~ ~ *]   (sell q.q.q.u.u.sag)
+    ==
+  --
+++  walk
+  |_  =id:sole
+  ++  start 
+    abet:prompt:peel
+  ++  drop
+    ^+  run
+    run(shells (~(del by shells) id))
+  ++  peel
+    =/  =shell  (~(got by shells) id)
+    |%  
+    ++  peel  .
+    ++  abet  
+      run(shells (~(put by shells) id shell))
+    ++  tell  ~(. ^tell cwd.shell)
+    ++  prompt
+      |^
+      =;  ef=shoe-effect:shoe
+        =.  run  (shoe-ef ef)
+        peel
+      :-  %sole
+      :^  %pro  &  %foo
+      ^-  styx
+      =,  shell
+      %-  snoc
+      :_  '> '
+      ^-  (list @t)
+      %-  zing
+      ^-  (list (list @t))
+      %+  turn  cwd
+      |=  =iota:neo
+      ^-  (list @t)
+      =-  ~['/' -]
+      ?@  iota  iota
+      (scot iota)
+      ++  un
+        `styl`[`%un ~ ~]
+      --
+    ++  cwd
+      |%
+      ++  get  cwd.shell
+      ++  set  |=(p=pith:neo =.(cwd.shell p prompt))
+      --
+    --
+  ++  lily
+    |*  [naf=@ sab=rule]
+    =+  vex=(sab [1 1] (trip naf))
+    ?~  q.vex  ~  
+    [~ u=p.u.q.vex] 
+  ++  default-list
+    ^-  (list [@t tank]) 
+    :~  'ls'^leaf/"List child shrubs at current path"
+        'cd'^leaf/"Change directory"
+        '.'^leaf/"Print node at path"
+        't'^leaf/"List child shrubs at current path, recursively"
+        'p'^leaf/"manual poke (takes [=stud val=*])"
+        'r'^leaf/"start form (takes form-name)"
+    ==
+  ++  tab
+    |=  query=@t 
+    ?:  =(1 1)
+      default-list
+    =/  query  (trip query)
+    =+  vex=(parser [1 1] query)
+    ?~  q.vex
+      default-list
+    =/  [[? =hull] =nail]  u.q.vex
+    =/  parsed  (scag (sub (lent query) (lent q.nail)) query)
+    |^  ^-  (list [@t tank])
+    ?+  -.hull  ~
+      %cd  (cd pith.hull)
+    ==
+    ++  cd
+      |=  =pith:neo
+      ^-  (list [@t tank])
+      *(list [@t tank])
+::    =/  dip  (dip:of-top pith.name)
+::    =/  last
+::      ?:(=(~ pith.name) %$ (rear pith.name))
+::    =/  remove-len  (met 3 (show-iota last))
+::    =?  pith.name  =([~ ~] dip)
+::      (snip pith.name)
+::    =?  parsed     =([~ ~] dip)
+::      (scag (sub (lent parsed) remove-len) parsed)
+::    =.  dip
+::      (dip:of-top pith.name)
+::    ?:  =(~ kid.dip)
+::      ~
+::    %+  turn  ~(tap by kid.dip)
+::    |=  [seg=iota ax=(axal:neo room:neo)]
+::    ^-  [@t tank]
+::    :_  *tank
+::    %+  cat  3
+::    :-  (crip parsed)
+::    ?@  seg  seg
+::    (scot seg)
+    --
+  ++  parser
+    |^  ^+  |~(nail *(like [? hull]))
+    %+  stag  |
+    ;~  pose
+      :: (csym %ls (easy ~))
+
+      (cold ls/~ (jest 'ls'))
+      (cold show/~ dot)
+      :: (cold ford/~ (jest 'f'))
+      (stag %tree ;~(pfix (jest 't') dem:ag))
+      :: (stag %race ;~(pfix (jest 'r') ace sym))
+      :: (stag %poke ;~(pfix (jest 'p') ace van))
+    ::
+      cd
+      :: ;~(pfix wut (cold clay/~ (jest 'clay')))
+      :: ;~(pfix hax (cold comm/~ (star prn)))
+    ==
+    ++  van  tall:(vang & /test)
+
+    ++  cd
+      :: ^-  _|~(nail *(like hull))
+      :: %+  csym  %cd 
+      %+  stag  %cd
+      %+  ifix  [(jest 'cd ') (easy ~)]
+      ;~  pose
+        stip:neo
+        %+  sear
+          |=  [kets=(list *) =pith:neo]
+          ^-  (unit pith:neo)
+          =/  cwd  get:cwd:peel
+          =/  up  (lent kets)
+          ?:  (gth up (lent cwd))
+            ~
+          =.  cwd  (scag (sub (lent cwd) up) cwd)
+          `(welp cwd pith)
+        ;~(plug (star ket) (more fas spot:stip:neo))
+      ==
+    ++  csym
+      |*  [term=* rul=rule]
+      (stag term ;~(pfix (jest term) rul))
+    --
+  ++  shoe-ef
+    |=  ef=shoe-effect:shoe
+    ^+  run
+    (emit %shoe ~[id] ef)
+  ++  do 
+    |=  =hull
+    |^  ^+  run
+    ?-    -.hull 
+        %ls     (tree 0)
+        %cd     abet:(set:cwd:peel pith.hull)
+        %poke   (do-poke p.hull)
+        %tree   (tree depth.hull)
+        %show
+      =/  =effect:sole  [%tan show:tell:peel]
+      (shoe-ef %sole effect)
+    ==
+    ++  do-poke
+      |=  =hoon
+      =/  vax=vase
+        %-  slap
+        :_  hoon
+        %+  with-faces:ford:neo  !>(..zuse)
+        :~  neo/!>(neo)
+            eny/!>(eny.bowl)
+            now/!>(now.bowl)
+            our/!>(our.bowl)
+        ==
+      =+  !<(=stud:neo (slot 2 vax))
+      =.  vax  (slot 3 vax)
+      (on-bush-move /$/$/xeno get:cwd:peel %poke stud vax)
+   ++  tree
+     |=  depth=@ud
+      %-  shoe-ef  
+      :-  %table  
+      :+  (limo tas/%path tas/%code tas/%node tas/%tree ~)
+        (limo 40 40 6 6 ~)
+      (desc:tell:peel depth)
+    --
   --
 --
 
