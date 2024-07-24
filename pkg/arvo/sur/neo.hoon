@@ -162,6 +162,7 @@
   +$  gift   dust
   --
 --
+~%  %neo-sur  ..part  ~
 |%
 ++  land
   =<  land
@@ -1372,7 +1373,7 @@
     [n=[key.n.a (fun key.n.a val.n.a)] l=$(a l.a) r=$(a r.a)]
   ::
   ++  uno
-    ~/  %uno
+    :: ~/  %uno
     |*  b=_a
     |*  meg=$-([* * *] *)
     |-  ^+  a
@@ -1389,7 +1390,7 @@
     $(r.b $(b r.b, l.a ~), a l.a)
   ::
   ++  uni
-    ~/  %uni
+    :: ~/  %uni
     |*  b=_a
     |-  ^+  b
     ?~  b  a
@@ -1513,10 +1514,12 @@
   |$  [item]
   [fil=(unit item) kid=(map pith item)]
 ++  of
+  ~%  %of  +>   ~
   =|  fat=(axal)
   |@ 
   ::  XX: strange moist
   ++  set
+    ~/  %set
     |*  [pax=pith ls=_kid.fat]
     ^+  fat
     :: =/  l  ~(tap aon ls)
@@ -1529,6 +1532,7 @@
   ::  XX: TODO: clarify whether ram/pry get lowest existing, or lowest
   ::  subtree
   ++  pry
+    ~/  %pry
     |*  pax=pith
     ^-  (unit [key=iota val=_?>(?=(^ fil.fat) u.fil.fat)])
     =/  res=(unit [key=iota val=_fat])
@@ -1540,6 +1544,7 @@
     [~ u=[key=key.u.res val=u.fil.val.u.res]] ::
 
   ++  ram
+    ~/  %ram
     |*  pax=pith
     ^-  (unit [key=iota val=_?>(?=(^ fil.fat) u.fil.fat)])
     =/  res=(unit [key=iota val=_fat])
@@ -1553,6 +1558,7 @@
   ++  rot
     (need fil.fat)
   ++  run
+    ~/  %run
     |*  b=gate
     |-  
     =+  c=`(axal _?>(?=(^ fil.fat) (b u.fil.fat)))`[~ ~]
@@ -1578,6 +1584,7 @@
     (add out loop(fat ax))
   ::
   ++  uni
+    ~/  %uni
     |*  taf=_fat
     |-  ^+  fat
     =*  loop  $
@@ -1624,6 +1631,8 @@
   ++  parent
     =|  res=(unit pith)
     =|  cur=pith
+    ~/  %parent
+    |*  taf=_fat
     |=  pax=pith
     |-  ^+  res
     ?~  pax
@@ -1647,6 +1656,7 @@
     ==
   ::
   ++  kid
+    ~/  %kid
     |=  pax=pith
     ^-  (map pith _?>(?=(^ fil.fat) u.fil.fat))
     =.  fat  (dip pax)
@@ -1655,12 +1665,14 @@
     tar
   ::
   ++  kids
+    ~/  %kids
     |=  pax=pith
     ^-  (axil _?>(?=(^ fil.fat) u.fil.fat))
     :-  (get pax)
     (kid pax)
   ::
   ++  del
+    ~/  %del
     |=  pax=pith
     ^+  fat
     ?~  pax  [~ kid.fat]
@@ -1671,6 +1683,7 @@
   ::  Descend to the axal at this path
   ::
   ++  dip
+    ~/  %dip
     |=  pax=pith
     ^+  fat
     ?~  pax  fat
@@ -1679,26 +1692,31 @@
     $(fat u.kid, pax t.pax)
   ::
   ++  gas
+    ~/  %gas
     |*  lit=(list (pair pith _?>(?=(^ fil.fat) u.fil.fat)))
     |-  ^+  fat
     ?~  lit  fat
     $(fat (put p.i.lit q.i.lit), lit t.lit)
   ++  got
+    ~/  %got
     |=  pax=pith
     ~|  missing-room/pax
     (need (get pax))
   ++  gut
+    ~/  %gut
     |*  [pax=pith dat=*]
     =>  .(dat `_?>(?=(^ fil.fat) u.fil.fat)`dat, pax `pith`pax)
     ^+  dat
     (fall (get pax) dat)
   ::
   ++  get
+    ~/  %get
     |=  pax=pith
     fil:(dip pax)
   ::  Fetch file at longest existing prefix of the path
   ::
   ++  fit
+    ~/  %fit
     |=  pax=pith
     ^+  [pax fil.fat]
     ?~  pax  [~ fil.fat]
@@ -1710,11 +1728,13 @@
     low
   ::
   ++  has
+    ~/  %has
     |=  pax=pith
     !=(~ (get pax))
   ::  Delete subtree
   ::
   ++  lop
+    ~/  %lop
     |=  pax=pith
     ^+  fat
     ?~  pax  fat
@@ -1724,6 +1744,7 @@
     ?~  kid  fat
     fat(kid (~(put aon kid.fat) i.pax $(fat u.kid, pax t.pax)))
   ++  rep
+    ~/  %rep
     |*  [pax=pith fit=_fat]
     |-  ^+  fat
     ?~  pax  fit
@@ -1731,12 +1752,14 @@
     fat(kid (~(put aon kid.fat) i.pax $(fat kid, pax t.pax)))
   ::
   ++  jab
+    ~/  %jab
     |*  [pax=pith fun=$-(_?>(?=(^ fil.fat) u.fil.fat) _?>(?=(^ fil.fat) u.fil.fat))]
     ^+  fat
     =/  kid  (got pax)
     (put pax (fun kid))
   ::
   ++  put
+    ~/  %put
     |*  [pax=pith dat=*]
     ^+  fat
     =>  .(dat `_?>(?=(^ fil.fat) u.fil.fat)`dat, pax `pith`pax)
@@ -1747,6 +1770,7 @@
   ::
   ++  rut
     =|  here=pith
+    ~/  %rut
     |*  fun=$-([pith _?>(?=(^ fil.fat) u.fil.fat)] _?>(?=(^ fil.fat) u.fil.fat))
     ^+  fat
     %=  fat
@@ -2453,7 +2477,7 @@
   ::  +git: get interval at key or return ~
   ::
   ++  git
-    ~/  %git
+    :: ~/  %git
     |=  b=@
     ^-  (unit span)
     ?~  res=(gat b)

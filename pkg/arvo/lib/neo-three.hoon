@@ -1,4 +1,5 @@
 /-  neo
+~%  %neo-three  ..part  ~
 |%
 ++  neo  ^neo
 ++  n  neo
@@ -6,8 +7,10 @@
 ++  of  of:neo
 ++  or  or:neo
 ++  u
+  ~%  %u  +>  ~
   |%
   ++  is-parent
+    ~/  %is-parent
     |=  [parent=pith:n kid=pith:n]
     ^-  ?
     ?~  parent  &
@@ -76,6 +79,7 @@
     ++  step  
       |^  ,[=seed io=(list gift)]
       ++  merge
+        :: ~/  %merge
         |=  [a=$ b=$]
         ^+  a
         %_  a
@@ -158,16 +162,19 @@
   =|  ind=@ud
   =/  edg=@ud  80
   =|  res=(list cape)
+  ~%  %etch  ..etch   ~
   |%
   ++  etch  .
   ++  abet  res
   ++  print
+    ~/  %print
     |-  ^+  same
     ?~  res
       same
     ~>  %slog.[p.i.res leaf/q.i.res]
     $(res t.res)
   ++  mean
+    ~/  %mean
     !.
     |-  ^+  !!
     ?~  res
@@ -179,11 +186,13 @@
   ++  tab   etch(ind (add ind stop))
   ++  untab  etch(ind (sub ind stop))
   ++  print-vase
+    ~/  %print-vase
     |=  vax=vase
     ?:  (gth (met 3 (jam q.vax)) 1.000)
       (print-ln "too large to print")
     (print-tank (sell vax))
   ++  print-tank
+    ~/  %print-tank
     |=  a=tank
     =/  tan=wall  (~(win re a) [ind edg])
     |-  ^+  etch
@@ -192,10 +201,12 @@
     =.  res  (snoc res [0 i.tan])
     $(tan t.tan)
   ++  print-ln
+    ~/  %print-ln
     |=  a=tape
     (print-ln-raw 0 a)
   ::
   ++  print-ln-raw
+    ~/  %print-ln-raw
     |=  [pri=@ud a=tape]
     ^+  etch
     =/  cap  (sub edg ind)
@@ -210,6 +221,7 @@
       etch
     $(a cont)
   ++  seed
+    ~/  %seed
     |=  s=seed:fern:t
     =.  etch  (print-ln-raw 2 "Seed")
     =<  (print-ln-raw 2 "seed done")
@@ -225,6 +237,7 @@
       %cull  e
    ==
   ++  epic
+    ~/  %epic
     |=  p=epic:neo
     ?:  =(1 1)
       etch
@@ -240,6 +253,7 @@
     untab:(print-vase:tab:e q.q.q.saga)
   ::
   ++  farm
+    ~/  %farm
     |=  f=farm:t
     ^+  etch
     %+  roll  ~(aap of soil.f)
@@ -254,6 +268,7 @@
     (loam:e l)
   ::
   ++  body
+    ~/  %body
     |=  [kind=?(%y %z) b=body:t]
     ^+  etch
     =/  [key=@ *]  (need (ram:on:body:t b))
@@ -261,6 +276,7 @@
   ++  loam-verb  `?`&
   ::
   ++  loam
+    ~/  %loam
     |=  l=loam:t
     ^+  etch
     =/  last  (need ~(last or l))
@@ -278,6 +294,7 @@
       untab:(dirt:tab:e u.dir)
     etch
   ++  dirt
+    ~/  %dirt
     |=  d=dirt:t
     ^+  etch
     =<  -
@@ -290,108 +307,119 @@
   --
 ::
 ++  plow
+  ~%  %plow  +>   ~
   |_  farm:t
   +*  farm  +<
   ++  scry
+    ~/  %scry
     |=  [=hunt:neo =case]
     ^-  (unit epic:neo)
     :: =/  =name:neo  (de-pith:name:neo pith.hunt)
     =/  is-our=?  &
-    |^
     ?+  care.hunt  ~ :: XX: wrong deal with abc
-      %x  read-x
-      %y  read-y
-      %z  read-z
+      %x  (read-x pith.hunt case)
+      %y  (read-y pith.hunt case)
+      %z  (read-z pith.hunt case)
     ==
-    ++  lift
-      |=  =data:t
-      ^-  saga:neo
-      =/  =aeon:neo
-        [*ever:neo oath.data]
-      [aeon poem.data pail.data]
-    ::
-    ++  wrap
-      =|  =epic:neo
-      |=  ls=(list [=pith:neo =data:t])
-      ^+  epic
-      ?~  ls
-        epic
-      =/  =saga:neo  (lift data.i.ls)
-      $(epic (~(put of epic) pith.i.ls saga), ls t.ls)
-    ++  not-found
-      ^-  (unit (unit saga:neo))
-      [~ ~]
-    ++  mystery
-      ^-  (unit (unit saga:neo))
-      ?:(is-our [~ ~] ~)
-    ++  read-x
-      ^-  (unit epic:neo)
-      =/  res  (read-x-raw pith.hunt case)
-      ?-  res
-        ~         ~
-        [~ ~]    `*epic:neo
-        [~ ~ *]  `(~(put of *epic:neo) / u.u.res)
-      ==
-    ++  read-x-raw
-      |=  [pit=pith:neo cas=@ud]
-      ^-  (unit (unit saga:neo))
-      ?~  lom=(~(get of soil) pit)
-        mystery
-      ?~  dir=(~(wit or u.lom) cas)
-        mystery
-      ?~  u.dir
-        not-found
-      ?^  ver=(get:on:dirt:t u.u.dir cas)
-        ``(lift u.ver)
-      ?~  lat=(ram:on:dirt:t u.u.dir)
-        ~
-      ?:  (lte cas key.u.lat)
-        not-found
+  ++  lift
+    ~/  %lift
+    |=  =data:t
+    ^-  saga:neo
+    =/  =aeon:neo
+      [*ever:neo oath.data]
+    [aeon poem.data pail.data]
+  ::
+  ++  wrap
+    ~/  %wrap
+    =|  =epic:neo
+    |=  ls=(list [=pith:neo =data:t])
+    ^+  epic
+    ?~  ls
+      epic
+    =/  =saga:neo  (lift data.i.ls)
+    $(epic (~(put of epic) pith.i.ls saga), ls t.ls)
+  ++  not-found
+    ^-  (unit (unit saga:neo))
+    [~ ~]
+  ++  mystery
+    ^-  (unit (unit saga:neo))
+    ~
+  ++  read-x
+    ~/  %read-x
+    |=  [p=pith:neo =case]
+    ^-  (unit epic:neo)
+    =/  res  (read-x-raw p case)
+    ?-  res
+      ~         ~
+      [~ ~]    `*epic:neo
+      [~ ~ *]  `(~(put of *epic:neo) / u.u.res)
+    ==
+  ++  read-x-raw
+    ~/  %read-x-raw
+    |=  [pit=pith:neo cas=@ud]
+    ^-  (unit (unit saga:neo))
+    ?~  lom=(~(get of soil) pit)
+      mystery
+    ?~  dir=(~(wit or u.lom) cas)
+      mystery
+    ?~  u.dir
+      not-found
+    ?^  ver=(get:on:dirt:t u.u.dir cas)
+      ``(lift u.ver)
+    ?~  lat=(ram:on:dirt:t u.u.dir)
       ~
-    ::
-    ++  read-y
-      ^-  (unit epic:neo)
-      ::  /foo/bar <- pith.hunt
-      ::  /foo  <- pith
-      ::  /foo/bar/baz
-      =/  [=pith:n bod=(unit body:t)]
-        (~(fit of why) pith.hunt)
-      ?~  bod
-        ~
-      =/  pfix  (dif:pith:n pith.hunt pith)
-      ?~  sol=(get:on:body:t u.bod case)
-        ~
-      :-  ~
-      =-  (~(dip of -) pfix)
-      %-  ~(gas of *epic:neo)
-      %+  murn  ~(tap by u.sol)
-      |=  [kid=pith:neo cas=@ud]
-      =.  kid  (welp pfix kid)
-      ?~  res=(need (read-x-raw kid cas))
-        ~
-      `[kid u.res]
-    ::
-    ++  read-z
-      ^-  (unit epic:neo)
-      ?~  bod=(~(get of zed) pith.hunt)
-        ~
-      ?~  sol=(get:on:body:t u.bod case)
-        ~
-      :-  ~
-      %-  ~(gas of *epic:neo)
-      %+  murn  ~(tap by u.sol)
-      |=  [=pith:neo cas=@ud]
-      ?~  res=(need (read-x-raw pith cas))
-        ~
-      `[pith u.res]
-    --
+    ?:  (lte cas key.u.lat)
+      not-found
+    ~
+  ::
+  ++  read-y
+    ~/  %read-y
+    |=  [p=pith:neo =case]
+    ^-  (unit epic:neo)
+    ::  /foo/bar <- pith.hunt
+    ::  /foo  <- pith
+    ::  /foo/bar/baz
+    =/  [=pith:n bod=(unit body:t)]
+      (~(fit of why) p)
+    ?~  bod
+      ~
+    =/  pfix  (dif:pith:n p pith)
+    ?~  sol=(get:on:body:t u.bod case)
+      ~
+    :-  ~
+    =-  (~(dip of -) pfix)
+    %-  ~(gas of *epic:neo)
+    %+  murn  ~(tap by u.sol)
+    |=  [kid=pith:neo cas=@ud]
+    =.  kid  (welp pfix kid)
+    ?~  res=(need (read-x-raw kid cas))
+      ~
+    `[kid u.res]
+  ::
+  ++  read-z
+    ~/  %read-z
+    |=  [p=pith:neo =case]
+    ^-  (unit epic:neo)
+    ?~  bod=(~(get of zed) p)
+      ~
+    ?~  sol=(get:on:body:t u.bod case)
+      ~
+    :-  ~
+    %-  ~(gas of *epic:neo)
+    %+  murn  ~(tap by u.sol)
+    |=  [=pith:neo cas=@ud]
+    ?~  res=(need (read-x-raw pith cas))
+      ~
+    `[pith u.res]
   ++  look
+    ~/  %look
     |=  =hunt:neo
     =/  =case:neo
       (get-case hunt)
     (scry hunt (get-case hunt))
   ::
   ++  get-case
+    ~/  %get-case
     |=  =hunt:neo
     ^-  @ud
     ?-    care.hunt
@@ -421,6 +449,7 @@
     ==
   ::
   ++  plant
+    ~/  %plant
     |=  =seed:t
     =/  ls   ~(sap of seed)
     |-  ^+  farm
@@ -473,6 +502,7 @@
     `[pith key]
 
   ++  rep
+    ~/  %rep
     |=  [=pith f=farm:t]
     ^+  farm
     %_  farm
@@ -482,6 +512,7 @@
       zed   (~(rep of zed.farm) pith zed.f)
     ==
   ++  dip
+    ~/  %dip
     |=  =pith
     %_  farm
       soil  (~(dip of soil.farm) pith)
@@ -495,6 +526,7 @@
   ::
   ::    XX: potentially wrong if updates do not come in order 
   ++  till
+    ~/  %till
     |=  kind=?(%y %z)
     =*  loop  $
     ^+  farm 
@@ -519,6 +551,7 @@
     $(kid t.kid)
   ::
   ++  call
+    ~/  %call
     |=  [=pith:neo not=note:t]
     ^+  farm
     ?-  -.not
@@ -526,6 +559,7 @@
       %cull  (cull pith +.not)
     ==
   ++  grow
+    ~/  %grow
     |=  $:  =pith
             cas=(unit (pair rift case))
             =pail:neo
@@ -553,6 +587,7 @@
     (grow-at pith [k.u.las +(key.u.cas)] pail poem)
   ::
   ++  grow-at
+    ~/  %grow-at
     |=  $:  =pith
             at=(pair rift case)
             =pail:neo
@@ -576,6 +611,7 @@
     farm
   ::
   ++  cull
+    ~/  %cull
     |=  [=pith:neo rif=(unit rift)]
     ^+  farm
     ?^  rif
@@ -600,6 +636,7 @@
     (cull-at pit `@`+(k.u.san))
   ::
   ++  cull-at
+    ~/  %cull-at
     |=  [=pith:neo =rift]
     ^+  farm
     ?~  lom=(~(get of soil) pith)

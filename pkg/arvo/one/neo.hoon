@@ -153,7 +153,7 @@
     :: then, desk shrub
     :-  [#/cod/std %make %ford-desk `disk/!>(`disk:n`~) sig/!>(~)]
     :: fill with files
-    %+  turn  (scag 10 ~(tap of src.neo-args))
+    %+  turn  ~(tap of src.neo-args)
     |=  [=pith:neo kind=?(%hoon %txt) src=@t]
     ^-  card:b
     [(welp #/cod/std/src pith) %make kind `kind^!>(src) sig/!>(sig)]
@@ -173,7 +173,7 @@
   ?:  booting
     =/  =epic:n
       (need (~(look plow farm.mien) [%z /]))
-    %-  print:(epic:etch epic)
+    :: %-  print:(epic:etch epic)
     %-  (slog leaf/"Checking for more boot cards" ~)
     ?~  nex=(~(pry of epic) #/$/boot)
       ~&  >  %finished-booting
@@ -189,7 +189,7 @@
       abet:(arvo #/$/xeno/[da/now.mien] card)
     =.  step  (merge:step:f step s)
     =.  io.step  (snoc io.step %drip ~)
-    %-  print:(seed:etch seed.step)
+    :: %-  print:(seed:etch seed.step)
     [step this]
   ~&  %neo-funny-drip
   [step this]
@@ -469,7 +469,7 @@
     =^  cards=(list card:n)  arvo 
       (soft-surf |.(su-abet:(su-make:surf init)))
     ~&  %neo-done-make
-    %-  print:(seed:etch seed.step)
+    :: %-  print:(seed:etch seed.step)
     (ingest cards)
   ++  jazz :: XX: fix
     =|  bad=(set term)
