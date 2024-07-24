@@ -12,7 +12,7 @@
   |=  =pith
   =/  =task
     !<  task
-    q.pail:(need (~(get by ~(tar of:neo kids.bowl)) pith))
+    q.q:(need (~(get by ~(tar of:neo kids.bowl)) pith))
   done.task
 ::
 ++  assign-name
@@ -22,7 +22,7 @@
   =/  sorted-names=(list @ud)
     %-  sort  :_  lth
     %+  turn  ~(tap by ~(tar of:neo kids.bowl))
-      |=  [=pith =idea:neo]
+      |=  [=pith *]
       +:(,[%ud @ud] (rear pith))
   =/  last-name=@ud  (rear sorted-names)
   =/  name-missing=(list @ud)

@@ -22,10 +22,9 @@
   %-  mule
   |.  ^-  hoon
   =/  [pax=pith:neo =lore:neo]  (~(got by deps.bowl) %hoon)
-  =/  =name:neo  (de-pith:name:neo pax)
   =+  !<(src=@t q.pail:~(rot of:neo lore))
   =/  =file:ford:neo
-    (scan (trip src) (rein:ford:neo name))
+    (scan (trip src) (rein:ford:neo pax))
   hoon.file
 
 +$  state  [cache=(unit vase) ~]

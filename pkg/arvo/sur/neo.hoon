@@ -884,7 +884,7 @@
   ::
   ++  run
     |=  txt=@t
-    (scan (trip txt) (rein *name))
+    (scan (trip txt) (rein *pith))
   +$  loc
     [=disk =pith]
   ::  $lib:ford: Specification of library import
@@ -918,7 +918,8 @@
     ==
   ::  +rein:ford: Parse code with imports
   ++  rein
-    |=  =name
+    |=  =pith
+    !:
     =<  apex
     |%
     ++  dis  
@@ -930,25 +931,6 @@
     ::
     ++  lib-loc
       ;~(plug dis stip)
-    ::  +old-nam: Parse file path (deprecated: XX revisit)
-    ::
-    ::     Examples:
-    ::     Absolute ~hastuc-dibtux/src/foo/bar/test
-    ::     Relative %^/bar
-    ++  old-nam
-      :: ^-  $-(nail (like name))
-      ;~  pose
-        %+  sear 
-          |=  [kets=(list) pit=pith]
-          ^-  (unit ^name)
-          %-  mole
-          |.  ^-  ^name
-          =.  pit  (scag (sub (lent pit) (lent kets)) pit)
-          =-  ~&(parsed-name/- -)
-          name(pith (welp pith.name pit))
-        ;~(pfix cen ;~(plug (star ket) stip))                     :: relative
-        ;~(plug ;~(pfix fas sig fed:ag) stip) :: absolute
-      ==
     ::  +std:rein:ford: Parse import directive
     ::
     ::    Either  name:~ship/desk
@@ -1023,27 +1005,6 @@
         std
       ==
 
-
-    ::  +old-lib: Parse arbitrary library import directive
-    ::
-    ::    Unused, todo revive with more recursive build system
-    ::
-    ::    /-  face=~hastuc-dibtux/foo/bar <- imports ~hastuc-dibtux
-    ::    /-  %^/bar <- imports bar/hoon up one level with face bar
-    ::
-    ++  old-lib
-      :: ^-  $-(nail (like ^lib))
-      %+  rune  hep
-      ;~  pose
-        ;~(plug sym ;~(pfix tis old-nam))
-        %+  cook
-          |=  n=^name
-          =/  last  (rear pith.n)
-          :_  n
-          ?@  last  last
-          (scot last)
-        old-nam
-      ==
     ++  rune
       |*  [car=rule rul=rule]
       (ifix [;~(plug fas car gap) gay] rul)
@@ -1059,7 +1020,7 @@
     ++  fars  (star far)
     ++  hone
       :: ^-  $-(nail (like hoon))
-      =+  vaz=(vang & (en-path:^name name))
+      =+  vaz=(vang & (pout pith))
       (ifix [gay gay] tall:vaz)
     ++  apex
       :: ^-  rule
@@ -1254,6 +1215,7 @@
         :-  '.'      zust:so
         :-  '~'      ;~(pfix sig ;~(pose (stag %da (cook year when:so)) crub:so (easy [%n ~])))
         :-  '\''     (stag %t qut)
+        :-  '$'      (cold %$ buc)
     ==
   --
 ::
@@ -1261,6 +1223,12 @@
 ::
 ++  pith
   |^  $+(pith ^pith)
+  ++  is-our
+    |=  [our=@p pit=$]
+    ?.  ?=([[%p @] *] pit)
+      |
+    =(+.i.pit our)
+  ::
   ++  en-tape
     |=  pit=$
     (spud (pout pit))
@@ -1777,6 +1745,16 @@
       fil  ?~(fil.fat ~ `(fun here u.fil.fat))
       kid  (~(rut aon kid.fat) |=([iot=iota f=_fat] ^$(here (snoc here iot), fat f)))
     ==
+  ++  rum
+    ~/  %rum
+    |*  fun=$-(_?>(?=(^ fil.fat) u.fil.fat) _fil.fat)
+    ^+  fat
+    %=  fat
+      fil  ?~(fil.fat ~ (fun u.fil.fat))
+      kid  (~(rut aon kid.fat) |=([iot=iota f=_fat] ^$(fat f)))
+    ==
+  ::
+
   ::
   ++  tap
     =|  pax=pith
@@ -2338,6 +2316,11 @@
       [~ t.pith]
     ?>  ?=([[%p @] @ *] pith)
     [[+.i.pith i.t.pith] t.t.pith]
+  ++  has-stud
+    |=  =stud
+    ?@  stud  =(disk ~)
+    ?@  disk  |
+    =([ship desk]:disk [ship desk]:stud)
   ++  pith
     ^-  ^pith
     ?@  disk
@@ -2428,6 +2411,10 @@
         ::
         ?~(r.a %.y &((mor k.p.n.a k.p.n.r.a) $(a r.a, r `k.p.n.a)))
     ==
+  ++  wyt
+    =<  $
+    |.  ^-  @
+    ?~(a 0 +((add $(a l.a) $(a r.a))))
   ::
   ++  put
     |*  [b=span c=*]
@@ -2529,4 +2516,15 @@
     =.  a  +:(cap k.u.las (dec l))
     (put span c)
   --
+::
+::  Like +rose except also produces line number
+::
+++  lily
+  |*  [los=tape sab=rule]
+  =+  vex=(sab [[1 1] los])
+  ?~  q.vex
+    [%| p=p.vex(q (dec q.p.vex))]
+  ?.  =(~ q.q.u.q.vex)
+    [%| p=p.vex(q (dec q.p.vex))]
+  [%& p=p.u.q.vex]
 --

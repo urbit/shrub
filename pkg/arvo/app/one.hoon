@@ -52,6 +52,7 @@
       [%nuke ~]
       [%pill ~]
       [%over =pith:neo]
+      [%dbug ~]
       :: [%make =vial:neo]
   ==
 ::
@@ -317,6 +318,7 @@
   ::
   ++  fe-call
     |=  =note:fern:t
+    ~>  %bout.[1 %fe-call]
     (fe-ingest (slym (slap fe-code limb/%call) note))
   ++  fe-deal
     |=  io=(list gift:fern:t)
@@ -351,6 +353,7 @@
     ?~  pic=(~(look plow farm) %x pith)
       ~
     `(~(get of u.pic) /)
+  ++  fam  (~(dip plow farm) pith)
   ++  kids  desc
   ++  desc
     |=  depth=@ud
@@ -401,6 +404,9 @@
           ud/0
       ==
     --
+  ++  dbug
+    ^-  (list tank)
+    tang:(farm:etch fam)
   ++  show
     ^-  (list tank)
     =/  sag   get
@@ -517,6 +523,7 @@
           (stag & (cold commit/~ (jest 'b')))
           (stag & (cold nuke/~ (jest 'n')))
           (stag & (cold pill/~ (jest 'd')))
+          (stag & (cold dbug/~ (jest 'e')))
           -
         ==
     %+  stag  |
@@ -588,6 +595,10 @@
     ::
         %show
       =/  =effect:sole  [%tan show:tell:peel]
+      (shoe-ef %sole effect)
+    ::
+        %dbug
+      =/  =effect:sole  [%tan dbug:tell:peel]
       (shoe-ef %sole effect)
     ==
     ++  commit

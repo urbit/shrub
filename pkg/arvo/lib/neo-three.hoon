@@ -7,8 +7,41 @@
 ++  of  of:neo
 ++  or  or:neo
 ++  u
-  ~%  %u  +>  ~
+  ~%  %u  ..u  ~
   |%
+  ++  crew
+    |%
+    ++  mk
+      |=  ls=(list [=term =pith:n])
+      (~(gas by *crew:n) ls)
+    ++  one
+      |=  [=term =pith:n]
+      ^-  crew:n
+      %-  ~(gas by *crew:n)
+      ~[term^pith]
+    --
+  ++  make
+    |%
+    ++  static
+      |=  [=stud:n =pail:n]
+      ^-  note:n
+      [%make stud `pail ~]
+    --
+  ++  deps
+    |%
+    ++  qua
+      |_  [=term =bowl:n sud=(unit stud:n)]
+      ++  get  `(pair pith:n lore:n)`(~(got by deps.bowl) term)
+      ++  lore  q:get
+      ++  root  ~(rot of lore)
+      ++  pail
+        :: =-  ?>(|(?=(~ sud) =(p.- u.sud)) -)
+        ^-  pail:n
+        pail:root
+      ++  vase  `^vase`q:pail
+      ++  pith  p:get
+      --
+    --
   ++  is-parent
     ~/  %is-parent
     |=  [parent=pith:n kid=pith:n]
@@ -48,9 +81,11 @@
     +$  card  (pair pith note)
     ::  $note: IO request at a location
     +$  note
+      $~  [%cull ~]
       $%  [%poke =pail]
           [%cull ~]
           [%make code=stud init=(unit pail) xtra=pail]
+          [%many cards=(list card)]
       ==
     --
   ++  fern
@@ -166,15 +201,15 @@
   |%
   ++  etch  .
   ++  abet  res
+  ++  tang
+    (flop `^tang`(turn res (cork tail (lead %leaf))))
   ++  print
-    ~/  %print
     |-  ^+  same
     ?~  res
       same
     ~>  %slog.[p.i.res leaf/q.i.res]
     $(res t.res)
   ++  mean
-    ~/  %mean
     !.
     |-  ^+  !!
     ?~  res
@@ -183,16 +218,36 @@
     ~>  %mean.tap
     $(res t.res)
 
+  ++  cards
+    |=  caz=(list card:n)
+    ^+  etch
+    ?~  caz
+      etch
+    $(etch (card i.caz), caz t.caz)
+  ++  card
+    |=  =card:n
+    ^+  etch
+      %+  print-ln-raw  1
+      "{<-.q.card>} {(en-tape:pith:neo p.card)}"
+::  ?+    -.q.card  !!
+::      %cull  (print-ln "%cull")
+::      %poke  (print-vase:(print-ln "%poke") q.pail.q.card)
+::      %make  
+::    =.  etch  (print-ln "%make {<stud.q.card>}")
+::    =.  etch
+::      (print-ln <conf.q.card>)
+::    ?~  init.q.card
+::      etch
+::    (print-vase q.u.init.q.card)
+::  ==
   ++  tab   etch(ind (add ind stop))
   ++  untab  etch(ind (sub ind stop))
   ++  print-vase
-    ~/  %print-vase
     |=  vax=vase
     ?:  (gth (met 3 (jam q.vax)) 1.000)
       (print-ln "too large to print")
     (print-tank (sell vax))
   ++  print-tank
-    ~/  %print-tank
     |=  a=tank
     =/  tan=wall  (~(win re a) [ind edg])
     |-  ^+  etch
@@ -201,12 +256,10 @@
     =.  res  (snoc res [0 i.tan])
     $(tan t.tan)
   ++  print-ln
-    ~/  %print-ln
     |=  a=tape
     (print-ln-raw 0 a)
   ::
   ++  print-ln-raw
-    ~/  %print-ln-raw
     |=  [pri=@ud a=tape]
     ^+  etch
     =/  cap  (sub edg ind)
@@ -221,7 +274,6 @@
       etch
     $(a cont)
   ++  seed
-    ~/  %seed
     |=  s=seed:fern:t
     =.  etch  (print-ln-raw 2 "Seed")
     =<  (print-ln-raw 2 "seed done")
@@ -236,8 +288,18 @@
       %grow  untab:(print-vase:tab:e q.pail.note)
       %cull  e
    ==
+  ++  muck
+    |=  m=muck:t
+    =.  etch  (print-ln-raw 2 "muck")
+    %+  roll  ~(aap of m)
+    |=  [[=pith:neo =tale:neo] e=_etch]
+    ^+  e
+    =.  e  
+      %+  print-ln-raw:e  1
+      %-  en-tape:pith:neo 
+      pith 
+    untab:(print-vase:tab:e q.q.tale)
   ++  epic
-    ~/  %epic
     |=  p=epic:neo
     ?:  =(1 1)
       etch
@@ -253,7 +315,6 @@
     untab:(print-vase:tab:e q.q.q.saga)
   ::
   ++  farm
-    ~/  %farm
     |=  f=farm:t
     ^+  etch
     %+  roll  ~(aap of soil.f)
@@ -268,7 +329,6 @@
     (loam:e l)
   ::
   ++  body
-    ~/  %body
     |=  [kind=?(%y %z) b=body:t]
     ^+  etch
     =/  [key=@ *]  (need (ram:on:body:t b))
@@ -276,7 +336,6 @@
   ++  loam-verb  `?`&
   ::
   ++  loam
-    ~/  %loam
     |=  l=loam:t
     ^+  etch
     =/  last  (need ~(last or l))
@@ -294,7 +353,6 @@
       untab:(dirt:tab:e u.dir)
     etch
   ++  dirt
-    ~/  %dirt
     |=  d=dirt:t
     ^+  etch
     =<  -
@@ -614,26 +672,15 @@
     ~/  %cull
     |=  [=pith:neo rif=(unit rift)]
     ^+  farm
+    %+  cull-at  pith
     ?^  rif
-      (cull-at pith u.rif)
+      u.rif
     ::  XX: this path should only be hit in local ship case, XX:
     ::  assert
     ?~  lom=(~(get of soil) pith)
       ~|  weird-cull-nothing/pith
       mean:(farm:etch farm)
-    ?~  san=~(last or u.lom)
-      ~|  weird-cull-empty-loam/pith
-      !!
-    =.  farm  (cull-at pith +(k.u.san))
-    %+  roll  ~(tap by (~(kid of soil.farm) pith))
-    |=  [[kid=pith:neo =loam:t] f=_farm]
-    =/  pit   (welp pith kid)
-    ?~  san=~(last or loam)
-      f
-    ?~  dir=(~(got or loam) k.u.san)
-      f
-    =.  farm  f
-    (cull-at pit `@`+(k.u.san))
+    +(~(wyt or u.lom))
   ::
   ++  cull-at
     ~/  %cull-at

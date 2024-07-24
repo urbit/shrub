@@ -13,8 +13,8 @@
   ++  deps  deps:inner
   ++  form
     ^-  form:neo
-    |_  [=bowl:neo =saga:neo]
-    +*  og   ~(. form:inner [bowl saga])
+    |_  [=bowl:neo =aeon:neo =pail:n]
+    +*  og   ~(. form:inner [bowl aeon pail])
     ++  poke
       |=  [=stud:neo vax=vase]
       ^-  (quip card:neo pail:neo)
