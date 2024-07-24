@@ -17,6 +17,7 @@
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
+    ~&  >  'got eyre task'
     ?+    stud  ~|(bad-stud/stud !!)
         %eyre-task
       =+  !<(=task:eyre:neo vax)
