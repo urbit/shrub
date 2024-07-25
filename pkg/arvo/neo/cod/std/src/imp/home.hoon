@@ -36,6 +36,7 @@
         [#/[p/our.bowl]/home/planner %make %planner ~ ~]
         [#/[p/our.bowl]/home/messenger %make %messenger ~ ~]
         [#/[p/our.bowl]/home/landscape %make %iframe `iframe/!>('/apps/landscape') ~]
+        [#/[p/our.bowl]/home/tree-view %make %iframe `iframe/!>((crip "/neo/tree/{(scow %p our.bowl)}")) ~]
       ::
         [#/[p/our.bowl]/home/docs %make %folder `folder/!>([%introduction %tutorials %guides ~]) ~]
         [#/[p/our.bowl]/home/docs/introduction %make %sail `sail/!>([introduction 'prose p-page mw-page ma' ~]) ~]
