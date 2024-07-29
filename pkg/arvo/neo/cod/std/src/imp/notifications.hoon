@@ -31,11 +31,11 @@
   %-  some
   :-  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [[%.n %da] %.n]
+  :~  :-  [[%.y %notification] [%.n %da] %.n]
       [[%pro %notification] ~]
-      :-  [[%.n %tas] %.n]
+      :-  [[%.y %config] [%.n %tas] %.n]
       [[%pro %notifications-config] ~]
-      :-  [[%.n %t] %.n]
+      :-  [[%.y %endpoints] [%.n %t] %.n]
       [[%pro %json] ~]
   ==
 ::
@@ -51,8 +51,8 @@
       ^-  (quip card:neo pail:neo)
       ?^  old
         [~ u.old]
-      :_  [%notifications-controller !>(|=(notification /default))]
-      :~  :-  (welp here.bowl ~[%default])
+      :_  [%notifications-controller !>(|=(notification #/config/default))]
+      :~  :-  (welp here.bowl ~[%config %default])
           :*  %make
               %notifications-config
               `[%notifications-config !>(*notifications-config)]
@@ -79,7 +79,7 @@
           (ot ~[endpoint+so]):dejs:format
         ::  XX handle expirationTime with behn?
         ::       remove this endpoint when the timer fires
-        :~  :-  (welp here.bowl ~[t/endpoint])
+        :~  :-  (welp here.bowl ~[%endpoint t/endpoint])
             [%make %json `[%json !>(cred)] ~]
         ==
       ::
