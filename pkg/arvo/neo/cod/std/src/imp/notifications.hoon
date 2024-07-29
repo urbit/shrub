@@ -7,7 +7,7 @@
 ::
 ::  helper core
 |%
-++  has-pith-in-any
+++  has-pith-in
   |=  [piths=(set pith) query=pith]
   ^-  ?
   %-  ~(any in piths)
@@ -93,14 +93,14 @@
           !<  notifications-config
           q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
         :_  [%notifications-controller !>(state)]
-        ?:  (has-pith-in-any kill.config pith.not)
+        ?:  (has-pith-in kill.config pith.not)
           ~
-        ?:  (has-pith-in-any mute.config pith.not)
+        ?:  (has-pith-in mute.config pith.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
           ==
-        ?:  (has-pith-in-any buzz.config pith.not)
+        ?:  (has-pith-in buzz.config pith.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]

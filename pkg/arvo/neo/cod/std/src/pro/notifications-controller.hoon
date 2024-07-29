@@ -1,2 +1,2 @@
 /@  notification
-,$-(notification pith)
+$-(notification pith)
