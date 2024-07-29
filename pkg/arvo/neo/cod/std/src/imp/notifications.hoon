@@ -1,4 +1,4 @@
-/@  txt
+/@  json
 /@  notification
 /@  notifications-config
 /@  notifications-controller
@@ -24,7 +24,7 @@
 ::
 ++  poke
   ^-  (set stud:neo)
-  (sy %txt %notification ~)
+  (sy %json %notification ~)
 ::
 ++  kids
   ^-  kids:neo
@@ -36,7 +36,7 @@
       :-  [[%.n %tas] %.n]
       [[%pro %notifications-config] ~]
       :-  [[%.n %t] %.n]
-      [[%pro %txt] ~]
+      [[%pro %json] ~]
   ==
 ::
 ++  deps
@@ -66,22 +66,21 @@
       ?+      stud
             !!
           %notifications-controller
-        ::  XX need to check vaz?
         [~ [%notifications-controller vaz]]
       ::
-          %txt
+          %json
         :_  [%notifications-controller !>(state)]
-        =/  auth  (de:json:html !<(txt vaz))
-        ?~  auth
+        =/  cred  !<(json vaz)
+        ?~  cred
           ~
-        ::  XX parse JSON
-        ::       need endpoint + expirationTime at minimum
-        ::  XX maybe store endpoint details as $json
-        ::       would need a /pro/json.hoon
-        ::  XX handle expirationTime with behn
-        ::  XX placeholder path
-        :~  :-  (welp here.bowl ~[%foo])
-            [%make %txt `[%txt !>('')] ~]
+        ::  XX parse expirationTime
+        =/  endpoint
+          %.  cred
+          (ot ~[endpoint+so]):dejs:format
+        ::  XX handle expirationTime with behn?
+        ::       remove this endpoint when the timer fires
+        :~  :-  (welp here.bowl ~[t/endpoint])
+            [%make %json `[%json !>(cred)] ~]
         ==
       ::
           %notification
