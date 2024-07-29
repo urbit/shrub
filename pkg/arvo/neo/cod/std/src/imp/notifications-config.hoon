@@ -18,7 +18,7 @@
       ^-  (quip card:neo pail:neo)
       ?^  old
         [~ (need old)]
-      [~ [%notifications-config !>(*state)]]
+      [~ [%notifications-config !>(~)]]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
