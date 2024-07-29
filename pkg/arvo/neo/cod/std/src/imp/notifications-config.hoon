@@ -2,7 +2,7 @@
 ^-  kook:neo
 |%
 ++  state
-  [%pro %notifications]
+  [%pro %notifications-config]
 ++  poke
   (sy %notifications-config ~)
 ++  kids
