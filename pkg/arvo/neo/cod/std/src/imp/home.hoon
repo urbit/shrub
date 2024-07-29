@@ -36,6 +36,7 @@
         [#/[p/our.bowl]/home/files %make %folder ~ ~]
         [#/[p/our.bowl]/home/planner %make %planner ~ ~]
         [#/[p/our.bowl]/home/messenger %make %messenger ~ ~]
+        [#/[p/our.bowl]/home/notifications %make %notifications ~ ~]
         [#/[p/our.bowl]/home/landscape %make %iframe `iframe/!>('/apps/landscape') ~]
       ::
         [#/[p/our.bowl]/home/docs %make %folder `folder/!>([%introduction %tutorials %guides ~]) ~]
