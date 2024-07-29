@@ -23,7 +23,6 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(%notifications-config stud)
-      =/  new-config  !<(notifications-config vaz)
-      [~ [%notifications-config !>(new-config)]]
+      [~ [%notifications-config vaz]]
   --
 --
