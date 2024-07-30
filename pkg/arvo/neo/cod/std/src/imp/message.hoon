@@ -18,6 +18,8 @@
       =/  new-message
         !<(message q:(need old))
       :_  [%message !>(new-message)]
+      ?:  =(our.bowl from.new-message)
+        ~
       :~  :-  #/[p/our.bowl]/home/notifications
           [%poke [%notification !>([%.y now.bowl here.bowl contents.new-message])]]
       ==
