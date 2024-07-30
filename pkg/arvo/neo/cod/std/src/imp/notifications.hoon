@@ -87,7 +87,9 @@
         =/  not  !<(notification vaz)
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
-        ?>  =(pith.not pith.src.bowl)
+        :: ~&  >>  pith.not
+        :: ~&  >>  pith.src.bowl
+        :: ?>  =(pith.not pith.src.bowl)
         =/  config
           !<  notifications-config
           q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))

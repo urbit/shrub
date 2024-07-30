@@ -34,6 +34,10 @@
     :_  state
     =+  !<([=term =leaf:neo] vax)
     ::  only get new kids
+    %+  welp
+      :~  :-  #/[p/our.bowl]/home/notifications
+          [%poke [%notification !>([%.y now.bowl here.bowl 'foobar new notif'])]]
+      ==
     %+  murn  ~(tap of:neo q:(~(got by deps.bowl) %pub))
     |=  [=pith:neo =idea:neo]
     ^-  (unit card:neo)
