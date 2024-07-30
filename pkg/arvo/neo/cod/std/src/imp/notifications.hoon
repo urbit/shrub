@@ -63,6 +63,7 @@
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
+      ?>  =(ship.src.bowl our.bowl)
       ?+      stud
             !!
           %notifications-controller
@@ -87,9 +88,7 @@
         =/  not  !<(notification vaz)
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
-        :: ~&  >>  pith.not
-        :: ~&  >>  pith.src.bowl
-        :: ?>  =(pith.not pith.src.bowl)
+        ?>  =(pith.src.bowl (tail pith.not))
         =/  config
           !<  notifications-config
           q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
