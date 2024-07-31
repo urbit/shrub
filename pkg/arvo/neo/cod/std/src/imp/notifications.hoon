@@ -88,19 +88,19 @@
         =/  not  !<(notification vaz)
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
-        ?>  =(pith.src.bowl (tail pith.not))
+        ?>  =(pith.src.bowl (tail src.not))
         =/  config
           !<  notifications-config
           q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
         :_  [%notifications-controller !>(state)]
-        ?:  (has-pith-in kill.config pith.not)
+        ?:  (has-pith-in kill.config src.not)
           ~
-        ?:  (has-pith-in mute.config pith.not)
+        ?:  (has-pith-in mute.config src.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
           ==
-        ?:  (has-pith-in buzz.config pith.not)
+        ?:  (has-pith-in buzz.config src.not)
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
               [%make %notification `[%notification !>(not)] ~]
