@@ -28,6 +28,6 @@
       ^-  (quip card:neo pail:neo)
       ?>  =(stud %flag)
       ?>  =(our.bowl ship.src.bowl)
-      [~ [%notification !>([!<(flag vaz) time.state pith.state cord.state])]]
+      [~ [%notification !>([!<(flag vaz) time.state src.state dst.state cord.state])]]
   --
 --

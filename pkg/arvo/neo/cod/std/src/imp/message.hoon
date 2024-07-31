@@ -21,7 +21,7 @@
       ?:  =(our.bowl from.new-message)
         ~
       :~  :-  #/[p/our.bowl]/home/notifications
-          [%poke [%notification !>([%.y now.bowl here.bowl contents.new-message])]]
+          [%poke [%notification !>([%.y now.bowl here.bowl here.bowl contents.new-message])]]
       ==
     ++  poke
       |=  [=stud:neo vaz=vase]
