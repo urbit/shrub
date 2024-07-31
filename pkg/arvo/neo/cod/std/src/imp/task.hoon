@@ -56,6 +56,7 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     =/  this  !<(task state-vase)
+    ~&  >  poke/stud
     ?+    stud  !!
         %gift
       ::check if all kid tasks are done
@@ -90,10 +91,11 @@
         ==
       ::
           %oust
+        ~&  >>>  oust/pith.diff
         =/  i  (find [pith.diff ~] order.this)
         ?~  i  `task/!>(this)
         :_  task/!>(this(order (oust [(need i) 1] order.this)))
-        :~  [(welp here.bowl pith.diff) [%tomb ~]]
+        :~  [(welp here.bowl pith.diff) [%cull ~]]
         ==
       ::
           %reorder

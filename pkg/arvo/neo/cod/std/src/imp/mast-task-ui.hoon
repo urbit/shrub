@@ -32,10 +32,12 @@
   ++  poke
     |=  [=stud:neo =vase]
     ^-  (quip card:neo pail:neo)
+    ~&  >>  stud
     ?+    stud  ~|(bad-stud/stud !!)
     ::
         %ui-event
       =/  event  !<(ui-event vase)
+      ~&  >>  path.event
       ?+    path.event
         ~|(missing-event-handler-for/path.event !!)
       ::
@@ -59,6 +61,16 @@
             :+  %poke 
               %task-diff
             !>([%edit text.t !done.t])
+        ==
+      ::
+          [%click %submit * ~]
+        ~&  p:(~(got by deps.bowl) %src)
+        =/  =pith:neo  (oust [0 2] (pave:neo path.event))
+        :_  pail
+        :~  :-  p:(~(got by deps.bowl) %src)
+            :+  %poke
+              %task-diff
+            !>([%oust pith])
         ==
       ==
     ::
@@ -123,6 +135,14 @@
                 =event  (welp "/click/checkbox" key)
                 ;
               ==
+              ;div
+                ;button
+                  =type  "submit"
+                  =name  "oust"
+                  =event  (welp "/click/submit" key)
+                ;  X
+                ==
+            ==
           ==
     ==
   --
