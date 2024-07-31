@@ -42,6 +42,7 @@
         ~|(missing-event-handler-for/path.event !!)
       ::
           [%submit %new-task ~]
+        ~&  data.event
         =/  text=@t
           (~(got by data.event) 'task-input')
         :_  pail
@@ -72,6 +73,14 @@
               %task-diff
             !>([%oust pith])
         ==
+        ::
+          [%change %text * ~]
+        ::  edit text.task 
+        ~&  data.event
+        ::=/  text=@t
+        ::  (~(got by data.event) 'task-text')
+        =/  =pith:neo  (oust [0 2] (pave:neo path.event))
+        [~ pail]
       ==
     ::
         %rely
@@ -114,14 +123,27 @@
   ++  subtasks
     ^-  manx
     ;div
+    =style  all-tasks-st
       ;*  %+  turn
             %~  tap  by
             (~(del by tasks) /)
           |=  [=pith =task]
           =/  key  (en-tape:pith:neo pith)
           ;div
-            ;p: {(trip text.task)}
+          =style  task-st
+            ::;p: {(trip text.task)}
+            ::  XX:  not working does not get value back from POST req
+            ;input
+            =style  "border: none;"
+            =type   "text"
+            =value  (trip text.task)
+            =name   "task-text"
+            =event  (welp "/change/text" key)
+            ;
+            ==
           ::
+            ;div
+            =style  buttons-st
             ;+
               =;  m
                 ?:  done.task
@@ -142,6 +164,7 @@
                   =event  (welp "/click/submit" key)
                 ;  X
                 ==
+              ==
             ==
           ==
     ==
@@ -158,4 +181,19 @@
   |=  [=pith =idea:neo]
   :-  pith
   !<(task q.pail.idea)
+::
+++  all-tasks-st  "display: flex; flex-direction: column; gap: 6px;"
+::
+++  task-st
+  ^~
+  %-  trip
+  '''
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding:8px;
+  '''
+::
+++  buttons-st  "display: flex; flex-direction: row; gap: 4px;"
 --
