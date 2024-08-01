@@ -70,8 +70,6 @@ This shrub accepts a poke that cancels a specific timer. We identify the timer t
 
 When /app/neo receives a `%wake` task from the Behn vane, it pokes the relevant shrubs with the `%wake` `gift:behn`.
 
-[am i right in thinking shrubs can only start timers on one wire and receive `%wake`s for timers on that same wire?]
-
 ```
 ++  poke
   |=  [=stud:neo vaz=vase]

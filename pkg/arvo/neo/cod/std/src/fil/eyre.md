@@ -4,12 +4,10 @@ Eyre is Urbit's HTTP server vane. Shrubbery can use Eyre to serve UIs to your de
 
 ## Types
 
-[looks like it stores state in two diff formats and has a map of bound URLs]
-
 The Eyre shane stores three things in its state.
-- `by-id`: ???
-- `by-pith`: ???
-- `bind`: a map of Eyre [binding](https://docs.urbit.org/system/kernel/eyre/reference/data-types#binding)s to Shrubbery `pith`s.
+- `by-id`: Map of HTTP request ID to the pith of the shrub which is handling the request.
+- `by-pith`: Map of pith to ID; `by-id` in reverse.
+- `bind`: Map of Eyre [binding](https://docs.urbit.org/system/kernel/eyre/reference/data-types#binding)s to `pith`s.
 
 ```
 +$  eyre
@@ -62,16 +60,16 @@ In the code below, we construct a `req:eyre:neo` by giving it a `binding:eyre` a
 
 ### `%head`
 
-???
+The HTTP header of the response. Has to be given immediately so the connection doesn't time out.
 
 ### `%data`
 
-???
+The actual data of the HTTP request.
 
 ### `%done`
 
-???
+HTTP request has finished, the connection has closed.
 
 ### `%bound`
 
-???
+URL has been successfully bound.
