@@ -3,7 +3,7 @@
 ::  $neo: New Shrub
 ::
 ::    Urbit is a namespace, from a path -> data
-::    /~hastuc-dibtux/chats/unit-731 :: this a chat
+::    /~hastuc-dibtux/chats/unit-731 :: this a chat 
 ::    /~hastuc-dibtux/chats/unit-731/msg/~2024.1.27..10.30 :: this is a
 ::    message inside the chat
 ::
@@ -16,11 +16,11 @@
 ::
 ::
 ::
-=>
+=>  
 |%
-::
+::  
 ::  $care: Perspective on a path
-::
+::    
 +$  care
   $~  %x
   $?  %x  :: single node
@@ -57,7 +57,7 @@
 ::     .q is the shape version
 +$  lock  (pair @ud @ud)
 ::
-+$  ever
++$  ever  
   $:  exe=lock
       why=lock
       zed=lock
@@ -96,7 +96,7 @@
 +$  tale  (pair case oath)
 +$  oath  (pair hash seal)
 +$  yuga  (axal aeon)
-::
+:: 
 +$  saga  (pair aeon pail)
 +$  pail  (pair stud vase)
 ::
@@ -105,13 +105,13 @@
 +$  gest  $+(gest (axal feat))
 ++  road   (pole iota)
 ::  $stud: name for build system outputs
-::
+::  
 ::    Build system outputs cannot live at arbitrary points in the
 ::    namespace, to allow for the build system to bootstrap itself.
-::
+::    
 +$  stud
   $@  @tas                                 ::  auth=urbit
-  $:  mark=@tas                            ::
+  $:  mark=@tas                            :: 
       [=ship =desk]
   ==
 ++  stud-to-pith
@@ -128,14 +128,14 @@
   ?>  ?=([[%p ship=@] desk=@ mark=@ ~] p)
   [mark ship desk]:p
 ++  axal
-  |$  [item]
+  |$  [item]  
   [fil=(unit item) kid=(map iota $)]
 ++  axil
   |$  [item]
   [fil=(unit item) kid=(map pith item)]
 ++  of
   =|  fat=(axal)
-  |@
+  |@ 
   ++  view
     =|  res=(map pith _?>(?=(^ fil.fat) u.fil.fat))
     |=  [=care pax=pith]
@@ -156,7 +156,7 @@
     =?  fil.fat  ?=(^ fil.fat)
       `(fun u.fil.fat)
     fat(kid (~(put by kid.fat) i.pax $(fat (~(got by kid.fat) i.pax), pax t.pax)))
-
+    
   ::
   ++  anc
     =|  res=(list pith)
@@ -296,7 +296,7 @@
   ++  tar
     (~(gas by *(map pith _?>(?=(^ fil.fat) u.fil.fat))) tap)
   --
-::  $span:
+::  $span: 
 +$  span  (pair @ud seal)
 ::  $case: Canonical (%x) version
 +$  case  @ud
@@ -350,7 +350,7 @@
   +$  tend  ((mop @ud ,(map pith =case)) lte)
   ++  on    ((^on @ud ,(map pith =case)) lte)
   --
-++  farm
+++  farm  
   =<  farm
   |%
   +$  farm  (axal turf)
@@ -379,7 +379,7 @@
   =*  loop  $
   ^-  type
   ?+    -.cur  !!
-      %or
+      %or   
     :-  %fork
     %-  ~(gas in *(set type))
     %+  turn  p.cur
@@ -864,14 +864,14 @@
 +$  gift  (axal loot)
 ::
 ::  $hunt: perspective and shrub
-::
+::    
 +$  tour   hunt
 ::  $block: call-stack state for blocking semantics
 ::
 ::    .get is the list of blocking requests
 ::    .err is the possible error state
 ::    If .err is not ~, then .get is functionally ~
-::
+::    
 +$  block  [get=(set hunt) err=(unit quit)]
 ::
 ::  $halt: Currently blocked flows and indices
@@ -895,7 +895,7 @@
 +$  ack  (pair flow (unit quit))
 ::
 ::  $flow: Call direction
-::
+::  
 ::    .p is the source
 ::    .q is the destination
 ::
@@ -931,7 +931,7 @@
 ++  drive
   |%
   ::  +en:drive: Multiplex several paths into one
-  ::
+  ::    
   ::    See also: (+de:drive)
   ++  en
     =|  res=pith
@@ -940,7 +940,7 @@
       res
     $(res (welp res [%ud (lent i.ps)] i.ps), ps t.ps)
   ::  +de:drive: Demultiplex one path into several
-  ::
+  ::    
   ::    See also: (+en:drive)
 
   ++  de
@@ -1002,7 +1002,7 @@
     ^-  curb
     [%or pro/%vase pro/%tang ~]
   ::  +riff:ford: Constant build system node
-  ::
+  ::  
   ::    Required for bootstrapping. This is used to put the reef and
   ::    other ford combinators into the build system to bootstrap
   ::    everything else. To update a riff, simply %make over the top
@@ -1032,7 +1032,7 @@
       --
     --
   ::  +dep:ford: $fief for a ford dependency
-  ::
+  ::  
   ::    Handy shortcut to specifiy a dependency in the build system
   ++  dep  `fief`[& [pro/%vase (sy %ford-in ~)] ~]
   ::  +get-output: pull build resuit of dependency
@@ -1058,9 +1058,9 @@
   ::
   +$  pro
     [face=term =stud]
-  +$  fil
+  +$  fil  
     [face=term =stud]
-  +$  far
+  +$  far  
     [face=term =stud]
   +$  fal
     [face=term =stud]
@@ -1072,7 +1072,7 @@
   ::
   +$  file
     $:  pro=(list pro)
-        :: grab=(list
+        :: grab=(list 
         lib=(list lib)
         fil=(list fil)
         far=(list far)
@@ -1084,7 +1084,7 @@
     |=  =name
     =<  apex
     |%
-    ++  dis
+    ++  dis  
       ;~  pose
         (cold ~ cab)
         ;~((glue bar) ;~(pfix sig fed:ag) sym)
@@ -1101,7 +1101,7 @@
     ++  old-nam
       :: ^-  $-(nail (like name))
       ;~  pose
-        %+  sear
+        %+  sear 
           |=  [kets=(list) pit=pith]
           ^-  (unit ^name)
           %-  mole
@@ -1226,7 +1226,7 @@
       (ifix [gay gay] tall:vaz)
     ++  apex
       :: ^-  rule
-      ;~  plug
+      ;~  plug 
         pros
         libs
         fils
@@ -1250,7 +1250,7 @@
   --
 ++  gall
   |%
-  +$  req
+  +$  req  
     $%  [%peek p=@dr]
         [%keep ~]
         [%reap ~]
@@ -1297,7 +1297,7 @@
   +$  peer  [=desk =path as=(unit mark)]
   ::
   ::  $req:clay: Filesystem request
-  ::
+  ::   
   ::    %peer: Setup file subscription at .pith
   ::    %pull: Cancel file subscripiton at .pith
   ::
@@ -1330,12 +1330,12 @@
 +$  howl  tone
 ::  $wail: change result
 +$  wail  (trel hunt howl mode)
-
+  
 :: $song
 ::  $sound: internal change tracking listeners
 ::
 +$  roar  (pair pith tone)
-
+  
 +$  meow
   (jug pith (pair care tone))
 ::
@@ -1395,7 +1395,7 @@
     f/|
   [%ta i]
 ::
-++  stip                                                ::  typed path parser
+++  stip                                                ::  typed path parser 
   =<  swot
   |%
   ++  swot  |=(n=nail `(like pith)`(;~(pfix fas (more fas spot)) n))
@@ -1474,7 +1474,7 @@
 ++  name
   =<  name
   |%
-  +$  name  [=ship =pith]
+  +$  name  [=ship =pith]  
   ++  rule
     :: ^-  _|~(nail *(like name))
     ;~(plug ;~(pfix fas sig fed:ag) stip)
@@ -1492,7 +1492,7 @@
     (spud (pout (en-pith nam)))
   ++  en-path
     |=  nam=name
-    (pout (en-pith nam))
+    (pout (en-pith nam)) 
   ++  de-pith  |=(pith ~|(de-pith/+< (need (de-pith-soft +<))))
   ++  de-pith-soft
     |=  =pith
@@ -1504,14 +1504,14 @@
 ++  axol  axal:..zuse
 ++  axol-of  of:..zuse
 ++  axal
-  |$  [item]
+  |$  [item]  
   [fil=(unit item) kid=(map iota $)]
 ++  axil
   |$  [item]
   [fil=(unit item) kid=(map pith item)]
 ++  of
   =|  fat=(axal)
-  |@
+  |@ 
   ++  rot
     (need fil.fat)
 
@@ -1535,7 +1535,7 @@
     =?  fil.fat  ?=(^ fil.fat)
       `(fun u.fil.fat)
     fat(kid (~(put by kid.fat) i.pax $(fat (~(got by kid.fat) i.pax), pax t.pax)))
-
+    
   ::
   ++  anc
     =|  res=(list pith)
@@ -1698,11 +1698,11 @@
     (~(gas by *(map pith _?>(?=(^ fil.fat) u.fil.fat))) tap)
   --
 +$  pate  [[%p p=ship] q=pith]
-
+  
 +$  dita  (each iota aura)
 +$  zeta  (each iota aura)
 ::  $pish: Pattern match over a path
-::
+::  
 ::    Ending with & indicates that the path match continues with
 ::    Ending with | indicates that the path match stops
 ::
@@ -1716,7 +1716,7 @@
 +$  crew  (map term pith)
 ::  $deck: ???
 ::
-::  apse, cove, dais,
+::  apse, cove, dais, 
 +$  card  (pair pith note)
 +$  request
   [src=pith dest=pith val=*]
@@ -1853,7 +1853,7 @@
     ::
         %z
       (~(run by ~(tar of ax)) |=(r=room [(get-ever:room r) (to-vial:room r)]))
-    ==
+    ==  
   --
 ::
 ::  $cane: (deprecated)
@@ -1929,7 +1929,7 @@
 :: subscription metadata
 +$  brig
   $+  brig  (axal cane)
-
+  
 +$  fleet
   $+  fleet
   $~  ~
@@ -1940,7 +1940,7 @@
       [%soil =soil]
   ==
 ::  $room: state of a shrub
-::
+::    
 ::    TODO: refactor for networking?
 ++  room
   =<  room
@@ -1985,7 +1985,7 @@
   $:  src=name :: [=ship =pith]
       our=@p   :: our
       were=pith :: XX: rename to here
-      here=pith ::
+      here=pith :: 
       now=@da
       eny=@uvJ
       deps=(map term (pair pith lore))
@@ -2028,7 +2028,7 @@
 +$  dock
   [state=curb poke=(set stud) =kids]
 :: +$  slip
-::  [state=stud diffs=(set stud) =kids] ::
+::  [state=stud diffs=(set stud) =kids] ::  
 +$  deps  band
 ::  $band: Dependencies
 ::
@@ -2077,7 +2077,7 @@
 ::++  poke   *(set stud)
 ::++  kids   kids:plot
 ::++  deps   deps:plot
-::++  form
+::++  form   
 ::  ^-  ^form
 ::  ~&  %accessing-bad-form
 ::  *^form
@@ -2175,7 +2175,7 @@
     ?@  i.hstk
       =(p.i.nedl %tas)
     &(=(-.i.hstk p.i.nedl) $(nedl t.nedl, hstk t.hstk))
-
+      
   ++  find
     |=  [pax=pith pis=(set pish)]
     ^-  (unit pish)
@@ -2191,7 +2191,7 @@
     |=  =^pith
     ^-  [kind:ford _post _pith]
     ~|  ejecting/pith
-    =^  dis=^disk  pith
+    =^  dis=^disk  pith  
       ?>  ?=([%cod *] pith)
       (eject:floppy t.pith)
     ?>  ?=([kind:ford tack @ *] pith)
@@ -2199,7 +2199,7 @@
     =/  =tack  i.t.pith
     :+  kind  [tack ?@(dis i.t.t.pith [i.t.t.pith ship.dis term.dis])]
     t.t.t.pith
-
+    
   ++  slip
     |=  [=kind:ford pax=^pith]
     =/  [@ p=^post =^pith]
@@ -2248,7 +2248,7 @@
 ++  lte-dime
   |=  [a=dime b=dime]
   ^-  ?
-  ?.  =(p.a p.b)
+  ?.  =(p.a p.b)  
     (aor -.a -.b)
   ?+  p.a  (lte q.a q.b)
     %rd             (lte:rd q.a q.b)
