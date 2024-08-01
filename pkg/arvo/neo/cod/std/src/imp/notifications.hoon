@@ -1,4 +1,3 @@
-/@  json
 /@  notification
 /@  notifications-config
 /@  notifications-controller
@@ -24,7 +23,7 @@
 ::
 ++  poke
   ^-  (set stud:neo)
-  (sy %json %notification ~)
+  (sy %notification ~)
 ::
 ++  kids
   ^-  kids:neo
@@ -35,8 +34,6 @@
       [[%pro %notification] ~]
       :-  [[%.y %config] [%.n %tas] %.n]
       [[%pro %notifications-config] ~]
-      :-  [[%.y %endpoints] [%.n %t] %.n]
-      [[%pro %json] ~]
   ==
 ::
 ++  deps
@@ -68,22 +65,6 @@
             !!
           %notifications-controller
         [~ [%notifications-controller vaz]]
-      ::
-      ::  XX should sanity-check json
-          %json
-        :_  [%notifications-controller !>(state)]
-        =/  cred  !<(json vaz)
-        ?~  cred
-          ~
-        ::  XX parse expirationTime
-        =/  endpoint
-          %.  cred
-          (ot ~[endpoint+so]):dejs:format
-        ::  XX handle expirationTime with behn?
-        ::       remove this endpoint when the timer fires
-        :~  :-  (welp here.bowl ~[%endpoint t/endpoint])
-            [%make %json `[%json !>(cred)] ~]
-        ==
       ::
           %notification
         =/  not  !<(notification vaz)
