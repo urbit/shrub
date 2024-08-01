@@ -81,13 +81,15 @@
         ~&  task-id
         =/  text=@t
           (~(got by data.event) task-id)
-        [~ pail]
-        :: :_  pail
-        :: :~  :-  (welp p:(~(got by deps.bowl) %src) inner)
-        ::     :+  %poke 
-        ::       %task-diff
-        ::     !>([%edit text !done.t])
-        ::==
+        =/  =lore:neo  q:(~(got by deps.bowl) %src)
+        =/  =idea:neo  (~(got of:neo lore) pith)
+        =/  t  !<(task q.pail.idea)
+        :_  pail
+        :~  :-  (welp p:(~(got by deps.bowl) %src) pith)
+            :+  %poke 
+              %task-diff
+            !>([%edit text done.t])
+        ==
       ==
     ::
         %rely
