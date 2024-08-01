@@ -37,6 +37,8 @@
     ::
         %ui-event
       =/  event  !<(ui-event vase)
+      =/  here=pith:neo  p:(~(got by deps.bowl) %src)
+      =/  =lore:neo  q:(~(got by deps.bowl) %src)
       ~&  >>  path.event
       ?+    path.event
         ~|(missing-event-handler-for/path.event !!)
@@ -46,46 +48,40 @@
         =/  text=@t
           (~(got by data.event) 'task-input')
         :_  pail
-        :~  :-  p:(~(got by deps.bowl) %src)
+        :~  :-  here
             :+  %poke
               %task-diff
-            !>([%new [text %.y %.y ~] %.y])
+            !>([%new [text | | ~] %.y])
         ==
       :: 
           [%click %checkbox * ~]
         =/  inner  (oust [0 2] (pave:neo path.event))
-        =/  =lore:neo  q:(~(got by deps.bowl) %src)
         =/  =idea:neo  (~(got of:neo lore) inner)
         =/  t  !<(task q.pail.idea)
         :_  pail
-        :~  :-  (welp p:(~(got by deps.bowl) %src) inner)
+        :~  :-  (welp here inner)
             :+  %poke 
               %task-diff
             !>([%edit text.t !done.t])
         ==
       ::
           [%click %delete * ~]
-        ~&  p:(~(got by deps.bowl) %src)
         =/  =pith:neo  (oust [0 2] (pave:neo path.event))
         :_  pail
-        :~  :-  p:(~(got by deps.bowl) %src)
+        :~  :-  here
             :+  %poke
               %task-diff
             !>([%oust pith])
         ==
         ::
-          [%change %task-text * ~]
-        ~&  data.event        
+          [%change %task-text * ~]       
         =/  =pith:neo  (oust [0 2] (pave:neo path.event))
         =/  task-id  (en-cord:pith:neo (welp pith /value))
-        ~&  task-id
-        =/  text=@t
-          (~(got by data.event) task-id)
-        =/  =lore:neo  q:(~(got by deps.bowl) %src)
+        =/  text=@t  (~(got by data.event) task-id)
         =/  =idea:neo  (~(got of:neo lore) pith)
         =/  t  !<(task q.pail.idea)
         :_  pail
-        :~  :-  (welp p:(~(got by deps.bowl) %src) pith)
+        :~  :-  (welp here pith)
             :+  %poke 
               %task-diff
             !>([%edit text done.t])
@@ -133,14 +129,14 @@
     ^-  manx
     ;div
     =style  all-tasks-st
-      ;*  %+  turn
-            %~  tap  by
-            (~(del by tasks) /)
-          |=  [=pith =task]
+      ;*  
+      ~&  order:(~(got by tasks) /)
+          %+  turn  order:(~(got by tasks) /)
+          |=  =pith
+          =/  task  (~(got by tasks) pith)
           =/  key  (en-tape:pith:neo pith)
           ;div
           =style  task-st
-            ::;p: {(trip text.task)}
               ;input
               =id  (tail key)
               =style  "border: none;"
