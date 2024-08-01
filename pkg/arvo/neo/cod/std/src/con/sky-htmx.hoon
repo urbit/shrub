@@ -186,6 +186,7 @@
 =======
       ;script: {(trip a-i-r)}
       ;script: {(trip date-now)}
+<<<<<<< HEAD
       ::
       ::  set up push notifications for this browser
       ;script
@@ -220,6 +221,8 @@
         '''
       ==
 >>>>>>> 13d77f915b (Draft frontend code)
+=======
+>>>>>>> a9b223316b (Remove push notification stuff from sky-htmx)
       ;+  favicon
       ;+  manifest
     ==
@@ -238,6 +241,7 @@
       ;+  theme-style
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       ;+  notifications-subscription
 >>>>>>> 13d77f915b (Draft frontend code)
 =======
@@ -245,6 +249,8 @@
 =======
       ;+  notifications-subscription
 >>>>>>> 13d77f915b (Draft frontend code)
+=======
+>>>>>>> a9b223316b (Remove push notification stuff from sky-htmx)
     ==
   ==
 --
