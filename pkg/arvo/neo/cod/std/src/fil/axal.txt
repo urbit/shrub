@@ -2,7 +2,7 @@
 
 `+axal` is the recursive tree type that Shrubbery uses to build the namespace.
 
-For userspace developers, axals are useful when you're writing `/con` files for your frontend and you want to work with the descendants of whichever shrub you're viewing in the frontend. (e.g. You're rendering a todo item and you want to render its sub-tasks, which are nodes beneath the main task in the namespace.)
+For userspace developers, axals are useful when you're writing UIs and you want to work with the descendants of whichever shrub you're viewing in the frontend. (e.g. You're rendering a todo item and you want to render its sub-tasks, which are nodes beneath the main task in the namespace.)
 
 We work with axals using the `+of` core defined in `/sur/neo.hoon`, whose arms are documented below.
 
