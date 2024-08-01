@@ -4,7 +4,7 @@ This doesn't cover every type defined in `/sur/neo.hoon`. It does cover all of t
 
 ## `aeon`
 
-Total version numbers and signature for a shrub. [How is the signature being used here?]
+Total version numbers and signature for a shrub.
 
 ```
 +$  aeon  (pair ever oath)
@@ -49,16 +49,14 @@ The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that s
   ==
 ```
 
-- `src`: source ship and path [of what?].
-- `our`: our ship.
+- `src`: Source ship and path of the change that woke this shrub up. (On `+init`, the shrub that issued the `%make`. On `+poke`, the shrub that issued the `%poke`.)
+- `our`: Our ship.
 - `were`: Deprecated; use `here` instead.
-- `here`: location of this shrub.
-- `now`: current datetime.
-- `eny`: entropy.
-- `deps`: ???
-- `kids`: ???
-
-[above are dependencies and descendants yeah but need `lore` to explain the types and what they do here]
+- `here`: Location of this shrub.
+- `now`: Current datetime.
+- `eny`: Entropy.
+- `deps`: The shrub's dependencies.
+- `kids`: The shurb's kids.
 
 ## `card`
 
@@ -88,8 +86,6 @@ Perspective on a path.
 
 The cares `%x`, `%y`, and `%z` appear throughout the system: you’ll use them while defining `kids` and `deps`, and state updates will be head-tagged with one of these cares.
 
-[not sure about %a, %b, %c; i know the correspond to x y z but not sure about usage]
-
 ## `conf`
 
 Dependency configuration for a new shrub.
@@ -116,11 +112,26 @@ Constraint on the state of a shrub.
       [%pro p=stud]
       [%any ~]
   ==
+``
+
+Most of these are unimplemented or aren't used in practice. For now, the only ones you need to know about are `%pro` and `%or`.
+
+- `%pro`: The type must be this `stud`.
+- `%or`: The type must be one of these `curb`s.
+
+### Example usage
+
+```
+++  state
+  ^-  curb:neo
+  [%pro %message]
 ```
 
-[explain each individually]
-
-[how can they be combined, why would you do that?]
+```
+++  state
+  ^-  curb:neo
+  [%or ~[[%pro %txt] [%pro %message]]]
+```
 
 ## `dare`
 
@@ -134,7 +145,7 @@ Used while constraining descendants.
 
 ## `deed`
 
-Whether or not a depdenency must already exist in order for this shrub to build.
+Whether or not a dependency must be provided in the `%make` card in order for this shrub to build.
 
 ```
 +$  deed
@@ -144,7 +155,7 @@ Whether or not a depdenency must already exist in order for this shrub to build.
   ==
 ```
 
-[in what case is `time` used?]
+If a `time` is specified, the shrub will fail to build if the dependency hasn't been imported within that amount of time. This can be used while establishing a shrub on another ship as a dependency.
 
 ## `deps`
 
@@ -186,9 +197,15 @@ Total version numbers for a shrub and its descendants.
 - “Why” is incremented when the shrub or any of its immediate children updates. (i.e. `%y` care.)
 - “Zed” is incremented when the shrub or any of its descendants updates. (i.e. `%z` care.)
 
-[what about shrub-life, ship-rift, etc?]
+The other fields we see here are needed to maintain referential transparency, but they're implementation details we won't cover here. It's worth talking about the `lock`s, as they represent different things corresponding to different cares.
 
-[what about time]
+Each `lock` is two version numbers: one for data, and one for type. (The data version number is analagous to a [`case`](https://docs.urbit.org/glossary/case).)
+
+For `exe`, the data version is the number of times that the data has changed. For `why`, the data version is the node's data version plus the sum of its immediate kids' data versions. For `zed`, it's the node's data version plus the sum of all its descendants' data versions.
+
+The type versions tell us how many times the shape of the value at this path has changed. In an `exe` care this is just the number of times the node's value has changed from null to non-null or vice-versa. (Every shrub starts with a type version number of 0. This happens to correspond to the breach count for that shrub, the `shrub-rift`.)
+
+The type versions in `why` and `zed` cares follow the same summation logic as the data versions described above, except they're the sum of type versions.
 
 ## `fief`
 
@@ -314,14 +331,6 @@ Data version numbers.
 
 The head is the data version, the tail the type version. Used in `ever`.
 
-## `lore`
-
-[??? - need this to fully explain bowl:neo]
-
-```
-+$  lore  (axal idea)
-```
-
 ## `made`
 
 Type, state, and dependency values for making a new shrub. Used in `%make` cards.
@@ -366,14 +375,6 @@ The `note` type only works with shrubs, not Arvo. These `note`s sent in `card`s 
 - `%poke`: poke the shrub with this `pail`.
 - `%tomb`: tombstone the shrub at this case.
 - `%cull`: delete the shrub.
-
-## `oath`
-
-[Pair of unsigned 256-bit hash and a corresponding signature? Not sure about usage]
-
-```
-+$  oath  (pair hash seal)
-```
 
 ## `once`
 
@@ -427,20 +428,10 @@ Define a depdenency's state and pokes, constrain the depdenency's descendants' s
 
 ## `saga`
 
-Versioned pail. [Seems like part of the aeon's `ever` increments when state changes, but is that `exe` or the `life`?]
+Versioned pail.
 
 ```
 +$  saga  (pair aeon pail)
-```
-
-## `seal`
-
-[256-bit hash, signed with [a shrub’s?] private key.]
-
-[How are signatures used between shrubs?]
-
-```
-+$  seal   @uvH
 ```
 
 ## `stud`
@@ -455,6 +446,4 @@ Name for a build system output, usually used like a mark.
   ==
 ```
 
-Local studs can be referred to by their `@tas` without further complication, but foreign studs need to be addressed by their source `ship` and `desk`.
-
-[What is a foreign stud? From another ship or from any other shrub?]
+We can use a `@tas` for the stud when the shrub comes from the local ship's base distribution of Shrubbery: the `/std` desk. In all other cases, we need to also specify the type's source ship and desk. This is analagous to the way shrubs treat all I/O that doesn't come from an ancestor as if it could have come from another ship on the network.
