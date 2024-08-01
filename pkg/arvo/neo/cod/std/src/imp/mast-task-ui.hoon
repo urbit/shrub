@@ -64,7 +64,7 @@
             !>([%edit text.t !done.t])
         ==
       ::
-          [%click %submit * ~]
+          [%click %delete * ~]
         ~&  p:(~(got by deps.bowl) %src)
         =/  =pith:neo  (oust [0 2] (pave:neo path.event))
         :_  pail
@@ -161,7 +161,7 @@
                 ;button
                   =type  "submit"
                   =name  "oust"
-                  =event  (welp "/click/submit" key)
+                  =event  (welp "/click/delete" key)
                 ;  X
                 ==
               ==
