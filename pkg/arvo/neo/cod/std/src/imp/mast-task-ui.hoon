@@ -74,13 +74,20 @@
             !>([%oust pith])
         ==
         ::
-          [%change %text * ~]
-        ::  edit text.task 
-        ~&  data.event
-        ::=/  text=@t
-        ::  (~(got by data.event) 'task-text')
+          [%change %task-text * ~]
+        ~&  data.event        
         =/  =pith:neo  (oust [0 2] (pave:neo path.event))
+        =/  task-id  (en-cord:pith:neo (welp pith /value))
+        ~&  task-id
+        =/  text=@t
+          (~(got by data.event) task-id)
         [~ pail]
+        :: :_  pail
+        :: :~  :-  (welp p:(~(got by deps.bowl) %src) inner)
+        ::     :+  %poke 
+        ::       %task-diff
+        ::     !>([%edit text !done.t])
+        ==
       ==
     ::
         %rely
@@ -132,15 +139,15 @@
           ;div
           =style  task-st
             ::;p: {(trip text.task)}
-            ::  XX:  not working does not get value back from POST req
-            ;input
-            =style  "border: none;"
-            =type   "text"
-            =value  (trip text.task)
-            =name   "task-text"
-            =event  (welp "/change/text" key)
-            ;
-            ==
+              ;input
+              =id  (tail key)
+              =style  "border: none;"
+              =type   "text"
+              =value  (trip text.task)
+              =return  (welp key "/value")
+              =event  (welp "/change/task-text" key)
+              ;
+              ==
           ::
             ;div
             =style  buttons-st
