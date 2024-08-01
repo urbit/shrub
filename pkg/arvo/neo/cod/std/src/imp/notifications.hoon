@@ -69,6 +69,7 @@
           %notifications-controller
         [~ [%notifications-controller vaz]]
       ::
+      ::  XX should sanity-check json
           %json
         :_  [%notifications-controller !>(state)]
         =/  cred  !<(json vaz)
