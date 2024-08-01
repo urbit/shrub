@@ -87,7 +87,7 @@
         ::     :+  %poke 
         ::       %task-diff
         ::     !>([%edit text !done.t])
-        ==
+        ::==
       ==
     ::
         %rely
