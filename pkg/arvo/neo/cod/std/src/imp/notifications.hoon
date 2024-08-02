@@ -93,22 +93,6 @@
         ::       ::  XX send push notifications to subscribers
         ::   ==
         :_  [%notifications-controller !>(state)]
-<<<<<<< HEAD
-=======
-        ?:  (has-pith-in-any kill.config pith.not)
-          ~
-        ?:  (has-pith-in-any mute.config pith.not)
-          =.  flag.not  %.y
-          :~  :-  (welp here.bowl ~[[da/now.bowl]])
-              [%make %notification `[%notification !>(not)] ~]
-          ==
-        ?:  (has-pith-in-any buzz.config pith.not)
-          =.  flag.not  %.y
-          :~  :-  (welp here.bowl ~[[da/now.bowl]])
-              [%make %notification `[%notification !>(not)] ~]
-              ::  XX send push notification
-          ==
->>>>>>> 13d77f915b (Draft frontend code)
         ?.  flag.not
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
