@@ -142,8 +142,8 @@
 }
 */
 body {
-  background: var(--b0, black);
-  color: var(--f0, white);
+  background: var(--b0);
+  color: var(--f0);
   font-family: var(--font);
   letter-spacing: var(--letter-spacing);
   line-height: 1;
