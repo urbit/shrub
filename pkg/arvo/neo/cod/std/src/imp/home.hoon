@@ -7,6 +7,7 @@
 /*  introduction
 /*  developer-environment-setup
 /*  types
+/*  axal
 ^-  kook:neo
 |%
 ++  state  pro/%home
@@ -47,10 +48,11 @@
         [#/[p/our.bowl]/home/docs/tutorials/messenger %make %sail `sail/!>([messenger 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/tutorials/tasks %make %sail `sail/!>([tasks 'prose p-page mw-page ma' ~]) ~]
       ::
-        [#/[p/our.bowl]/home/docs/guides %make %folder `folder/!>([%development %feather %types ~]) ~]
+        [#/[p/our.bowl]/home/docs/guides %make %folder `folder/!>([%development %feather %types %axal-core ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/development %make %sail `sail/!>([developer-environment-setup 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/feather %make %sail `sail/!>([feather-intro 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/types %make %sail `sail/!>([types 'prose p-page mw-page ma' ~]) ~]
+        [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
     ==
   ++  poke
     |=  =pail:neo
