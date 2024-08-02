@@ -1,5 +1,4 @@
 /@  notification
-/@  notifications-config
 /@  notifications-controller
 ^-  kook:neo
 =>
