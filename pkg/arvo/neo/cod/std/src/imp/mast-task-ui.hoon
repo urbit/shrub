@@ -28,7 +28,7 @@
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     :-  ~
-    manx/!>((render (task-map bowl)))
+    manx/!>((render (task-map bowl) p:(~(got by deps.bowl) %src)))
   ::
   ++  poke
     |=  [=stud:neo =vase]
@@ -53,24 +53,25 @@
         :~  :-  here
             :+  %poke
               %task-diff
-            !>([%new [text | | ~] %.y])
+            !>([%new [text | & ~] %.y])
         ==
       ::
-          [%click %checkbox * ~]
-        =/  inner  (oust [0 2] (pave:neo path.event))
-        =/  =idea:neo  (~(got of:neo lore) inner)
+          [%click %checkbox ~]
+        ~&  p:(~(got by deps.bowl) %src)
+        =/  key  (got-key data.event)
+        =/  =idea:neo  (~(got of:neo lore) key)
         =/  t  !<(task q.pail.idea)
         :_  pail
-        :~  :-  (welp here inner)
+        :~  :-  (welp here key)
             :+  %poke
               %task-diff
             !>([%edit text.t !done.t])
         ==
       ::
           [%click %move-up ~]
-        =/  key  (pave:neo (stab (~(got by data.event) '/target/data-key')))
-        =/  undex  (find ~[key] order.state)
-        ?~  undex  ~|(%cant-find-it-bro !!)
+        =/  key  (got-key data.event)
+        ?~  undex=(find ~[key] order.state)
+          ~|(%cant-find-it-bro !!)
         =/  index  u.undex
         ?:  =(0 index)
         [~ pail]
@@ -86,19 +87,36 @@
           !>([%reorder new-order])
         ==
       ::
-          [%click %delete * ~]
-        =/  =pith:neo  (oust [0 2] (pave:neo path.event))
+          [%click %move-down ~]
+        =/  key  (got-key data.event)
+        ?~  undex=(find ~[key] order.state)
+          ~|(%cant-find-it-bro !!)
+        =/  index  u.undex
+        ?:  =((dec (lent order.state)) index)
+        [~ pail]
+        ::
+        =/  without  (oust [index 1] order.state)
+        =/  new-order  (into without +(index) key)
+        :_  pail
+        :~
+          :-  here
+          :+  %poke
+            %task-diff
+          !>([%reorder new-order])
+        ==
+      ::
+          [%click %delete ~]
+        =/  key  (got-key data.event)
         :_  pail
         :~  :-  here
             :+  %poke
               %task-diff
-            !>([%oust pith])
+            !>([%oust key])
         ==
         ::
           [%input %task-text ~]
-        =/  task-id  (~(got by data.event) '/target/data-key')
         =/  text=@t  (~(got by data.event) '/target/value')
-        =/  pith  (pave:neo (stab task-id))
+        =/  pith  (got-key data.event)
         =/  =idea:neo  (~(got of:neo lore) pith)
         =/  t  !<(task q.pail.idea)
         :_  pail
@@ -110,29 +128,36 @@
       ==
     ::
         %rely
-      ~&  'rellyyyy'
       :-  ~
-      manx/!>((render (task-map bowl)))
+      manx/!>((render (task-map bowl) p:(~(got by deps.bowl) %src)))
     ==
   --
 --
 ::
 |%
 ++  render
-  |_  tasks=(map pith task)
+  |_  [tasks=(map pith task) here=pith:neo]
   ++  $
     ^-  manx
     ;html
       ;head
         ;meta(charset "utf-8");
         ;style: {(trip feather)}
+        :: ;script
+        :: ;+  ;/
+        :: """
+        :: const sharedStyles = new CSSStyleSheet();
+        :: sharedStyles.replaceSync(`{(trip feather)}`);
+        :: document.adoptedStyleSheets = [sharedStyles];
+        :: """
+        :: ==
       ==
       ;body
         =style  "margin: 0; width: 100%; display: grid; place-items: center;"
         ;main
-          ;h1: Tasks
+          ;h1.p2: Tasks
           ;div
-            ;p: {(trip text:(~(got by tasks) /))}
+            ;p.p2.s1: {(trip text:(~(got by tasks) /))}
           ==
           ;+  task-form
           ;+  subtasks
@@ -142,30 +167,49 @@
   ::
   ++  task-form
     ^-  manx
-    ;form
+    ;form.fr.g1
       =mast-after-swap  "this.reset()"
       =event  "/submit/new-task"
-      ;textarea
+      ::;textarea
+      ;input.p2.bd1.br1.grow
         =name  "task-input"
-        =style  "height: 10rem; width: 25rem; margin-block: 1rem;"
+        =style  "width: 25rem;"
+        ::=style  "height: 10rem; width: 25rem; margin-block: 1rem;"
+        =placeholder  "new task"
         =autocomplete  "off";
-      ;button
-        ; Enter
+      ;button.p2.b1.bd1.br1
+        ; create
       ==
     ==
   ::
   ++  subtasks
     ^-  manx
-    ;div#top
-    =style  all-tasks-st
+    ;div.fc.g2
+    =id  "top"
       ;*
       ~&  [%render-order order:(~(got by tasks) /)]
           %+  turn  order:(~(got by tasks) /)
           |=  =pith
           =/  task  (~(got by tasks) pith)
           =/  key  (en-tape:pith:neo pith)
-          ;div
-            =style  task-st
+          ;div.fr.jb.p2.br1.bd1
+            ;div.fr.ac.g1
+            ;+
+              =;  m
+                ?:  done.task
+                  m(a.g [[%checked ""] a.g.m])
+                m
+              ^-  manx
+              ;input
+                =id        "task-checkbox"
+                =type      "checkbox"
+                =data-key  key
+                =return    "/target/data-key"
+                =name      "done"
+                =event     "/click/checkbox"
+                ;
+              ==
+            ==
             ;input.bd0
               =id  (tail key)
               =type   "text"
@@ -178,40 +222,38 @@
             ==
             ;button.p2.br1.bd1
               =data-key  key
-              =return  "/target/data-key"
-              =event  "/click/move-up"
-              ; up
+              =return    "/target/data-key"
+              =event     "/click/move-down"
+              ; ↓
             ==
             ;button.p2.br1.bd1
               =data-key  key
-              =return  "/target/data-key"
-              =event  "/click/move-down"
-              ; down
+              =return    "/target/data-key"
+              =event     "/click/move-up"
+              ; ↑
             ==
           ::
-            ;div.fr.g2
-            ;+
-              =;  m
-                ?:  done.task
-                  m(a.g [[%checked ""] a.g.m])
-                m
-              ^-  manx
-              ;input
-                =id     "task-checkbox"
-                =type   "checkbox"
-                =name   "done"
-                =event  (welp "/click/checkbox" key)
-                ;
-              ==
-              ;div
-                ;button
-                  =type  "submit"
-                  =name  "oust"
-                  =event  (welp "/click/delete" key)
-                ;  X
-                ==
-              ==
+            ;button.p2.br1.bd1
+              =type      "submit"
+              =name      "oust"
+              =data-key  key
+              =return    "/target/data-key"
+              =event     "/click/delete"
+              ;span:  X
             ==
+            ;+  
+              =/  to-kid=tape
+                ;:  welp  "/mast/mast-task-ui"
+                %-  en-tape:pith:neo 
+                here
+                key
+                ==
+              ^-  manx
+              ;a.p2.br1.f0
+                =style  "text-decoration: none !important;"
+                =href  to-kid
+                ;span.b1.br1.hfc:  →
+              ==
           ==
     ==
   --
@@ -234,18 +276,11 @@
   !<  task
   q.pail:(~(got of:neo q:(~(got by deps.bowl) %src)) /)
 ::
-++  all-tasks-st  "display: flex; flex-direction: column; gap: 6px;"
+++  got-key
+  |=  data=(map @t @t)
+  ^-  pith:neo
+  %-  pave:neo 
+  %-  stab 
+  (~(got by data) '/target/data-key')
 ::
-++  task-st
-  ^~
-  %-  trip
-  '''
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid black;
-  padding:8px;
-  '''
-::
-++  buttons-st  "display: flex; flex-direction: row; gap: 4px;"
 --
