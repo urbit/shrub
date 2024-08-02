@@ -66,6 +66,8 @@
         =/  not  !<(notification vaz)
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
+        ::  XX should cut head off path more intelligently
+        ::       "if head is our.bowl, remove head"
         ?>  =(pith.src.bowl (tail src.not))
         ~&  >>  (state not)
         ~&  >>  ~(tar of:neo kids.bowl)
