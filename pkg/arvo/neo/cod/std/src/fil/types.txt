@@ -1,10 +1,10 @@
 # Shrubbery Types
 
-This doesn't cover every type defined in `/sur/neo.hoon`. It does cover all of the types you'll regularly work while writing userspace shrubs, and the types you need to know about to fully understand those types.
+This doesn't cover every type defined in `/sur/neo.hoon`. It does cover all of the types you'll regularly work with while writing userspace shrubs, and the types you need to know about to fully understand those types.
 
 ## `aeon`
 
-Total version numbers and signature for a shrub.
+Total version numbers and signature for a shrub. Look at `ever` to see how version numbers are totaled.
 
 ```
 +$  aeon  (pair ever oath)
@@ -14,7 +14,9 @@ Total version numbers and signature for a shrub.
 
 Fundamental node, recursive.
 
-This mold builder creates a representation of a node in Clay like an [arch](https://docs.urbit.org/language/hoon/reference/arvo#arch) (a file or a directory) or [axil](https://docs.urbit.org/language/hoon/reference/arvo#axil) (fundamental node), but the directory map contains more axals, so it contains the entire subtree rather than just one level.
+This mold builder creates a representation of a node in Clay like an [arch](https://docs.urbit.org/language/hoon/reference/arvo#arch) (a file or a directory) or [axil](https://docs.urbit.org/language/hoon/reference/arvo#axil) (fundamental node).
+
+In Arvo, the axal's directory is a map of `term` to `$`. In Shrubbery, the directory (`kid`) is a map of `iota` to `$`. This is because Shrubbery uses piths while Arvo uses paths.
 
 ```
 ++  axal
@@ -30,7 +32,7 @@ Dependency map.
 +$  band  $+(band (map term fief))
 ```
 
-The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that shrub is created, the `%make` card's `conf` will have to include a map of all the required dependencies.
+The `term`s are keywords defined by a shrub's `+deps` arm. When that shrub is created, the `%make` card's `conf` will have to include a map of all the required dependencies.
 
 ## `bowl`
 
@@ -56,7 +58,7 @@ The `term`s are arbitrary keywords defined in a shrub's `+deps` arm. When that s
 - `now`: Current datetime.
 - `eny`: Entropy.
 - `deps`: The shrub's dependencies.
-- `kids`: The shurb's kids.
+- `kids`: The shrub's kids.
 
 ## `card`
 
@@ -66,11 +68,11 @@ An instruction for a shrub, similar to a `card:agent:gall`.
 +$  card  (pair pith note)
 ```
 
-The `pith` is the shrub this card will be sent to. The `note` will be of type `%make`, `%poke`, `%tomb`, or `%cull`.
+The `pith` is the shrub this card will be sent to. The note will be head-tagged with `%make`, `%poke`, `%tomb`, or `%cull`.
 
 ## `care`
 
-Perspective on a path.
+Perspective on a path: the node at this path (`%x`), the node and its kids (`%y`), or the node and all its descendants (`%z`).
 
 ```
 +$  care
@@ -84,7 +86,9 @@ Perspective on a path.
   ==
 ```
 
-The cares `%x`, `%y`, and `%z` appear throughout the system: you’ll use them while defining `kids` and `deps`, and state updates will be head-tagged with one of these cares.
+The cares `%x`, `%y`, and `%z` appear throughout the system. You’ll use them while defining `kids` and `deps`. State updates will be head-tagged with one of these cares.
+
+Cares `%a`, `%b`, and `%c` are unimplemented.
 
 ## `conf`
 
@@ -112,26 +116,9 @@ Constraint on the state of a shrub.
       [%pro p=stud]
       [%any ~]
   ==
-``
-
-Most of these are unimplemented or aren't used in practice. For now, the only ones you need to know about are `%pro` and `%or`.
-
-- `%pro`: The type must be this `stud`.
-- `%or`: The type must be one of these `curb`s.
-
-### Example usage
-
-```
-++  state
-  ^-  curb:neo
-  [%pro %message]
 ```
 
-```
-++  state
-  ^-  curb:neo
-  [%or ~[[%pro %txt] [%pro %message]]]
-```
+These constraints can be combined to specify that a shrub takes one `curb` as its state (`%pro`) or that it can take one of several `curb`s as its state (`%or`).
 
 ## `dare`
 
