@@ -1,5 +1,4 @@
 /@  notification
-/@  notifications-config
 /@  notifications-controller
 ^-  kook:neo
 =>
@@ -32,8 +31,12 @@
   %-  ~(gas by *lads:neo)
   :~  :-  [[%.y %notification] [%.n %da] %.n]
       [[%pro %notification] ~]
-      :-  [[%.y %config] [%.n %tas] %.n]
-      [[%pro %notifications-config] ~]
+      :-  [[%.y %config] [%.n %tas] [%.y %buzz] %.y]
+      [[%pro %sig] ~]
+      :-  [[%.y %config] [%.n %tas] [%.y %mute] %.y]
+      [[%pro %sig] ~]
+      :-  [[%.y %config] [%.n %tas] [%.y %kill] %.y]
+      [[%pro %sig] ~]
   ==
 ::
 ++  deps
@@ -50,11 +53,7 @@
         [~ u.old]
       :_  [%notifications-controller !>(|=(notification #/config/default))]
       :~  :-  (welp here.bowl ~[%config %default])
-          :*  %make
-              %notifications-config
-              `[%notifications-config !>(*notifications-config)]
-              ~
-          ==
+          [%make %sig `[%sig !>(~)] ~]
       ==
     ::
     ++  poke
@@ -71,23 +70,24 @@
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
         ?>  =(pith.src.bowl (tail src.not))
-        =/  config
-          !<  notifications-config
-          q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
+        :: =/  config
+        ::   !<  notifications-config
+        ::   q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
+        :: :_  [%notifications-controller !>(state)]
+        :: ?:  (has-pith-in kill.config src.not)
+        ::   ~
+        :: ?:  (has-pith-in mute.config src.not)
+        ::   =.  flag.not  %.y
+        ::   :~  :-  (welp here.bowl ~[[da/now.bowl]])
+        ::       [%make %notification `[%notification !>(not)] ~]
+        ::   ==
+        :: ?:  (has-pith-in buzz.config src.not)
+        ::   =.  flag.not  %.y
+        ::   :~  :-  (welp here.bowl ~[[da/now.bowl]])
+        ::       [%make %notification `[%notification !>(not)] ~]
+        ::       ::  XX send push notifications to subscribers
+        ::   ==
         :_  [%notifications-controller !>(state)]
-        ?:  (has-pith-in kill.config src.not)
-          ~
-        ?:  (has-pith-in mute.config src.not)
-          =.  flag.not  %.y
-          :~  :-  (welp here.bowl ~[[da/now.bowl]])
-              [%make %notification `[%notification !>(not)] ~]
-          ==
-        ?:  (has-pith-in buzz.config src.not)
-          =.  flag.not  %.y
-          :~  :-  (welp here.bowl ~[[da/now.bowl]])
-              [%make %notification `[%notification !>(not)] ~]
-              ::  XX send push notifications to subscribers
-          ==
         ?.  flag.not
           =.  flag.not  %.y
           :~  :-  (welp here.bowl ~[[da/now.bowl]])
