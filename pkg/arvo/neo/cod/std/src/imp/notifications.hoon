@@ -1,4 +1,3 @@
-/@  txt
 /@  notification
 /@  notifications-controller
 ^-  kook:neo
@@ -33,9 +32,7 @@
   :~  :-  [[%.y %notification] [%.n %da] %.n]
       [[%pro %notification] ~]
       :-  [[%.y %config] [%.n %tas] %.n]
-      [[%pro %notifications-config] ~]
-      :-  [[%.n %t] %.n]
-      [[%pro %txt] ~]
+      [[%pro %sig] ~]
   ==
 ::
 ++  deps
