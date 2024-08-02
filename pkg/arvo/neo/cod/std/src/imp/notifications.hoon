@@ -1,4 +1,5 @@
 /@  notification
+/@  notifications-config
 /@  notifications-controller
 ^-  kook:neo
 =>
@@ -31,12 +32,8 @@
   %-  ~(gas by *lads:neo)
   :~  :-  [[%.y %notification] [%.n %da] %.n]
       [[%pro %notification] ~]
-      :-  [[%.y %config] [%.n %tas] [%.y %buzz] %.y]
-      [[%pro %sig] ~]
-      :-  [[%.y %config] [%.n %tas] [%.y %mute] %.y]
-      [[%pro %sig] ~]
-      :-  [[%.y %config] [%.n %tas] [%.y %kill] %.y]
-      [[%pro %sig] ~]
+      :-  [[%.y %config] [%.n %tas] %.n]
+      [[%pro %notifications-config] ~]
   ==
 ::
 ++  deps
@@ -70,6 +67,8 @@
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
         ?>  =(pith.src.bowl (tail src.not))
+        ~&  >>  ~(tar of:neo kids.bowl)
+        ~&  >>  (~(get by ~(tar of:neo kids.bowl)) (state not))
         :: =/  config
         ::   !<  notifications-config
         ::   q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
