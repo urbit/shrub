@@ -50,7 +50,7 @@
         [~ u.old]
       :_  [%notifications-controller !>(|=(notification #/config/default))]
       :~  :-  (welp here.bowl ~[%config %default])
-          [%make %sig `[%sig !>(~)] ~]
+          [%make %notifications-config `[%sig !>(~)] ~]
       ==
     ::
     ++  poke
@@ -67,8 +67,10 @@
         ?<  =('' cord.not)
         ?<  (gth time.not now.bowl)
         ?>  =(pith.src.bowl (tail src.not))
+        ~&  >>  (state not)
         ~&  >>  ~(tar of:neo kids.bowl)
         ~&  >>  (~(get by ~(tar of:neo kids.bowl)) (state not))
+        ~&  >>  (~(kids of:neo kids.bowl) #/config/default)
         :: =/  config
         ::   !<  notifications-config
         ::   q.pail:(need (~(get by ~(tar of:neo kids.bowl)) (state not)))
