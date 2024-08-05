@@ -53,7 +53,7 @@
         :~  :-  here
             :+  %poke
               %task-diff
-            !>([%new [text | & ~] %.y])
+            !>([%new [text | & ~] %.n])
         ==
       ::
           [%click %checkbox ~]
@@ -144,43 +144,33 @@
       ;head
         ;meta(charset "utf-8");
         ;style: {(trip feather)}
-        :: ;script
-        :: ;+  ;/
-        :: """
-        :: const sharedStyles = new CSSStyleSheet();
-        :: sharedStyles.replaceSync(`{(trip feather)}`);
-        :: document.adoptedStyleSheets = [sharedStyles];
-        :: """
-        :: ==
       ==
-      ;body
-        =style  "margin: 0; width: 100%; display: grid; place-items: center;"
+      ;body.fr.jc.wf
+        =style  "margin-top: 30px;"
         ;main.fc.ac
-        =style  "width: 25rem;"
+        =style  "width: 30rem;"
           :: ;h1.p2: Tasks
           ;div
-            ;p.p2.s1: {(trip text:(~(got by tasks) /))}
+            ;p.p2.s2.mono: {(trip text:(~(got by tasks) /))}
           ==
-          ;+  task-form
+          ::;+  task-form
           ;+  subtasks
+          ;+  task-form
         ==
       ==
     ==
   ::
   ++  task-form
     ^-  manx
-    ;form.p2.fr.g1.wf
+    ;form.p3.fr.g1.wf
       =mast-after-swap  "this.reset()"
       =event  "/submit/new-task"
-      ::;textarea
-      ;input.p2.bd1.br1.grow
+      ;input.p2.bd1.br2.grow.b0
         =name   "task-input"
-        =style  "border: 0.8px solid black; background-color: white;"
-        ::=style  "height: 10rem; width: 25rem; margin-block: 1rem;"
+        =style  "outline: none;"
         =placeholder  "new task"
         =autocomplete  "off";
-      ;button.p2.b1.bd1.br1.hover.pointer
-        =style  "border: 0.8px solid black; background-color: white;"
+      ;button.p2.b1.br1.hover.pointer
         ; create
       ==
     ==
@@ -195,10 +185,9 @@
           |=  =pith
           =/  task  (~(got by tasks) pith)
           =/  key  (en-tape:pith:neo pith)
-          ;div.fr.jb.p2.br1.bd1.g2
-          =onmouseover  "this.childNodes[3].classList.remove('hidden')"
-          =onmouseout   "this.childNodes[3].classList.add('hidden');"
-          =style  "border: 0.8px solid black;"
+          ;div.fr.jb.p2.br1.g2
+          =onmouseover  "this.childNodes[3].classList.remove('hidden'); this.classList.add('b1'); this.childNodes[1].classList.remove('b0'); this.childNodes[1].classList.add('b1');"
+          =onmouseout   "this.childNodes[3].classList.add('hidden'); this.classList.remove('b1'); this.childNodes[1].classList.add('b0'); this.childNodes[1].classList.remove('b1');"
             ;div.fr.ac.g1
             ;+
               =;  m
@@ -207,6 +196,7 @@
                 m
               ^-  manx
               ;input.pointer
+                =style  "outline: none; accent-color:var(--b3);"
                 =id        "task-checkbox"
                 =type      "checkbox"
                 =data-key  key
@@ -217,11 +207,11 @@
               ==
             ==
             ;input.p2.bd0.br1.pointer.grow.hover.b0
-              =style  "background-color: white;"
-              =onclick  "this.classList.add('bd1');"
-              =onblur  "this.classList.remove('bd1');"
-              =onmouseover  "this.classList.add('b2', 'br2');"
-              =onmouseover  "this.classList.remove('b2');"
+              =style  "outline: none;"
+              :: =onclick  "this.classList.add('bd1');"
+              :: =onblur  "this.classList.remove('bd1');"
+              :: =onmouseover  "this.classList.add('b1');"
+              :: =onmouseout  "this.classList.remove('b2');"
               =id            (tail key)
               =type          "text"
               =data-key      key
@@ -232,23 +222,20 @@
               ;
             ==
             ;div.hidden.fr.g2
-              ;button.p2.br1.bd1.hover.b0.pointer
-              =style       "background-color: white; border: 0.8px solid black;"
+              ;button.p2.br1.hover.pointer.b1
                 =data-key  key
                 =return    "/target/data-key"
                 =event     "/click/move-down"
                 ; ↓
               ==
-              ;button.p2.br1.bd1.hover.b0.pointer
-                =style     "background-color: white; border: 0.8px solid black;"
+              ;button.p2.br1.hover.pointer.b1
                 =data-key  key
                 =return    "/target/data-key"
                 =event     "/click/move-up"
                 ; ↑
               ==
           ::  
-              ;button.p2.br1.bd1.hover.b0.pointer
-                =style     "background-color: white; border: 0.8px solid black;"
+              ;button.p2.br1.hover.pointer.b1
                 =type      "submit"
                 =name      "oust"
                 =data-key  key
@@ -265,10 +252,10 @@
                 key
                 ==
               ^-  manx
-              ;a.p2.bd1.br1.f0.hover.b2
-                =style  "text-decoration: none !important; background-color: white; border: 0.8px solid black;"
+              ;a.p2.br1.f0.hover.b1
+                =style  "text-decoration: none !important;"
                 =href  to-kid
-                ;span.b1.br1.hfc:  →
+                ;span.br1.hfc:  →
               ==
           ==
     ==
