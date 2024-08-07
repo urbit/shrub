@@ -71,6 +71,14 @@
     ::;+  ?.  =(0 (lent (~(tap of kids.bowl) /)))  ;/("")
     ::;div.p5.f3.fc.jc.ac: none yet
     ;*
+    ::
+    =/  src  (~(get by deps.bowl) %src)
+    ~&  >  ~(key by deps.bowl)
+    ~&  ?~  src  'no dep'
+      =/  idea  (~(get of:neo q:(need src)) /)
+      ?~  idea  'no idea'
+        p.q.saga:(need idea)
+    ::
     %+  turn  folder
     |=  name=@tas
     =/  pith  ~[name]

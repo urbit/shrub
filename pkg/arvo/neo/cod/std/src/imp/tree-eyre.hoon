@@ -165,6 +165,7 @@
           ?:  |(?=(%| -.mule-vax) ?=(%| -.mule-conf))
           %+  poke-tree-card  here.bowl
             !>  :-  %req-parsing-err
+            ;;  tang
             ?:  ?=(%| -.mule-vax)
               p.mule-vax
             p.mule-conf
@@ -189,7 +190,7 @@
           =/  mule-vax  (mule-vase bowl request)
           ?-  -.mule-vax
               %|  
-            (poke-tree-card here.bowl !>([%req-parsing-err p.mule-vax]))
+            (poke-tree-card here.bowl !>([%req-parsing-err `tang`p.mule-vax]))
             ::
               %&
             =+  diff=tree-diff 
