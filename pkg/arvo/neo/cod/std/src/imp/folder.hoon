@@ -1,6 +1,7 @@
 /@  folder
 /@  folder-diff
 /@  todos
+/@  metadata
 =>
   |%
   ++  default-pails
@@ -26,7 +27,15 @@
     :-  [|/%ta |]
     [pro/%any ~]
   ==
-++  deps  *deps:neo
+++  deps  
+  %-  ~(gas by *band:neo)
+  :~  :-  %src
+      ^-  fief:neo
+      :-  req=|
+      ^-  quay:neo
+      :-  [pro/%metadata (sy %metadata ~)]
+      ~
+  ==
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =pail:neo]
@@ -46,6 +55,17 @@
       =/  this  !<(folder q.pail)
       ?-    -.poke
           %make
+        ::
+        =/  src  (~(get by deps.bowl) %src)
+        ~&  >  ~(key by deps.bowl)
+        ~&  ?~  src  'no dep'
+        =/  idea  (~(get of:neo q:(need src)) /)
+        ?~  idea  'no idea'
+          =/  metadata  !<(metadata q.q.saga:(need idea))
+          ~&  here/here.bowl
+          ~&
+          (~(get by metadata) here.bowl)
+        ::
         :_  folder/!>([name.poke this])  ::  add new item to head of of list
         :~  [(snoc here.bowl name.poke) %make stud.poke (~(get by default-pails) stud.poke) ~]
         ==
