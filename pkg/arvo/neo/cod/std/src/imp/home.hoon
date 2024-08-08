@@ -33,7 +33,7 @@
         [#/[p/our.bowl]/home/sail %make %sail `sail/!>(['# hello world' 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/accel %make %accel ~ ~]
         [#/[p/our.bowl]/home/circle %make %circle ~ ~]
-        [#/[p/our.bowl]/home/files %make %folder ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/storage ~)]
+        [#/[p/our.bowl]/home/files %make %folder ~ ~]
         [#/[p/our.bowl]/home/planner %make %planner ~ ~]
         [#/[p/our.bowl]/home/messenger %make %messenger ~ ~]
         [#/[p/our.bowl]/home/landscape %make %iframe `iframe/!>('/apps/landscape') ~]
