@@ -19,7 +19,7 @@
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     =/  =pith:neo  #/[p/our.bowl]/$/eyre
-    =/  =binding:eyre  [~ ~[%neo %metadata]]
+    =/  =binding:eyre  [~ ~[%metadata]]
     =/  =req:eyre:neo  [%connect binding here.bowl]
     :_  metadata/!>(~)
     :~  [pith %poke eyre-req/!>(req)]
@@ -54,7 +54,8 @@
         %+  ~(respond neo:srv eyre)   eyre-id
         (login-redirect:gen:srv request)
       =/  purl  (parse-url:serv request)
-      =/  here  (pave:neo pax.purl)
+      ~&  >>>  purl
+      =/  here  (tail (pave:neo pax.purl))
       ~&  >  here/here
       ?+    method.request  ~|(%unsupported-http-method !!)
       ::
@@ -161,7 +162,7 @@
 ++  hawk-view
 |=  here=tape
   ;iframe.b0.wf.hf.bd1
-  =src  "/neo/hawk{here}"
+  =src  "/hawk{here}"
   ;
   ==
 ::
@@ -170,7 +171,7 @@
   ^-  manx
   ;form.fr.ja.g1.p1
   =method  "post"
-  =action  "/neo/metadata{here}"
+  =action  "/metadata{here}"
     :: ;input.p1.bd1.br1
     :: =type         "text"
     :: =name         "mane"
