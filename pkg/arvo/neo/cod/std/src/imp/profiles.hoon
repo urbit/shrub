@@ -4,7 +4,6 @@
 /@  ship
 /@  time
 /@  hexadecimal
-:: /@  organization
 ^-  kook:neo
 |%
 ++  state
@@ -29,9 +28,8 @@
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%last-name |]
       [pro/%txt (sy %sig ~)]
-      ::  XX need an /imp/organization to mirror e.g. ~bitdeg's UF org
-      :: :-  [|/%tas &/%organization |]
-      :: [pro/%organization (sy %organization ~)]
+      :-  [|/%tas &/%organization |]
+      [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%phone-number |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%email |]
