@@ -36,10 +36,6 @@
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%url |]
       [pro/%txt (sy %sig ~)]
-      ::  XX no timeless and eternal type for this
-      ::     could use %or curb and define a few
-      :-  [|/%tas &/%address |]
-      [pro/%sig (sy %sig ~)]
       :-  [|/%tas &/%date-of-birth |]
       [pro/%time (sy %sig ~)]
       :-  [|/%tas &/%username |/%t |/%t |]
