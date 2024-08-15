@@ -1,6 +1,5 @@
 /@  jpg
 /@  png
-/@  manx
 /@  ship
 /@  time
 /@  hexadecimal
@@ -40,8 +39,6 @@
       [pro/%time (sy %sig ~)]
       :-  [|/%tas &/%username |/%t |]
       [pro/%txt (sy %sig ~)]
-      :-  [|/%tas &/%widget |/%tas |]
-      [pro/%manx (sy %sig ~)]
       :-  [|/%tas |/%tas &]
       [pro/%sig (sy %sig ~)]
   ==
