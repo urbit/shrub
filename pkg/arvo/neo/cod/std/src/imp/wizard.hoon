@@ -78,7 +78,6 @@
         =/  body=(map @t @t)
           (parse-form-body:serv request.req)
         ::
-        ~&  >  the-pith
         =/  loc=pith
           %+  weld 
             (oust [0 2] the-pith)
@@ -87,7 +86,6 @@
             !>(..zuse)
           %-  ream 
           (~(got by body) 'pith')
-        ~&  >  loc
         ::
         =/  stud=@tas
           !<  @tas

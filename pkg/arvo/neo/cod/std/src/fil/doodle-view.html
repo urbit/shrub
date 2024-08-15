@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Doodle</title>
+  <style>
+    body, html {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Align to the top */
+      padding-top: 1vh; /* Add some padding at the top */
+      overflow: auto; /* Make it scrollable */
+      background-color: #92deff;
+      font-family: Arial;
+    }
+
+    canvas {
+      margin-top: 2vh;
+      border: 0.5vh solid #000;
+      width: 85vw;
+      height: 72vh;
+      margin: 1vh;
+      border-radius: 2vh;
+      background-color: white;
+    }
+
+    input[type="text"], button {
+      font-size: 2vh;
+      padding: 1vh;
+      margin: 1vh;
+      width: 70vw;
+      border: 0.3vh solid #000;
+      border-radius: 1vh;
+    }
+
+    button {
+      font-size: 2.5vh; /* Increase font size */
+      margin: 1vh; /* Add some margin for separation */
+      width: 50vw;
+      height: 5vh;
+      background-color: #ffffff; /* Set a background color */
+      color: rgb(0, 0, 0); /* Set text color */
+      border: 3px solid #000; /* Remove default border */
+      border-radius: 10px; /* Add rounded corners */
+      cursor: pointer; /* Change cursor on hover */
+    }
+
+    button:hover {
+      background-color: #b5b5b5; /* Change background color on hover */
+    }
+
+    h1 {
+      font-size: 6vw; /* Adjust as needed */
+      margin: .5vh;
+      text-align: center;
+      color: black;
+    }
+
+    h2 {
+      font-size: 4vw; /* Adjust as needed */
+      margin: .5vh;
+      text-align: center;
+      color: black;
+    }
+
+  </style>
+</head>
+<body>
+  <h1 id="doodleTitle"></h1>
+  <h2 id="doodleAuthor"></h2>
+  <canvas id="pixelCanvas" width="800" height="1200"></canvas>
+  <button id="returnHome" onclick="window.location.href = '/apps/micro-doodle';">Doodle</button>
+  <button id="galleryButton" onclick="window.location.href='/apps/micro-doodle/gallery'">Gallery</button>
+</body>
+</html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const canvas = document.getElementById("pixelCanvas");
+  const ctx = canvas.getContext("2d");
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+
+  // Fetch the doodle data from the Urbit ship
+  fetch(`${window.location.href}/state`)
+  .then(response => response.json())
+  .then(data => {
+    const [title, author, ...pixels] = data;
+
+    // Set title and author
+    document.getElementById("doodleTitle").innerText = title;
+    document.getElementById("doodleAuthor").innerText = `by ${author}`;
+
+    // Sort pixels by draw order
+    pixels.sort((a, b) => a[2] - b[2]);
+
+    let drawOrder = 1;
+    let isDrawing = true; // Flag to toggle between drawing and undrawing
+    const pixelsPerFrame = 2; // Number of pixels to draw per frame
+
+    function drawNextPixel() {
+      for (let i = 0; i < pixelsPerFrame; i++) {
+        const pixel = pixels.find(p => p[2] === drawOrder);
+        const actualCellWidth = canvas.width / 80;
+        const actualCellHeight = canvas.height / 120;
+
+        if (!pixel) {
+          // Pause for a few seconds before starting to draw again
+          setTimeout(() => {
+            drawOrder = 1;
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            requestAnimationFrame(drawNextPixel);
+          }, 6000); // Pause for 6000 milliseconds (6 seconds)
+          return;
+        }
+
+        const [col, row] = pixel;
+        ctx.fillStyle = "#000"; // Drawing color
+        drawOrder++;
+        ctx.fillRect(col * actualCellWidth, row * actualCellHeight, actualCellWidth, actualCellHeight);
+      }
+
+      requestAnimationFrame(drawNextPixel);
+    }
+
+    drawNextPixel();
+  });
+});
+</script>

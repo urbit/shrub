@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doodle</title>
+  <style>
+    body, html {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* Align to the top */
+      font-size: 40px; /* Increase base font size for better readability on mobile */
+      padding-top: 20px; /* Add some padding at the top */
+      overflow: auto; /* Make it scrollable */
+      background-color: #92deff;
+    }
+
+    canvas {
+      margin-top: 2vh;
+      border: 0.5vh solid #000;
+      width: 85vw;
+      height: 72vh;
+      margin: 1vh;
+      border-radius: 2vh;
+      background-color: white;
+    }
+
+    input[type="text"], button {
+      font-size: 2vh;
+      padding: 1vh;
+      margin: 1vh;
+      width: 70vw;
+      border: 0.3vh solid #000;
+      border-radius: 1vh;
+    }
+
+    button {
+      font-size: 2.5vh; /* Increase font size */
+      margin: 1vh; /* Add some margin for separation */
+      width: 50vw;
+      height: 5vh;
+      background-color: #ffffff; /* Set a background color */
+      color: rgb(0, 0, 0); /* Set text color */
+      border: 3px solid #000; /* Remove default border */
+      border-radius: 10px; /* Add rounded corners */
+      cursor: pointer; /* Change cursor on hover */
+    }
+
+    button:hover {
+      background-color: #b5b5b5; /* Change background color on hover */
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="pixelCanvas" width="800" height="1200"></canvas>
+  <button id="publishButton">Looks Good</button>
+</body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  let pixelGrid = [];
+  let drawing = false;
+  let drawOrder = 1;
+
+  document.getElementById("publishButton").addEventListener("click", function() {
+    post("new", pixelGrid);
+  });
+
+  function post(tag, data) {
+    fetch(window.location.href, {
+      method: 'POST',
+      body: JSON.stringify({ [tag]: data })
+    })
+    location.reload();
+  }
+
+  const canvas = document.getElementById("pixelCanvas");
+  const ctx = canvas.getContext("2d");
+  let cellSize = canvas.width / 80;
+
+  // For mobile touch events
+  canvas.addEventListener("touchstart", function(e) {
+    startDraw(e);
+    document.body.style.overflow = 'hidden';  // Disable scrolling
+  });
+  canvas.addEventListener("touchmove", draw);
+  canvas.addEventListener("touchend", function() {
+    endDraw();
+    document.body.style.overflow = 'auto';  // Enable scrolling
+  });
+
+  // For mouse events
+  canvas.addEventListener("mousedown", function(e) {
+    startDraw(e);
+    document.body.style.overflow = 'hidden';  // Disable scrolling
+  });
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("mouseup", function() {
+    endDraw();
+    document.body.style.overflow = 'auto';  // Enable scrolling
+  });
+
+  function startDraw(e) {
+    drawing = true;
+    draw(e); // To draw immediately when you start
+  }
+
+  function endDraw() {
+    drawing = false;
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+
+    let x, y;
+
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    if (e.touches) {
+      x = (e.touches[0].clientX - rect.left) * scaleX;
+      y = (e.touches[0].clientY - rect.top) * scaleY;
+    } else {
+      x = (e.clientX - rect.left) * scaleX;
+      y = (e.clientY - rect.top) * scaleY;
+    }
+
+    const col = Math.floor(x / cellSize);
+    const row = Math.floor(y / cellSize);
+
+    // Check if the pixel is already drawn
+    if (!pixelGrid.some(item => item[0] === col && item[1] === row)) {
+      pixelGrid.push([col, row, drawOrder++]); // Add the drawn pixel to the array
+      ctx.fillStyle = "#000"; // Change this for different colors
+      ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+    }
+  }
+
+  // For mobile touch events
+  canvas.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    startDraw(e);
+    document.body.style.overflow = 'hidden';
+  });
+  canvas.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+    draw(e);
+  });
+  canvas.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    endDraw();
+    document.body.style.overflow = 'auto';
+  });
+
+});
+</script>
