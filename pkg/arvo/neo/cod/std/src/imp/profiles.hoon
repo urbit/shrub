@@ -20,7 +20,7 @@
       [or/~[pro/%jpg pro/%png] (sy %sig ~)]
       :-  [|/%tas &/%sigil-color |]
       [pro/%hexadecimal (sy %sig ~)]
-      :-  [|/%tas &/%sigil-background |]
+      :-  [|/%tas &/%sigil-background-color |]
       [pro/%hexadecimal (sy %sig ~)]
       :-  [|/%tas &/%display-name |]
       [pro/%txt (sy %sig ~)]
