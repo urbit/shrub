@@ -18,11 +18,12 @@
       =/  new-message
         !<(message q:(need old))
       :_  [%message !>(new-message)]
-      ?:  =(our.bowl from.new-message)
-        ~
-      :~  :-  #/[p/our.bowl]/home/notifications
-          [%poke [%notification !>([%.y now.bowl here.bowl here.bowl contents.new-message])]]
-      ==
+      ~
+      :: ?:  =(our.bowl from.new-message)
+      ::   ~
+      :: :~  :-  #/[p/our.bowl]/notifications
+      ::     [%poke [%notification !>([%.y now.bowl here.bowl here.bowl contents.new-message])]]
+      :: ==
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
