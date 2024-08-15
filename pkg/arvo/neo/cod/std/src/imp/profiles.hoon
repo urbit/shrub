@@ -50,7 +50,6 @@
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
-    +*  state  !<(number state-vase)
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
