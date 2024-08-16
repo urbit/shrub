@@ -1,5 +1,5 @@
 =>  |%
-      +$  id  @
+      +$  id  @ux
     --
 $+  food-type
 $:  id=id

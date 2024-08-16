@@ -112,9 +112,7 @@
         ;div
           ;*  %+  turn  ~(val by the-foods)
               |=  [=food]
-              ;div
-                ;a(href "/mast/mast-food-ui/~met/foods/{<id.food>}"): {(trip name.food)}
-              ==
+              ;div: {(trip name.food)}
         ==
       ::
       ++  food-form
