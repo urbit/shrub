@@ -40,6 +40,10 @@
       ::
         [#/[p/our.bowl]/home/docs %make %folder `folder/!>([%introduction %tutorials %guides ~]) ~]
         [#/[p/our.bowl]/home/docs/introduction %make %sail `sail/!>([introduction 'prose p-page mw-page ma' ~]) ~]
+        :: recipe book
+        [#/[p/our.bowl]/home/foods %make %foods ~ ~]
+        [#/[p/our.bowl]/home/recipe-book %make %recipe-book [~ [%pith !>(#/[p/our.bowl]/foods)]] ~]
+        :: end recipe book
       ::
         [#/[p/our.bowl]/home/docs/tutorials %make %folder `folder/!>([%counter %diary %messenger %tasks ~]) ~]
         [#/[p/our.bowl]/home/docs/tutorials/counter %make %sail `sail/!>([counter 'prose p-page mw-page ma' ~]) ~]
