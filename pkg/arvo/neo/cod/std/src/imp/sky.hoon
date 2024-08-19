@@ -1,3 +1,6 @@
+/@  flag
+/@  notification
+/@  notifications-controller
 /-  serv=sky-server
 /*  feather
 /*  s-k-y
@@ -10,7 +13,16 @@
 ++  kids
   :+  ~  %z
   schema.serv
-++  deps   *deps:neo
+++  deps
+  %-  ~(gas by *deps:neo)
+  :~  :-  %not
+      :+  req=|  [pro/%notifications-controller (sy %notification %notifications-controller ~)]
+      :+  ~  %z
+      %-  ~(gas by *lads:neo)
+      :~  :-  [&/%notification |/%da |]
+          [pro/%notification (sy %flag ~)]
+      ==
+  ==
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =pail:neo]
