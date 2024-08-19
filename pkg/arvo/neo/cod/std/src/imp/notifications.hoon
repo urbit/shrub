@@ -22,7 +22,7 @@
 ::
 ++  poke
   ^-  (set stud:neo)
-  (sy %txt %notification ~)
+  (sy %notification ~)
 ::
 ++  kids
   ^-  kids:neo
