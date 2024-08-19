@@ -1,9 +1,10 @@
 /@  meta-diff
+/@  storage-diff
 /-  su=shrub-utils
 ^-  kook:neo
 |%
 ++  state  pro/%storage
-++  poke   (sy %storage-diff ~) ::[to=pith:neo poke=meta-diff]
+++  poke  (sy %storage-diff ~) ::[to=pith:neo poke=meta-diff]
 ++  kids  
   :+  ~  %z
   %-  ~(gas by *lads:neo)
@@ -30,7 +31,7 @@
     ?~  (find [pith.diff ~] (kidz-at-pith:su / kids.bowl))
       ~&  >  make-at-pith/pith.diff
       ?>  ?=(@ -.pith.diff)
-      =/  make-stud  ;;  stud:neo  -.pith.diffs
+      =/  make-stud  ;;  stud:neo  -.pith.diff
       :~  [(welp here.bowl pith.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
     ~&  >  poke-at-pith/pith.diff

@@ -1,6 +1,5 @@
-/@  recation
+/@  reaction
 /@  meta-diff
-/-  su=shrub-utils
 ^-  kook:neo
 |%
 ++  state  pro/%reactions  ::(set reaction)
@@ -30,13 +29,13 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  ?=(%meta-diff stud)
-    ~&  kids/(kids-at-pith:su kids.bowl /)
     ~&  'got poke'
     =/  state  !<((set reaction) q.pail)
     =/  diff  !<(meta-diff vax)
     ~&  diff
     ?>  ?=(%reaction -.diff)
-    :_  reactions/!>(~(rep in +.diff) |=(=reaction (~(put in state) reaction))
+    =/  new-state  %-  ~(uni in state)  +.diff
+    :_  reactions/!>(new-state)
     ~
   --
 --

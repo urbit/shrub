@@ -1,8 +1,6 @@
 /@  ui-event
 /@  txt
 /@  diary-diff
-/@  comment
-/-  su=shrub-utils
 ^-  kook:neo
 =<
 |%
@@ -17,11 +15,6 @@
       %-  my
       :~  [[|/%da |] only/%txt ~]
       ==
-      :^  %meta  |  [pro/%storage (sy %storage-diff ~)]
-      :+  ~  %z
-      %-  my
-      :~  [[|/%tas |/%p &] [%any ~] (sy %meta-diff ~)]
-      ==
   ==
 ++  form
   ^-  form:neo
@@ -31,7 +24,7 @@
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     :-  ~
-    manx/!>((render (get-render-data bowl)(get-comments deps.bowl (welp /comments here))))
+    manx/!>((render (get-render-data bowl)))
   ::
   ++  poke
     |=  [sud=stud:neo vaz=vase]
@@ -45,12 +38,15 @@
         ::
           [%submit %diary-form ~]
         =/  dat=@t          (~(got by data.eve) 'diary-input')
+        ~&  dat
         =/  dif=diary-diff  [%put-entry now.bowl dat]
+        ~&  >>  dif/dif
         =/  dst=pith:neo    p:(~(got by deps.bowl) %src)
-        ::=/  dif-meta  [(welp /comments dst) [%comment ~]]
-        ::[/[p/our.bowl]/storage %poke storage-diff/!>(dif-meta)]
+        ~&  dst 
+        =/  dif-meta  [:(welp /comments dst /[da/now.bowl]) [%comment ~]]
         :_  pail
-        :~  [dst %poke diary-diff/!>(dif)]
+        :~  [/[p/our.bowl]/storage %poke storage-diff/!>(dif-meta)]
+            [dst %poke diary-diff/!>(dif)]
         ==
         ::
           [%click %delete @ta ~]
@@ -60,28 +56,9 @@
         :_  pail
         :~  [dst %poke diary-diff/!>(dif)]
         ==
-        ::
-          [%submit %meta %comment ~]
-        =/  txt=@t  (~(got by data.eve) 'comment')
-        =/  data-key  (~(got by data.eve) '/target/data-key')
-        =/  key  
-          ?~  data-key  ~
-          /[da/(slav %da data-key)]
-        :: =/  =pith:neo  
-        :: %+  welp  (oust [0 2] p:(~(got by deps.bowl) %meta))
-        ::   key
-        :: =/  dif  [%comment [now.bowl our.bowl txt]]
-        ~&  dif/dif
-        :_  pail
-        ~
-        :: :~  [/[p/our.bowl]/storage %poke storage-diff/!>([pith dif])]
-        ==
-        ::
       ==
-      ::
         %rely
-      `manx/!>((render (get-render-data bowl) (get-comments deps.bowl (welp /comments here))))
-      ::
+      `manx/!>((render (get-render-data bowl)))
     ==
   ::
   --
@@ -96,7 +73,7 @@
   ==
 ::
 ++  render
-  |_  [=render-data comments=(set comment)]
+  |_  render-data
   ++  $
     ^-  manx
     ;html
@@ -134,7 +111,7 @@
           ;+  diary-form
           ;+  diary-items
         ==
-        ;+  (meta-comments comments "")
+      ::  ;imp_meta-mast-comment: {(en-tape:pith:neo /[p/our.bowl]/storage/comments/[p/our.bowl]/home/diary)}
       ==
     ==
   ::
@@ -189,51 +166,8 @@
                 ==
               ==
             ==
-          ;+  (meta-comments (get-comments deps.bowl comments/diary/[da/date]) key)
+          ::;imp_meta-mast-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments//[p/our.bowl]/home/diary /[da/date]))}
           ==
-    ==
-  ::
-  ++  meta-comments
-    |=  [meta=(set comment) key=tape]
-    ~&  >>>  comments/~(tap in meta)
-    ;div.fc.g1.p4
-      ;div.fc.ae.p1
-        ;button.bd1.br3.b2
-        =onclick  "this.parentNode.nextSibling.classList.toggle('hidden');"
-          ;span: +
-        ==
-      ==
-      ;form.fr.hidden.bd1.br1.p1.g1
-      =event  "/submit/meta/comment"
-      =data-key  key
-      =return    "/target/data-key"
-        ;input.p1.grow
-        =type  "text"
-        =required  ""
-        =name  "comment"
-        =placeholder  "comment"
-        ;
-        ==
-        ;button.loader.bd1.br1.p1
-        =onclick  "this.parentNode.classList.add('hidden');"
-        =type  "submit"
-          ;span.loaded:  send
-          ;span.loading:  loading
-        ==
-      ==
-      ;*  
-      ::  add sorting by date
-      %+  turn  ~(tap in meta)
-      |=  =comment
-      ~&  comment
-      ^-  manx
-      ;div.fc.g1.bd1.br1.p2
-        ;div.fr.jb.p1
-          ;p.f1: {(pretty-date when.comment)}
-          ;p.f1: {(scow %p from.comment)}
-        ==
-        ;h2.tc.p1.f1: {(trip txt.comment)}
-      ==
     ==
   ::
   --
@@ -275,13 +209,5 @@
   ^-  tape
   =/  d  (yore date)
   "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
-::
-++  get-comments
-  |=  [deps=(map term (pair pith:neo lore:neo)) =pith:neo]
-  ^-  (set comment)
-  =/  meta=(pair pith:neo lore:neo)  (~(got by deps) %meta)
-  =/  uvase=(unit vase)  (get-vase-saga-by-pith:su q.meta pith)
-  ?~  uvase  ~
-  !<((set comment) (need uvase))
 ::
 --
