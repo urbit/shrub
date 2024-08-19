@@ -1,10 +1,16 @@
-/@  order
+/@  comment
 /@  meta-diff
+/-  su=shrub-utils
 ^-  kook:neo
 |%
-++  state  pro/%order
+++  state  pro/%comments  ::(set comment)
 ++  poke   (sy %meta-diff ~)
-++  kids  *kids:neo
+++  kids  ::*kids:neo
+  :+  ~  %y
+  %-  ~(gas by *lads:neo)
+  :~  :-  &
+    [pro/%comments (sy %meta-diff ~)]
+  ==
 ++  deps  *deps:neo
 ++  form
   ^-  form:neo
@@ -14,25 +20,23 @@
     ^-  (quip card:neo pail:neo)
     :-  ~
     ?~  pal  
-      order/!>(~)
+      comments/!>(~)
     =+  !<(=meta-diff q:(need pal))
     ~&  meta-diff
-    ?>  ?=(%order -.meta-diff)
-    =/  =order  ;;  order  order.meta-diff
-    order/!>(order)
+    ?>  ?=(%comment -.meta-diff)
+    comments/!>((sy +.meta-diff ~))
     ::
     ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  ?=(%meta-diff stud)
+    ~&  kids/(kids-at-pith:su kids.bowl /)
     ~&  'got poke'
-    ~&  >>  -.q.pail
-    =/  state  !<(order q.pail)
+    =/  state  !<((set comment) q.pail)
     =/  diff  !<(meta-diff vax)
     ~&  diff
-    ?>  ?=(%order -.diff)
-    =/  =order  ;;  order  order.diff
-    :_  order/!>(order)
+    ?>  ?=(%comment -.diff)
+    :_  comments/!>((~(put in state) +.diff))
     ~
   --
 --
