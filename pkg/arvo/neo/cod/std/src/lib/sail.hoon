@@ -1,4 +1,5 @@
 /-  feather-icons
+/-  sigil
 |%
 ++  render-udon
   |=  code=@t
@@ -19,6 +20,7 @@
       %+  with-faces:ford:neo  !>(..zuse)
       :~
         feather-icons/!>(feather-icons)
+        sigil/!>(sigil)
       ==
     (ream udon)
   ?-  -.mul
