@@ -23,6 +23,8 @@
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
+    =/  src  p:(~(got by deps.bowl) %src)
+    ~&  >  src
     :-  ~
     manx/!>((render (get-render-data bowl)))
   ::
@@ -70,6 +72,7 @@
   $:  diary-entries=(list [date=@da =txt])
       selection=(unit @da)
       =bowl:neo
+      src=pith:neo
   ==
 ::
 ++  render
@@ -111,7 +114,7 @@
           ;+  diary-form
           ;+  diary-items
         ==
-      ::  ;imp_meta-mast-comment: {(en-tape:pith:neo /[p/our.bowl]/storage/comments/[p/our.bowl]/home/diary)}
+      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments src))}
       ==
     ==
   ::
@@ -166,7 +169,7 @@
                 ==
               ==
             ==
-          ::;imp_meta-mast-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments//[p/our.bowl]/home/diary /[da/date]))}
+          ;imp_mast-meta-comment: {(en-tape:pith:neo :(welp /[p/our.bowl]/storage/comments src /[da/date]))}
           ==
     ==
   ::
@@ -178,6 +181,7 @@
   :*  (get-diary-entries deps.bowl)
       (get-selection kids.bowl)
       bowl
+      p:(~(got by deps.bowl) %src)
   ==
 ::
 ++  get-diary-entries

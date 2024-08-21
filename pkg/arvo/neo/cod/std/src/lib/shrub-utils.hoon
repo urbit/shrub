@@ -144,7 +144,7 @@
   ^-  pith
   %-  pave:neo
   ;;  path
-  %-  stub  cord
+  %-  stab  cord
 ::
 ::  produce list of values in axal
 ::
