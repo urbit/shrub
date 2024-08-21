@@ -31,11 +31,26 @@
       =/  inner=pith:neo
         (pave:neo pax:(parse-url-frfr:serv request.req))
       ::
+      ::
+      ::  redirect to preferred renderer
+      ?:  ?&  =(%sky (snag 0 inner))
+              (gth (lent inner) 1)
+              =(n/~ (snag 1 inner))
+          ==
+        :_  sig/!>(~)
+        =/  =pith:neo  #/[p/our.bowl]/$/eyre
+        =/  loc  (crip "/mast/folder-ui{(en-tape:pith:neo (slag 2 inner))}")
+        :~
+          [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
+          [pith %poke eyre-sign/!>([eyre-id %data ~])]
+          [pith %poke eyre-sign/!>([eyre-id %done ~])]
+        ==
+      ::
       ::  redirect /sky to the mast renderer
       ?:  =(%sky (snag 0 inner))
         :_  sig/!>(~)
         =/  =pith:neo  #/[p/our.bowl]/$/eyre
-        =/  loc  (crip "/mast/mast-sky-ui/{(scow %p our.bowl)}/sky")
+        =/  loc  (crip "/mast/sky-ui/{(scow %p our.bowl)}/sky")
         :~
           [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
           [pith %poke eyre-sign/!>([eyre-id %data ~])]

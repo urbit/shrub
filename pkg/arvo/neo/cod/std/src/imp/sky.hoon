@@ -47,6 +47,37 @@
     ::  return cards
     :~
       [~[p/our.bowl %home] %make %home ~ ~]
+      ::
+      ::  put a bunch of roots down so
+      ::  that it's easier to navigate
+      ::
+      [#/[p/our.bowl]/cod %make %root ~ ~]
+      [#/[p/our.bowl]/cod/grab %make %root ~ ~]
+      [#/[p/our.bowl]/cod/grow %make %root ~ ~]
+      ::
+      [#/[p/our.bowl]/cod/std/out %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/out/imp %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/out/pro %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/out/con %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/out/lib %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/out/fil %make %root ~ ~]
+      ::
+      [#/[p/our.bowl]/cod/std/pre %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/pre/imp %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/pre/pro %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/pre/con %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/pre/lib %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/pre/fil %make %root ~ ~]
+      ::
+      [#/[p/our.bowl]/cod/std/src %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/src/imp %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/src/pro %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/src/con %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/src/lib %make %root ~ ~]
+      [#/[p/our.bowl]/cod/std/src/fil %make %root ~ ~]
+      ::
+      [#/[p/our.bowl]/static %make %root ~ ~]
+      [#/[p/our.bowl]/srv %make %root ~ ~]
       [here.bowl %poke bind-static-assets/!>(~)]
     ==
   --

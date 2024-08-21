@@ -11,6 +11,8 @@ class extends HTMLElement {
       "menu",
       "dragging",
       "tab-title",
+      "renderer-label",
+      "renderer-suggestions",
       "favicon",
     ];
   }
@@ -125,7 +127,7 @@ class extends HTMLElement {
       e.preventDefault();
       this.setAttribute('here', $(this.gid('input-here')).val());
       this.setAttribute('renderer', this.strategies[0]);
-      this.rebuildIframe();
+      //this.rebuildIframe();
     });
     $(this.gid('input-here')).off();
     $(this.gid('input-here')).on('focusout', (e) => {
@@ -189,12 +191,16 @@ class extends HTMLElement {
       let here = this.getAttribute('here');
       let favicon = this.getAttribute('favicon');
       let tabTitle = this.getAttribute('tab-title');
+      let rendererLabel = this.getAttribute('renderer-label');
+      let rendererSuggestions = this.getAttribute('renderer-suggestions');
       $(this.gid('tabs')).children().each(function() {
         this.contentWindow.postMessage({
           messagetype: "sky-poll",
           here,
           favicon,
           tabTitle,
+          rendererLabel,
+          rendererSuggestions,
         });
       });
     }, 350);
@@ -208,6 +214,30 @@ class extends HTMLElement {
       $(this).emit('here-moved');
     });
     $(this).on('favicon-changed', (e) => {
+      if (!!e.detail) {
+        $(this).attr('favicon', e.detail);
+      } else {
+        $(this).attr('favicon', null);
+      }
+      $(this).emit('here-moved');
+    });
+    $(this).on('renderer-suggestions-changed', (e) => {
+      if (!!e.detail) {
+        $(this).attr('renderer-suggestions', e.detail);
+      } else {
+        $(this).attr('renderer-suggestions', null);
+      }
+      $(this).emit('here-moved');
+    });
+    $(this).on('renderer-label-changed', (e) => {
+      if (!!e.detail) {
+        $(this).attr('renderer-label', e.detail);
+      } else {
+        $(this).attr('renderer-label', null);
+      }
+      $(this).emit('here-moved');
+    });
+    $(this).on('', (e) => {
       if (!!e.detail) {
         $(this).attr('favicon', e.detail);
       } else {
@@ -235,7 +265,7 @@ class extends HTMLElement {
       });
     });
     $(this).on('bookmark-renderer', (e) => {
-      this.setAttribute('strategies', (this.getAttribute('strategies') || '') + ' ' + e.detail);
+      this.setAttribute('strategies', `${e.detail} ${this.getAttribute('strategies') || ''}`);
       $(this).emit('strategy-change', this.strategyPoke);
     });
     $(this).on('unbookmark-renderer', (e) => {
@@ -258,6 +288,9 @@ class extends HTMLElement {
       this.buildMenu()
       $(this.gid('input-here')).val(newValue);
       $(this).emit('here-moved');
+      if (oldValue != newValue) {
+        this.rebuildIframe();
+      }
     }
     else if (name === "searching") {
       if (newValue === null) {
@@ -275,6 +308,12 @@ class extends HTMLElement {
       if (oldValue !== newValue) {
         this.rebuildIframe();
       }
+      this.buildMenu()
+    }
+    else if (name === "renderer-label") {
+      $(this.gid('menu-toggle')).text(this.prettyCurrent)
+    }
+    else if (name === "renderer-suggestions") {
       this.buildMenu()
     }
     else if (name === "menu") {
@@ -315,9 +354,12 @@ class extends HTMLElement {
     return JSON.parse(strats || '{}');
   }
   get strategies() {
-    return [...(this.getAttribute('strategies') || '').split(' ').map(m => {
-      return m.trim();
-    }).filter(f => !!f), '/tree'];
+    return [
+      ...(this.getAttribute('strategies') || '').split(' ').map(m => {
+        return m.trim();
+      }).filter(f => !!f),
+      '/tree'
+    ];
   }
   get strategyPoke() {
     let poke = {
@@ -343,9 +385,9 @@ class extends HTMLElement {
       "/mast": (x) => {
         let words = x.split("/").map(s => s.trim()).filter(s => !!s);
         if (words.length != 2) {
-          words = ["mast", "mast-error"];
+          words = ["mast", "error"];
         }
-        return words[1].split('-').slice(1).join(' ');
+        return words[1].split('-').slice(0, -1).join(' ');
       },
       //
       "/blue": (x) => {
@@ -365,7 +407,7 @@ class extends HTMLElement {
   }
   get prettyCurrent() {
     let r = this.renderer;
-    let m = this.labelLookup(r)
+    let m = this.getAttribute('renderer-label');
     if (m) {
       return m;
     }
@@ -412,8 +454,8 @@ class extends HTMLElement {
             window.parent.postMessage({
               messagetype: 'sky-poll-response',
               wid: '${wid}',
-              here: here,
-              prefix: '${prefix}'
+              event: 'iframe-moved',
+              detail: {here, prefix: '${prefix}'}
             }, '*');
           }
 
@@ -427,9 +469,10 @@ class extends HTMLElement {
           }
           if (favicon != windowFavicon) {
             window.parent.postMessage({
-              messagetype: 'sky-poll-response-favicon',
+              messagetype: 'sky-poll-response',
               wid: '${wid}',
-              favicon: favicon,
+              event: 'favicon-changed',
+              detail: favicon,
             }, '*');
           }
 
@@ -437,9 +480,34 @@ class extends HTMLElement {
           let title = document.title || "";
           if (title != windowTitle) {
             window.parent.postMessage({
-              messagetype: 'sky-poll-response-title',
+              messagetype: 'sky-poll-response',
               wid: '${wid}',
-              tabTitle: title,
+              event: 'title-changed',
+              detail: title,
+            }, '*');
+          }
+
+          let wSug = event.data.rendererSuggestions || "";
+          let sugEl = document.querySelector('meta[name="renderer-suggestions"]');
+          let sug = sugEl?.getAttribute('content') || "";
+          if (sug !== wSug) {
+            window.parent.postMessage({
+              messagetype: 'sky-poll-response',
+              wid: '${wid}',
+              event: 'renderer-suggestions-changed',
+              detail: sug,
+            }, '*');
+          }
+
+          let wLab = event.data.rendererLabel || "";
+          let labEl = document.querySelector('meta[name="renderer-label"]');
+          let lab = labEl?.getAttribute('content') || "";
+          if (lab !== wLab) {
+            window.parent.postMessage({
+              messagetype: 'sky-poll-response',
+              wid: '${wid}',
+              event: 'renderer-label-changed',
+              detail: lab,
             }, '*');
           }
 
@@ -478,7 +546,7 @@ class extends HTMLElement {
       crumb.on('click', () => {
         $(this).attr('here', "/"+this.path.slice(0, i+1).join("/"));
         $(this).attr('renderer', this.strategies[0]);
-        this.rebuildIframe();
+        //this.rebuildIframe();
       });
       breadcrumbs.append(crumb);
     })
@@ -557,6 +625,27 @@ class extends HTMLElement {
       bookmarks.find('.frw').append(bookmark);
     })
     menu.appendChild(bookmarks.get(0));
+    //
+    let sugs = $(`
+      <div class="fc g1">
+        <span class="s-2 f3">suggestions</span>
+        <div class="frw g2 ac js">
+        </div>
+      </div>
+    `);
+    //
+    (this.getAttribute('renderer-suggestions') || '').split(' ').map(f => f.trim()).filter(f => !!f).forEach(s => {
+      let sug = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`);
+      sug.text(this.labelLookup(s) || s);
+      $(sug).on('click', (e) => {
+        $(this).attr('renderer', s)
+      })
+      if (s === this.renderer) {
+        $(sug).addClass('toggled');
+      }
+      sugs.find('.frw').append(sug);
+    })
+    menu.appendChild(sugs.get(0));
     //
     let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">

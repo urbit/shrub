@@ -37,11 +37,11 @@
       =/  event  !<(ui-event vase)
       =/  here=pith:neo  p:(~(got by deps.bowl) %src)
       :_  pail
-      :~  
+      :~
         :-  here
-        :+  %poke 
+        :+  %poke
         %sail
-        !>  
+        !>
         =+  sail=(get-sail bowl)
         ?+  path.event  ~|(missing-event-handler-for/path.event !!)
             [%input %new-classes ~]
@@ -160,6 +160,7 @@
       =data-key     key
       =return       "/target/data-key /target/value"
       =event        "/input/code"
+      =debounce     "0.4"
       ; {(trip code.sail)}
     ==
     ;div.absolute

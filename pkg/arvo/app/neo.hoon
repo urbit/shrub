@@ -1569,7 +1569,7 @@
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
-    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ ~))
+    (emit (do-card #/[p/our.bowl]/srv/blue %make %blue ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/mast %make %mast ~ ~))
   =.  run

@@ -1,109 +1,88 @@
+/@  ui-event
+/@  txt
 /@  order
 /-  serv=sky-server
-/*  s-k-y
-/*  wi-nd
-/*  hawk-icon
 ^-  kook:neo
 =<
 |%
-++  state  pro/%eyre-task
-++  poke   (sy %rely ~)
+++  state  pro/%manx
+++  poke   (sy %ui-event %rely %gift ~)
 ++  kids  *kids:neo
 ++  deps
-  %-  ~(gas by *band:neo)
-  :~  :-  %src
-      :-  req=&
-      :-  [pro/%sig ~]
-      :+  ~  %y
+  ^-  deps:neo
+  %-  my
+  :~  :^  %src  &  [pro/%sig ~]
+      :+  ~  %z
       schema.serv
   ==
-::
 ++  form
+  ^-  form:neo
   |_  [=bowl:neo =aeon:neo =pail:neo]
-  ++  poke
-    |=  [=stud:neo vax=vase]
-    ^-  (quip card:neo pail:neo)
-    ?+    stud  ~|(bad-stud/stud !!)
-        %rely
-      :_  pail
-      =/  task  !<(task:eyre:neo q.pail)
-      (eyre-cards [bowl task])
-    ==
   ::
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    =/  [=stud:neo =vase]  (need pal)
-    =+  !<(=task:eyre:neo vase)
-    =/  [eyre-id=@ta req=inbound-request:eyre]  task
-    ?+    method.request.req  ~|(%unsupported-http-method !!)
-        %'GET'
-      :_  [stud vase]
-      (eyre-cards [bowl task])
-    ::
+    :-  ~
+    manx/!>((render bowl))
+  ::
+  ++  poke
+    |=  [sud=stud:neo vaz=vase]
+    ^-  (quip card:neo pail:neo)
+    ?+  sud  ~|(bad-stud/sud !!)
+      ::
+        %ui-event
+      =/  eve  !<(ui-event vaz)
+      =/  rod  `(pole @tas)`path.eve
+      =/  dst=pith:neo    p:(~(got by deps.bowl) %src)
+      ?+  rod  ~|(missing-event-handler-for/path.eve !!)
+        ::
+          [%click %default-theme ~]
+        :_  pail
+        ~(default-theme-cards render bowl)
+        ::
+          [%change %theme ~]
+        =/  dat  ~(. by data.eve)
+        =/  name  `@tas`(got:dat '/target/data-name')
+        :_  pail
+        ^-  (list card:neo)
+        :~
+          [(welp dst #/theme/[name]/unit) %make %txt `txt/!>((got:dat '/target/data-unit')) ~]
+          [(welp dst #/theme/[name]/value) %make %txt `txt/!>((got:dat '/target/value')) ~]
+        ==
+      ::
+          [%strategy-change %sky ~]
+        =/  dat  ~(. by data.eve)
+        =/  detail  (got:dat '/event/detail')
+        :_  pail
+        (~(strategy-change-cards render bowl) (need (de:json:html detail)))
+      ==
+      ::
+        %rely
+      `manx/!>((render bowl))
+      ::
     ==
+  ::
   --
 --
 ::
 |%
-++  eyre-cards
-  |=  [=bowl:neo [eyre-id=@ta req=inbound-request:eyre]]
-  =+  #/[p/our.bowl]/$/eyre
-  :~  (head-card - eyre-id)
-  ::
-      :*  -
-          %poke
-          %eyre-sign
-          !>
-          :+  eyre-id
-            %data
-          :-
-            ~
-          %-  manx-to-octs
-          %~  render
-            web
-          :-  bowl
-          (pave:neo pax:(parse-url-frfr:serv request.req))
-      ==
-  ::
-      (done-card - eyre-id)
-      [here.bowl %cull ~]
-      [here.bowl %tomb ~]
-  ==
 ::
-++  head-card
-  |=  [=pith eyre-id=@ta]
-  :*  pith
-      %poke
-      %eyre-sign
-      !>
-      :^    eyre-id
-          %head
-        200
-      :~
-        ['HX-Replace-Url' '/sky']
-        ['content-type' 'text/html']
-      ==
-  ==
-::
-++  done-card
-  |=  [=pith eyre-id=@ta]
-  [pith %poke eyre-sign/!>([eyre-id %done ~])]
-::
-++  manx-to-octs
-  |=  man=manx
-  (as-octt:mimes:html (en-xml:html man))
-::
-++  web
-  |_  [=bowl:neo name=pith]
-  ++  render
+++  render
+  |_  [=bowl:neo]
+  ++  $
     ^-  manx
     %-  lift
     ;s-k-y
       =our  (scow %p our.bowl)
+      =event  "/strategy-change/sky"
+      =return  "/event/detail"
       =default-strategies  default-strategies-json
-      ;
+      ;+  form-theme
+      ;+  notifications
     ==
+  ++  dst
+    ^-  pith:neo
+    p:(~(got by deps.bowl) %src)
   ++  lor
     ^-  lore:neo
     q:(~(got by deps.bowl) %src)
@@ -112,6 +91,9 @@
   ++  dap
     |=  =pith:neo
     ~(tap of:neo (dip:fot pith))
+  ++  dar
+    |=  =pith:neo
+    ~(tar of:neo (dip:fot pith))
   ++  strategy-map
     ^-  (list (pair pith order))
     %+  turn  (dap /strategy)
@@ -138,72 +120,226 @@
     ^-  json
     [%s (crip (en-tape:pith:neo v))]
     ::
-  ++  theme-pairs
-    ^-  (list (pair @t @t))
+  ++  strategy-change-cards
+    |=  jon=json
+    ^-  (list card:neo)
+    =/  here
+      %-  pave:neo
+      %-  (ot ~[here+pa]):dejs:format
+      jon
+    ::
+    =/  strats=order
+      %+  turn
+        %-  (ot ~[strategies+(ar pa)]):dejs:format
+        jon
+      pave:neo
+    :~
+      [:(welp dst #/strategy here) %make %order `order/!>(strats) ~]
+    ==
+  ::
+  ++  default-theme-cards
+    ^-  (list card:neo)
+    ::
+    %-  zing
+    ^-  (list (list card:neo))
     %+  turn  (dap /theme)
-    |=  [=pith =idea:neo]
-    ^-  (pair @t @t)
-    =/  =iota:neo  (snag 0 pith)
-    [?@(iota iota (scot iota)) !<(@t q.pail.idea)]
+    |=  [rel=pith:neo =idea:neo]
+    =/  p  :(welp dst #/theme rel)
+    ~&  del-theme/p
+    :~
+      [p %cull ~]
+      [p %tomb ~]
+    ==
+  ::
+  ++  theme-rules
+    ^-  (list [@t @t @t])
+    =/  data-map  (dar /theme)
+    =/  vars=(set iota)
+      %-  ~(run in ~(key by data-map))
+      |=  =pith
+      (snag 0 pith)
+    =/  rules=(set [@t @t @t])
+      %-  ~(run in vars)
+      |=  =iota
+      ^-  [@t @t @t]
+      =/  name=@t  ?@(iota iota (scot iota))
+      =/  value=idea:neo  (~(gut by data-map) #/[iota]/value %*(. *idea:neo pail txt/!>('')))
+      =/  unit=idea:neo  (~(gut by data-map) #/[iota]/unit %*(. *idea:neo pail txt/!>('')))
+      [name !<(@t q.pail.value) !<(@t q.pail.unit)]
+    ~(tap in rules)
   ++  theme-tape
     ^-  tape
     %-  zing
-    %+  turn  theme-pairs
-    |=  [key=@t val=@t]
+    %+  turn  theme-rules
+    |=  [name=@t val=@t suffix=@t]
     """
-    --{(trip key)}: {(trip val)};
+    --{(trip name)}: {(trip val)}{(trip suffix)};
     """
-  ++  icon-url
-    ^~
-    %-  trip
-    %^    cat
-        3
-      'data:image/png;base64,'
-    %-  ~(en base64:mimes:html & |)
-    (as-octs:mimes:html hawk-icon)
-  ++  favicon
-    ^~
-    =;  m  m(a.g [[%href icon-url] a.g.m])
+  ++  css-input
+    |=  [label=tape name=@t nit=@t =mart fallback=@t]
     ^-  manx
-    ;link
-      =rel  "icon"
-      =type  "image/png"
-      ;
+    =/  theme  (malt theme-rules)
+    =/  tem  `(unit [value=@t @t])`(~(get by theme) name)
+    ;label.fc.g2
+      ;span.mono.f3.s-1: {label}
+      ;+
+        =;  m
+          m(a.g (welp a.g.m mart))
+        ^-  manx
+        ;input
+          =event  "/change/theme"
+          =data-name  (trip name)
+          =data-unit  (trip nit)
+          =autocomplete  "off"
+          =value  (trip ?~(tem fallback value.u.tem))
+          =return  "/target/value /target/data-name /target/data-unit"
+          =oninput  "$(this).emit('feather-changed', [\{variable:'{(trip name)}', unit: '{(trip nit)}', value: this.value}])"
+          =class  "wf";
     ==
-  ++  manifest-url
-    ^~
-    %-  trip
-    %^    cat
-        3
-      'data:application/json;utf-8,'
-    %-  en:json:html
-    %-  pairs:enjs:format
-    :~
-      ['name' s+'sky']
-      ['description' s+'an urbit namespace viewer']
-      ['start_url' s+'http://localhost/neo/sky']  ::  XX
-      ['display' s+'standalone']
-      ['background_color' s+'black']
-      ['theme_color' s+'black']
-      :+  'icons'  %a
-      :~
-        %-  pairs:enjs:format
-        :~
-          ['src' s+(crip icon-url)]
-          ['sizes' s+'196x196']
-          ['type' s+'image/png']
+  ++  css-color
+    |=  [label=tape name=@t =mart fallback=@t]
+    ^-  manx
+    =/  theme  (malt theme-rules)
+    =/  tem  `(unit [value=@t @t])`(~(get by theme) name)
+    ;label.fr.ac.jc.g1.wf
+      ;span.mono.f3.s-1: {label}
+      ;+
+        =;  m
+          m(a.g (welp a.g.m mart))
+        ^-  manx
+        ;input
+          =event  "/change/theme"
+          =data-name  (trip name)
+          =data-unit  ""
+          =autocomplete  "off"
+          =value  (trip ?~(tem fallback value.u.tem))
+          =return  "/target/value /target/data-name /target/data-unit"
+          =oninput  "$(this).emit('feather-changed', [\{variable:'{(trip name)}', unit: '', value: this.value}])"
+          =class  "grow"
+          =type  "color";
+    ==
+  ++  css-select
+    |=  [label=tape name=@t options=(list (pair @t @t)) fallback=@t]
+    ^-  manx
+    =/  theme  (malt theme-rules)
+    =/  tem  `(unit [value=@t @t])`(~(get by theme) name)
+    ;label.fc.ac.jc.g1.wf
+      ;span.mono.f3: {label}
+      ;select.br1.bd1.p-1.wf
+        =event  "/change/theme"
+        =data-name  (trip name)
+        =data-unit  ""
+        =autocomplete  "off"
+        =return  "/target/value /target/data-name /target/data-unit"
+        =oninput  "$(this).emit('feather-changed', [\{variable:'{(trip name)}', unit: '', value: this.value}])"
+        =class  "wf"
+        ;*
+        %+  turn  options
+        |=  [opt=@t label=@t]
+        =;  m
+          m
+        ^-  manx
+        ;option
+          =value  (trip opt)
+          ; {(trip label)}
         ==
       ==
     ==
-  ++  manifest
-    ^~
-    =;  m  m(a.g [[%href manifest-url] a.g.m])
-    ^-  manx
-    ;link
-      =rel  "manifest"
-      ;
+++  main-font-options
+  ^-  (list (pair @t @t))
+  :~
+    ['"Arial", sans-serif' 'Arial']
+    ['"Gill Sans", sans-serif' 'Gill Sans']
+    ['"Helvetica Neue", Helvetica, sans-serif' 'Helvetica']
+    ['"Charter", serif' 'Charter']
+  ==
+++  mono-font-options
+  ^-  (list (pair @t @t))
+  :~
+    ['"Courier New", Courier, monospace' 'Courier']
+    ['"Monaco", monospace' 'Monaco']
+    ['"Andale Mono", monospace' 'Andale Mono']
+  ==
+  ++  form-theme
+    ::
+    ::  MAINTENTANCE NOTE: THE DEFAULT VALUES OF THESE FORMS MUST LINE
+    ::    UP WITH THE DEFAULT VARIABLE VALUES IN FEATHER.CSS
+    ::
+    ;div.fc.g5(slot "theme")
+      ;div.fc.g3
+        ;+  (css-input "Opacity" 'sky-opacity' '' ~[[%type "range"] [%min "0.1"] [%max "1"] [%step "0.01"]] '1')
+        ;+  (css-input "Outer gap" 'sky-outer-gap' 'px' ~[[%type "range"] [%min "0"] [%max "45"] [%step "1"]] '8')
+        ;+  (css-input "Inner gap" 'sky-inner-gap' 'px' ~[[%type "range"] [%min "0"] [%max "45"] [%step "1"]] '8')
+        ;+  (css-input "Window border" 'sky-window-border' 'px' ~[[%type "range"] [%min "0"] [%max "4"] [%step "0.01"]] '2')
+      ==
+      ;div.fc.g5
+        ;+  (css-input "Base font size" '1in' 'px' ~[[%type "range"] [%min "2.5"] [%max "5.5"] [%step "0.01"]] '4')
+        ;+  (css-input "Monospaced font scale" 'mono-scale' '' ~[[%type "range"] [%min "0.5"] [%max "1.5"] [%step "0.01"]] '0.8')
+        ;+  (css-input "Letter spacing" 'letter-spacing' 'em' ~[[%type "range"] [%min "-0.1"] [%max "0.4"] [%step "0.001"]] '0.024')
+        ;+  (css-input "Line height" 'line-height' '' ~[[%type "range"] [%min "0.8"] [%max "2"] [%step "0.01"]] '1.4')
+      ==
+      ;div.fc.g5
+        ;+  (css-select "Main Font" 'font' main-font-options 'Arial')
+        ;+  (css-select "Mono Font" 'font-mono' mono-font-options 'Courier')
+      ==
+      ;h2: light
+      ;div.fr.g2.wf
+        ;div.fc.g1.wf
+          ;+  (css-color "b4" 'light-b4' ~ '#9999a9')
+          ;+  (css-color "b3" 'light-b3' ~ '#aaaaba')
+          ;+  (css-color "b2" 'light-b2' ~ '#bbbbcb')
+          ;+  (css-color "b1" 'light-b1' ~ '#ccccdc')
+          ;+  (css-color "b0" 'light-b0' ~ '#dddded')
+          ;+  (css-color "b-1" 'light-b-1' ~ '#55dd33')
+          ;+  (css-color "b-2" 'light-b-2' ~ '#ddaa33')
+          ;+  (css-color "b-3" 'light-b-3' ~ '#dd5522')
+        ==
+        ;div.fc.g1.wf
+          ;+  (css-color "f4" 'light-f4' ~ '#777797')
+          ;+  (css-color "f3" 'light-f3' ~ '#555575')
+          ;+  (css-color "f2" 'light-f2' ~ '#444464')
+          ;+  (css-color "f1" 'light-f1' ~ '#333353')
+          ;+  (css-color "f0" 'light-f0' ~ '#111131')
+          ;+  (css-color "f-1" 'light-f-1' ~ '#339911')
+          ;+  (css-color "f-2" 'light-f-2' ~ '#aaaa22')
+          ;+  (css-color "f-3" 'light-f-3' ~ '#993311')
+        ==
+      ==
+      ;h2: dark
+      ;div.fr.g2.wf
+        ;div.fc.g1.wf
+          ;+  (css-color "b4" 'dark-b4' ~ '#666676')
+          ;+  (css-color "b3" 'dark-b3' ~ '#555565')
+          ;+  (css-color "b2" 'dark-b2' ~ '#444454')
+          ;+  (css-color "b1" 'dark-b1' ~ '#333343')
+          ;+  (css-color "b0" 'dark-b0' ~ '#222232')
+          ;+  (css-color "b-1" 'dark-b-1' ~ '#225511')
+          ;+  (css-color "b-2" 'dark-b-2' ~ '#555511')
+          ;+  (css-color "b-3" 'dark-b-3' ~ '#551111')
+        ==
+        ;div.fc.g1.wf
+          ;+  (css-color "f4" 'dark-f4' ~ '#8888a8')
+          ;+  (css-color "f3" 'dark-f3' ~ '#aaaada')
+          ;+  (css-color "f2" 'dark-f2' ~ '#bbbbcb')
+          ;+  (css-color "f1" 'dark-f1' ~ '#ccccdc')
+          ;+  (css-color "f0" 'dark-f0' ~ '#eeeefe')
+          ;+  (css-color "f-1" 'dark-f-1' ~ '#55cc33')
+          ;+  (css-color "f-2" 'dark-f-2' ~ '#ccbb33')
+          ;+  (css-color "f-3" 'dark-f-3' ~ '#ee7755')
+        ==
+      ==
+      ;button.p2.br1.bd1.b1
+        =event  "/click/default-theme"
+        =js-on-event  "document.documentElement.style = ''"
+        ; Reset to default
+      ==
     ==
-  ::
+  ++  notifications
+    ;div.fc.g2(slot "notifications")
+      ;div.p3.br1.bd1: first
+      ;div.p3.br1.bd1: second
+      ;div.p3.br1.bd1: third
+    ==
   ++  lift
     |=  in=manx
     ^-  manx
@@ -213,11 +349,6 @@
         ;meta(charset "UTF-8");
         ;title: sky
         ;*  standard-head-tags.serv
-        ;meta
-          =name  "htmx-config"
-          =content  (trip '{"ignoreTitle":"true"}')
-          ;
-        ==
         ;script
           ;+  ;/  %-  trip
           '''
@@ -230,7 +361,6 @@
             windows.forEach(w => {
               $(w).poke('set-feather-values', e.detail)
             })
-            let rules = document.querySelector('s-k-y').currentFeatherRules;
           });
           document.addEventListener('feather-reset', (e) => {
             let windows = document.querySelectorAll('wi-nd');
@@ -245,11 +375,10 @@
           window.addEventListener('message', function(event) {
             if (event.data?.messagetype == 'sky-poll-response') {
               let wid = event.data.wid;
-              let here = event.data.here;
-              let prefix = event.data.prefix;
               let wind = document.querySelector(`[wid='${wid}']`);
               if (wind) {
-                $(wind).poke('iframe-moved', {here, prefix})
+                console.log('poking window', event.data.event, event.data.detail);
+                $(wind).poke(event.data.event, event.data.detail)
               }
             }
             else if (event.data?.messagetype == 'iframe-wants-feather') {
@@ -263,17 +392,18 @@
           });
           '''
         ==
-        ;script: {(trip s-k-y)}
-        ;script: {(trip wi-nd)}
-        ;+  favicon
-        ;+  manifest
+        ;script(src "/blue/blue-mime/{(scow %p our.bowl)}/static/s-k-y");
+        ;script(src "/blue/blue-mime/{(scow %p our.bowl)}/static/wi-nd");
+        ;link
+          =rel  "icon"
+          =type  "image/png"
+          =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/hawk-icon";
+        ;link
+          =rel  "manifest"
+          =crossorigin  "use-credentials"
+          =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/sky-manifest";
       ==
       ;body
-        =hx-ext  "response-targets"
-        =hx-swap  "outerHTML"
-        =hx-boost  "true"
-        =hx-history  "false"
-        =hx-replace-url  "/neo/sky"
         ;+  in
       ==
     ==

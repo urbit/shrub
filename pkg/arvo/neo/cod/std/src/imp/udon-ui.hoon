@@ -15,6 +15,7 @@
       :~
         [[&/%manx |] only/%manx ~]
         [[&/%tang |] only/%tang ~]
+        [[&/%class |] only/%txt ~]
       ==
   ==
 ++  form
@@ -56,7 +57,7 @@
     ;html
       ;head
         ;meta(charset "utf-8");
-        ;title: diary
+        ;title: udon
         ;link
           =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"
           =rel  "stylesheet"
@@ -83,16 +84,12 @@
     ^-  manx
     =/  t=(unit tang)  tung
     ;body
-      ;main.p-page.mw-page.ma.fc.g5
-        ;h1.bold.f-3: udon
-        ::
-        ;h2: manx
+      ;main
+        =class  (trip (fall cluss ''))
         ;+
-        %+  fall  munx
-        ;div: no manx
-        ::
-        ;h2: tung
-        ;+  ?@  t  ;div;
+        ?@  t
+          %+  fall  munx
+          ;div: nothing yet
         ;imp_tang-ui: {(en-tape:pith:neo (welp dst #/tang))}
       ==
     ==
@@ -110,5 +107,12 @@
     %+  biff  (~(get of:neo q.src) #/manx)
     |=  =idea:neo
     `!<(manx q.pail.idea)
+  ++  cluss
+    ^-  (unit @t)
+    %+  biff  (~(get by deps.bowl) %src)
+    |=  src=(pair pith:neo lore:neo)
+    %+  biff  (~(get of:neo q.src) #/class)
+    |=  =idea:neo
+    `!<(@t q.pail.idea)
   --
 --

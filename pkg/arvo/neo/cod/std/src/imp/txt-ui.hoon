@@ -53,6 +53,8 @@
     ;html
       ;head
         ;title: {(trip ?@(iota iota (scot iota)))} [txt]
+        ;meta(name "renderer-suggestions", content "/mast/udon-ui /mast/hoon-ui");
+        ;meta(name "renderer-label", content "txt");
         ;link
           =rel  "stylesheet"
           =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"

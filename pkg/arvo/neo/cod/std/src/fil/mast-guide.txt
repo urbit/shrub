@@ -1,0 +1,150 @@
+
+# an introduction to mast
+
+a renderer is a shrub with 
+a dependency to the location it wants to render.
+
+mast is a framework for building renderers in sail.
+it handles all of the http interactions which keep
+the interface up to date with the server.
+
+
+the shape of a Mast renderer is something like:
+
+```
+/@  txt
+/@  ui-event
+^-  kook:neo
+=<
+  |%
+  ++  state  pro/%manx                        ::  entire html document
+  ++  poke   (sy %ui-event %rely %gift ~)
+  ++  kids   *kids:neo
+  ++  deps
+    ^-  deps:neo
+    %-  my
+    :~  :^  %src  &  [pro/%txt (sy %txt ~)]   ::  dependecy points to thing to render
+        ~
+    ==
+  ++  form
+    |_  [=bowl:neo =aeon:neo =pail:neo]
+    ++  init
+      |=  pal=(unit pail:neo)
+      [~ manx/!>((render bowl))]
+    ++  poke
+      |=  [sud=stud:neo vaz=vase]
+      ^-  (quip card:neo pail:neo)
+      ?+  sud  ~|(bad-stud/sud !!)
+          %ui-event
+        =/  eve  !<(ui-event vaz)
+        ?+  path.eve  ~|(missing-event-handler-for/path.eve !!)
+          ::
+          ::  here go the UI event handlers
+          ::
+        ==
+      ::
+          %rely
+        [~ manx/!>((render bowl))]
+      ==
+    --
+  --
+|%
+++  render
+  |_  =bowl:neo
+  ++  $
+    ^-  manx
+    ;html
+      ;head
+        ;title: txt renderer
+      ==
+      ;body
+        ;
+        ;  here goes your interface
+        ;
+      ==
+    ==
+  --
+--
+```
+
+## `+init` arm
+
+the `+init` arm should populate the `manx` state with an initial UI.
+
+## `++poke` arm
+
+when you get `%rely`, simply re-render.
+
+when you get a `%ui-event`, turn it into a card
+and `%poke` it to you dependency (the thing you are rendering).
+
+## `ui-event`
+
+```
+$:  =path              
+    data=(map @t @t)
+==
+```
+
+---
+
+## how to send `ui-events` from the frontend.
+
+### option 1: using an HTML form
+
+this form ...
+
+```
+;form
+  =event  "/submit/some-event-label"  :: listens for a javascript `submit` event
+  ;input
+    =type  "text"
+    =name  "some-name"
+    ;
+  ==
+  ;button: send form                  :: triggers a javascript `submit` event
+==
+```
+
+... will send a `%ui-event` that looks like:
+
+```
+[path=/submit/some-event-label data=(malt ~[['some-name' 'whatever text was typed in']])]
+```
+
+### option 2: the `return` attribute
+
+```
+;textarea
+  =event  "/input/some-event-label"        ::  listens for a javascript `input` event
+  =return  "/target/value"                 ::  gets the `value` property of `target`
+  =debounce  "0.5"                         ::  only send once every half second
+  =placeholder  "txt"
+  =autocomplete  "off"
+  =spellcheck  "false"
+  ;+  ;/  "some text"
+==
+```
+
+... will send a `%ui-event` that looks like:
+
+```
+[path=/input/some-event-label data=(malt ~[['target' 'some text']])]
+```
+
+the `return` attribute is used when you want to trigger `ui-event` pokes from
+elements other than `form`.
+
+it's syntax is a list of paths, separated by spaces.
+
+each path represents a piece of data to be put in the `data` map of the `ui-event`.
+
+the path is 2 segments long.
+
++ the first segment is the id of an element (or `target` to select the currrent element).
+
++ the second segment is the JS property of the
+  selected element to stringify as the return value.
+  - usually this will be `value`
+  - if it is a word that starts with `data`, it will get the value of the
+    matching `data-*` attribute

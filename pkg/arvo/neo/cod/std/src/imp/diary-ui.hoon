@@ -1,213 +1,212 @@
+/@  ui-event
+/@  txt
 /@  diary-diff
-/-  serv=sky-server
-/-  feather-icons
-/-  manx-utils
 ^-  kook:neo
 =<
 |%
-++  state  pro/%eyre-task
-++  poke   (sy %rely ~)
-++  kids  *kids:neo
+++  state  pro/%manx
+++  poke   (sy %ui-event %rely %gift ~)
+++  kids
+  *kids:neo
+  :: ^-  kids:neo
+  :: :+  ~  %y
+  :: %-  my
+  :: :~  [[&/%selection |] pro/%sig ~]
+  :: ==
 ++  deps
-  %-  ~(gas by *band:neo)
-  :~  :-  %src
-      :-  req=&
-      :-  [pro/%diary (sy %diary-diff ~)]
+  ^-  deps:neo
+  %-  my
+  :~  :^  %src  &  [pro/%diary (sy %diary-diff ~)]
       :+  ~  %y
-      %-  ~(gas by *lads:neo)
-      :~  :-  [|/%da |]
-          [[%only %txt] ~]
+      %-  my
+      :~  [[|/%da |] only/%txt ~]
       ==
   ==
-::
 ++  form
+  ^-  form:neo
   |_  [=bowl:neo =aeon:neo =pail:neo]
-  ++  poke
-    |=  [=stud:neo vax=vase]
-    ^-  (quip card:neo pail:neo)
-    ?+    stud  !!
-        %rely
-      :_  pail
-      =/  task  !<(task:eyre:neo q.pail)
-      (eyre-cards [bowl task])
-    ==
   ::
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    =/  [=stud:neo =vase]  (need pal)
-    =+  !<(=task:eyre:neo vase)
-    =/  [eyre-id=@ta req=inbound-request:eyre]  task
-    ?+    method.request.req  ~|(%unsupported-http-method !!)
-        %'GET'
-      :_  [stud vase]
-      (eyre-cards [bowl task])
-    ::
-        %'POST'
-      =;  poke
-        :_  [stud vase]
-        :~  :+  p:(~(got by deps.bowl) %src)
-              %poke
-            [%diary-diff !>(poke)]
-        ==
-      ^-  diary-diff
-      =/  body  (parse-body:serv request.req)
-      =/  mu  ~(. manx-utils body)
-      =/  head  (@tas (got:mu %head))
-      ?+    head  !!
-          %put-entry
-        =/  text  (vol:mu "text")
-        [%put-entry now.bowl text]
+    :-  ~
+    manx/!>((render (get-render-data bowl)))
+  ::
+  ++  poke
+    |=  [sud=stud:neo vaz=vase]
+    ^-  (quip card:neo pail:neo)
+    ?+  sud  ~|(bad-stud/sud !!)
       ::
-          %del-entry
-        [%del-entry (slav %da (got:mu %diary-id))]
+        %ui-event
+      =/  eve  !<(ui-event vaz)
+      ?+  path.eve  ~|(missing-event-handler-for/path.eve !!)
+        ::
+          [%submit %diary-form ~]
+        =/  dat=@t          (~(got by data.eve) 'diary-input')
+        =/  dif=diary-diff  [%put-entry now.bowl dat]
+        =/  dst=pith:neo    p:(~(got by deps.bowl) %src)
+        :_  pail
+        :~  [dst %poke diary-diff/!>(dif)]
+        ==
+        ::
+          [%click %delete @ta ~]
+        =/  key=@da         (slav %da i.t.t.path.eve)
+        =/  dif=diary-diff  [%del-entry key]
+        =/  dst=pith:neo    p:(~(got by deps.bowl) %src)
+        :_  pail
+        :~  [dst %poke diary-diff/!>(dif)]
+        ==
+        ::
       ==
+      ::
+        %rely
+      `manx/!>((render (get-render-data bowl)))
+      ::
     ==
+  ::
   --
 --
 ::
 |%
-++  eyre-cards
-  |=  [=bowl:neo [eyre-id=@ta req=inbound-request:eyre]]
-  =+  #/[p/our.bowl]/$/eyre
-  :~  (head-card - eyre-id)
-  ::
-      :*  -
-          %poke
-          %eyre-sign
-          !>
-          :+  eyre-id
-            %data
-          :-  ~
-          %-  manx-to-octs
-          %~  render
-            web
-          :-  bowl
-          (pave:neo pax:(parse-url-frfr:serv request.req))
-      ==
-  ::
-      (done-card - eyre-id)
-      [here.bowl %cull ~]
-      [here.bowl %tomb ~]
+::
++$  render-data
+  $:  diary-entries=(list [date=@da =txt])
+      selection=(unit @da)
+      =bowl:neo
   ==
 ::
-++  head-card
-  |=  [=pith eyre-id=@ta]
-  :*  pith
-      %poke
-      %eyre-sign
-      !>
-      :^    eyre-id
-          %head
-        200
-      ['content-type' 'text/html']~
-  ==
-::
-++  done-card
-  |=  [=pith eyre-id=@ta]
-  [pith %poke eyre-sign/!>([eyre-id %done ~])]
-::
-++  manx-to-octs
-  |=  man=manx
-  (as-octt:mimes:html (en-xml:html man))
-::
-++  web
-  |_  [=bowl:neo name=pith]
-  ++  render
+++  render
+  |_  render-data
+  ::
+  ++  $
     ^-  manx
     ;html
       ;head
-        ;*  old-standard-head-tags:serv
-        ;*  standard-head-tags:serv
-      ==
-      ;body
-        =hx-ext  "dom-enc"
-        ;main.p-page.mw-page.ma.fc.g5
-          ;h1.bold.f-2: BLUE
-          ;+  diary-form
-          ;+  diary-items
-          ;+  refresher
+        ;meta(charset "utf-8");
+        ;title: diary
+        ;link
+          =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"
+          =rel  "stylesheet"
+          ;
         ==
+        ;link
+          =href  "https://em-content.zobj.net/source/microsoft-teams/363/memo_1f4dd.png"
+          =rel  "icon"
+          ;
+        ==
+        ;script
+          ;+  ;/
+            %-  trip
+            '''
+            function setLoading(idStr) {
+              let target = document.getElementById(idStr);
+              target.classList.add('htmx-request');
+            };
+            function setLoaded(idStr) {
+              let target = document.getElementById(idStr);
+              target.classList.remove('htmx-request');
+            };
+            '''
+        ==
+      ==
+      ;+  body
+    ==
+  ::
+  ++  body
+    ^-  manx
+    ;body
+      ;main.p-page.mw-page.ma.fc.g5
+        ;h1.bold.f-3: MAST
+        ;+  diary-form
+        ;+  diary-items
       ==
     ==
   ::
   ++  diary-form
+    ^-  manx
     ;form.fc.g2.as
-      =hx-post       (en-tape:pith:neo name)
-      =hx-target     "closest .p-page"
-      =hx-select     ".p-page"
-      =hx-swap       "outerHTML"
-      =head          "put-entry"
-      ;textarea.p2.bd1.br1.wf
-        =name  "text"
-        =placeholder  "today, i ..."
-        =oninput  "this.setAttribute('value', this.value)"
-        =rows  "5"
+      =event        "/submit/diary-form"
+      =js-on-event  "setLoading('form-button');"
+      ;textarea.p2.br1.bd1.wf
+        =name  "diary-input"
         =required  ""
-        =autocomplete  "off"
-        ;
+        =placeholder  "today, I ..."
+        =rows  "5"
+        ;*  ~
       ==
-      ;button.p2.b1.br1.bd1.wfc.hover.loader
+      ;button#form-button.loader.b1.p2.br1.bd1.wfc.hover
         ;span.loaded: create
-        ;span.loading
-          ;+  loading.feather-icons
+        ;span.loading.s-2.f4
+          ; ...
         ==
       ==
     ==
   ::
   ++  diary-items
-    ;div#items.fc.g2
-      ;*
-      %-  turn
-      :_  link-entry
-      %+  sort
-        %~  tap
-          of:neo
-        %.  /
-        %~  del
-          of:neo
-        q:(~(got by deps.bowl) %src)
-      |=  [a=[=pith *] b=[=pith *]]
-      (gth ->.pith.a ->.pith.b)
-    ==
-    ::
-  ++  link-entry
-    |=  [pax=pith =idea:neo]
-    =/  tape  (trip !<(@t q.q.saga.idea))
-    ;div.fr.g2
-      ;div.fc.g1.grow.br1.p-2.b1
-        ;span.f3: {(pretty-date `@da`->:pax)}
-        ;span.bold: {tape}
-      ==
-      ;button.p2.br1.b1.hover.loader
-        =hx-post  (en-tape:pith:neo name)
-        =head          "del-entry"
-        =hx-target     "closest .p-page"
-        =hx-select     ".p-page"
-        =hx-swap  "outerHTML"
-        =diary-id  (trip (snag 0 (pout pax)))
-        ;span.loaded
-          ;+  close.feather-icons
-        ==
-        ;span.loading
-          ;+  loading.feather-icons
-        ==
-      ==
-    ==
-  ++  refresher
-    ;div
-      =hx-get  (en-tape:pith:neo name)
-      =hx-target     "#items"
-      =hx-select     "#items"
-      =hx-swap       "outerHTML"
-      =hx-trigger    "every 10s"
-      ;
+    ^-  manx
+    ;div.fc.g2
+      ;*  %+  turn  diary-entries
+          |=  [date=@da =txt]
+          =/  key=tape  <date>
+          ;div.fr.af.g2
+            =key  key
+            =js-on-add  "setLoaded('form-button');"
+            ;div.fc.g1.grow.br1.p-2.b1
+              ;p.f3: {(pretty-date date)}
+              ;p.bold: {(trip txt)}
+            ==
+            ;button.loader.p2.br1.b1.hover
+              =event        "/click/delete/{key}"
+              =js-on-event  "setLoading('{key}');"
+              =id           key
+              ;span.loaded
+                ; X
+              ==
+              ;span.loading.s-2.f4
+                ; loading
+              ==
+            ==
+          ==
     ==
   ::
-  ++  pretty-date
-    |=  date=@da
-    ^-  tape
-    =/  d  (yore date)
-    "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
   --
+::  ::  ::  ::  ::  ::  ::  ::  ::  ::
+++  get-render-data
+  |=  =bowl:neo
+  ^-  render-data
+  :*  (get-diary-entries deps.bowl)
+      (get-selection kids.bowl)
+      bowl
+  ==
+::
+++  get-diary-entries
+  |=  deps=(map term (pair pith:neo lore:neo))
+  ^-  (list [date=@da =txt])
+  =/  data=(unit (pair pith:neo lore:neo))
+    (~(get by deps) %src)
+  ?~  data  ~|(%no-diary !!)
+  =/  entries=(list [date=@da =txt])
+    %+  turn  ~(tap by kid.q.u.data)
+    |=  (pair iota:neo (axal:neo idea:neo))
+    ?>  &(?=(^ p) ?=(%da -.p) ?=(^ fil.q))
+    [+.p !<(txt q.pail.u.fil.q)]
+  %+  sort  entries
+  |=  (pair [date=@da =txt] [date=@da =txt])
+  (gth date.p date.q)
+::
+++  get-selection
+  |=  kids=(axal:neo idea:neo)
+  ^-  (unit @da)
+  =/  data=(unit (axal:neo idea:neo))
+    (~(get by kid.kids) %selection)
+  ?~  data  ~
+  ?~  fil.u.data  ~
+  [~ !<(@da q.pail.u.fil.u.data)]
+::
+++  pretty-date  :: from diary-htmx
+  |=  date=@da
+  ^-  tape
+  =/  d  (yore date)
+  "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
+::
 --
