@@ -53,11 +53,11 @@
         ::
           [%submit %tag ~]
         =/  tag  ;;  @tas  (~(got by data.event) 'tags')
-        =/  tagged  (get-tagged lore tag)
+        :: =/  tagged  (get-tagged lore tag)
         =/  to  
         %+  welp  /tags/[p/our.bowl]
         (pith-to-hoon bowl (~(got by data.event) 'pith'))
-        :_  manx/!>((render tagged lore))
+        :_  manx/!>((render ~ lore))
         :~
           [/[p/our.bowl]/storage %poke storage-diff/!>([to [%tags (sy tag ~)]])]
         ==
@@ -78,25 +78,35 @@
       ==
       ;body.fr.jc.wf
         =style  "margin-top: 30px;"
-        ;main.fc.ac
-        =style  "width: 30rem;"
+        ;main.fc.ac.wf.p4
+        ::=style  "min-width: 50rem;"
           ;div.fc.ac.g1
-            ;input.bd1.br1.p2.auto
-            =type           "text"
-            =placeholder    "tag search"
-            =autocomplete   "off"
-            =return         "/target/value"
-            =event          "/input/search"
-            ;
+            ;div.fr.g3
+              ;input.bd1.br1.p2.auto
+              =type           "text"
+              =placeholder    "tag search"
+              =autocomplete   "off"
+              =return         "/target/value"
+              =event          "/input/search"
+              =value  ""
+              ;
+              ==
+              ;button.bd1.br1.hover.b0
+              =onclick  "this.parentNode.nextSibling.classList.toggle('hidden')"
+                ;span:  add-tag
+              ==
             ==
             ;+  (add-tag lore)
-            ;div.fc.g1
+            ;div.frw.g1
+            ;*  
+              ?~  meta  
+              ~&  >>>  'meta null'
+              ;=
+                ;div.hidden;
+              ==
             ;*  
               %+  turn  meta 
               |=  [=pith:neo =stud:neo]
-              ::;div.fc.g1
-              ::  here we could check if imp file for current stud exist 
-              ::  if had root dep 
               ?>  ?=(@tas stud)
               =/  imp  (kids-at-pith:su lore /cod/std/out/imp)
               =/  ui  (en-pith:su (crip :(welp "/mast-" (trip stud) "-ui")))
@@ -105,13 +115,15 @@
               ?~  has-ui
                 ~&  >  (en-tape:pith:neo (welp /hawk (tail (tail pith))))
                 ^-  manx
-                ;div
-                  ;iframe.bd0.wf
+                ;div.p2.bd1
+                =style  "min-width: 49%;"
+                  ;iframe.bd0.wf.hf
                   =src  (en-tape:pith:neo (welp /hawk (tail (tail pith))))
                     ;
                   == 
                 ==
-              ;div.p2
+              ;div.p2.bd1
+              =style  "min-width: 49%;"
               ;+
                 =;  m
                     m(n.g [%imp ;;(@tas (head ui))])
@@ -125,7 +137,7 @@
     ==
   ++  add-tag
   |=  =lore:neo
-  ;form.fr.g1
+  ;form.fr.g1.hidden
   =event  "/submit/tag"
     ;input.bd1.br1.p2
     =type         "text"
@@ -145,7 +157,7 @@
     =placeholder  "tag"
     ;
     ==
-    ;button.bd1.br1.p2.hover.loader
+    ;button.bd1.br1.p2.hover.loader.b1
     =type  "submit"
       ;span.loaded:  add
       ;span.loading:  loading
@@ -177,12 +189,13 @@
 ++  get-tagged
   |=  [=lore:neo tag=@tas]
   ^-  (list [pith:neo stud:neo])
-  =/  kidz  (kidz-at-pith:su /storage lore)
+  =/  kidz  (kidz-at-pith:su /storage/tags lore)
   =/  tagged
     %+  skim  kidz
         |=  =pith:neo
         =/  tags  !<((set @tas) (got-vase-by-pith:su lore pith))
         (~(has in tags) tag)
+  ?~  tagged  ~
   %+  turn  tagged
   |=  pit=pith:neo
   ^-  [pith:neo stud:neo]
