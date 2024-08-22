@@ -116,7 +116,6 @@
     ^-  manx
     ;body
       ;main.p-page.mw-page.ma.fc.g5
-        ;h1.bold.f-3: MAST
         ;+  diary-form
         ;+  diary-items
       ==
@@ -163,7 +162,7 @@
                 ; X
               ==
               ;span.loading.s-2.f4
-                ; loading
+                ; ...
               ==
             ==
           ==

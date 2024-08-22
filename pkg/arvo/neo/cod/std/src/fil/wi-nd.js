@@ -127,7 +127,6 @@ class extends HTMLElement {
       e.preventDefault();
       this.setAttribute('here', $(this.gid('input-here')).val());
       this.setAttribute('renderer', this.strategies[0]);
-      //this.rebuildIframe();
     });
     $(this.gid('input-here')).off();
     $(this.gid('input-here')).on('focusout', (e) => {
@@ -246,8 +245,10 @@ class extends HTMLElement {
       $(this).emit('here-moved');
     });
     $(this).on('iframe-moved', (e) => {
+      this.alreadyLoaded = true;
       $(this).attr('renderer', e.detail.prefix);
       $(this).attr('here', e.detail.here);
+      this.alreadyLoaded = false;
     });
     $(this).on('set-feather-values', (e) => {
       $(this.gid('tabs')).children().each(function() {
@@ -288,7 +289,7 @@ class extends HTMLElement {
       this.buildMenu()
       $(this.gid('input-here')).val(newValue);
       $(this).emit('here-moved');
-      if (oldValue != newValue) {
+      if (oldValue != newValue && !this.alreadyLoaded) {
         this.rebuildIframe();
       }
     }
@@ -305,7 +306,7 @@ class extends HTMLElement {
     }
     else if (name === "renderer") {
       $(this.gid('menu-toggle')).text(this.prettyCurrent)
-      if (oldValue !== newValue) {
+      if (oldValue !== newValue && !this.alreadyLoaded) {
         this.rebuildIframe();
       }
       this.buildMenu()
@@ -449,13 +450,16 @@ class extends HTMLElement {
       window.addEventListener('message', (event) => {
         if (event.data?.messagetype === 'sky-poll') {
           let windowHere = event.data.here;
-          let here = window.location.pathname.slice(${prefix.length});
+          let prefixEl = document.querySelector('meta[name="prefix"]');
+          let pax = window.location.pathname.split('/').map(m => m.trim()).filter(m => !!m);
+          let prefix = prefixEl?.getAttribute('content') || "/" + pax.slice(0, 2).join('/');
+          let here = window.location.pathname.slice(prefix.length)
           if (here != windowHere) {
             window.parent.postMessage({
               messagetype: 'sky-poll-response',
               wid: '${wid}',
               event: 'iframe-moved',
-              detail: {here, prefix: '${prefix}'}
+              detail: {here, prefix}
             }, '*');
           }
 

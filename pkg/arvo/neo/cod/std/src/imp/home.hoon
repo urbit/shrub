@@ -22,7 +22,6 @@
     ^-  (quip card:neo pail:neo)
     :_  home/!>(*home)
     :~  [#/[p/our.bowl]/home/diary %make %diary ~ ~]
-        [#/[p/our.bowl]/home/files %make %folder ~ ~]
       ::
         [#/[p/our.bowl]/home/docs %make %folder `folder/!>([%introduction %tutorials %guides ~]) ~]
         [#/[p/our.bowl]/home/docs/introduction %make %sail `sail/!>([introduction 'prose p-page mw-page ma' ~]) ~]
@@ -39,7 +38,7 @@
         [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/mast %make %sail `sail/!>([mast-guide 'prose p-page mw-page ma' ~]) ~]
       ::
-        [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/mast/folder-ui ~]) ~]
+        ::[#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/mast/folder-ui ~]) ~]
     ==
   ++  poke
     |=  =pail:neo

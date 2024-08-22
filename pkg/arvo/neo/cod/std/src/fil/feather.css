@@ -915,25 +915,14 @@ input:focus {
     width: 12px;
 }
 
-/* Scrollbar Handle */
 ::-webkit-scrollbar-thumb {
-    background-color: var(--b4); /* Color of the scrollbar handle */
-    border-radius: var(--br1); /* Roundness of the scrollbar handle */
+    background-color: var(--b4);
+    border-radius: var(--br1);
 }
 
-/* Scrollbar Handle on Hover */
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--b3); /* Color of the scrollbar handle when hovered */
-}
-
-/* Scrollbar Track Background */
 ::-webkit-scrollbar-track {
-    background: var(--b2); /* Background color of the scrollbar track */
+    background: var(--b2);
 }
-
-scrollbar-width: thick; /* Width of the scrollbar */
-scrollbar-color: var(--b4) var(--b3); /* Scrollbar handle color and track color */
-
 
 /*
  *  part 6: material symbols & icons

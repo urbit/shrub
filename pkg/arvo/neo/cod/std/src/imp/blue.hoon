@@ -29,7 +29,7 @@
       =+  !<(=task:eyre:neo vax)
       =/  [eyre-id=@ta req=inbound-request:eyre]  task
       =/  inner=pith:neo
-        (pave:neo pax:(parse-url-frfr:serv request.req))
+        (pave:neo pax:(parse-url:serv request.req))
       ::
       ::
       ::  redirect to preferred renderer
@@ -39,9 +39,9 @@
           ==
         :_  sig/!>(~)
         =/  =pith:neo  #/[p/our.bowl]/$/eyre
-        =/  loc  (crip "/mast/folder-ui{(en-tape:pith:neo (slag 2 inner))}")
+        =/  loc  (crip "/tree{(en-tape:pith:neo (slag 2 inner))}")
         :~
-          [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
+          [pith %poke eyre-sign/!>([eyre-id %head 303 ['Location' loc]~])]
           [pith %poke eyre-sign/!>([eyre-id %data ~])]
           [pith %poke eyre-sign/!>([eyre-id %done ~])]
         ==

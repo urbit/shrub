@@ -377,7 +377,6 @@
               let wid = event.data.wid;
               let wind = document.querySelector(`[wid='${wid}']`);
               if (wind) {
-                console.log('poking window', event.data.event, event.data.detail);
                 $(wind).poke(event.data.event, event.data.detail)
               }
             }

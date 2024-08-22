@@ -16,35 +16,6 @@ class extends HTMLElement {
     shadow.adoptedStyleSheets = [sharedStyles];
     this.shadowRoot.innerHTML = `
       <style>
-       @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-       .mso,
-       .material-symbols-outlined {
-         font-family: 'Material Symbols Outlined';
-         font-weight: normal;
-         font-style: normal;
-         font-size: 1em;
-         line-height: 1;
-         letter-spacing: normal;
-         text-transform: none;
-         display: inline-block;
-         white-space: nowrap;
-         word-wrap: normal;
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         direction: ltr;
-         -webkit-font-feature-settings: 'liga';
-         -webkit-font-smoothing: antialiased;
-         font-variation-settings:
-           'FILL' 0,
-           'wght' 400,
-           'GRAD' 0,
-           'opsz' 24;
-       }
-       * {
-         box-sizing: border-box;
-       }
        :host {
          width: 100%;
          height: 100%;

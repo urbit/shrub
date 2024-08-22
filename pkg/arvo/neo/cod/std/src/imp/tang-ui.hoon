@@ -57,29 +57,24 @@
           =rel  "icon"
           ;
         ==
-        ;script
-          ;+  ;/
-            %-  trip
-            '''
-            console.log('ok');
-            '''
-        ==
       ==
       ;+  body
     ==
   ::
   ++  body
     ^-  manx
-    ;body
-      ;main
-        ;+  view
+    ;body.prose
+      ;pre
+        ;+  printed
       ==
     ==
-  ++  view
-    =/  t=(unit tang)  tung
+  ++  printed
+    =/  tan=(unit tang)  tung
     ^-  manx
-    ?@  t  ;div;
-    ;div: {<u.t>}
+    ?@  tan  ;div;
+    =/  =wall   (zing (turn u.tan |=(t=tank (~(win re t) [0 80]))))
+    =/  =tape   (zing (join "\0a" wall))
+    ;/(tape)
   ++  tung
     %-  (unit tang)
     %+  biff  (~(get by deps.bowl) %src)

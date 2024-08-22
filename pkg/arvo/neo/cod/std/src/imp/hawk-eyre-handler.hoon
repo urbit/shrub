@@ -377,6 +377,7 @@
     ;head
       ;meta(charset "UTF-8");
       ;title: htmx
+      ;meta(name "prefix", content "/hawk");
       ;*  standard-head-tags.sky-server
       ;*  old-standard-head-tags.sky-server
       ;meta

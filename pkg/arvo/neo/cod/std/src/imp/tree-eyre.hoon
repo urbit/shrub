@@ -311,6 +311,9 @@
   ;html
     ;head
       ;meta(charset "UTF-8");
+      ;meta(name "renderer-label", content "tree");
+      ;meta(name "renderer-suggestions", content "/mast/folder-ui /hawk");
+      ;meta(name "prefix", content "/tree");
       ;title: tree  {(en-tape:pith:neo here)}
       ;script(src "https://unpkg.com/htmx.org@2.0.2");
       ;script(src "https://code.jquery.com/jquery-3.7.1.min.js");
@@ -394,11 +397,9 @@
     ^-  manx
     ?~  pith
       empty-manx
-    ;a.fr.jb.g1.br1.hover.b1
+    ;a.br1.hover.b1.p2.br1
       =href  "/tree{(en-tape:pith:neo (weld here pith))}"
-      ;div.p2.hfc.p2.hover
-        ;  {(en-tape:pith:neo pith)}
-      ==
+      ;  {(en-tape:pith:neo pith)}
     ==
   ==
 ::
