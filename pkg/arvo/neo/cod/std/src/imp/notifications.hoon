@@ -27,7 +27,7 @@
 ++  kids
   ^-  kids:neo
   %-  some
-  :-  %y
+  :-  %z
   %-  ~(gas by *lads:neo)
   :~  :-  [[%.y %notification] [%.n %da] %.n]
       [[%pro %notification] ~]

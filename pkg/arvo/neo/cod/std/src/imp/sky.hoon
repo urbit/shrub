@@ -9,7 +9,7 @@
 =<
 |%
 ++  state  pro/%sig
-++  poke   (sy %gift %bind-static-assets ~)
+++  poke   (sy %gift %rely %bind-static-assets ~)
 ++  kids
   :+  ~  %z
   schema.serv
@@ -32,6 +32,21 @@
     ?+    stud  ~|(bad-stud/stud !!)
         %gift
       [~ sig/!>(~)]
+    ::
+        %rely
+      :_  sig/!>(~)
+      %+  murn
+        ~(tap by ~(tar of:neo q:(~(got by deps.bowl) %not)))
+      |=  [=pith:neo =idea:neo]
+      ^-  (unit card:neo)
+      ?.  =(%notification p.pail.idea)
+        ~
+      =/  not  !<(notification q.pail.idea)
+      ~&  >>  not
+      ~
+      :: %-  some
+      :: :-  (welp here.bowl #/notification/[da/time.not])
+      :: [%make %notification `pail.idea ~]
     ::
         %bind-static-assets
       :_  sig/!>(~)

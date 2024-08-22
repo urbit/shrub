@@ -35,6 +35,9 @@
     ::  /strategy/~zod/... = (list pith)
     :-  [&/%strategy &]  [pro/%order (sy %order ~)]
     ::
+    ::  /notification/~2024.8.19..14.47.48..9228 = notification
+    :-  [&/%notification |/%da |]  [pro/%notification (sy %flag ~)]
+    ::
   ==
 ::
 ::  backend
