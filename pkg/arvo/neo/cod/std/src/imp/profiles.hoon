@@ -1,7 +1,9 @@
 /@  jpg
 /@  png
+/@  txt
 /@  ship
 /@  time
+/@  email
 /@  hexadecimal
 ^-  kook:neo
 |%
@@ -32,7 +34,7 @@
       :-  [|/%tas &/%phone-number |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%email |]
-      [pro/%txt (sy %sig ~)]
+      [pro/%email (sy %sig ~)]
       :-  [|/%tas &/%url |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%date-of-birth |]
@@ -40,7 +42,7 @@
       :-  [|/%tas &/%username |/%t |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas |/%tas &]
-      [pro/%sig (sy %sig ~)]
+      [[%any ~] (sy %sig ~)]
   ==
 ++  deps
   *deps:neo
@@ -50,10 +52,23 @@
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
+      ::  XX define txt fields
+      ::  XX set up set of blank params that need an imp
+      ::  XX get 'default' from here.bowl
       [~ [%sig !>(~)]]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
-      [~ [%sig !>(~)]]
+      ::  [~ [%sig !>(~)]]
+      ?+      stud
+            !!
+          %email
+        =/  foo  !<(txt vaz)
+        :_  [%sig !>(~)]
+        :~  :-  (welp here.bowl #/default/email)
+            [%make %txt `[%txt !>((email foo))] ~]
+        ==
+      ::
+      ==
   --
 --
