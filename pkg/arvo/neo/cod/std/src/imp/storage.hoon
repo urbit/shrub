@@ -26,16 +26,16 @@
     ?>  ?=(%storage-diff stud)
     :_  storage/!>(~)
     ~&  >  kids/~(key by ~(tar of:neo kids.bowl))
-    =/  diff  !<([=pith:neo poke=meta-diff] vax)
+    =/  diff  !<(storage-diff vax)
     ~&  >>  poke/poke.diff
-    ?~  (find [pith.diff ~] (kidz-at-pith:su / kids.bowl))
-      ~&  >  make-at-pith/pith.diff
-      ?>  ?=(@ -.pith.diff)
-      =/  make-stud  ;;  stud:neo  -.pith.diff
-      :~  [(welp here.bowl pith.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
+    ?~  (find [to.diff ~] (kidz-at-pith:su / kids.bowl))
+      ~&  >  make-at-pith/to.diff
+      ?>  ?=(@ -.to.diff)
+      =/  make-stud  ;;  stud:neo  -.to.diff
+      :~  [(welp here.bowl to.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
-    ~&  >  poke-at-pith/pith.diff
-    :~  [(welp here.bowl pith.diff) %poke %meta-diff !>(poke.diff)]
+    ~&  >  poke-at-pith/to.diff
+    :~  [(welp here.bowl to.diff) %poke %meta-diff !>(poke.diff)]
     ==
   --
 --

@@ -20,6 +20,14 @@
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
+    =/  meta=(pair pith:neo lore:neo)  (~(got by deps.bowl) %src)
+    ?~  (get-vase-by-pith:su q.meta /)
+      ~&  vase-null/p.meta
+      =/  diff
+      [(oust [0 2] p.meta) [%comment ~]]
+      :_  manx/!>((render ~))
+      :~  [/[p/our.bowl]/storage %poke storage-diff/!>(diff)]
+      ==
     =/  comments  (get-comments deps.bowl)
     [~ manx/!>((render comments))]
   ::

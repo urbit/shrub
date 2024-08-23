@@ -1,6 +1,7 @@
 /@  ui-event
 /@  txt
 /@  diary-diff
+/@  storage-diff
 ^-  kook:neo
 =<
 |%
@@ -45,9 +46,10 @@
         ~&  >>  dif/dif
         =/  dst=pith:neo    p:(~(got by deps.bowl) %src)
         ~&  dst 
-        =/  dif-meta  [:(welp /comments dst /[da/now.bowl]) [%comment ~]]
+        =/  =storage-diff  
+        [:(welp /comments dst /[da/now.bowl]) [%comment ~]]
         :_  pail
-        :~  [/[p/our.bowl]/storage %poke storage-diff/!>(dif-meta)]
+        :~  [/[p/our.bowl]/storage %poke storage-diff/!>(storage-diff)]
             [dst %poke diary-diff/!>(dif)]
         ==
         ::
