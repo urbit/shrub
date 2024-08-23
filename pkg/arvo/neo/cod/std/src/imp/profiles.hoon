@@ -6,12 +6,13 @@
 /@  time
 /@  email
 /@  hexadecimal
+/@  phone-number
 ^-  kook:neo
 |%
 ++  state
   [%pro %sig]
 ++  poke
-  (sy %email %url ~)
+  (sy %email %phone-number %url ~)
 ++  kids
   :+  ~
     %z
@@ -33,7 +34,7 @@
       :-  [|/%tas &/%organization |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas &/%phone-number |]
-      [pro/%txt (sy %sig ~)]
+      [pro/%phone-number (sy %sig ~)]
       :-  [|/%tas &/%email |]
       [pro/%email (sy %sig ~)]
       :-  [|/%tas &/%url |]
@@ -66,6 +67,13 @@
         :_  [%sig !>(~)]
         :~  :-  (welp here.bowl #/default/email)
             [%make %email `[%email !>((email txt))] ~]
+        ==
+      ::
+          %phone-number
+        =/  txt  !<(cord vaz)
+        :_  [%sig !>(~)]
+        :~  :-  (welp here.bowl #/default/phone-number)
+            [%make %phone-number `[%phone-number !>((phone-number txt))] ~]
         ==
       ::
           %url
