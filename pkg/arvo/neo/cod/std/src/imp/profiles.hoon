@@ -52,13 +52,12 @@
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
-      ::  XX define txt fields
-      ::  XX set up set of blank params that need an imp
-      ::  XX get 'default' from here.bowl
       [~ [%sig !>(~)]]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
+      ?>  =(our.bowl ship.src.bowl)
+      ::  XX get 'default' from pith.src.bowl
       ?+      stud
             !!
           %email
