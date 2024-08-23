@@ -83,6 +83,9 @@
     ;html
       ;head
         ;meta(charset "utf-8");
+        ;meta(name "renderer-label", content "diary");
+        ;meta(name "renderer-suggestions", content "/mast/diary-ui");
+        ;meta(name "prefix", content "/mast/diary-ui");
         ;title: diary
         ;link
           =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"

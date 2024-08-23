@@ -242,6 +242,10 @@ function handleChannelStream(event) {
                         if (name === 'event') setEventListeners(targetNode);
                     });
                 };
+                const jsOnC = targetNode.getAttribute('js-on-c');
+                if (jsOnC) {
+                    eval?.(`"use strict"; ${jsOnC}`);
+                };
                 break;
             case 't':
                 let textWrapperNode = document.querySelector(`[key="${gustObj.q}"]`);

@@ -550,7 +550,9 @@ class extends HTMLElement {
       crumb.on('click', () => {
         $(this).attr('here', "/"+this.path.slice(0, i+1).join("/"));
         $(this).attr('renderer', this.strategies[0]);
-        //this.rebuildIframe();
+        if (i === this.path.length - 1){
+          this.rebuildIframe();
+        }
       });
       breadcrumbs.append(crumb);
     })
