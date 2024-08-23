@@ -1,6 +1,7 @@
 /@  jpg
 /@  png
 /@  txt
+/@  url
 /@  ship
 /@  time
 /@  email
@@ -10,7 +11,7 @@
 ++  state
   [%pro %sig]
 ++  poke
-  (sy %email ~)
+  (sy %email %url ~)
 ++  kids
   :+  ~
     %z
@@ -36,7 +37,7 @@
       :-  [|/%tas &/%email |]
       [pro/%email (sy %sig ~)]
       :-  [|/%tas &/%url |]
-      [pro/%txt (sy %sig ~)]
+      [pro/%url (sy %sig ~)]
       :-  [|/%tas &/%date-of-birth |]
       [pro/%time (sy %sig ~)]
       :-  [|/%tas &/%username |/%t |]
@@ -65,6 +66,13 @@
         :_  [%sig !>(~)]
         :~  :-  (welp here.bowl #/default/email)
             [%make %email `[%email !>((email txt))] ~]
+        ==
+      ::
+          %url
+        =/  txt  !<(cord vaz)
+        :_  [%sig !>(~)]
+        :~  :-  (welp here.bowl #/default/url)
+            [%make %url `[%url !>((url txt))] ~]
         ==
       ==
   --
