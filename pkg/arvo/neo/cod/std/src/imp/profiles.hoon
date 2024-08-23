@@ -59,27 +59,29 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
-      ::  XX get 'default' from pith.src.bowl
       ?+      stud
             !!
           %email
         =/  txt  !<(cord vaz)
+        =/  her  (head (flop here.bowl))
         :_  [%sig !>(~)]
-        :~  :-  (welp here.bowl #/default/email)
+        :~  :-  (welp here.bowl #/[her]/email)
             [%make %email `[%email !>((email txt))] ~]
         ==
       ::
           %phone-number
         =/  txt  !<(cord vaz)
+        =/  her  (head (flop here.bowl))
         :_  [%sig !>(~)]
-        :~  :-  (welp here.bowl #/default/phone-number)
+        :~  :-  (welp here.bowl #/[her]/phone-number)
             [%make %phone-number `[%phone-number !>((phone-number txt))] ~]
         ==
       ::
           %url
         =/  txt  !<(cord vaz)
+        =/  her  (head (flop here.bowl))
         :_  [%sig !>(~)]
-        :~  :-  (welp here.bowl #/default/url)
+        :~  :-  (welp here.bowl #/[her]/url)
             [%make %url `[%url !>((url txt))] ~]
         ==
       ==
