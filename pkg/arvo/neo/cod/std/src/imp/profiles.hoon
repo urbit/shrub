@@ -10,7 +10,7 @@
 ++  state
   [%pro %sig]
 ++  poke
-  (sy %sig ~)
+  (sy %email ~)
 ++  kids
   :+  ~
     %z
@@ -59,16 +59,14 @@
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
-      ::  [~ [%sig !>(~)]]
       ?+      stud
             !!
           %email
-        =/  foo  !<(txt vaz)
+        =/  txt  !<(cord vaz)
         :_  [%sig !>(~)]
         :~  :-  (welp here.bowl #/default/email)
-            [%make %txt `[%txt !>((email foo))] ~]
+            [%make %email `[%email !>((email txt))] ~]
         ==
-      ::
       ==
   --
 --
