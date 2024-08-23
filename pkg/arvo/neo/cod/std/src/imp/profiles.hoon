@@ -28,7 +28,7 @@
       :-  [|/%tas &/%display-name |]
       [pro/%txt (sy %sig ~)]
       ::  XX revisit this
-      ::     should be attestable to be another ship?
+      ::     should be attestable to by another ship?
       ::     e.g. you can only put 'Urbit Foundation' here
       ::          if ~bitdeg says so
       ::  :-  [|/%tas &/%organization |]
