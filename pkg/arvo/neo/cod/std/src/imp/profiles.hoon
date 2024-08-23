@@ -3,8 +3,8 @@
 /@  txt
 /@  url
 /@  ship
-/@  time
 /@  email
+/@  birthday
 /@  hexadecimal
 /@  phone-number
 ^-  kook:neo
@@ -12,7 +12,7 @@
 ++  state
   [%pro %sig]
 ++  poke
-  (sy %email %phone-number %url ~)
+  (sy %email %birthday %phone-number %url ~)
 ++  kids
   :+  ~
     %z
@@ -39,8 +39,8 @@
       [pro/%email (sy %sig ~)]
       :-  [|/%tas &/%url |]
       [pro/%url (sy %sig ~)]
-      :-  [|/%tas &/%date-of-birth |]
-      [pro/%time (sy %sig ~)]
+      :-  [|/%tas &/%birthday |]
+      [pro/%birthday (sy %sig ~)]
       :-  [|/%tas &/%username |/%t |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas |/%tas &]
@@ -67,6 +67,13 @@
         :_  [%sig !>(~)]
         :~  :-  (welp here.bowl #/default/email)
             [%make %email `[%email !>((email txt))] ~]
+        ==
+      ::
+          %birthday
+        =/  dat  !<(birthday vaz)
+        :_  [%sig !>(~)]
+        :~  :-  (welp here.bowl #/default/birthday)
+            [%make %birthday `[%birthday !>(dat)] ~]
         ==
       ::
           %phone-number
