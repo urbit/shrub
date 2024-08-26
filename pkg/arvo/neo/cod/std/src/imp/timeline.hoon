@@ -7,7 +7,7 @@
   |=  [here=pith =ship]
   ^-  (list card:neo)
   =/  dep
-    (malt ~[[%pub ~[%home %feed p/ship]]])
+    (malt ~[[%pub ~[p/ship %home %feed p/ship]]])
   :~  :-  (welp here ~[p/ship])
       [%make %post-sub ~ dep]
   ==
@@ -29,7 +29,11 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    [~ timeline/!>(~)]
+    :_  timeline/!>(~)
+    ::  post-pub for our posts
+    :~  :-  (welp here.bowl ~[p/our.bowl])
+      [%make %post-pub ~ ~]
+    ==
   ::
   ++  poke
     |=  [=stud:neo vax=vase]
@@ -38,6 +42,7 @@
     ?+    stud  !!
         %timeline-diff
       =/  poke  !<(timeline-diff vax)
+      ~&  >>  poke/poke
       ?-    -.poke
           :: XX if you unfollow and refollow, what happens?
           :: if you make over a sub, do the kids get remade?

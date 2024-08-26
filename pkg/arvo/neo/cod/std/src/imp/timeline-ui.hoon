@@ -19,7 +19,7 @@
       :~  :-  [|/%p |]
           [[%only %sig] ~]
           :-  [|/%p |/%da |]
-          [[%only %post ~] ~]
+          [[%only %post] ~]
       ==
   ==
 ::
@@ -45,6 +45,27 @@
         %'GET'
       :_  [stud vase]
       (eyre-cards [bowl task])
+        %'POST'
+       =;  poke
+       :_  [stud vase]
+       :~  :+  p:(~(got by deps.bowl) %src)
+             %poke
+           [%timeline-diff !>(poke)]
+       ==
+      ^-  timeline-diff
+      =/  body  (parse-body:serv request.req)
+      =/  mu  ~(. manx-utils body)
+      =/  head  (@tas (got:mu %head))
+      ?+    head  !!
+          %new-post
+        =/  =cord  (vol:mu "post")
+        =/  =pith
+            !<  pith
+            %+  slap  (slop !>(..zuse) !>(bowl))
+            %-  ream  cord
+        ~&  >>  pith/pith
+        [%post pith]
+      ==
     ==
   --
 --
@@ -74,16 +95,36 @@
       [here.bowl %tomb ~]
   ==
 ::
+++  head-card
+  |=  [=pith eyre-id=@ta]
+  :*  pith
+      %poke
+      %eyre-sign
+      !>
+      :^    eyre-id
+          %head
+        200
+      ['content-type' 'text/html']~
+  ==
+::
 ++  done-card
   |=  [=pith eyre-id=@ta]
   [pith %poke eyre-sign/!>([eyre-id %done ~])]
 ::
-++  get-feed-entries 
-|=  deps=deps:bowl:neo
-^-  (list pith:neo)
-=/  =lore:neo  q:(~(got by deps.bowl) %src)
-%+  turn 
-(kidz-at-pith:su / lore)
+++  get-all-feed-entries 
+|=  =lore:neo
+^-  (list pith)
+=/  grandkids=(list pith)
+  %+  skim  (kidz-at-pith:su / lore)
+  |=  =pith
+  (gth (lent pith) 1)
+%+  sort  grandkids
+|=  [a=pith b=pith]
+  (gth ->:(tail a) ->:(tail b))
+::
+++  manx-to-octs
+  |=  man=manx
+  (as-octt:mimes:html (en-xml:html man))
 ::
 ++  web
   |_  [=bowl:neo name=pith]
@@ -97,17 +138,47 @@
       ;body
         =hx-ext  "dom-enc"
         ;main.p-page.mw-page.ma.fc.g5
+          ;+  post
           ;+  feed
           ;+  refresher
         ==
       ==
     ==
   ::
+  ++  post 
+  ;form
+  =hx-post       (en-tape:pith:neo name)
+  =hx-target     "closest .p-page"
+  =hx-select     ".p-page"
+  =hx-swap       "outerHTML"
+  =head          "new-post"
+    ;input 
+    =type          "text"
+    =placeholder   "pith"
+    =name          "post"
+    =oninput       "this.setAttribute('value', this.value)"
+    =required      ""
+    =autocomplete  "off"
+    ;
+    ==
+    ;button.loader
+      ;span.loaded: post
+      ;span.loading
+        ;+  loading.feather-icons
+      ==
+    ==
+  ==
+  ::
   ++  feed
   ;div
     ;*
-    %+  turn  (get-feed-entries deps.bowl)
-
+    =/  =lore:neo  q:(~(got by deps.bowl) %src)
+    %+  turn  (get-all-feed-entries lore)
+    |=  =pith:neo
+    ::(got-vase-saga-by-pith:su lore pith)
+    =/  idea=idea:neo  (~(got of:neo lore) pith)
+    =/  post  !<(pith:neo q.q.saga:idea)
+    ;p:  {(en-tape:pith:neo post)}
   ==
   ::
   ++  refresher

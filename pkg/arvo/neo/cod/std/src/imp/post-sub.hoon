@@ -12,7 +12,7 @@
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :-  %pub
-      :+  req=|  [pro/%sig (sy %sig ~)]
+      :+  req=|  [pro/%sig (sy %post ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
       :~  :-  [|/%da |]
@@ -25,12 +25,14 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
+    ~&  >>  p:(~(got by deps.bowl) %pub)
     [~ sig/!>(~)]
   ::
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  =(%rely stud)
+    ~&  >>  'got rely'
     :_  state
     %+  murn  
       ~(tap of:neo q:(~(got by deps.bowl) %pub))
