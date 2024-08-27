@@ -25,7 +25,8 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    ~&  >>  p:(~(got by deps.bowl) %pub)
+    :: ~&  >>  p:(~(got by deps.bowl) %pub)
+    :: ~&  >>  (kids-at-pith:su q:(~(got by deps.bowl) %pub) /)
     [~ sig/!>(~)]
   ::
   ++  poke
