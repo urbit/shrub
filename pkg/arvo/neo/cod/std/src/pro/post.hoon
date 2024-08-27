@@ -1,1 +1,1 @@
-,[renderer=stud =pith]
+,[renderer=stud:neo =pith]

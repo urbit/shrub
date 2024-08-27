@@ -52,9 +52,23 @@
         ;*  standard-head-tags:serv
       ==
       ;body
+        ;+  options
         ;+  feed
       ==
     ==
+  ::
+  ++  options
+  ;div
+    ;button 
+      ;span:  all
+    ==
+    ;button 
+      ;span:  followed
+    ==
+    ;button 
+      ;span:  published
+    ==
+  ==
   ::
   ++  feed 
   ;div

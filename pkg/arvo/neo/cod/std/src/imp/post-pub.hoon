@@ -26,6 +26,7 @@
     :_  state
     ?+    stud  !!
         %post
+      ~&  >>  vase-poke/-:vax
       :~  :-  (welp here.bowl ~[da/now.bowl])
           [%make %post `post/vax ~]
       ==

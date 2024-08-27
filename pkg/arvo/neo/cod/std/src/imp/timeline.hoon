@@ -29,7 +29,7 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    :_  timeline/!>(~)
+    :_  timeline/!>((sy our.bowl ~))
     ::  post-pub for our posts
     :~  :-  (welp here.bowl ~[p/our.bowl])
       [%make %post-pub ~ ~]
@@ -59,6 +59,7 @@
         state
       ::
           %post
+        ~&  post/post.poke
         :_  state
         :~  :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post post.poke])]
