@@ -97,21 +97,23 @@
 ::
 :: (alf or auri:de-purl:html)??
 ++  txt-parser
-  |=  txt=tape 
-  ^-  (unit tape)
+::  return txt without url ? 
+  |=  text=tape 
+  ^-  [(unit tape) tape]
   =/  =wall
-    %+  scan  txt
+    %+  scan  text
     ;~  plug 
       %+  more  ace   ::gay instead of ace ???
       (star ;~(less (shim 33 255)))
     ==
-  =/  wall-url
-    %+  skip  wall
+  =/  cell-wall
+    %+  skid  wall
     |=  =tape
     =(~ (de-purl:html (crip tape)))
-  ~&  >>  wall-url/wall-url
-  ?~  wall-url  ~
-  (some (head wall-url))
+  ~&  >>  wall-txt/p.cell-wall
+  =/  url-out=tape  (zing (join " " p.cell-wall))
+  ?~  q.cell-wall  [~ url-out]
+  [(some (head q.cell-wall)) url-out]
 ::
 ++  web
   |_  [=bowl:neo name=pith]
@@ -135,12 +137,12 @@
   =/  idea=idea:neo  (~(got of:neo lore) /)
   =/  txt  !<(txt q.q.saga.idea)
   =/  text=tape  (trip txt)
-  =/  url=(unit tape)  (txt-parser text)
-  ~&  url
-  ?~  url 
-    (url-renderer %txt url text)
-  =/  type=@tas  (parse-url (need url))
-  (url-renderer type (need url) text)
+  =/  parsed=[(unit tape) tape]  (txt-parser text)
+  ?~  -.parsed 
+    (url-renderer %txt -.parsed text)
+  =/  url  (need -.parsed)
+  =/  type=@tas  (parse-url url)
+  (url-renderer type url +.parsed)
   ::
   ++  url-renderer
   |_  [type=@tas url=tape text=tape]

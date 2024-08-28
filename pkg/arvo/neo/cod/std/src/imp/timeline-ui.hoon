@@ -140,13 +140,13 @@
   ::(got-vase-saga-by-pith:su lore /)
   =/  idea=idea:neo  (~(got of:neo lore) /)
   !<((set @p) q.q.saga:idea)
-::
-::  XX:  double check if grandkids have a full path 
-::
 %-  zing
   %+  turn  ~(tap in followed)
     |=  ship=@p
-    (kids-at-pith:su lore /[p/ship])
+    %+  turn
+      (kids-at-pith:su lore /[p/ship])
+    |=  =pith
+    (welp /[p/ship] pith)
 ::
 ++  manx-to-octs
   |=  man=manx
@@ -183,7 +183,7 @@
       ;body
         =hx-ext  "dom-enc"
         ;main.p-page.mw-page.ma.fc.g2
-          ;+  post
+          ::;+  post
           ;+  make-post
           ;+  feed-switch
           ;+  (feed lore)
