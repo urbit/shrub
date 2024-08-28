@@ -1,4 +1,6 @@
+/@  manx
 /@  pith
+/@  ui-event
 ^-  kook:neo
 |%
 ++  state
@@ -9,8 +11,11 @@
   (sy %sig ~)
 ++  kids
   ^-  kids:neo
-  ::  XX widgets / modules
-  *kids:neo
+  :+  ~  %y
+  %-  ~(gas by *lads:neo)
+  :~  :-  [&/%widget |/@t |]
+      [pro/%manx (sy %rely %ui-event ~)]
+  ==
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :-  %profiles
