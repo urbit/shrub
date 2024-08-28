@@ -8,7 +8,7 @@
 =<
 |%
 ++  state  pro/%eyre-task
-++  poke   (sy %rely %ack ~)
+++  poke   (sy %rely ~)
 ++  kids  *kids:neo
 ++  deps
   %-  ~(gas by *band:neo)
@@ -34,10 +34,6 @@
       :_  pail
       =/  task  !<(task:eyre:neo q.pail)
       (eyre-cards [bowl task])
-      ::
-        %ack
-      ~&  >>  'got ack'
-      [~ pail]
     ==
   ::
   ++  init
@@ -186,7 +182,7 @@
       ==
       ;body
         =hx-ext  "dom-enc"
-        ;main.p-page.mw-page.ma.fc.g5
+        ;main.p-page.mw-page.ma.fc.g2
           ;+  post
           ;+  make-post
           ;+  feed-switch
@@ -235,7 +231,8 @@
   =hx-select     ".p-page"
   =hx-swap       "outerHTML"
   =head          "make-post"
-    ;input.p1.bd1.br1
+    ;textarea.p1.bd1.br1.basis-half
+    =style         "min-height:100px"
     =type          "text"
     =placeholder   "Start your post here"
     =name          "post"
@@ -244,7 +241,8 @@
     =autocomplete  "off"
     ;
     ==
-    ;button.loader.p1.bd1.br1.b1
+    ;button.loader.p1.bd1.br1.b1.hf
+    =style  "align-self: end;"
       ;span.loaded: post
       ;span.loading
         ;+  loading.feather-icons

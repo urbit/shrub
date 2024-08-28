@@ -38,6 +38,7 @@
         %'GET'
       :_  [stud vase]
       (eyre-cards [bowl task])
+        :: %'POST'
     ::
     ==
   --
@@ -94,6 +95,24 @@
   %-  crip 
   (oust [0 (sub (lent tape) 3)] tape)
 ::
+:: (alf or auri:de-purl:html)??
+++  txt-parser
+  |=  txt=tape 
+  ^-  (unit tape)
+  =/  =wall
+    %+  scan  txt
+    ;~  plug 
+      %+  more  ace   ::gay instead of ace ???
+      (star ;~(less (shim 33 255)))
+    ==
+  =/  wall-url
+    %+  skip  wall
+    |=  =tape
+    =(~ (de-purl:html (crip tape)))
+  ~&  >>  wall-url/wall-url
+  ?~  wall-url  ~
+  (some (head wall-url))
+::
 ++  web
   |_  [=bowl:neo name=pith]
   ++  render
@@ -105,7 +124,7 @@
       ==
       ;body
         =hx-ext  "dom-enc"
-        ;main.ma.fc.g1 ::.mw-page.p-page
+        ;main.ma.fc.g1.b2 ::.mw-page.p-page
         =style  "padding: 0px 12px 10px;"
           ;+  post-txt
         ==  
@@ -114,48 +133,73 @@
   ++  post-txt
   =/  =lore:neo  q:(~(got by deps.bowl) %src)
   =/  idea=idea:neo  (~(got of:neo lore) /)
-  =/  text  !<(txt q.q.saga.idea)
-  =/  url=tape  (trip text)
-  =/  type=@tas  (parse-url url)
-  (url-renderer type url)
+  =/  txt  !<(txt q.q.saga.idea)
+  =/  text=tape  (trip txt)
+  =/  url=(unit tape)  (txt-parser text)
+  ~&  url
+  ?~  url 
+    (url-renderer %txt url text)
+  =/  type=@tas  (parse-url (need url))
+  (url-renderer type (need url) text)
   ::
   ++  url-renderer
-  |_  [type=@tas url=tape]
+  |_  [type=@tas url=tape text=tape]
     ++  $
-    ?+  type  ;div: not supported
+    ?+  type  fetch-metadata
+    %txt  txt-renderer
     %mp3  mp3-renderer
     %mp4  mp4-renderer
     %png  img-renderer
     %jpg  img-renderer
     %gif  img-renderer
     ==
+    ++  fetch-metadata
+    ;div.wf.fc.as.p2
+      ;p: {text}
+      ;div.b4.br1.p2: metadata will be here
+    ==
+    ::
+    ++  txt-renderer
+    ;div.wf.fc.as.p2
+      ;p.grow: {text}
+    ==
+    ::
     ++  mp3-renderer
-    ;audio
-    =controls  ""
-      ;source
-      =src  url
-      =type  "audio/mpeg"
-      ;
+    ;div.wf.fc.as.p2
+      ;p.grow: {text}
+      ;audio
+      =controls  ""
+        ;source
+        =src  url
+        =type  "audio/mpeg"
+        ;
+        ==
+        ;span: not supported
       ==
-      ;span: not supported
     ==
     ++  mp4-renderer
-    ;video
-    =width  "320"
-    =height  "240"
-    =controls  ""
-      ;source
-      =src  url
-      =type  "video/mp4"
-      ;
+    ;div.wf.fc.as.p2
+      ;p.grow: {text}
+      ;video.wf
+      ::=width  "320"
+      =height  "240"
+      =controls  ""
+        ;source
+        =src  url
+        =type  "video/mp4"
+        ;
+        ==
+        ;span:  not supported
       ==
-      ;span:  not supported
     ==
     ++  img-renderer  
-    ;img 
-    =style  "height: 270px"
-    =src    url
-    ;
+    ;div.wf.fc.as.p2
+      ;p.grow: {text}
+      ;img.grow.wf 
+      =style  "height: 270px"
+      =src    url
+      ;
+      ==
     ==
     --
   --
