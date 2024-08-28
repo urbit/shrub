@@ -27,12 +27,8 @@
       [pro/%hexadecimal (sy %sig ~)]
       :-  [|/%tas &/%display-name |]
       [pro/%txt (sy %sig ~)]
-      ::  XX revisit this
-      ::     should be attestable to by another ship?
-      ::     e.g. you can only put 'Urbit Foundation' here
-      ::          if ~bitdeg says so
-      ::  :-  [|/%tas &/%organization |]
-      ::  [pro/%txt (sy %sig ~)]
+      :-  [|/%tas &/%organization |]
+      [pro/%pith (sy %sig ~)]
       :-  [|/%tas &/%phone-number |]
       [pro/%phone-number (sy %sig ~)]
       :-  [|/%tas &/%email |]

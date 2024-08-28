@@ -32,9 +32,8 @@
           [pro/%hexadecimal (sy %sig ~)]
           :-  [|/%tas &/%display-name |]
           [pro/%txt (sy %sig ~)]
-          ::  XX revisit this
-          ::  :-  [|/%tas &/%organization |]
-          ::  [pro/%txt (sy %sig ~)]
+          :-  [|/%tas &/%organization |/%t |]
+          [pro/%pith (sy %sig ~)]
           :-  [|/%tas &/%phone-number |]
           [pro/%phone-number (sy %sig ~)]
           :-  [|/%tas &/%email |]
