@@ -59,7 +59,11 @@
       ?>  =(our.bowl ship.src.bowl)
       ?+      stud
             !!
-          %email
+        ::  XX refactor
+        ::       should listen for %gifts and typecheck based on the state
+        ::       of every kid we receive an %add gift about. this means we can
+        ::       safely make these kids without having to poke this shrub.
+            %email
         =/  txt  !<(cord vaz)
         =/  her  (head (flop here.bowl))
         :_  [%sig !>(~)]
