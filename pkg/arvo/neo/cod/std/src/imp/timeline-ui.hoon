@@ -231,8 +231,8 @@
   =hx-select     ".p-page"
   =hx-swap       "outerHTML"
   =head          "make-post"
-    ;textarea.p1.bd1.br1.basis-half
-    =style         "min-height:100px"
+    ;textarea.p3.bd1.br1.grow  ::.basis-half
+    =style         "min-height:10em"
     =type          "text"
     =placeholder   "Start your post here"
     =name          "post"
@@ -320,8 +320,8 @@
       =/  renderer  ?@(renderer.post renderer.post %$)
       ;div
         ;p: {(tail (en-tape:pith:neo /[(head pith.post)]))}
-        ;iframe.wf.bd2.post
-          =style  "background-color: #eee; height: 300px;"
+        ;iframe.wf.bd2.post.br2   :: height: 300px;"
+          =style  "background-color: #eee; min-height: 100px;"
           =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
           ;
         ==

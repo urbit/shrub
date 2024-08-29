@@ -7,7 +7,7 @@
 =<
 |%
 ++  state  pro/%eyre-task
-++  poke   (sy %rely ~)
+++  poke   (sy %rely %iris-res ~)
 ++  kids  *kids:neo
 ++  deps  
   %-  ~(gas by *band:neo)
@@ -21,11 +21,33 @@
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
+    =/  task  !<(task:eyre:neo q.pail)
     ?+    stud  !!
+        %iris-res
+      =+  !<(=res:iris:neo vax)
+      ?.  ?=(%finished -.dat.res)
+        [~ pail]
+      ?~  full-file.dat.res
+        [~ pail]
+      ~&  >>  response-header.dat.res
+      =/  body=cord  q.data.u.full-file.dat.res
+      =/  title  ~(get-title parse-body body)
+      =/  meta-data=manx  
+          ;div.b4.br1.p2
+            ;p: {title}
+          ==
+      ::~&  >>  img/(fand "og:image" (trip body))
+      ::~&  dat.res
+      ::~&  `@t`q.data.u.full-file.dat.res
+      ::=/  =json  (need (de:json:html body))
+      ::~&  >  body/(de-xml:html body)
+      :_  pail
+      ~
+    ::   (eyre-cards [bowl task meta-data])
+    ::
         %rely
       :_  pail
-      =/  task  !<(task:eyre:neo q.pail)
-      (eyre-cards [bowl task])
+      (eyre-cards [bowl task *manx])
     ==
   ::
   ++  init
@@ -37,8 +59,29 @@
     ?+    method.request.req  ~|(%unsupported-http-method !!)
         %'GET'
       :_  [stud vase]
-      (eyre-cards [bowl task])
-        :: %'POST'
+      (eyre-cards [bowl task *manx])
+      ::
+        %'POST'
+      =/  here  p:(~(got by deps.bowl) %src)
+      =/  body  (parse-body:serv request.req)
+      =/  mu  ~(. manx-utils body)
+      =/  head  (@tas (got:mu %head))
+      ?+    head  !!
+          %get-metadata
+        ~&  >>  body
+        =/  url  (got:mu %value)
+        =/  =request:http
+          :*  %'GET'
+              url
+              ['Accept'^'application/json' ~]
+              ~
+          ==
+        =/  =req:iris:neo  [here.bowl request]
+        :_  [stud vase]
+        :~
+          [#/[p/our.bowl]/$/iris %poke iris-req/!>(req)]
+        ==
+      ==
     ::
     ==
   --
@@ -46,28 +89,32 @@
 ::
 |%
 ++  eyre-cards
-  |=  [=bowl:neo [eyre-id=@ta req=inbound-request:eyre]]
+  |=  [=bowl:neo [eyre-id=@ta req=inbound-request:eyre] max=manx]
+  =/  data=sign:eyre:neo  [eyre-id %data `(manx-to-octs max)]  
   =+  #/[p/our.bowl]/$/eyre
   :~  (head-card - eyre-id)
   ::
+  ?:  =(*manx max)  
       :*  -
-          %poke
-          %eyre-sign
-          !>
-          :+  eyre-id
-            %data
-          :-  ~
-          %-  manx-to-octs
-          %~  render
-            web
-          :-  bowl
-          (pave:neo pax:(parse-url-frfr:serv request.req))
+      %poke
+      %eyre-sign
+      !>
+      :+  eyre-id
+        %data
+      :-  ~
+      %-  manx-to-octs
+      %~  render
+        web
+      :-  bowl
+      (pave:neo pax:(parse-url-frfr:serv request.req))
       ==
+    [- %poke eyre-sign/!>(data)]
   ::
-      (done-card - eyre-id)
-      [here.bowl %cull ~]
-      [here.bowl %tomb ~]
+    (done-card - eyre-id)
+    [here.bowl %cull ~]
+    [here.bowl %tomb ~]
   ==
+::
 ::
 ++  head-card
   |=  [=pith eyre-id=@ta]
@@ -80,6 +127,22 @@
         200
       ['content-type' 'text/html']~
   ==
+::
+:: ++  data-card
+::   |=  [=pith eyre-id=@ta]
+::   :*  -
+::       %poke
+::       %eyre-sign
+::       !>
+::       :+  eyre-id
+::         %data
+::       :-  ~
+::       %-  manx-to-octs
+::       %~  render
+::         web
+::       :-  bowl
+::       (pave:neo pax:(parse-url-frfr:serv request.req))
+::   ==
 ::
 ++  done-card
   |=  [=pith eyre-id=@ta]
@@ -95,22 +158,19 @@
   %-  crip 
   (oust [0 (sub (lent tape) 3)] tape)
 ::
-:: (alf or auri:de-purl:html)??
 ++  txt-parser
-::  return txt without url ? 
   |=  text=tape 
   ^-  [(unit tape) tape]
   =/  =wall
     %+  scan  text
     ;~  plug 
-      %+  more  ace   ::gay instead of ace ???
+      %+  more  ace
       (star ;~(less (shim 33 255)))
     ==
   =/  cell-wall
     %+  skid  wall
     |=  =tape
     =(~ (de-purl:html (crip tape)))
-  ~&  >>  wall-txt/p.cell-wall
   =/  url-out=tape  (zing (join " " p.cell-wall))
   ?~  q.cell-wall  [~ url-out]
   [(some (head q.cell-wall)) url-out]
@@ -126,7 +186,7 @@
       ==
       ;body
         =hx-ext  "dom-enc"
-        ;main.ma.fc.g1.b2 ::.mw-page.p-page
+        ;main.ma.fc.g1.b2.hf ::.mw-page.p-page
         =style  "padding: 0px 12px 10px;"
           ;+  post-txt
         ==  
@@ -156,9 +216,16 @@
     %gif  img-renderer
     ==
     ++  fetch-metadata
-    ;div.wf.fc.as.p2
-      ;p: {text}
-      ;div.b4.br1.p2: metadata will be here
+    ;div.wf.fc.as.p2.g1
+      ;p.grow.p2: {text}
+      ;div.b4.br1.p2
+      =hx-post     (en-tape:pith:neo name)
+      =head        "get-metadata"
+      =hx-trigger  "load" 
+      =value       url
+      =hx-swap     "innerHTML"
+        ;span: metadata will be here
+      ==
     ==
     ::
     ++  txt-renderer
@@ -167,8 +234,8 @@
     ==
     ::
     ++  mp3-renderer
-    ;div.wf.fc.as.p2
-      ;p.grow: {text}
+    ;div.wf.fc.as.p2.g1
+      ;p.grow.p2: {text}
       ;audio
       =controls  ""
         ;source
@@ -180,8 +247,8 @@
       ==
     ==
     ++  mp4-renderer
-    ;div.wf.fc.as.p2
-      ;p.grow: {text}
+    ;div.wf.fc.as.p2.g1
+      ;p.grow.p2: {text}
       ;video.wf
       ::=width  "320"
       =height  "240"
@@ -195,8 +262,8 @@
       ==
     ==
     ++  img-renderer  
-    ;div.wf.fc.as.p2
-      ;p.grow: {text}
+    ;div.wf.fc.as.p2.g1
+      ;p.grow.p2: {text}
       ;img.grow.wf 
       =style  "height: 270px"
       =src    url
@@ -205,4 +272,22 @@
     ==
     --
   --
+::
+++  parse-body
+|_  [body=cord]
+::  getting title manualy put of html string
+  ++  get-title 
+    ^-  tape
+    =/  ix-start=@ud  (head (fand "<title>" (trip body)))
+    =/  half-way  (oust [0 ix-start] (trip body))
+    ::  adding 8 to account for losted "</title>" tag
+    =/  ix-end=@ud  (add 8 (head (fand "</title>" half-way)))
+    =/  title=(unit manx)
+      %-  de-xml:html
+      %-  crip
+      %+  oust  [ix-end (sub (lent half-way) ix-end)] 
+      half-way
+    ?~  title  ""
+    v:(head a.g:(head c:(need title)))
+--
 --
