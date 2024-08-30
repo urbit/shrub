@@ -96,7 +96,8 @@
     ;html
       ;head
         ;meta(charset "utf-8");
-        ;title: counter
+        ::  XX  page title should be user's @p
+        ;title: ~sampel-palnet
         ;link
           =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"
           =rel  "stylesheet"
@@ -135,18 +136,52 @@
     ==
   ++  header
     ^-  manx
-    ;div
-      ;  foo
-      ::  XX header image
-      ::  XX profile pic / sigil
-      ::  XX name(s) / display name / @p
-      ::  XX conditionally render @p if this homepage displays any other name
-      ::  XX about
+    ;div.p-page
+      ;div.mw-page.ma
+        ::  header image
+        ::  XX should center image within the container
+        ;div.wf.br1
+          =style  "max-height: 300px; overflow: hidden; position: relative; object-fit: cover; object-position: center;"
+          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: 100%; object-fit cover; object-position: center;");
+        ==
+        ::  profile pic / sigil
+        ::  XX what happens if this image isn't square?
+        ::  XX fall back on a generated sigil if no pfp
+        ;div
+          =style  "padding-left: 10px; padding-right: 10px;"
+          ;div.fr.js
+            ;div.fc.ac.br1
+                =style  "overflow: hidden; max-height: 400px; max-width: 400px; position: relative; top: -20px;"
+                ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
+            ==
+            ::  header text
+            ;div.fr.mw-page.p2
+              =style  "max-height: 400px;"
+              ;div.fc.grow.p2.g1
+                ::  name / username / @p
+                ;span.s4.f0.bold
+                  ;  John Doe
+                ==
+                ::  @p
+                ::  XX conditionally render if there's a name/username above
+                ;span.s-1.f2
+                  ;  ~sampel-palnet
+                ==
+                ::  about
+                ;span.f1.s0
+                  ;  Lorem ipsum odor amet, consectetuer adipiscing elit. Pellentesque praesent mus volutpat sem semper a rutrum. Praesent integer orci conubia auctor vulputate diam. Cras consequat aptent mattis placerat himenaeos penatibus. Nam tortor nam malesuada maecenas lectus. Maecenas integer dignissim varius eleifend; enim donec egestas. Potenti volutpat urna senectus sagittis at, porttitor sagittis. Urna sed natoque orci neque nisl vulputate mauris eleifend varius! Nulla curae nisi pulvinar vel potenti pharetra fringilla scelerisque ullamcorper.
+                ==
+              ==
+            ==
+          ==
+        ==
+      ==
     ==
+
   ++  widgets
     ^-  manx
     ;div
-      ;  foo
+      ;  widgets should go here
       ::  XX render all widgets in homepage's kids
     ==
   ::
