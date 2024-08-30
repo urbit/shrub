@@ -73,15 +73,20 @@
 ++  get-render-data
   |=  =lore:neo
   ^-  pith
-  !!
-  :: =/  foo  (get-vase-saga-by-pith:su lore ~)
-  :: ~&  >>  foo
-  :: ~&  >>  (need foo)
-  :: ::  ~&  >>  (need (need foo))
-  :: ?~  foo
-  ::   %-  (slog leaf+"No data to render" ~)
-  ::   !!
-  :: !<(pith (need foo))
+  =/  data  (get-vase-saga-by-pith lore ~)
+  ?~  data
+    ~_  leaf/"No data to render"
+    !!
+  !<(pith (need data))
+::
+::  XX taken from another version of /lib/shrub-utils,
+::     remove once that's merged
+++  get-vase-saga-by-pith
+  |=  [=lore:neo =pith:neo]
+  ^-  (unit vase)
+  =/  idea=(unit idea:neo)  (~(get of:neo lore) pith)
+  ?~  idea  ~
+  `q.q.saga:(need idea)
 ::
 ++  render
   |_  render-data
