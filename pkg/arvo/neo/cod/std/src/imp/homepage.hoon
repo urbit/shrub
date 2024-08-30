@@ -13,7 +13,7 @@
   ^-  kids:neo
   :+  ~  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [&/%widget |/@t |]
+  :~  :-  [&/%widget |/%t |]
       [pro/%manx (sy %rely %ui-event ~)]
   ==
 ++  deps
