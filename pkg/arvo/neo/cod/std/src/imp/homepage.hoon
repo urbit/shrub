@@ -5,21 +5,21 @@
 |%
 ++  state
   ^-  curb:neo
-  [%pro %pith]
+  pro/%pith
 ++  poke
   ^-  (set stud:neo)
-  (sy %sig ~)
+  (sy %pith ~)
 ++  kids
   ^-  kids:neo
   :+  ~  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [&/%widget |/%t |]
+  :~  :-  [|/%t &/%widget |/%t |]
       [pro/%manx (sy %rely %ui-event ~)]
   ==
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :-  %profiles
-      :+  req=|  [pro/%sig (sy %sig ~)]
+      :+  req=&  [pro/%sig (sy %sig ~)]
       :+  ~  %z
       %-  ~(gas by *lads:neo)
       :~  :-  [|/%tas &/%profile-image |]
@@ -53,13 +53,23 @@
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
+    +*  state  !<(pith state-vase)
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
-      [~ [%sig !>(~)]]
+      ?~  old
+        ~_  leaf/"No initial state provided for {<(pout here.bowl)>}"
+        !!
+      ?>  =(%pith p.u.old)
+      ?:  =(~ !<(pith q.u.old))
+        ~_  leaf/"No initial profile provided for {<(pout here.bowl)>}"
+        !!
+      [~ [%pith q.u.old]]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
-      [~ [%sig !>(~)]]
+      ?>  =(our.bowl ship.src.bowl)
+      ?>  =(stud %pith)
+      [~ [%pith vaz]]
   --
 --
