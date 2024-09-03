@@ -16,8 +16,8 @@
         [pro/%pith (sy %sig ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
-      :~  :-  [&/%widget |/%t |]
-          [pro/%manx (sy %rely %ui-event ~)]
+      :~  :-  [|/%tas &/%widget |/%tas |]
+          [pro/%manx (sy %sig ~)]
       ==
   ==
 ++  form
@@ -189,9 +189,12 @@
     ==
   ++  widgets
     ^-  manx
+    :: ~&  >>  %~  tap  in  %~  key  by  %-  %~  kid  of:neo  q:(~(got by deps.bowl) %src)  ~
+    :: ;div
+    ::   ;  foobar
+    :: ==
     ;div
-      ;  widgets should go here
-      ::  XX render all widgets in homepage's kids
+      ;+  !<(manx (need (get-vase-saga-by-pith q:(~(got by deps.bowl) %src) ~[%default %widget %foobar])))
     ==
   ::
   :: ++  display-count
