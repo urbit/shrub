@@ -144,11 +144,14 @@
           =style  "width: 100%; max-height: 300px; overflow: hidden;"
           ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: auto; display: block;");
         ==
-        ::  profile pic / sigil
-        ::  XX what happens if this image isn't square?
-        ::  XX fall back on a generated sigil if no pfp
         ;div
           =style  "padding-left: 10px; padding-right: 10px;"
+          ::  profile pic / sigil
+          ::  XX what happens if this image isn't square?
+          ::       a: nothing good, fix
+          ::  XX fall back on a generated sigil if no pfp
+          ::       either get sigil.js running on backend or
+          ::       implement something like it in hoon
           ;div.fr.js
             ;div.fc.ac.br1
                 =style  "overflow: hidden; max-height: 400px; max-width: 400px; position: relative; top: -20px;"
