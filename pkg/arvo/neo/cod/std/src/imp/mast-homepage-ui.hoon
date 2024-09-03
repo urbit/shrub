@@ -134,15 +134,15 @@
         ;+  widgets
       ==
     ==
+  ::
   ++  header
     ^-  manx
     ;div.p-page
       ;div.mw-page.ma
         ::  header image
-        ::  XX should center image within the container
-        ;div.wf.br1
-          =style  "max-height: 300px; overflow: hidden; position: relative; object-fit: cover; object-position: center;"
-          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: 100%; object-fit cover; object-position: center;");
+        ;div.wf.br1.fr.ac.jc
+          =style  "width: 100%; max-height: 300px; overflow: hidden;"
+          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: auto; display: block;");
         ==
         ::  profile pic / sigil
         ::  XX what happens if this image isn't square?
@@ -177,7 +177,7 @@
         ==
       ==
     ==
-
+  ::
   ++  widgets
     ^-  manx
     ;div
