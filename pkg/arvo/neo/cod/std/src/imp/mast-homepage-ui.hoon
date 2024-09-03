@@ -162,11 +162,8 @@
                 ;span.s4.f0.bold
                   ;  John Doe
                 ==
-                ::  @p
-                ::  XX conditionally render if there's a name/username above
-                ;span.s-1.f2
-                  ;  ~sampel-palnet
-                ==
+                ::  @p, conditionally rendered
+                ;+  urbit-id
                 ::  about
                 ;span.f1.s0
                   =style  "max-height: 118px; overflow: hidden;"
@@ -179,6 +176,14 @@
       ==
     ==
   ::
+  ++  urbit-id
+    ^-  manx
+    ::  XX get display name from this page
+    ?:  =('' 'John Doe')
+      ;div;
+    ;span.s-1.f2
+       ;  ~sampel-palnet
+    ==
   ++  widgets
     ^-  manx
     ;div
