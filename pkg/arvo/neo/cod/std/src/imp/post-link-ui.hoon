@@ -29,9 +29,12 @@
         [~ pail]
       ?~  full-file.dat.res
         [~ pail]
-      ~&  >>  response-header.dat.res
+      ~&  >>>  hand.res
       =/  body=cord  q.data.u.full-file.dat.res
-      =/  title  ~(get-title parse-body body)
+      =/  title  ~(title parse-body body)
+      ~&  title
+      =/  meta-map  ~(get-metadata parse-body body)
+      ~&  >  meta-map
       =/  meta-data=manx  
           ;div.b4.br1.p2
             ;p: {title}
@@ -42,7 +45,7 @@
       ::=/  =json  (need (de:json:html body))
       ::~&  >  body/(de-xml:html body)
       :_  pail
-      ~
+      (eyre-cards [bowl task meta-data])
     ::   (eyre-cards [bowl task meta-data])
     ::
         %rely
@@ -68,7 +71,6 @@
       =/  head  (@tas (got:mu %head))
       ?+    head  !!
           %get-metadata
-        ~&  >>  body
         =/  url  (got:mu %value)
         =/  =request:http
           :*  %'GET'
@@ -159,6 +161,7 @@
   (oust [0 (sub (lent tape) 3)] tape)
 ::
 ++  txt-parser
+::  include breaks '\0a' in parser
   |=  text=tape 
   ^-  [(unit tape) tape]
   =/  =wall
@@ -170,6 +173,7 @@
   =/  cell-wall
     %+  skid  wall
     |=  =tape
+    ~&  (de-purl:html (crip tape))
     =(~ (de-purl:html (crip tape)))
   =/  url-out=tape  (zing (join " " p.cell-wall))
   ?~  q.cell-wall  [~ url-out]
@@ -184,10 +188,10 @@
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
       ==
-      ;body
+      ;body.b2
         =hx-ext  "dom-enc"
-        ;main.ma.fc.g1.b2.hf ::.mw-page.p-page
-        =style  "padding: 0px 12px 10px;"
+        ;main.ma.fc.g1 ::.mw-page.p-page.hf
+        =style  "padding: 0px 12px 10px; min-height: 100px;"
           ;+  post-txt
         ==  
       == 
@@ -218,13 +222,16 @@
     ++  fetch-metadata
     ;div.wf.fc.as.p2.g1
       ;p.grow.p2: {text}
-      ;div.b4.br1.p2
-      =hx-post     (en-tape:pith:neo name)
-      =head        "get-metadata"
-      =hx-trigger  "load" 
-      =value       url
-      =hx-swap     "innerHTML"
-        ;span: metadata will be here
+      ;a
+      =href  url
+        ;div.b4.br1.p2
+        =hx-post     (en-tape:pith:neo name)
+        =head        "get-metadata"
+        =hx-trigger  "load" 
+        =value       url
+        =hx-swap     "innerHTML"
+          ;span: {url}
+        ==
       ==
     ==
     ::
@@ -262,10 +269,12 @@
       ==
     ==
     ++  img-renderer  
-    ;div.wf.fc.as.p2.g1
-      ;p.grow.p2: {text}
-      ;img.grow.wf 
-      =style  "height: 270px"
+    ;div.fc.ac.p2.g1  ::.wf
+      ;div.fc.as.wf
+        ;p.grow.p2: {text}
+      ==
+      ;img.grow
+      =style  "max-height: 270px"
       =src    url
       ;
       ==
@@ -274,20 +283,91 @@
   --
 ::
 ++  parse-body
-|_  [body=cord]
-::  getting title manualy put of html string
-  ++  get-title 
+  |_  [body=cord]
+  ::  getting title manualy put of html string
+  :: ++  types 
+  ::   ^-  [title=tape description=tape image=tape]
+  ::   ?:  =(~ (fand "<og:title>" body))  open-graph
+  ::   ?:  =(~ (fand "twitter:title" body))  twitter
+  ::   basic
+  :: ++  basic
+  :: =/  title=(unit manx)  (get-metadata "<title>")
+  :: =/  image=(unit manx)  (get-metadata "<og:image>")
+  :: ::=/  
+  :: :*  ""
+  ::     ""
+  ::     ""
+  ::   ==
+  ++  title 
     ^-  tape
-    =/  ix-start=@ud  (head (fand "<title>" (trip body)))
+    =/  title=(unit manx)  (get-title "<title>")
+    ?~  title  ""
+    v:(head a.g:(head c:(need title))) 
+  ::
+  ++  get-title  ::  get's only title 
+    |=  tag=tape
+    ^-  (unit manx)
+    ?~  (fand tag (trip body))  ~
+    =/  ix-start=@ud  (head (fand tag (trip body)))
+    ~&  >>>  title-ix/ix-start
     =/  half-way  (oust [0 ix-start] (trip body))
     ::  adding 8 to account for losted "</title>" tag
-    =/  ix-end=@ud  (add 8 (head (fand "</title>" half-way)))
-    =/  title=(unit manx)
+    =/  close-tag=tape  (into tag 1 '/')
+    =/  lent-tag  (lent close-tag)
+    =/  ix-end=@ud  (add lent-tag (head (fand close-tag half-way)))
+    ~&  >>>  :-  %end
+              %+  oust  [ix-end (sub (lent half-way) ix-end)] 
+              half-way
+    %-  de-xml:html
+    %-  crip
+    %+  oust  [ix-end (sub (lent half-way) ix-end)] 
+    half-way
+  ::
+  ::  need to parse tape till there's no meta tags left 
+  ::  on each iteration get meta tag get it's name and if name correct 
+  ::  store in a map (%name "data")
+  ::
+  ++  get-metadata
+    ^-  (map @tas tape)
+    =/  ix-start=(list @ud)  (fand "<meta" (trip body))
+    %-  malt
+    %+  skip
+      %+  turn  ix-start 
+      |=  ix=@ud
+      =/  pair  (meta-tag ix)
+      ::~&  >>  pair/pair
+      pair
+    |=  pair=[@tas tape]
+    =(%$ -.pair)
+  ::
+  ++  meta-tag
+    |=  ix-start=@ud 
+    ^-  [@tas tape]
+    =/  half-way  (oust [0 ix-start] (trip body))
+    =/  ix-end=@ud  +((head (fand ">" half-way)))
+    ::  first meta-tag 
+    ~&  >>   %+  oust  [ix-end (sub (lent half-way) ix-end)] 
+      half-way
+    ::
+    =/  xml=(unit manx)
       %-  de-xml:html
       %-  crip
       %+  oust  [ix-end (sub (lent half-way) ix-end)] 
       half-way
-    ?~  title  ""
-    v:(head a.g:(head c:(need title)))
---
+    ?~  xml  [%$ ""]
+    ::~&  >>  xml/xml
+    =/  manx-map  (malt a.g:(need xml))
+    =/  u-name  (~(get by manx-map) %name)
+    ~&  >  u-name/u-name
+    =/  name  
+      %+  rust
+        ;;  tape  
+        ?~  u-name  ~
+        (need u-name)
+      (perk ~[%'og:title' %'og:description' %'og:image' %description %'twitter:title' %'twitter:description' %'twitter:image'])
+    ~&  >>>  name
+    ?~  name  [%$ ""]
+    [(need name) `tape`(~(got by manx-map) %content)]
+    ::
+  --
 --

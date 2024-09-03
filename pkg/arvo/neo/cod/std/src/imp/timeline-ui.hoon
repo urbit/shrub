@@ -64,7 +64,6 @@
             !<  pith
             %+  slap  (slop !>(..zuse) !>(bowl))
             %-  ream  cord
-        ~&  >>  pith/pith
         :~  [here %poke [%timeline-diff !>([%post [stud pith]])]]
         ==
         ::
@@ -148,6 +147,12 @@
     |=  =pith
     (welp /[p/ship] pith)
 ::
+++  pretty-date
+  |=  date=@da
+  ^-  tape
+  =/  d  (yore date)
+  "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
+::
 ++  manx-to-octs
   |=  man=manx
   (as-octt:mimes:html (en-xml:html man))
@@ -161,10 +166,21 @@
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
+        ;script
+          ;+  ;/  %-  trip
+          '''
+          function resizeIframe(iframe) {
+            iframe.onload = function() {
+                // Adjust the height based on content
+                iframe.style.height = Math.min(iframe.contentWindow.document.body.scrollHeight, 600) + 'px';
+            };
+          }
+          document.querySelectorAll('.post').forEach(el => resizeIframe(el));
+          '''
+        ==
         :: ;script
         ::   ;+  ;/  %-  trip
         ::   '''
-        ::   console.log('working')
         ::   function resizeIframe(iframe) {
         ::     if (iframe && iframe.tagName === 'IFRAME') {
         ::         iframe.onload = function() {
@@ -308,20 +324,23 @@
     ++  show-feed
     |=  kids=(list pith)
     ^-  manx
-    ;div
+    ;div.fc.g2
       ;*
       %+  turn  (sort-by-date kids)
       |=  =pith:neo
       ::(got-vase-saga-by-pith:su lore pith)
       =/  idea=idea:neo  (~(got of:neo lore) pith)
-      ::  XX:  vase isn't supposed to have %post check poke in timeline
-      =/  some  !<([%post [renderer=stud:neo pith:neo]] q.q.saga.idea) 
-      =/  post=[renderer=stud:neo pith=pith:neo]  +.some
+      =/  post  !<([renderer=stud:neo pith=pith:neo] q.q.saga.idea)
+      =/  post-date  ;;  @da  +:(rear pith.post)
       =/  renderer  ?@(renderer.post renderer.post %$)
-      ;div
-        ;p: {(tail (en-tape:pith:neo /[(head pith.post)]))}
-        ;iframe.wf.bd2.post.br2   :: height: 300px;"
-          =style  "background-color: #eee; min-height: 100px;"
+      ;div.wf
+      =style  "min-height: 100px; max-height: 600px; overflow: hidden;"
+        ;div.fr.jb
+          ;p.p1: {(tail (en-tape:pith:neo /[(head pith.post)]))}
+          ;p:  {(pretty-date post-date)}
+        ==
+        ;iframe.wf.bd2.post.br2.b2.grow   :: height: 300px;"
+          =style  "border-color: var(--b2); "  ::min-height: 100px; 
           =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
           ;
         ==

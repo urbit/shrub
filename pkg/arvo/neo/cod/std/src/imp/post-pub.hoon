@@ -1,4 +1,5 @@
 /@  post
+/@  timeline-diff
 ::
 ^-  kook:neo
 |%
@@ -26,9 +27,10 @@
     :_  state
     ?+    stud  !!
         %post
-      ~&  >>  vase-poke/-:vax
+      =/  diff  !<(timeline-diff vax)
+      ?>  ?=(%post -.diff)
       :~  :-  (welp here.bowl ~[da/now.bowl])
-          [%make %post `post/vax ~]
+          [%make %post `post/!>(+.diff) ~]
       ==
     ==
   --

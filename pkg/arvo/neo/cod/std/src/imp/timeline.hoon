@@ -42,7 +42,6 @@
     ?+    stud  !!
         %timeline-diff
       =/  poke  !<(timeline-diff vax)
-      ~&  >>  poke/poke
       ?-    -.poke
           :: XX if you unfollow and refollow, what happens?
           :: if you make over a sub, do the kids get remade?
@@ -59,7 +58,6 @@
         state
       ::
           %post
-        ~&  post/post.poke
         :_  state
         :~  :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post post.poke])]
