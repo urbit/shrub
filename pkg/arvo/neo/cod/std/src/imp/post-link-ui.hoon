@@ -29,24 +29,15 @@
         [~ pail]
       ?~  full-file.dat.res
         [~ pail]
-      ~&  >>>  hand.res
+      :: ~&  >>>  hand.res
       =/  body=cord  q.data.u.full-file.dat.res
       =/  title  ~(title parse-body body)
       ~&  title
       =/  meta-map  ~(get-metadata parse-body body)
       ~&  >  meta-map
-      =/  meta-data=manx  
-          ;div.b4.br1.p2
-            ;p: {title}
-          ==
-      ::~&  >>  img/(fand "og:image" (trip body))
-      ::~&  dat.res
-      ::~&  `@t`q.data.u.full-file.dat.res
-      ::=/  =json  (need (de:json:html body))
-      ::~&  >  body/(de-xml:html body)
+      =/  meta-data=manx  (meta-div meta-map title)
       :_  pail
       (eyre-cards [bowl task meta-data])
-    ::   (eyre-cards [bowl task meta-data])
     ::
         %rely
       :_  pail
@@ -130,22 +121,6 @@
       ['content-type' 'text/html']~
   ==
 ::
-:: ++  data-card
-::   |=  [=pith eyre-id=@ta]
-::   :*  -
-::       %poke
-::       %eyre-sign
-::       !>
-::       :+  eyre-id
-::         %data
-::       :-  ~
-::       %-  manx-to-octs
-::       %~  render
-::         web
-::       :-  bowl
-::       (pave:neo pax:(parse-url-frfr:serv request.req))
-::   ==
-::
 ++  done-card
   |=  [=pith eyre-id=@ta]
   [pith %poke eyre-sign/!>([eyre-id %done ~])]
@@ -165,16 +140,20 @@
   |=  text=tape 
   ^-  [(unit tape) tape]
   =/  =wall
+    ;;  wall
     %+  scan  text
     ;~  plug 
       %+  more  ace
-      (star ;~(less (shim 33 255)))
+      (star ;~(pose (shim 33 255) gaq))
     ==
   =/  cell-wall
     %+  skid  wall
-    |=  =tape
-    ~&  (de-purl:html (crip tape))
-    =(~ (de-purl:html (crip tape)))
+    |=  t=tape
+    =/  no-gaq
+      %-  head
+      ;;  (list tape)
+      (scan t ;~(plug (more gaq (star ;~(pose (shim 33 255))))))
+    =(~ (de-purl:html (crip no-gaq)))
   =/  url-out=tape  (zing (join " " p.cell-wall))
   ?~  q.cell-wall  [~ url-out]
   [(some (head q.cell-wall)) url-out]
@@ -183,15 +162,15 @@
   |_  [=bowl:neo name=pith]
   ++  render
     ^-  manx
-    ;html
+    ;html.hf  ::.scroll-hidden
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
       ==
-      ;body.b2
+      ;body.b2.hf  ::.scroll-hidden
         =hx-ext  "dom-enc"
-        ;main.ma.fc.g1 ::.mw-page.p-page.hf
-        =style  "padding: 0px 12px 10px; min-height: 100px;"
+        ;main.ma.fc.g1
+        =style  "max-height: 300px; box-sizing: border-box;"
           ;+  post-txt
         ==  
       == 
@@ -220,28 +199,40 @@
     %gif  img-renderer
     ==
     ++  fetch-metadata
-    ;div.wf.fc.as.p2.g1
-      ;p.grow.p2: {text}
-      ;a
+    ;div.fc.as.p2.g1.hf.wf
+    =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
+      ;div
+        ;+  
+        ?:  =("" text)  ;div;
+        ;p.grow.p2: {text}
+      ==
+      ;a.b4.br1.p2.wf
       =href  url
-        ;div.b4.br1.p2
+      =target  "_blank"
+        ;div  ::.b4.br1.p2
         =hx-post     (en-tape:pith:neo name)
         =head        "get-metadata"
         =hx-trigger  "load" 
         =value       url
         =hx-swap     "innerHTML"
-          ;span: {url}
+          ;
+        ==
+        ;p.s-1.mono.f2
+        =style  "overflow-wrap: break-word;"
+        ; {url}
         ==
       ==
     ==
     ::
     ++  txt-renderer
-    ;div.wf.fc.as.p2
+    ;div.hf.fc.as.p4.wf    
+    =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;p.grow: {text}
     ==
     ::
     ++  mp3-renderer
-    ;div.wf.fc.as.p2.g1
+    ;div.wf.hf.fc.as.p2.g1
+    =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;p.grow.p2: {text}
       ;audio
       =controls  ""
@@ -254,7 +245,8 @@
       ==
     ==
     ++  mp4-renderer
-    ;div.wf.fc.as.p2.g1
+    ;div.wf.hf.fc.as.p2.g1
+    =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;p.grow.p2: {text}
       ;video.wf
       ::=width  "320"
@@ -269,7 +261,8 @@
       ==
     ==
     ++  img-renderer  
-    ;div.fc.ac.p2.g1  ::.wf
+    ;div.hf.fc.ac.p2.g1  ::.wf
+    =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;div.fc.as.wf
         ;p.grow.p2: {text}
       ==
@@ -282,22 +275,78 @@
     --
   --
 ::
+++  meta-div 
+  |=  [meta-map=(map @tas tape) title=tape]
+  =/  img-style 
+    """
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+    """
+  =/  img-wrap  
+    """
+    width: 150px; 
+    height: 150px; 
+    overflow: hidden;
+    position: relative;
+    """
+  =/  meta  ~(. by meta-map)
+  ^-  manx
+  ;div.wf.fr.g1  ::.b4.br1.p2.wf
+    ;+
+    ?:  &(=(~ (get:meta %'og:image')) =(~ (get:meta %'twitter:image')))
+      ;div;
+    ?.  =(~ (get:meta %'og:image'))
+      ;div
+      =style  img-wrap
+        ;img
+        =style  img-style
+        =src  (got:meta %'og:image')
+        ;
+        ==
+      ==
+    ;div
+    =style  img-wrap
+      ;img
+      =style  img-style
+      =src  (got:meta %'twitter:image')
+      ;
+      ==
+    ==
+    ;div.fc
+    =style  "flex: 1;"
+      ;+ 
+      ?:  &(=("" title) =(~ (get:meta %'og:title')) =("" (get:meta %'twitter:title')))
+        ;div;
+      ?.  =("" title)
+        ;p.bold.p1: {title}
+      ?.  =(~ (get:meta %'og:title'))
+        ;p.bold.p1: {(got:meta %'og:title')}
+      ;p.bold.p1: {(got:meta %'twitter:title')}
+      ;+  
+      ?:  &(=(~ (get:meta %description)) =(~ (get:meta %'og:description')) =(~ (get:meta %'twitter:description')))
+        ;div;
+      ?.  =(~ (get:meta %description))
+        ;p.s-1.p1: {(length (got:meta %description))}
+      ?.  =(~ (get:meta %'og:description'))
+        ;p.s-1.p1: {(length (got:meta %'og:description'))}
+      ;p.s-1.p1: {(length (got:meta %'twitter:description'))}
+    ==
+  ==
+::
+++  length
+  |=  =tape
+  ?.  (gth (lent tape) 360)  tape
+  ~&  'in length too long'
+  (welp (oust [360 (sub (lent tape) 360)] tape) "...")
+::
 ++  parse-body
   |_  [body=cord]
   ::  getting title manualy put of html string
-  :: ++  types 
-  ::   ^-  [title=tape description=tape image=tape]
-  ::   ?:  =(~ (fand "<og:title>" body))  open-graph
-  ::   ?:  =(~ (fand "twitter:title" body))  twitter
-  ::   basic
-  :: ++  basic
-  :: =/  title=(unit manx)  (get-metadata "<title>")
-  :: =/  image=(unit manx)  (get-metadata "<og:image>")
-  :: ::=/  
-  :: :*  ""
-  ::     ""
-  ::     ""
-  ::   ==
   ++  title 
     ^-  tape
     =/  title=(unit manx)  (get-title "<title>")
@@ -345,29 +394,51 @@
     ^-  [@tas tape]
     =/  half-way  (oust [0 ix-start] (trip body))
     =/  ix-end=@ud  +((head (fand ">" half-way)))
-    ::  first meta-tag 
-    ~&  >>   %+  oust  [ix-end (sub (lent half-way) ix-end)] 
-      half-way
-    ::
     =/  xml=(unit manx)
       %-  de-xml:html
       %-  crip
+      %-  close-meta
+      %-  clean-meta
       %+  oust  [ix-end (sub (lent half-way) ix-end)] 
       half-way
     ?~  xml  [%$ ""]
-    ::~&  >>  xml/xml
+    ~&  >>  xml/xml
     =/  manx-map  (malt a.g:(need xml))
-    =/  u-name  (~(get by manx-map) %name)
-    ~&  >  u-name/u-name
-    =/  name  
-      %+  rust
-        ;;  tape  
-        ?~  u-name  ~
-        (need u-name)
-      (perk ~[%'og:title' %'og:description' %'og:image' %description %'twitter:title' %'twitter:description' %'twitter:image'])
-    ~&  >>>  name
-    ?~  name  [%$ ""]
+    =/  name  (parse-prop (~(get by manx-map) %name))
+    =/  prop  (parse-prop (~(get by manx-map) %property))
+    ~&  >>>  prop/prop
+    ?:  &(=(~ name) =(~ prop))  [%$ ""]
+    ?~  name  
+      [(need prop) `tape`(~(got by manx-map) %content)]
     [(need name) `tape`(~(got by manx-map) %content)]
-    ::
+  ::
+  ++  parse-prop
+  |=  u-tape=(unit tape)
+    %+  rust
+      ;;  tape  
+      ?~  u-tape  ~
+      (need u-tape)
+    (perk ~[%'og:title' %'og:description' %'og:image' %description %'twitter:title' %'twitter:description' %'twitter:image'])
+  ::
+  ++  clean-meta 
+    |=  meta=tape
+    ^-  tape
+    ~&  >>  meta
+    =/  =wall 
+      %+  turn 
+        ;;  wall  (scan meta ;~(plug (more pam (star ;~(pose (shim 31 37) (shim 39 255) gaq)))))
+      |=  tap=tape
+      ;;  tape
+      %-  zing
+      (scan tap (more gaq (star (shim 31 255))))
+    ~&  >  meta-after/;;(tape (zing wall))
+    ;;  tape  (zing wall)
+  ::
+  ::  closing meta-atg
+  ++  close-meta
+    |=  meta=tape
+    =/  ix  (sub (lent meta) 2)
+    ?:  =('/' (snag ix meta))  meta
+    (into meta +(ix) '/')
   --
 --
