@@ -39,16 +39,16 @@
       =/  eve  !<(ui-event vaz)
       ?>  ?=([%submit %meta %comment ~] path.eve)
       =/  txt=@t  (~(got by data.eve) 'comment')
-      =/  =pith:neo  (welp /comment p:(~(got by deps.bowl) %src)) ::(oust [0 2] p:(~(got by deps.bowl) %src))
-      ~&  >  create-at-pith/pith
+      =/  create=pith:neo  (welp /comment p:(~(got by deps.bowl) %src)) ::(oust [0 2] p:(~(got by deps.bowl) %src))
+      ~&  >  create-at-pith/create
       =/  dif  [%comment (sy [now.bowl our.bowl txt] ~)]
       ~&  dif/dif
       :_  pail
       :~  
-      [/[p/our.bowl]/storage %poke storage-diff/!>([pith dif])]
+        [/[p/our.bowl]/storage %poke storage-diff/!>([create dif])]
       ==
         %rely
-    =/  comments  (get-comments deps.bowl)
+      =/  comments  (get-comments deps.bowl)
       [~ manx/!>((render comments))]
     ==
   ::
