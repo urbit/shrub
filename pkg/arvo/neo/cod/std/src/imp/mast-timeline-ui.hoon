@@ -1,12 +1,13 @@
 /@  ui-event
 /@  timeline-diff
+/-  feather-icons
 /-  serv=sky-server
 /-  su=shrub-utils
 ^-  kook:neo
 =<
 |%
 ++  state  pro/%manx
-++  poke   (sy %ui-event ~)
+++  poke   (sy %ui-event %rely ~)
 ++  kids
   *kids:neo
 ++  deps
@@ -30,20 +31,34 @@
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     =/  =lore:neo  q:(~(got by deps.bowl) %src)
-    :-  ~
-    manx/!>((render lore))
+    [~ manx/!>((render lore bowl))]
   ::
   ++  poke
     |=  [=stud:neo =vase]
     ^-  (quip card:neo pail:neo)
-    ?>  ?=(%ui-event stud)
-    [~ pail]
+    ::?=(%ui-event stud)
+    ?+  stud  ~|(bad-stud/stud !!)
+        %ui-event
+      =/  event  !<(ui-event vase)
+      ?>  ?=([%submit %make-post ~] path.event)
+      =/  here  p:(~(got by deps.bowl) %src)
+      =/  =cord  (~(got by data.event) 'post')
+      =/  stud  %post-link-ui
+      =/  pith  /[p/our.bowl]/posts/[da/now.bowl] 
+      :_  pail
+      :~  [here %poke [%timeline-diff !>([%post [stud pith]])]]
+          [pith %make %txt `txt/!>(cord) ~]
+      ==
+        %rely
+      =/  =lore:neo  q:(~(got by deps.bowl) %src)
+      [~ manx/!>((render lore bowl))]
+    ==
   --
 --
 ::
 |%
 ++  render
-  |_  =lore:neo
+  |_  [=lore:neo =bowl:neo]
   ++  $
     ^-  manx
     ;html
@@ -52,46 +67,155 @@
         ;*  standard-head-tags:serv
       ==
       ;body
-        ;+  options
-        ;+  feed
+        ;main.p-page.mw-page.ma.fc.g2
+          ;+  make-post
+          ;+  feed-switch
+          ;+  feed
+        ==
       ==
     ==
   ::
-  ++  options
-  ;div
-    ;button 
-      ;span:  all
+  ++  make-post 
+    ;form.fr.jc.g2.p2
+    =event  "/submit/make-post"
+      ;textarea.p3.bd1.br1.grow
+      =style         "min-height:10em"
+      =type          "text"
+      =placeholder   "Start your post here"
+      =name          "post"
+      =oninput       "this.setAttribute('value', this.value)"
+      =required      ""
+      =autocomplete  "off"
+      ;
+      ==
+      ;button.loader.p1.bd1.br1.b1.hf
+      =style  "align-self: end;"
+      =type  "submit"
+        ;span.loaded: post
+        ;span.loading
+          ;+  loading.feather-icons
+        ==
+      ==
     ==
-    ;button 
-      ;span:  followed
+  ::
+  ++  feed-switch
+    ;div.fr.jc.g2.p2
+      ;button.loader.p2.br1.b1.hover
+      =onclick  
+        """
+        document.getElementById('all').classList.remove('hidden');
+        document.getElementById('followed').classList.add('hidden');
+        document.getElementById('published').classList.add('hidden');
+        """
+        ;span.loaded: all
+        ;span.loading
+          ;+  loading.feather-icons
+        ==
+      ==
+      ;button.loader.p2.br1.b1.hover 
+      =onclick  
+        """
+        document.getElementById('followed').classList.remove('hidden');
+        document.getElementById('all').classList.add('hidden');
+        document.getElementById('published').classList.add('hidden');
+        """
+        ;span.loaded: followed
+        ;span.loading
+          ;+  loading.feather-icons
+        ==
+      ==
+      ;button.loader.p2.br1.b1.hover 
+      =onclick  
+        """
+        document.getElementById('published').classList.remove('hidden');
+        document.getElementById('all').classList.add('hidden');
+        document.getElementById('followed').classList.add('hidden');
+        """
+        ;span.loaded: published
+        ;span.loading
+          ;+  loading.feather-icons
+        ==
+      ==
     ==
-    ;button 
-      ;span:  published
-    ==
-  ==
   ::
   ++  feed 
   ;div
-    ;*
-    %+  turn  (get-all-feed-entries lore)
-    |=  =pith:neo
-    ::(got-vase-saga-by-pith:su lore pith)
-    =/  idea=idea:neo  (~(got of:neo lore) pith)
-    =/  post  !<(pith:neo q.q.saga:idea)
-    ;p:  {(en-tape:pith:neo post)}
+    ;div#all
+      ;+  (show-feed (get-all-feed-entries lore))
+    ==
+    ;div#published.hidden
+      ;+  (show-feed (get-my-feed-entries lore our.bowl))
+    ==
+    ;div#followed.hidden
+      ;+  (show-feed (get-follow-feed lore))
+    ==
   ==
   ::
+  ++  show-feed
+  |=  kids=(list pith)
+  ^-  manx
+  ;div.fc.g2
+    ;*
+    %+  turn  (sort-by-date kids)
+    |=  =pith:neo
+    =/  idea=idea:neo  (~(got of:neo lore) pith)
+    =/  post  !<([renderer=stud:neo pith=pith:neo] q.q.saga.idea)
+    ~&  >  post/pith
+    =/  post-date  ;;  @da  +:(rear pith.post)
+    =/  renderer  ?@(renderer.post renderer.post %$)
+    ;div.wf.fc
+      ;div.fr.jb
+        ;p.p1: {(tail (en-tape:pith:neo /[(head pith.post)]))}
+        ;p:  {(pretty-date post-date)}
+      ==
+      ;iframe.wf.bd2.post.br2.b2.grow   
+        =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
+        ;
+      ==
+      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/home/feed pith))}
+    ==
+  ==
+  ::
+  ++  sort-by-date
+  |=  kids=(list pith)
+  %+  sort  kids
+  |=  [a=pith b=pith]
+  (gth ->:(tail a) ->:(tail b))
+  ::
   --
+::
+++  pretty-date
+  |=  date=@da
+  ^-  tape
+  =/  d  (yore date)
+  "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
 ::
 ++  get-all-feed-entries 
   |=  =lore:neo
   ^-  (list pith)
-  =/  grandkids=(list pith)
-    %+  skim  (kidz-at-pith:su / lore)
-    |=  =pith
-    (gth (lent pith) 1)
-  %+  sort  grandkids
-  |=  [a=pith b=pith]
-    (gth ->:(tail a) ->:(tail b))
+  %+  skim  (kidz-at-pith:su / lore)
+  |=  =pith
+  (gth (lent pith) 1)
+::
+::
+++  get-my-feed-entries 
+  |=  [=lore:neo our=ship]
+  ^-  (list pith)
+  (kidz-at-pith:su /[p/our] lore)
+::
+++  get-follow-feed
+  |=  =lore:neo
+  ^-  (list pith)
+  =/  followed=(set @p)
+    ::(got-vase-saga-by-pith:su lore /)
+    =/  idea=idea:neo  (~(got of:neo lore) /)
+    !<((set @p) q.q.saga:idea)
+  %-  zing
+    %+  turn  ~(tap in followed)
+      |=  ship=@p
+      %+  turn
+        (kids-at-pith:su lore /[p/ship])
+      |=  =pith
+      (welp /[p/ship] pith)
 ::
 --
