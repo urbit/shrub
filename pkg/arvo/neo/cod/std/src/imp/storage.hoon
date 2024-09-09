@@ -1,5 +1,6 @@
-/@  meta-diff
+/@  storage
 /@  storage-diff
+/@  meta-diff
 /-  su=shrub-utils
 ^-  kook:neo
 |%
@@ -34,7 +35,6 @@
       ?>  ?=(@ -.to.diff)
       =/  make-stud  ;;  stud:neo  -.to.diff
       :~  [(welp here.bowl to.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
-        ::[(welp here.bowl /comment/some) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
     ~&  >  poke-at-pith/to.diff
     :~  [(welp here.bowl to.diff) %poke %meta-diff !>(poke.diff)]

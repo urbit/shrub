@@ -172,7 +172,7 @@
         =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
         ;
       ==
-      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/home/feed pith))}
+      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comment/[p/our.bowl]/home/feed pith))}
     ==
   ==
   ::
