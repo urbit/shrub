@@ -1,11 +1,11 @@
 /@  manx
 /@  pith
-/@  ui-event
+/@  homepage
 ^-  kook:neo
 |%
 ++  state
   ^-  curb:neo
-  pro/%pith
+  pro/%homepage
 ++  poke
   ^-  (set stud:neo)
   (sy %pith ~)
@@ -58,18 +58,18 @@
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
       ?~  old
-        ~_  leaf/"No initial state provided for {<(pout here.bowl)>}"
+        ~_  leaf/"No initial state for {<(pout here.bowl)>}"
         !!
-      ?>  =(%pith p.u.old)
-      ?:  =(~ !<(pith q.u.old))
-        ~_  leaf/"No initial profile provided for {<(pout here.bowl)>}"
+      ?>  =(%homepage p.u.old)
+      ?:  =([~ *] !<(homepage q.u.old))
+        ~_  leaf/"No initial profile pith for {<(pout here.bowl)>}"
         !!
-      [~ [%pith q.u.old]]
+      [~ [%homepage q.u.old]]
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
-      ?>  =(stud %pith)
-      [~ [%pith vaz]]
+      ?>  =(stud %homepage)
+      [~ [%homepage vaz]]
   --
 --

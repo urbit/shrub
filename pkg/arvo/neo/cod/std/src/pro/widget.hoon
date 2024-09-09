@@ -1,0 +1,4 @@
+/@  manx
+$:  columns=@ud
+    =manx
+==
