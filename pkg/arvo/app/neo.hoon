@@ -1574,6 +1574,10 @@
     (emit (do-card #/[p/our.bowl]/mast %make %mast ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/tree %make %tree-eyre ~ (~(gas by *crew:neo) src/#/[p/our.bowl] ~)))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/storage %make %storage ~ ~))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/home/feed %make %timeline ~ ~))
   run
   ++  pess  |=(=post:neo (~(pith press post) %out))
   ++  clay-beak  ^-  path

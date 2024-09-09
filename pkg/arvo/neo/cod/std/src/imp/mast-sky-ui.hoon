@@ -50,11 +50,13 @@
           [(welp dst #/theme/[name]/value) %make %txt `txt/!>((got:dat '/target/value')) ~]
         ==
       ::
-          [%strategy-change %sky ~]
+          [%sky-event %sky ~]
         =/  dat  ~(. by data.eve)
         =/  detail  (got:dat '/event/detail')
+        =/  jon=json  (need (de:json:html detail))
+        =/  act=@tas  (get-action jon)
         :_  pail
-        (~(strategy-change-cards render bowl) (need (de:json:html detail)))
+        (~(action-cards render bowl) jon act)
       ==
       ::
         %rely
@@ -74,7 +76,7 @@
     %-  lift
     ;s-k-y
       =our  (scow %p our.bowl)
-      =event  "/strategy-change/sky"
+      =event  "/sky-event/sky"
       =return  "/event/detail"
       =default-strategies  default-strategies-json
       ;+  form-theme
@@ -120,21 +122,31 @@
     ^-  json
     [%s (crip (en-tape:pith:neo v))]
     ::
-  ++  strategy-change-cards
-    |=  jon=json
+  ++  action-cards
+    |=  [jon=json act=@tas]
     ^-  (list card:neo)
     =/  here
       %-  pave:neo
-      %-  (ot ~[here+pa]):dejs:format
-      jon
-    ::
+          %-  (ot ~[here+pa]):dejs:format
+          jon
     =/  strats=order
       %+  turn
-        %-  (ot ~[strategies+(ar pa)]):dejs:format
-        jon
-      pave:neo
-    :~
+          %-  (ot ~[strategies+(ar pa)]):dejs:format
+          jon
+        pave:neo
+    ?+  act  ~|(%unsupported-action !!)
+        %bookmark-renderer
+      :~
       [:(welp dst #/strategy here) %make %order `order/!>(strats) ~]
+      ==
+        %share-to-feed
+      ~&  strats
+      =/  renderer
+        ?~  strats  /tree
+        (head strats)
+      :~
+      [#/[p/our.bowl]/home/feed %poke timeline-diff/!>([%post [renderer here]])]
+      ==
     ==
   ::
   ++  default-theme-cards
@@ -425,4 +437,9 @@
       ==
     ==
   --
+  ++  get-action
+    |=  jon=json
+    ;;  @tas
+    %-  (ot ~[action+so]):dejs:format
+    jon
 --

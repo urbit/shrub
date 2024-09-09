@@ -56,22 +56,23 @@
       ?+    head  !!
           %new-post
         =/  =cord  (vol:mu "post")
-        =/  =stud:neo  
+        =/  renderer=pith:neo
           =/  val=(unit tape)  (val:mu "renderer")
-          ?~  val  %$
-          ;;(@tas (crip (need val)))
+          ?~  val  ~
+          %-  en-pith:su
+          (crip (need val))
         =/  =pith
             !<  pith
             %+  slap  (slop !>(..zuse) !>(bowl))
             %-  ream  cord
-        :~  [here %poke [%timeline-diff !>([%post [stud pith]])]]
+        :~  [here %poke [%timeline-diff !>([%post [renderer pith]])]]
         ==
         ::
           %make-post
         =/  =cord  (vol:mu "post")
-        =/  stud  %post-link-ui
+        =/  renderer  /blue/post-link-ui
         =/  pith  /[p/our.bowl]/posts/[da/now.bowl] 
-        :~  [here %poke [%timeline-diff !>([%post [stud pith]])]]
+        :~  [here %poke [%timeline-diff !>([%post [renderer pith]])]]
             [pith %make %txt `txt/!>(cord) ~]
         ==
       ==
@@ -121,31 +122,31 @@
   [pith %poke eyre-sign/!>([eyre-id %done ~])]
 ::
 ++  get-all-feed-entries 
-|=  =lore:neo
-^-  (list pith)
-%+  skim  (kidz-at-pith:su / lore)
-|=  =pith
-(gth (lent pith) 1)
+  |=  =lore:neo
+  ^-  (list pith)
+  %+  skim  (kidz-at-pith:su / lore)
+  |=  =pith
+  (gth (lent pith) 1)
 ::
 ++  get-my-feed-entries 
-|=  [=lore:neo our=ship]
-^-  (list pith)
-(kidz-at-pith:su /[p/our] lore)
+  |=  [=lore:neo our=ship]
+  ^-  (list pith)
+  (kidz-at-pith:su /[p/our] lore)
 ::
 ++  get-follow-feed
-|=  =lore:neo
-^-  (list pith)
-=/  followed=(set @p)
-  ::(got-vase-saga-by-pith:su lore /)
-  =/  idea=idea:neo  (~(got of:neo lore) /)
-  !<((set @p) q.q.saga:idea)
-%-  zing
-  %+  turn  ~(tap in followed)
-    |=  ship=@p
-    %+  turn
-      (kids-at-pith:su lore /[p/ship])
-    |=  =pith
-    (welp /[p/ship] pith)
+  |=  =lore:neo
+  ^-  (list pith)
+  =/  followed=(set @p)
+    ::(got-vase-saga-by-pith:su lore /)
+    =/  idea=idea:neo  (~(got of:neo lore) /)
+    !<((set @p) q.q.saga:idea)
+  %-  zing
+    %+  turn  ~(tap in followed)
+      |=  ship=@p
+      %+  turn
+        (kids-at-pith:su lore /[p/ship])
+      |=  =pith
+      (welp /[p/ship] pith)
 ::
 ++  pretty-date
   |=  date=@da
@@ -212,7 +213,7 @@
     ==
     ;input.p1.bd1.br1
     =type          "text"
-    =placeholder   "ui-renderer*"
+    =placeholder   "/renderer"
     =name          "renderer"
     =oninput       "this.setAttribute('value', this.value)"
     =autocomplete  "off"
@@ -315,10 +316,13 @@
       %+  turn  (sort-by-date kids)
       |=  =pith:neo
       =/  idea=idea:neo  (~(got of:neo lore) pith)
-      =/  post  !<([renderer=stud:neo pith=pith:neo] q.q.saga.idea)
+      =/  post  !<([renderer=pith:neo pith=pith:neo] q.q.saga.idea)
       ~&  >  post
       =/  post-date  ;;  @da  +:(rear pith.post)
-      =/  renderer  ?@(renderer.post renderer.post %$)
+      =/  renderer  
+      ::  XX:  change /tree to another or default renderer
+        ?~  renderer.post  /tree
+      renderer.post 
       ;div.wf.fc
       :: =style  "max-height: 400px; overflow: hidden;"
         ;div.fr.jb
@@ -327,7 +331,7 @@
         ==
         ;iframe.wf.bd2.post.br2.b2.grow   
           :: =style  "object-fit: cover;"
-          =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
+          =src  (en-tape:pith:neo (welp renderer pith.post))
           ;
         ==
       ==

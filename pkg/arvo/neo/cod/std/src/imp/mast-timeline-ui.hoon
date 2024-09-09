@@ -43,10 +43,10 @@
       ?>  ?=([%submit %make-post ~] path.event)
       =/  here  p:(~(got by deps.bowl) %src)
       =/  =cord  (~(got by data.event) 'post')
-      =/  stud  %post-link-ui
+      =/  renderer=pith  /blue/post-link-ui
       =/  pith  /[p/our.bowl]/posts/[da/now.bowl] 
       :_  pail
-      :~  [here %poke [%timeline-diff !>([%post [stud pith]])]]
+      :~  [here %poke [%timeline-diff !>([%post [renderer pith]])]]
           [pith %make %txt `txt/!>(cord) ~]
       ==
         %rely
@@ -159,20 +159,23 @@
     %+  turn  (sort-by-date kids)
     |=  =pith:neo
     =/  idea=idea:neo  (~(got of:neo lore) pith)
-    =/  post  !<([renderer=stud:neo pith=pith:neo] q.q.saga.idea)
+    =/  post  !<([renderer=pith:neo pith=pith:neo] q.q.saga.idea)
     ~&  >  post/pith
-    =/  post-date  ;;  @da  +:(rear pith.post)
-    =/  renderer  ?@(renderer.post renderer.post %$)
+    ~&  (en-tape:pith:neo (welp /storage/comments/[p/our.bowl]/home/feed pith))
+    =/  post-date  ;;  @da  +:(rear pith)
+    :: =/  renderer=pith  
+    ::   ?~  renderer.post  /tree
+    ::   renderer.post
     ;div.wf.fc
       ;div.fr.jb
         ;p.p1: {(tail (en-tape:pith:neo /[(head pith.post)]))}
         ;p:  {(pretty-date post-date)}
       ==
       ;iframe.wf.bd2.post.br2.b2.grow   
-        =src    :(welp "/blue/" (trip renderer) (en-tape:pith:neo pith.post))
+        =src  (en-tape:pith:neo (welp renderer.post pith.post))
         ;
       ==
-      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comment/[p/our.bowl]/home/feed pith))}
+      ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed pith))}
     ==
   ==
   ::

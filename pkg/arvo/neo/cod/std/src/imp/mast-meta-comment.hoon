@@ -22,9 +22,10 @@
     ^-  (quip card:neo pail:neo)
     =/  meta=(pair pith:neo lore:neo)  (~(got by deps.bowl) %src)
     ?~  (get-vase-by-pith:su q.meta /)
-      ~&  vase-null/p.meta
+      ~&  >>  vase-null/p.meta
       =/  diff
       [(oust [0 2] p.meta) [%comment ~]]
+      ~&  diff
       :_  manx/!>((render ~))
       :~  [/[p/our.bowl]/storage %poke storage-diff/!>(diff)]
       ==
