@@ -59,10 +59,10 @@
     ::
         %rely
       ~&  >>  "got rely!"
-      :: ~&  >>  "src"
-      :: ~&  >>  q:(~(got by deps.bowl) %src)
-      :: ~&  >>  "kids of /default"
-      :: ~&  >>  (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default)
+      ~&  >>  "src"
+      ~&  >>  q:(~(got by deps.bowl) %src)
+      ~&  >>  "kids of /default"
+      ~&  >>  (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default)
       :: ~&  >>  "map of kids of /default"
       :: ~&  >>  ~(tar of:neo (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default))
       :: ~&  >>  "list of kids of /default"
