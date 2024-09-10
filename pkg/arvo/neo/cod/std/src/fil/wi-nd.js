@@ -103,6 +103,12 @@ customElements.define(
             >
             <span class="mso">close</span>
           </button>
+          <button
+            class="p1 s-1 b2 hover br1 fc jc ac"
+            id="copy-pith"
+            >
+            <span class="mso">content_copy</span>
+          </button>
           <div
             class="p1 s-1 b2 grabber f4 fc jc ac"
             draggable="true"
@@ -160,6 +166,14 @@ customElements.define(
       })
       $(this).on('minimize', () => {
         $(this).emit('minimize-window')
+      })
+      $(this.gid('copy-pith')).on('click', async (e) => {
+        let here = this.getAttribute('here')
+        try {
+          await navigator.clipboard.writeText(here)
+        } catch (err) {
+          console.error('Failed to copy text: ', err)
+        }
       })
       $(this).on('dragenter', (e) => {
         $(this).addClass('dragging')
@@ -594,9 +608,14 @@ customElements.define(
       $(bookmarks)
         .find('#share')
         .on('click', (e) => {
-          console.log('clicked')
           $(this).emit('share-to-feed', this.renderer)
         })
+      // $(bookmarks)
+      //   .find('#post-toggle')
+      //   .on('click', (e) => {
+      //     console.log('post')
+      //     $(this.gid('post')).toggleClass('hidden')
+      //   })
       //
       this.strategies.forEach((s) => {
         let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)

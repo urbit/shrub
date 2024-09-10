@@ -79,6 +79,7 @@
       =event  "/sky-event/sky"
       =return  "/event/detail"
       =default-strategies  default-strategies-json
+      ::=post-html  (en-xml:html make-a-post)
       ;+  form-theme
       ;+  notifications
     ==
@@ -140,8 +141,8 @@
       [:(welp dst #/strategy here) %make %order `order/!>(strats) ~]
       ==
         %share-to-feed
-      ~&  strats
       =/  renderer
+      ::  XX: tree renderer for now as a default
         ?~  strats  /tree
         (head strats)
       :~
@@ -352,6 +353,12 @@
       ;div.p3.br1.bd1: second
       ;div.p3.br1.bd1: third
     ==
+  ::
+  ++  make-a-post
+    ;div(slot "post")
+      ;imp_mast-diary-ui: /home/diary
+    ==
+  ::
   ++  lift
     |=  in=manx
     ^-  manx
