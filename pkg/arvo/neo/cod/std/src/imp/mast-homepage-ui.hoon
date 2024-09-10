@@ -1,4 +1,6 @@
 /@  manx
+/@  widget
+/@  homepage
 /@  ui-event
 /-  su=shrub-utils
 /-  feather-icons
@@ -13,9 +15,11 @@
   %-  my
   :~  :^    %src
           &
-        [pro/%pith (sy %sig ~)]
+        [pro/%homepage (sy %sig ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
+      ::  XX should change last %tas to %t
+      ::     to accomodate pro/widget name
       :~  :-  [|/%tas &/%widget |/%tas |]
           [pro/%manx (sy %sig ~)]
       ==
@@ -55,6 +59,14 @@
     ::
         %rely
       ~&  >>  "got rely!"
+      :: ~&  >>  "src"
+      :: ~&  >>  q:(~(got by deps.bowl) %src)
+      :: ~&  >>  "kids of /default"
+      :: ~&  >>  (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default)
+      :: ~&  >>  "map of kids of /default"
+      :: ~&  >>  ~(tar of:neo (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default))
+      :: ~&  >>  "list of kids of /default"
+      :: ~&  >>  ~(tap of:neo (~(kids of:neo q:(~(got by deps.bowl) %src)) #/default))
       =/  =lore:neo
       q:(~(got by deps.bowl) %src)
       :-  ~
@@ -67,17 +79,17 @@
 |%
 ::
 +$  render-data
-  $:  =pith
+  $:  =homepage
       =bowl:neo
   ==
 ++  get-render-data
   |=  =lore:neo
-  ^-  pith
+  ^-  homepage
   =/  data  (get-vase-saga-by-pith lore ~)
   ?~  data
     ~_  leaf/"No data to render"
     !!
-  !<(pith (need data))
+  !<(homepage (need data))
 ::
 ::  XX taken from another version of /lib/shrub-utils,
 ::     remove once that's merged
@@ -189,13 +201,17 @@
     ==
   ++  widgets
     ^-  manx
+    ;div
+      =style  "border: 1px solid red; max-height: 1000px; overflow: hidden;"
+      ;imp_mast-diary-ui: {(en-tape:pith:neo #/[p/our.bowl]/home/diary)}
+    ==
     :: ~&  >>  %~  tap  in  %~  key  by  %-  %~  kid  of:neo  q:(~(got by deps.bowl) %src)  ~
     :: ;div
     ::   ;  foobar
     :: ==
-    ;div
-      ;+  !<(manx (need (get-vase-saga-by-pith q:(~(got by deps.bowl) %src) ~[%default %widget %foobar])))
-    ==
+    :: ;div
+    ::   ;+  !<(manx (need (get-vase-saga-by-pith q:(~(got by deps.bowl) %src) ~[%default %widget %foobar])))
+    :: ==
   ::
   :: ++  display-count
   ::   ^-  manx

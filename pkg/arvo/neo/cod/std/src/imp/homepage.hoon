@@ -13,6 +13,8 @@
   ^-  kids:neo
   :+  ~  %y
   %-  ~(gas by *lads:neo)
+  ::  XX should change last %tas to %t
+  ::     to accomodate pro/widget name
   :~  :-  [|/%tas &/%widget |/%tas |]
       [pro/%manx (sy %sig ~)]
   ==
@@ -53,7 +55,7 @@
 ++  form
   ^-  form:neo
   |_  [=bowl:neo =aeon:neo =stud:neo state-vase=vase]
-    +*  state  !<(pith state-vase)
+    +*  state  !<(homepage state-vase)
     ++  init
       |=  old=(unit pail:neo)
       ^-  (quip card:neo pail:neo)
@@ -69,7 +71,7 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
-      ?>  =(stud %homepage)
-      [~ [%homepage vaz]]
+      ?>  =(stud %pith)
+      [~ [%homepage !>([!<(pith vaz) q.state])]]
   --
 --
