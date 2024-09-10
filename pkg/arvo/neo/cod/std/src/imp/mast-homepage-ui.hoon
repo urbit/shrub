@@ -181,8 +181,8 @@
                 ;+  urbit-id
                 ::  about
                 ;span.f1.s0
-                  =style  "max-height: 118px; overflow: hidden;"
-                  ;  Lorem ipsum odor amet, consectetuer adipiscing elit. Pellentesque praesent mus volutpat sem semper a rutrum. Praesent integer orci conubia auctor vulputate diam. Cras consequat aptent mattis placerat himenaeos penatibus. Nam tortor nam malesuada maecenas lectus. Maecenas integer dignissim varius eleifend; enim donec egestas. Potenti volutpat urna senectus sagittis at, porttitor sagittis. Urna sed natoque orci neque nisl vulputate mauris eleifend varius! Nulla curae nisi pulvinar vel potenti pharetra fringilla scelerisque ullamcorper.
+                  =style  "max-height: 175px; overflow: hidden;"
+                  ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
                 ==
               ==
             ==
