@@ -39,6 +39,10 @@
       [pro/%time (sy %sig ~)]
       :-  [|/%tas &/%username |/%t |]
       [pro/%txt (sy %sig ~)]
+      ::  XX should limit to 256 characters
+      ::     seems like an acceptable general-purpose
+      ::     length for a global bio; if you really want
+      ::     to write an autobiography do it in a widget
       :-  [|/%tas &/%about |/%t |]
       [pro/%txt (sy %sig ~)]
       :-  [|/%tas |/%tas &]
