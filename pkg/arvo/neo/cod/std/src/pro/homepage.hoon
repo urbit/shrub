@@ -1,4 +1,1 @@
-/@  manx
-/@  pith
-/@  widget
-,(pair pith (list widget))
+,(pair =pith:neo widget-order=(list pith:neo))
