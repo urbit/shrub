@@ -8,7 +8,7 @@
 =<
 |%
 ++  state  pro/%manx
-++  poke   (sy %ui-event %rely ~)
+++  poke   (sy %rely %ui-event ~)
 ++  kids   *kids:neo
 ++  deps
   ^-  deps:neo

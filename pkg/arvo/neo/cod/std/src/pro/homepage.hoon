@@ -1,1 +1,1 @@
-,(pair =pith:neo widget-order=(list pith:neo))
+,[=pith:neo widget-order=(list pith:neo)]

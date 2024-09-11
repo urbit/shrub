@@ -8,7 +8,7 @@
   pro/%homepage
 ++  poke
   ^-  (set stud:neo)
-  (sy %homepage ~)
+  (sy %gift %homepage ~)
 ++  kids
   ^-  kids:neo
   :+  ~  %y
@@ -69,7 +69,26 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
-      ?>  =(stud %homepage)
-      [~ [%homepage vaz]]
+      ?+      stud
+            !!
+          %homepage
+        [~ [%homepage vaz]]
+      ::
+          %gift
+        =/  giv  !<(gift:neo vaz)
+        :-  ~
+        :-  %homepage
+        !>  ^-  homepage
+        :-  pith.state
+        %+  welp
+          widget-order.state
+        %+  murn
+          ~(tap of:neo giv)
+        |=  [=pith:neo =loot:neo]
+        ^-  (unit pith:neo)
+        ?.  =(mode.loot %add)
+          ~
+        `pith
+      ==
   --
 --
