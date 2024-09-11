@@ -19,7 +19,7 @@
       :+  ~  %y
       %-  ~(gas by *lads:neo)
       :~  :-  [|/%tas &/%widget |/%t |]
-          [pro/%manx (sy %sig ~)]
+          [pro/%widget (sy %sig ~)]
       ==
   ==
 ++  form

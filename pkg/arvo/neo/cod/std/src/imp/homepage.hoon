@@ -1,6 +1,7 @@
 /@  manx
 /@  pith
 /@  homepage
+/@  widget
 ^-  kook:neo
 |%
 ++  state
@@ -14,7 +15,7 @@
   :+  ~  %y
   %-  ~(gas by *lads:neo)
   :~  :-  [|/%tas &/%widget |/%t |]
-      [pro/%manx (sy %sig ~)]
+      [pro/%widget (sy %sig ~)]
   ==
 ++  deps
   %-  ~(gas by *deps:neo)
