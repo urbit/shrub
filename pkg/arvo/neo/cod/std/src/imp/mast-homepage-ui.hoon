@@ -192,17 +192,18 @@
   ++  widgets
     ^-  manx
     ;div
-      =style  "border: 1px solid red; max-height: 1000px; overflow: hidden;"
-      ;imp_mast-diary-ui: {(en-tape:pith:neo #/[p/our.bowl]/home/diary)}
+      ;*  %+  turn
+            widget-order.homepage
+          |=  =pith:neo
+          ::  XX get widget at this pith, so manx and
+          ::     columns attributes are available
+          ::  widget container
+          ;div.br1
+            ::  XX remove border style
+            =style  "border: 1px solid red; overflow: hidden;"
+            ;  {<(pout pith)>}
+          ==
     ==
-    :: ~&  >>  %~  tap  in  %~  key  by  %-  %~  kid  of:neo  q:(~(got by deps.bowl) %src)  ~
-    :: ;div
-    ::   ;  foobar
-    :: ==
-    :: ;div
-    ::   ;+  !<(manx (need (get-vase-saga-by-pith q:(~(got by deps.bowl) %src) ~[%default %widget %foobar])))
-    :: ==
-  ::
   :: ++  display-count
   ::   ^-  manx
   ::   ;p
