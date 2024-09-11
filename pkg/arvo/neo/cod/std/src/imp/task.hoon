@@ -59,6 +59,15 @@
     ~&  >  poke/stud
     ?+    stud  !!
         %gift
+      ::check if %del case from tree view
+      =/  =gift:neo  !<(gift:neo vax)
+      =/  gift-card=[=pith:neo =loot:neo]
+        %+  snag  0
+         ~(tap of:neo gift)
+      ?:  =(mode.loot.gift-card %del)  
+        =/  i  (find [pith.gift-card ~] order.this)
+        ?~  i  [~ task/!>(this)]
+        [~ task/!>(this(order (oust [(need i) 1] order.this)))]
       ::check if all kid tasks are done
       =/  dun  (check-kids bowl)
       [~ task/!>(this(done dun, kids-done dun))]

@@ -92,7 +92,12 @@
   ++  on-load
     |=  vax=vase
     =+  !<(sta=state-0 vax)
-    `this(state sta)
+    ?:  ripe.sta
+      `this(state sta)
+    =^  cards  state
+      abet:boot:run
+    [cards this]
+  ::
   ++  on-poke
     |=  =cage
     ^-  (quip card _this)
@@ -1564,7 +1569,13 @@
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
-    (emit (do-card #/[p/our.bowl]/srv/sky %make %sky-eyre ~ ~))
+    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ ~))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/mast %make %mast ~ ~))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/self %make %self ~ ~))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/srv/tree %make %tree-eyre ~ (~(gas by *crew:neo) src/#/[p/our.bowl] ~)))
   run
   ++  pess  |=(=post:neo (~(pith press post) %out))
   ++  clay-beak  ^-  path
