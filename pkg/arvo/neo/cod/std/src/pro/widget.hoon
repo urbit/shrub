@@ -1,5 +1,4 @@
-/@  manx
-::  XX should add name=@t
-$:  columns=@ud
-    =manx
+$:  name=@t
+    columns=@ud
+    =pith:neo
 ==
