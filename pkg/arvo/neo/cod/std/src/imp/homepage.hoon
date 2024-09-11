@@ -8,7 +8,7 @@
   pro/%homepage
 ++  poke
   ^-  (set stud:neo)
-  (sy %pith ~)
+  (sy %homepage ~)
 ++  kids
   ^-  kids:neo
   :+  ~  %y
