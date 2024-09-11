@@ -18,9 +18,7 @@
         [pro/%homepage (sy %sig ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
-      ::  XX should change last %tas to %t
-      ::     to accomodate pro/widget name
-      :~  :-  [|/%tas &/%widget |/%tas |]
+      :~  :-  [|/%tas &/%widget |/%t |]
           [pro/%manx (sy %sig ~)]
       ==
   ==
