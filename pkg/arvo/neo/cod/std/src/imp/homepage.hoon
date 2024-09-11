@@ -71,7 +71,7 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
-      ?>  =(stud %pith)
-      [~ [%homepage !>([!<(pith vaz) q.state])]]
+      ?>  =(stud %homepage)
+      [~ [%homepage vaz]]
   --
 --
