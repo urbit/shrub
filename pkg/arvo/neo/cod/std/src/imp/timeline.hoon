@@ -1,5 +1,7 @@
 /@  timeline
 /@  timeline-diff
+/@  post
+/-  fp=feed-parser
 =>
 ::
 |%
@@ -23,7 +25,22 @@
   :~  :-  [|/%p |]
       [pro/%sig ~]
   ==
-++  deps  *deps:neo
+::  add dep to bookmarked sky renderers
+::  to fetch renderer
+++  deps  
+  %-  ~(gas by *band:neo)
+  :~  :-  %src
+      ^-  fief:neo
+      :-  req=&
+      ^-  quay:neo
+      :-  [pro/%sig ~]
+      ^-  (unit port:neo)
+      :+  ~  %z
+      %-  ~(gas by *lads:neo)
+      :~  :-  &
+          `lash:neo`[pro/%order ~]
+      ==
+  ==
 ++  form
   |_  [=bowl:neo =aeon:neo state=pail:neo]
   ++  init
@@ -39,8 +56,9 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     =/  following  !<(timeline q.state)
-    ?+    stud  !!
-        %timeline-diff
+    ::?+    stud  !!
+    ::    %timeline-diff
+    ?>  =(%timeline-diff stud)
       =/  poke  !<(timeline-diff vax)
       ?-    -.poke
           :: XX if you unfollow and refollow, what happens?
@@ -57,12 +75,34 @@
         :-  (make-sub [here.bowl ship.poke])
         state
       ::
-          %post
+          %post  ::  [%post [renderer=pith =pith]]
         :_  state
         :~  :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post post.poke])]
         ==
+      ::
+          %make-post  ::[%make-post txt=cord]
+        =/  piths=(list pith)  (get-pith:fp +.poke)
+        =/  =lore:neo  q:(~(got by deps.bowl) %src)
+        =/  posts=(list post)
+          %+  turn  piths
+          |=  pit=pith
+          =/  u-idea=(unit idea:neo)  (~(get of:neo lore) (oust [0 2] pit))
+          ::
+          :: XX for now default renderer will be /tree 
+          ::
+          ?~  u-idea  [/tree pit]
+          =/  order
+          !<((list pith:neo) q.pail:(need u-idea))
+          [(head order) pit]
+        ~&  >  posts/posts
+        =/  pith  /[p/our.bowl]/posts/[da/now.bowl]
+        :_  state 
+        :~  [pith %make %quote-post `quote-post/!>([+.poke posts]) ~]  
+            :-  (welp here.bowl ~[p/our.bowl])
+            [%poke post/!>([%post `post`[/blue/post-pith-ui pith]])]
+        ==
       ==
-    ==
+    ::==
   --
 --

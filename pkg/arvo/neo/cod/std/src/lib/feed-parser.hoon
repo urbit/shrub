@@ -1,3 +1,4 @@
+/-  su=shrub-utils
 |%
 ++  body-parser
   |_  [body=cord]
@@ -76,6 +77,7 @@
     ;;  tape  (zing wall)
   ::
   ::  closing meta-tag
+  ::
   ++  close-meta
     |=  meta=tape
     =/  ix  (sub (lent meta) 2)
@@ -88,9 +90,9 @@
   %-  crip 
   (oust [0 (sub (lent tape) 3)] tape)
 ::
-++  txt-parser
+++  txt-to-words
   |=  text=tape 
-  ^-  [(unit tape) tape]
+  ^-  (list tape)
   =/  =wall
     ;;  wall
     %+  scan  text
@@ -109,16 +111,49 @@
   ;;  (list tape)
   (scan t ;~(plug (more gaq (star ;~(pose (shim 33 255))))))
   ::
-  ::~&  >>  txt-parser/words
+  ~&  >>  txt-parser/words
+  words
+  ::
+  ++  get-url
+  |=  text=tape
+  ^-  [url=(unit tape) pith=(unit tape) txt=tape]
+  =/  words  (txt-to-words text)
   ::
   ::  right now there is no new line gap accounted for we just cutting them out to parse text 
   ::  XX:  add logic for adding '/0a' spaces back into tape
   ::
-  =/  skid-wall
+  =/  skid-url
     %+  skid  words
     |=  t=tape
     =(~ (de-purl:html (crip t)))
-  =/  url-out=tape  (zing (join " " p.skid-wall))
-  ?~  q.skid-wall  [~ url-out]
-  [(some (head q.skid-wall)) url-out]
+  ::
+  =/  skid-pith
+    %+  skid  p.skid-url
+    |=  t=tape
+    =(~ (rust t stap))
+  ::
+  ::  XX:  for now takes only first url and first pith out of text
+  ::
+  =/  txt=tape  (zing (join " " p.skid-url))
+  ?~  q.skid-pith
+    ?~  q.skid-url  [~ ~ txt]
+    [(some (head q.skid-url)) ~ txt]
+  =/  pith  (some (head q.skid-pith))
+  ?~  q.skid-url  [~ pith txt]
+  [(some (head q.skid-url)) pith txt]
+  ::
+  ++  get-pith
+  |=  =cord
+  ^-  (list pith)
+  =/  words  (txt-to-words (trip cord))
+  ~&  >  words/words
+  =/  piths=(list tape)  
+    %+  skip  words
+    |=  t=tape
+    =(~ (rust t stap))
+  ~&  >>  piths/piths
+  %+  turn  piths
+  |=  =tape 
+  ~&  >>>  (en-pith:su (crip tape))
+  (en-pith:su (crip tape))
 --

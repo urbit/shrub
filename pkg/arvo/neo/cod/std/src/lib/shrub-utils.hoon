@@ -64,7 +64,7 @@
   ^-  pith
   %-  pave:neo
   ;;  path
-  %-  stub  cord
+  %-  stab  cord
 ::
 :: ???
 ::

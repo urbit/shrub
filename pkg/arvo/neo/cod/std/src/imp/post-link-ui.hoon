@@ -151,12 +151,12 @@
   =/  txt  !<(txt q.q.saga.idea)
   =/  text=tape  (trip txt)
   ~&  text
-  =/  parsed=[(unit tape) tape]  (txt-parser:fp text)
-  ?~  -.parsed 
-    (url-renderer %txt -.parsed text)
-  =/  url  (need -.parsed)
+  =/  parsed=[url=(unit tape) pith=(unit tape) txt=tape]
+      (get-url:fp text)
+  ?~  url.parsed  (url-renderer %txt url.parsed text)
+  =/  url  (need url.parsed)
   =/  type=@tas  (url-parser:fp url)
-  (url-renderer type url +.parsed)
+  (url-renderer type url txt.parsed)
   ::
     ++  url-renderer
     |_  [type=@tas url=tape text=tape]

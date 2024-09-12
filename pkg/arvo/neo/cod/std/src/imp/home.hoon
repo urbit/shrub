@@ -53,6 +53,8 @@
         [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
       ::
         [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/hawk ~]) ~]
+      ::
+        ::[#/[p/our.bowl]/home/feed %make %timeline ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/sky/strategy ~)]
     ==
   ++  poke
     |=  =pail:neo

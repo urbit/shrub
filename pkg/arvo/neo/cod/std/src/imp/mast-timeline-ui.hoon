@@ -3,6 +3,7 @@
 /-  feather-icons
 /-  serv=sky-server
 /-  su=shrub-utils
+/-  fp=feed-parser
 ^-  kook:neo
 =<
 |%
@@ -45,9 +46,13 @@
       =/  =cord  (~(got by data.event) 'post')
       =/  renderer=pith  /blue/post-link-ui
       =/  pith  /[p/our.bowl]/posts/[da/now.bowl] 
+      =/  quote-post-piths  (get-pith:fp cord)
       :_  pail
-      :~  [here %poke [%timeline-diff !>([%post [renderer pith]])]]
-          [pith %make %txt `txt/!>(cord) ~]
+      ?~  quote-post-piths
+        :~  [here %poke [%timeline-diff !>([%post [renderer pith]])]]
+            [pith %make %txt `txt/!>(cord) ~]
+        ==
+      :~  [here %poke [%timeline-diff !>([%make-post cord])]]
       ==
         %rely
       =/  =lore:neo  q:(~(got by deps.bowl) %src)
