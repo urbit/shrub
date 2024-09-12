@@ -203,7 +203,7 @@
           ::  widget container
           ;div.br1
             ::  XX remove border style
-            =style  "border: 1px solid red; overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>}; aspect-ratio: 1 / 1;"
+            =style  "border: 1px solid red; overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>}; aspect-ratio: {<columns.widget>} / {<rows.widget>};"
             ::  widget
             ;+  manx.widget
           ==
