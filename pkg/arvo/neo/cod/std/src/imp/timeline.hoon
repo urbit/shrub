@@ -25,15 +25,14 @@
   :~  :-  [|/%p |]
       [pro/%sig ~]
   ==
-::  add dep to bookmarked sky renderers
-::  to fetch renderer
+::  /[p/our]/sky/strategy/[p/our]
 ++  deps  
   %-  ~(gas by *band:neo)
   :~  :-  %src
       ^-  fief:neo
       :-  req=&
       ^-  quay:neo
-      :-  [pro/%sig ~]
+      :-  [pro/%order ~]
       ^-  (unit port:neo)
       :+  ~  %z
       %-  ~(gas by *lads:neo)
@@ -75,19 +74,19 @@
         :-  (make-sub [here.bowl ship.poke])
         state
       ::
-          %post  ::  [%post [renderer=pith =pith]]
+          %post
         :_  state
         :~  :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post post.poke])]
         ==
       ::
-          %make-post  ::[%make-post txt=cord]
+          %make-post
         =/  piths=(list pith)  (get-pith:fp +.poke)
         =/  =lore:neo  q:(~(got by deps.bowl) %src)
         =/  posts=(list post)
           %+  turn  piths
           |=  pit=pith
-          =/  u-idea=(unit idea:neo)  (~(get of:neo lore) (oust [0 2] pit))
+          =/  u-idea=(unit idea:neo)  (~(get of:neo lore) (oust [0 1] pit))
           ::
           :: XX for now default renderer will be /tree 
           ::

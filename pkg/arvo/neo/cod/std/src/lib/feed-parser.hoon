@@ -116,31 +116,21 @@
   ::
   ++  get-url
   |=  text=tape
-  ^-  [url=(unit tape) pith=(unit tape) txt=tape]
+  ^-  [url=(unit tape) txt=tape]
   =/  words  (txt-to-words text)
   ::
-  ::  right now there is no new line gap accounted for we just cutting them out to parse text 
-  ::  XX:  add logic for adding '/0a' spaces back into tape
+  ::  XX  add logic for adding '/0a' spaces back into tape
   ::
   =/  skid-url
     %+  skid  words
     |=  t=tape
     =(~ (de-purl:html (crip t)))
   ::
-  =/  skid-pith
-    %+  skid  p.skid-url
-    |=  t=tape
-    =(~ (rust t stap))
-  ::
-  ::  XX:  for now takes only first url and first pith out of text
+  ::  XX  for now takes only first url out of text
   ::
   =/  txt=tape  (zing (join " " p.skid-url))
-  ?~  q.skid-pith
-    ?~  q.skid-url  [~ ~ txt]
-    [(some (head q.skid-url)) ~ txt]
-  =/  pith  (some (head q.skid-pith))
-  ?~  q.skid-url  [~ pith txt]
-  [(some (head q.skid-url)) pith txt]
+  ?~  q.skid-url  `txt
+  [(some (head q.skid-url)) txt]
   ::
   ++  get-pith
   |=  =cord

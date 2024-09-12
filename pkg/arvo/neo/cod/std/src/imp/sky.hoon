@@ -48,6 +48,8 @@
     :~
       [~[p/our.bowl %home] %make %home ~ ~]
       [here.bowl %poke bind-static-assets/!>(~)]
+      [#/[p/our.bowl]/sky/strategy/[p/our.bowl] %make %order `order/!>(~) ~]
+      [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/hawk ~]) ~]
     ==
   --
 --

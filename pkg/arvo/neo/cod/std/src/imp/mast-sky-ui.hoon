@@ -137,6 +137,7 @@
         pave:neo
     ?+  act  ~|(%unsupported-action !!)
         %bookmark-renderer
+      ~&  >>  new-bookmark/strats
       :~
       [:(welp dst #/strategy here) %make %order `order/!>(strats) ~]
       ==
