@@ -193,7 +193,7 @@
     ^-  manx
     ::  widget grid
     ;div
-      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;"
+      =style  "display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;"
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
@@ -203,7 +203,7 @@
           ::  widget container
           ;div.br1
             ::  XX remove border style
-            =style  "border: 1px solid red; overflow: hidden; grid-column: span {<columns.widget>}"
+            =style  "border: 1px solid red; overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>}; aspect-ratio: 1 / 1;"
             ::  widget
             ;+  manx.widget
           ==
