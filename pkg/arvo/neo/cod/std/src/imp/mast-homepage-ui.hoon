@@ -191,7 +191,9 @@
     ==
   ++  widgets
     ^-  manx
+    ::  widget grid
     ;div
+      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;"
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
@@ -201,7 +203,8 @@
           ::  widget container
           ;div.br1
             ::  XX remove border style
-            =style  "border: 1px solid red; overflow: hidden;"
+            =style  "border: 1px solid red; overflow: hidden; grid-column: span {<columns.widget>}"
+            ::  widget
             ;+  manx.widget
           ==
     ==
