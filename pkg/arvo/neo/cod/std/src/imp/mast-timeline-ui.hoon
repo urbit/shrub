@@ -70,6 +70,7 @@
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
+        ;+  script
       ==
       ;body
         ;main.p-page.mw-page.ma.fc.g2
@@ -78,6 +79,21 @@
           ;+  feed
         ==
       ==
+    ==
+  ::
+  ++  script 
+    ;script
+      ;+  ;/  %-  trip
+      '''
+      function resizeIframe(obj) {
+      let scrollHeight = obj.contentWindow.document.documentElement.scrollHeight;
+        if (scrollHeight > 300) {
+          obj.style.height = '300px';
+        } else {
+          obj.style.height = scrollHeight + 'px';
+        }
+      }
+      '''
     ==
   ::
   ++  make-post 
@@ -93,7 +109,7 @@
       =autocomplete  "off"
       ;
       ==
-      ;button.loader.p1.bd1.br1.b1.hf
+      ;button.loader.p1.bd1.br1.b1.hf.hover
       =style  "align-self: end;"
       =type  "submit"
         ;span.loaded: post
@@ -165,8 +181,6 @@
     |=  =pith:neo
     =/  idea=idea:neo  (~(got of:neo lore) pith)
     =/  post  !<([renderer=pith:neo pith=pith:neo] q.q.saga.idea)
-    ~&  >  post/pith
-    ~&  (en-tape:pith:neo (welp /storage/comments/[p/our.bowl]/home/feed pith))
     =/  post-date  ;;  @da  +:(rear pith)
     :: =/  renderer=pith  
     ::   ?~  renderer.post  /tree
@@ -177,7 +191,9 @@
         ;p:  {(pretty-date post-date)}
       ==
       ;iframe.wf.bd2.post.br2.b2.grow   
-        =src  (en-tape:pith:neo (welp renderer.post pith.post))
+      =style   "max-height: 300px;"
+      =onload  "resizeIframe(this)"
+      =src  (en-tape:pith:neo (welp renderer.post pith.post))
         ;
       ==
       ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed pith))}

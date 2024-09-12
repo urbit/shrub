@@ -65,7 +65,10 @@
       ;div.fr.je.p1.g1
         ;button.bd1.br3.b2.hover
         =onclick  "this.parentNode.nextSibling.classList.toggle('hidden');"
-          ;span: +
+          ;span
+          =style  "padding: 1px;"
+          ; +
+          ==
         ==
         ;+  
         ?~  meta  

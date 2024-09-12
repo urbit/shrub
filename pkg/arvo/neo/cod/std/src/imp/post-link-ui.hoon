@@ -132,15 +132,16 @@
   |_  [=bowl:neo name=pith]
   ++  render
     ^-  manx
-    ;html.hf  
+    ;html.hfc  
+    =style  "overflow: hidden;"
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
       ==
-      ;body.b2.hf
-        =hx-ext  "dom-enc"
+      ;body.b2.hfc
+      =style  "min-height: unset;"
+      =hx-ext  "dom-enc"
         ;main.ma.fc.g1
-        =style  "max-height: 300px; box-sizing: border-box;"
           ;+  post-txt
         ==  
       == 
@@ -197,8 +198,8 @@
       ==
       ::
       ++  txt-renderer
-      ;div.hf.fc.as.p4.wf    
-      =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
+      ;div.hfc.fc.as.p4.wf    
+      ::=style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
         ;p.grow: {text}
       ==
       ::

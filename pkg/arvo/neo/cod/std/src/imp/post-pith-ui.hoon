@@ -92,18 +92,34 @@
   |_  [=bowl:neo name=pith]
   ++  render
     ^-  manx
-    ;html.hf  
+    ;html.hfc
+    =style  "overflow: hidden;"
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
+        ;+  script
       ==
-      ;body.b2.hf
-        =hx-ext  "dom-enc"
+      ;body.b2.hfc
+      =style  "min-height: unset;"
+      =hx-ext  "dom-enc"
         ;main.ma.fc.g1
-        =style  "max-height: 300px; box-sizing: border-box;"
           ;+  render-post
         ==  
       == 
+    ==
+  ++  script 
+    ;script
+      ;+  ;/  %-  trip
+      '''
+      function resizeIframe(obj) {
+      let scrollHeight = obj.contentWindow.document.documentElement.scrollHeight;
+        if (scrollHeight > 300) {
+          obj.style.height = '300px';
+        } else {
+          obj.style.height = scrollHeight + 'px';
+        }
+      }
+      '''
     ==
   ++  render-post 
     =/  =lore:neo  q:(~(got by deps.bowl) %src)
@@ -111,14 +127,15 @@
     =/  quote-post  !<(quote-post q.q.saga.idea)
     =/  text  (trip -.quote-post)
     =/  posts=(list post)  +.quote-post
-    ;div.hf.fc.ac.p2.g1
+    ;div.fc.p2.g1
       =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;p.grow.p2: {text}
-      ;div
+      ;div.fc.ac.p2
       ;*  
         %+  turn  posts 
         |=  p=post
         ;iframe.wf.bd2.post.br2.b2.grow
+        =onload  "resizeIframe(this)"
         =src  (en-tape:pith:neo (welp renderer.p pith.p))
         ;
         ==
