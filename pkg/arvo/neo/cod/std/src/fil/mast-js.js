@@ -59,21 +59,23 @@ function setEventListeners(el) {
     });
 };
 function pokeThrottle(ms, ...pokeArgs) {
-    let ready = true;
-    return (e) => {
-        if (!ready) return;
-        ready = false;
-        window.setTimeout(() => { ready = true; }, ms);
-        pokeShip(e, e.currentTarget, ...pokeArgs);
-    };
-};
+  let ready = true
+  return (e) => {
+    if (!ready) return
+    ready = false
+    window.setTimeout(() => {
+      ready = true
+    }, ms)
+    pokeShip(e, e.currentTarget, ...pokeArgs)
+  }
+}
 function pokeDebounce(ms, ...pokeArgs) {
-    let timeoutId = null;
-    return (e) => {
-        window.clearTimeout(timeoutId);
-        timeoutId = window.setTimeout(() => pokeShip(e, e.target, ...pokeArgs), ms);
-    };
-};
+  let timeoutId = null
+  return (e) => {
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => pokeShip(e, e.target, ...pokeArgs), ms)
+  }
+}
 function pokeShip(event, target, eventType, eventAttr, returnAttrVals) {
     let parentComponent = target.closest('[rope]');
     const rope = Number(parentComponent.getAttribute('rope'));
@@ -101,55 +103,63 @@ function pokeShip(event, target, eventType, eventAttr, returnAttrVals) {
     });
 };
 function handleReturnAttr(event, target, returnAttrVals) {
-    let returnData = {};
-    returnAttrVals.split(/\s+/).forEach(returnAttr => {
-        let splitReturnAttr = returnAttr.split('/');
-        if (splitReturnAttr[0] === '') splitReturnAttr.shift();
-        const returnObjSelector = splitReturnAttr[0];
-        const key = splitReturnAttr[1];
-        if (returnObjSelector === 'event') {
-            if (!(key in event)) {
-                console.error(`Property: ${key} does not exist on the event object`);
-                return;
-            };
-            returnData[returnAttr] = String(event[key]);
-        } else {
-            let returnObj;
-            if (returnObjSelector === 'target') {
-                returnObj = target;
+  let returnData = {}
+  returnAttrVals.split(/\s+/).forEach((returnAttr) => {
+    let splitReturnAttr = returnAttr.split('/')
+    if (splitReturnAttr[0] === '') splitReturnAttr.shift()
+    const returnObjSelector = splitReturnAttr[0]
+    const key = splitReturnAttr[1]
+    if (returnObjSelector === 'event') {
+      if (!(key in event)) {
+        console.error(`Property: ${key} does not exist on the event object`)
+        return
+      }
+      returnData[returnAttr] = String(event[key])
+    } else {
+      let returnObj
+      if (returnObjSelector === 'target') {
+        returnObj = target
+      } else {
+        const linkedEl = document.getElementById(returnObjSelector)
+        if (!linkedEl) {
+          console.error(`No element found for id: ${returnObjSelector}`)
+          return
+        }
+        returnObj = linkedEl
+      }
+      if (key.startsWith('data')) {
+        const dataKey = key
+          .substring(5)
+          .split('-')
+          .map((w, i) => {
+            if (i === 0) {
+              return w.toLowerCase()
             } else {
-                const linkedEl = document.getElementById(returnObjSelector);
-                if (!linkedEl) {
-                    console.error(`No element found for id: ${returnObjSelector}`);
-                    return;
-                };
-                returnObj = linkedEl;
-            };
-            if (key.startsWith('data')) {
-                const dataKey = key.substring(5).split('-').map((w, i) => {
-                    if (i === 0) {
-                        return w.toLowerCase();
-                    } else {
-                        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
-                    };
-                }).join('');
-                if (!returnObj.dataset.hasOwnProperty(dataKey)) {
-                    console.error(`Property: ${dataKey} does not exist on the specified object`);
-                    return;
-                };
-                returnData[returnAttr] = String(returnObj.dataset[dataKey]);
-            } else {
-                if (!(key in returnObj)) {
-                    console.error(`Property: ${key} does not exist on the specified object`);
-                    return;
-                };
-                // TODO: handle other properties that don't cast to string
-                returnData[returnAttr] = String(returnObj[key]);
-            };
-        };
-    });
-    return returnData;
-};
+              return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+            }
+          })
+          .join('')
+        if (!returnObj.dataset.hasOwnProperty(dataKey)) {
+          console.error(
+            `Property: ${dataKey} does not exist on the specified object`
+          )
+          return
+        }
+        returnData[returnAttr] = String(returnObj.dataset[dataKey])
+      } else {
+        if (!(key in returnObj)) {
+          console.error(
+            `Property: ${key} does not exist on the specified object`
+          )
+          return
+        }
+        // TODO: handle other properties that don't cast to string
+        returnData[returnAttr] = String(returnObj[key])
+      }
+    }
+  })
+  return returnData
+}
 function handleChannelStream(event) {
     const streamResponse = JSON.parse(event.data);
     // console.log(streamResponse);
@@ -311,10 +321,12 @@ function makePokeBody(jsonData) {
     }];
 };
 function makeAck(eventId) {
-    channelMessageId++;
-    return [{
-        id: channelMessageId,
-        action: 'ack',
-        "event-id": eventId
-    }];
-};
+  channelMessageId++
+  return [
+    {
+      id: channelMessageId,
+      action: 'ack',
+      'event-id': eventId
+    }
+  ]
+}

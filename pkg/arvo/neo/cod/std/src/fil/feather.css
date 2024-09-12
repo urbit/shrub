@@ -159,12 +159,10 @@ i {
   --39in: calc(39 * var(--1in));
   --40in: calc(40 * var(--1in));
 
-
   --br0: 0px;
   --br1: 3px;
   --br2: 6px;
   --br3: 12px;
-
 
   --light-b-3: #dd5522;
   --light-b-2: #ddaa33;
