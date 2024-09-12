@@ -1,5 +1,6 @@
+/@  manx
 $:  name=@t
     description=@t
     columns=@ud
-    =pith:neo
+    =manx
 ==

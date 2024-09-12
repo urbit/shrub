@@ -195,13 +195,14 @@
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
-          ::  XX get widget at this pith, so manx and
-          ::     columns attributes are available
+          =/  widget
+            !<  widget
+            q.pail:(~(got by ~(tar of:neo (~(del of:neo q:(~(got by deps.bowl) %src)) /))) pith)
           ::  widget container
           ;div.br1
             ::  XX remove border style
             =style  "border: 1px solid red; overflow: hidden;"
-            ;  {<(pout pith)>}
+            ;+  manx.widget
           ==
     ==
   :: ++  display-count
