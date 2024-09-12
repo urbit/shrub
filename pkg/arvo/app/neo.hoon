@@ -1566,8 +1566,6 @@
     (emit (do-card #/[p/our.bowl] %make %root ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/sky %make %sky ~ ~))
-  :: =.  run 
-  ::   (emit (do-card #/[p/our.bowl]/sky/strategy/[p/our.bowl] %make %order `order/!>([#/hawk ~]) ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
@@ -1973,7 +1971,6 @@
     ?.  =(~ get.block)
       arvo
     ?.  =(~ bad)
-      ~&  >>>  src/src
       ~|  make-no-dep/~(tap in bad)
       !!
     =.  arvo  (dance crew deps:~(kook husk src))

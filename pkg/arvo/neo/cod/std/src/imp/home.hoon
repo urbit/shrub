@@ -27,7 +27,6 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    ~&  >>>  'initiating home'
     :_  home/!>(*home)
     :~  
         [#/[p/our.bowl]/home/diary %make %diary ~ ~]
