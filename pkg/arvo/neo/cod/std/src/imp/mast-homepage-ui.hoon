@@ -193,7 +193,10 @@
     ^-  manx
     ::  widget grid
     ;div
-      =style  "display: grid; grid-auto-rows: 1fr; grid-template-columns: repeat(3, 1fr); grid-gap: 20px;"
+      ::  XX grid-auto-rows assumes 626px width of container; fix this
+      ::     either render a new grid with 1 column for smalle screens or
+      ::     dynamically adjust the grid-auto-rows value to container width
+      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; grid-auto-rows: calc((626px - 40px) / 3);"
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
@@ -202,8 +205,7 @@
             q.pail:(~(got by ~(tar of:neo (~(del of:neo q:(~(got by deps.bowl) %src)) /))) pith)
           ::  widget container
           ;div.br1
-            ::  XX remove border style
-            =style  "border: 1px solid red; overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>}; aspect-ratio: {<columns.widget>} / {<rows.widget>};"
+            =style  "overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
             ::  widget
             ;+  manx.widget
           ==
