@@ -191,7 +191,7 @@
         ;p:  {(pretty-date post-date)}
       ==
       ;iframe.wf.bd2.post.br2.b2.grow   
-      =style   "max-height: 300px;"
+      =style   "max-height: 300px; overflow: auto;"
       =onload  "resizeIframe(this)"
       =src  (en-tape:pith:neo (welp renderer.post pith.post))
         ;

@@ -173,7 +173,7 @@
       ::
       ++  fetch-metadata
       ;div.fc.as.p2.g1.hf.wf
-      =style  "overflow: auto; font-size: calc(1rem + (300px -   1em) / 100);"
+      ::=style  "overflow: auto; font-size: calc(1rem + (300px -   1em) / 100);"
         ;div
           ;+  
           ?:  =("" text)  ;div;
@@ -224,7 +224,7 @@
         ;p.grow.p2: {text}
         ;video.wf
         ::=width  "320"
-        =height  "240"
+        =height  "230"
         =controls  ""
           ;source
           =src  url
@@ -241,10 +241,12 @@
         ;div.fc.as.wf
           ;p.grow.p2: {text}
         ==
-        ;img.grow
-        =style  "max-height: 270px"
-        =src    url
-        ;
+        ;div.fr.jc.g1
+          ;img.grow
+          =style  "max-height: 230px"
+          =src    url
+          ;
+          ==
         ==
       ==
     --

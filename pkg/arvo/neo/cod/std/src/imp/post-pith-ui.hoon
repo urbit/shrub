@@ -113,8 +113,8 @@
       '''
       function resizeIframe(obj) {
       let scrollHeight = obj.contentWindow.document.documentElement.scrollHeight;
-        if (scrollHeight > 300) {
-          obj.style.height = '300px';
+        if (scrollHeight > 230) {
+          obj.style.height = '230px';
         } else {
           obj.style.height = scrollHeight + 'px';
         }
@@ -128,17 +128,21 @@
     =/  text  (trip -.quote-post)
     =/  posts=(list post)  +.quote-post
     ;div.fc.p2.g1
-      =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
+      ::=style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
       ;p.grow.p2: {text}
-      ;div.fc.ac.p2
+      ;div.fc.ac.p2.g2
       ;*  
         %+  turn  posts 
         |=  p=post
-        ;iframe.wf.bd2.post.br2.b2.grow
-        =onload  "resizeIframe(this)"
-        =src  (en-tape:pith:neo (welp renderer.p pith.p))
-        ;
-        ==
+        ::;a.hover.wf
+        ::=href  (en-tape:pith:neo (welp renderer.p pith.p))
+        ::=target  "_blank"
+          ;iframe.wf.bd2.post.br2.b2.grow
+          =onload  "resizeIframe(this)"
+          =src  (en-tape:pith:neo (welp renderer.p pith.p))
+          ;
+          ==
+        ::==
       ==
     ==
   --
