@@ -166,7 +166,7 @@
                 ;  John Doe
               ==
               ::  @p, conditionally rendered
-              ;  ~sampel-palnet
+              ;+  urbit-id
               ::  about section
               ;span.f1.s0
                 =style  "max-height: 175px; overflow: hidden;"
@@ -184,7 +184,7 @@
     ?:  =('' 'John Doe')
       ;div;
     ;span.s-1.f2
-       ;  ~sampel-palnet
+       ;  {(scow %p (tail (head here.bowl)))}
     ==
   ++  widgets
     ^-  manx
