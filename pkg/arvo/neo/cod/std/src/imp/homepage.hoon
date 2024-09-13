@@ -70,26 +70,42 @@
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
       ?>  =(our.bowl ship.src.bowl)
+      ::  XX accept %pith poke to change pith.state only
       ?+      stud
             !!
           %homepage
         [~ [%homepage vaz]]
       ::
           %gift
-        =/  giv  !<(gift:neo vaz)
+        =/  giv    !<(gift:neo vaz)
+        =/  gifts  ~(tap of:neo giv)
         :-  ~
         :-  %homepage
         !>  ^-  homepage
         :-  pith.state
-        %+  welp
-          widget-order.state
-        %+  murn
-          ~(tap of:neo giv)
-        |=  [=pith:neo =loot:neo]
-        ^-  (unit pith:neo)
-        ?.  =(mode.loot %add)
-          ~
-        `pith
+        %+  skip
+          %+  welp
+            widget-order.state
+          %+  murn
+            gifts
+          |=  [=pith:neo =loot:neo]
+          ^-  (unit pith:neo)
+          ?.  =(mode.loot %add)
+            ~
+          `pith
+        |=  current=pith
+        ^-  ?
+        %+  lien
+          %+  murn
+            gifts
+          |=  [=pith:neo =loot:neo]
+          ^-  (unit pith:neo)
+          ?.  =(mode.loot %del)
+            ~
+          `pith
+        |=  deleted=pith
+        ^-  ?
+        =(deleted current)
       ==
   --
 --
