@@ -144,22 +144,22 @@
       ;div.mw-page.ma
         ::  header image
         ;div.wf.br1.fr.ac.jc
-          =style  "width: 100%; max-height: 300px; overflow: hidden;"
+          =style  "width: 100%; max-height: 300px; margin-bottom: 20px; overflow: hidden;"
           ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: auto; display: block;");
         ==
         ;div
           =style  "display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; grid-auto-rows: auto;"
           ::  profile picture / sigil
           ;div.fr.js
-            =style  "grid-column: span 1; padding-left: 5px;"
+            =style  "grid-column: span 1;"
             ;div.fc.ac.br1
-              =style  "overflow: hidden; position: relative; top: -20px;"
+              =style  "overflow: hidden;"
               ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
             ==
           ==
           ::  header info
           ;div.fr.mw-page
-            =style  "grid-column: span 2; padding-top: 5px; padding-right: 5px;"
+            =style  "grid-column: span 2;"
             ;div.fc.grow.g1
               ::  name / username / @p
               ;span.s4.f0.bold
