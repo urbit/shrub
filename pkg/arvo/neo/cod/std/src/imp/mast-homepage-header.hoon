@@ -1,10 +1,10 @@
 /@  jpg
+/@  sig
 /@  png
 /@  txt
 /@  url
 /@  ui-event
 /@  hexadecimal
-:: /-  su=shrub-utils
 :: /-  feather-icons
 ^-  kook:neo
 =<
@@ -32,24 +32,14 @@
           [pro/%txt (sy %sig ~)]
           :: :-  [&/%organization |]
           :: [pro/%pith (sy %sig ~)]
-          :: :-  [&/%phone-number |]
-          :: [pro/%phone-number (sy %sig ~)]
-          :: :-  [&/%email |]
-          :: [pro/%email (sy %sig ~)]
           :-  [&/%url |]
           [pro/%url (sy %sig ~)]
-          :: :-  [&/%birthday |]
-          :: [pro/%time (sy %sig ~)]
-          :: :-  [&/%username |/%t |]
-          :: [pro/%txt (sy %sig ~)]
           ::  XX should limit to 256 characters
           ::     seems like an acceptable general-purpose
           ::     length for a global bio; if you really want
           ::     to write an autobiography do it in a widget
           :-  [&/%about |/%t |]
           [pro/%txt (sy %sig ~)]
-          :: :-  [|/%tas &]
-          :: [[%any ~] (sy %sig ~)]
       ==
   ==
 ++  form
@@ -62,7 +52,7 @@
     =/  =lore:neo
     q:(~(got by deps.bowl) %src)
     :-  ~
-    manx/!>((render bowl))
+    manx/!>((render (get-render-data lore) bowl))
   ::
   ++  poke
     |=  [sud=stud:neo vaz=vase]
@@ -87,12 +77,12 @@
     ::
         %rely
       ~&  >>  "got rely!"
-      ~&  >>  !<  cord
-              q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)
-      :: =/  =lore:neo
-      :: q:(~(got by deps.bowl) %src)
+      :: ~&  >>  !<  cord
+      ::         q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)
+      =/  =lore:neo
+      q:(~(got by deps.bowl) %src)
       :-  ~
-      manx/!>((render bowl))
+      manx/!>((render (get-render-data lore) bowl))
     ==
   ::
   --
@@ -101,18 +91,26 @@
 |%
 ::
 +$  render-data
-  $:  =bowl:neo
+  $:  sig
+      =bowl:neo
   ==
-:: ++  get-render-data
-::   |=  =lore:neo
-::   ^-  number
-::   =/  foo  (get-vase-saga-by-pith:su lore ~)
-::   ~&  >>  foo
-::   ~&  >>  (need foo)
-::   ::  ~&  >>  (need (need foo))
-::   ?~  foo
-::     !!
-::   !<(number (need foo))
+  ++  get-render-data
+    |=  =lore:neo
+    ^-  sig
+    =/  data  (get-vase-saga-by-pith lore ~)
+    ?~  data
+      ~_  leaf/"No data to render"
+      !!
+    !<(sig (need data))
+::
+::  XX taken from another version of /lib/shrub-utils,
+::     remove once that's merged
+++  get-vase-saga-by-pith
+  |=  [=lore:neo =pith:neo]
+  ^-  (unit vase)
+  =/  idea=(unit idea:neo)  (~(get of:neo lore) pith)
+  ?~  idea  ~
+  `q.q.saga:(need idea)
 ::
 ++  render
   |_  render-data
@@ -177,18 +175,9 @@
               ;div.fr.mw-page
                 =style  "grid-column: span 2;"
                 ;div.fc.grow.g1
-                  ::  name / username / @p
-                  ;span.s4.f0.bold
-                    :: ;  John Doe
-                    ;+  name
-                  ==
-                  ::  @p, conditionally rendered
+                  ;+  name
                   ;+  urbit-id
-                  ::  about section
-                  ;span.f1.s0
-                    =style  "max-height: 175px; overflow: hidden;"
-                    ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
-                  ==
+                  ;+  about
                 ==
               ==
             ==
@@ -199,6 +188,7 @@
   ::
   ++  name
     ^-  manx
+    ::  XX should handle cases where there is no display name
     ;span.s4.f0.bold
       ;  {(trip !<(cord q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)))}
     ==
@@ -210,6 +200,15 @@
       ;div;
     ;span.s-1.f2
         ;  {(scow %p (tail (head here.bowl)))}
+    ==
+  ::
+  ++  about
+    ^-  manx
+    ~&  >>  ~(key by ~(tar of:neo q:(~(got by deps.bowl) %src)))
+    ;span.f1.s0
+      =style  "max-height: 175px; overflow: hidden;"
+      ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
+      :: ;  {(trip !<(cord q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/about)))}
     ==
   --
 --
