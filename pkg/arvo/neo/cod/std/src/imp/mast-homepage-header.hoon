@@ -158,11 +158,7 @@
         ;div
           =style  "padding: 30px 0px 0px 0px;"
           ;div.mw-page.ma
-            ::  header image
-            ;div.wf.br1.fr.ac.jc
-              =style  "width: 100%; max-height: 300px; margin-bottom: 20px; overflow: hidden;"
-              ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: auto; display: block;");
-            ==
+            ;+  header-image
             ;div
               =style  "display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; grid-auto-rows: auto;"
               ;+  profile-image
@@ -234,5 +230,16 @@
         ;img(src (trip !<(cord q.pail.u.profile-image)));
       ==
     ==
+  ::
+  ++  header-image
+  ^-  manx
+  =/  header-image
+    (~(get by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/header-image)
+  ?~  header-image
+    ;div;
+  ;div.wf.br1.fr.ac.jc
+    =style  "width: 100%; max-height: 300px; margin-bottom: 20px; overflow: hidden;"
+    ;img(src (trip !<(cord q.pail.u.header-image)));
+  ==
   --
 --
