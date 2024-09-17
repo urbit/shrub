@@ -1,6 +1,6 @@
-/@  jpg
 /@  sig
-/@  png
+:: /@  jpg
+:: /@  png
 /@  txt
 /@  url
 /@  ui-event
@@ -21,9 +21,11 @@
       :+  ~  %z
       %-  ~(gas by *lads:neo)
       :~  :-  [&/%profile-image |]
-          [or/~[pro/%jpg pro/%png] (sy %sig ~)]
+          :: [or/~[pro/%jpg pro/%png] (sy %sig ~)]
+          [pro/%txt (sy %sig ~)]
           :-  [&/%header-image |]
-          [or/~[pro/%jpg pro/%png] (sy %sig ~)]
+          :: [or/~[pro/%jpg pro/%png] (sy %sig ~)]
+          [pro/%txt (sy %sig ~)]
           :-  [&/%sigil-color |]
           [pro/%hexadecimal (sy %sig ~)]
           :-  [&/%sigil-background-color |]
@@ -163,15 +165,7 @@
             ==
             ;div
               =style  "display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; grid-auto-rows: auto;"
-              ::  profile picture / sigil
-              ;div.fr.js
-                =style  "grid-column: span 1;"
-                ;div.fc.ac.br1
-                  =style  "overflow: hidden;"
-                  ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
-                ==
-              ==
-              ::  header info
+              ;+  profile-image
               ;div.fr.mw-page
                 =style  "grid-column: span 2;"
                 ;div.fc.grow.g1
@@ -217,6 +211,28 @@
       =style  "max-height: 175px; overflow: hidden;"
       ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
       :: ;  {(trip !<(cord q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/about)))}
+    ==
+  ::
+  ++  profile-image
+    ^-  manx
+    =/  profile-image
+      (~(get by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/profile-image)
+    ?~  profile-image
+      ::  XX generate a sigil w/ background if there's no profile pic
+      ::     need to fill this space with something to fill grid structure
+      ;div.fr.js
+        =style  "grid-column: span 1;"
+        ;div.fc.ac.br1
+          =style  "overflow: hidden;"
+          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
+        ==
+      ==
+    ;div.fr.js
+      =style  "grid-column: span 1;"
+      ;div.fc.ac.br1
+        =style  "overflow: hidden;"
+        ;img(src (trip !<(cord q.pail.u.profile-image)));
+      ==
     ==
   --
 --
