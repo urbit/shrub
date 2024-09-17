@@ -57,6 +57,8 @@
     ::
         %rely
       ~&  >>  "got rely!"
+      ~&  >>  p:(~(got by deps.bowl) %src)
+      ~&  >>  (welp p:(~(got by deps.bowl) %src) #/default)
       =/  =lore:neo
       q:(~(got by deps.bowl) %src)
       :-  ~
@@ -132,59 +134,12 @@
     ^-  manx
     ;body
       ;main.p-page.mw-page.ma.fc.g5
-        ;+  header
+        ::  XX need to fix path
+        ::     can't infer location of profile from pith.homepage alone
+        ::     would have to build imp/homepage with "absolute path" of profile
+        ;imp_mast-homepage-header: {(en-tape:pith:neo #/[p/our.bowl]/profiles/default)}
         ;+  widgets
       ==
-    ==
-  ::
-  ++  header
-    ^-  manx
-    ;div
-      =style  "padding: 30px 0px 0px 0px;"
-      ;div.mw-page.ma
-        ::  header image
-        ;div.wf.br1.fr.ac.jc
-          =style  "width: 100%; max-height: 300px; margin-bottom: 20px; overflow: hidden;"
-          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: auto; display: block;");
-        ==
-        ;div
-          =style  "display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 20px; grid-auto-rows: auto;"
-          ::  profile picture / sigil
-          ;div.fr.js
-            =style  "grid-column: span 1;"
-            ;div.fc.ac.br1
-              =style  "overflow: hidden;"
-              ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
-            ==
-          ==
-          ::  header info
-          ;div.fr.mw-page
-            =style  "grid-column: span 2;"
-            ;div.fc.grow.g1
-              ::  name / username / @p
-              ;span.s4.f0.bold
-                ;  John Doe
-              ==
-              ::  @p, conditionally rendered
-              ;+  urbit-id
-              ::  about section
-              ;span.f1.s0
-                =style  "max-height: 175px; overflow: hidden;"
-                ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
-              ==
-            ==
-          ==
-        ==
-      ==
-    ==
-  ::
-  ++  urbit-id
-    ^-  manx
-    ::  XX get display name from this page
-    ?:  =('' 'John Doe')
-      ;div;
-    ;span.s-1.f2
-       ;  {(scow %p (tail (head here.bowl)))}
     ==
   ++  widgets
     ^-  manx
