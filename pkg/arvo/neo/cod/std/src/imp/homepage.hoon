@@ -45,7 +45,7 @@
           [pro/%time (sy %sig ~)]
           :-  [|/%tas &/%username |/%t |]
           [pro/%txt (sy %sig ~)]
-          :-  [|/%tas &/%about |/%t |]
+          :-  [|/%tas &/%about |]
           [pro/%txt (sy %sig ~)]
           :-  [|/%tas |/%tas &]
           [[%any ~] (sy %sig ~)]
