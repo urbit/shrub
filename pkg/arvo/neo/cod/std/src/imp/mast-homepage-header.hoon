@@ -188,18 +188,26 @@
   ::
   ++  name
     ^-  manx
-    ::  XX should handle cases where there is no display name
+    =/  display-name
+      (~(get by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)
+    ?~  display-name
+      ;span.s4.f0.bold
+        ;  {(scow %p (tail (head here.bowl)))}
+      ==
     ;span.s4.f0.bold
-      ;  {(trip !<(cord q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)))}
+      ;  {(trip !<(cord q.pail.u.display-name))}
     ==
   ::
   ++  urbit-id
     ^-  manx
-    ::  XX get display name from this page
-    ?:  =('' 'John Doe')
+    =/  display-name
+      (~(get by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)
+    ?~  display-name
+      ;div;
+    ?:  =((trip !<(cord q.pail.u.display-name)) (scow %p (tail (head here.bowl))))
       ;div;
     ;span.s-1.f2
-        ;  {(scow %p (tail (head here.bowl)))}
+      ;  {(scow %p (tail (head here.bowl)))}
     ==
   ::
   ++  about
