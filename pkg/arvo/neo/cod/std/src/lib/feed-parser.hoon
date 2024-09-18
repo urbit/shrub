@@ -110,11 +110,9 @@
   |=  t=tape
   ;;  (list tape)
   (scan t ;~(plug (more gaq (star ;~(pose (shim 33 255))))))
-  ::
-  ~&  >>  txt-parser/words
   words
   ::
-  ++  get-url
+++  get-url
   |=  text=tape
   ^-  [url=(unit tape) txt=tape]
   =/  words  (txt-to-words text)
@@ -132,18 +130,29 @@
   ?~  q.skid-url  `txt
   [(some (head q.skid-url)) txt]
   ::
-  ++  get-pith
+++  get-pith
   |=  =cord
   ^-  (list pith)
   =/  words  (txt-to-words (trip cord))
-  ~&  >  words/words
+  :: ~&  >  words/words
   =/  piths=(list tape)  
     %+  skip  words
     |=  t=tape
     =(~ (rust t stap))
-  ~&  >>  piths/piths
+  :: ~&  >>  piths/piths
   %+  turn  piths
   |=  =tape 
   ~&  >>>  (en-pith:su (crip tape))
   (en-pith:su (crip tape))
+  ::
+++  hypertext
+  |=  =cord 
+  ^-  tape
+  =/  words  (txt-to-words (trip cord))
+  =/  a-text=(list tape)
+    %+  turn  words
+      |=  t=tape
+      ?~  (rust t stap)  t
+      "<a href='{t}' target='sky' style='color: white;' class='hover'>{t}</a>"
+  ;;  tape  (zing (join " " a-text))
 --

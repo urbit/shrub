@@ -116,33 +116,44 @@
         if (scrollHeight > 230) {
           obj.style.height = '230px';
         } else {
-          obj.style.height = scrollHeight + 'px';
+          obj.style.height = scrollHeight + 2 + 'px';
         }
       }
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[target]').forEach(element => {
+          element.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (event.currentTarget.getAttribute('target') === 'sky') {
+              let message = event.currentTarget.getAttribute('href')
+              let messageObj = {
+                messagetype: 'new-wind',
+                href: message
+                };
+              window.parent.postMessage(messageObj, window.location.origin)
+            }
+          });
+        });
+      });
       '''
     ==
   ++  render-post 
     =/  =lore:neo  q:(~(got by deps.bowl) %src)
     =/  idea=idea:neo  (~(got of:neo lore) /)
     =/  quote-post  !<(quote-post q.q.saga.idea)
-    =/  text  (trip -.quote-post)
+    =/  p  :(weld "<p>" (hypertext:fp -.quote-post) "</p>")
+    =/  text  (tail (de-xml:html (crip p)))
     =/  posts=(list post)  +.quote-post
     ;div.fc.p2.g1
-      ::=style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
-      ;p.grow.p2: {text}
+      ;+  text
       ;div.fc.ac.p2.g2
       ;*  
         %+  turn  posts 
         |=  p=post
-        ::;a.hover.wf
-        ::=href  (en-tape:pith:neo (welp renderer.p pith.p))
-        ::=target  "_blank"
           ;iframe.wf.bd2.post.br2.b2.grow
           =onload  "resizeIframe(this)"
           =src  (en-tape:pith:neo (welp renderer.p pith.p))
           ;
           ==
-        ::==
       ==
     ==
   --

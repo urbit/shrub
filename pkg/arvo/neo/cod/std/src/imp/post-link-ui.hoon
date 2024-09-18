@@ -25,6 +25,7 @@
     =/  task  !<(task:eyre:neo q.pail)
     ?+    stud  !!
         %iris-res
+      ::  XX  if url is broken poke post and make it just into txt
       =+  !<(=res:iris:neo vax)
       ?.  ?=(%finished -.dat.res)
         [~ pail]
@@ -133,7 +134,6 @@
   ++  render
     ^-  manx
     ;html.hfc  
-    =style  "overflow: hidden;"
       ;head
         ;*  old-standard-head-tags:serv
         ;*  standard-head-tags:serv
@@ -151,7 +151,6 @@
   =/  idea=idea:neo  (~(got of:neo lore) /)
   =/  txt  !<(txt q.q.saga.idea)
   =/  text=tape  (trip txt)
-  ~&  text
   =/  parsed=[url=(unit tape) txt=tape]
       (get-url:fp text)
   ?~  url.parsed  (url-renderer %txt url.parsed text)
@@ -173,13 +172,13 @@
       ::
       ++  fetch-metadata
       ;div.fc.as.p2.g1.hf.wf
-      ::=style  "overflow: auto; font-size: calc(1rem + (300px -   1em) / 100);"
         ;div
           ;+  
           ?:  =("" text)  ;div;
           ;p.grow.p2: {text}
         ==
         ;a.b4.br1.p2.wf
+        =style  "margin-bottom: 0.5rem;"
         =href  url
         =target  "_blank"
           ;div
@@ -199,7 +198,6 @@
       ::
       ++  txt-renderer
       ;div.hfc.fc.as.p4.wf    
-      ::=style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
         ;p.grow: {text}
       ==
       ::
@@ -223,7 +221,6 @@
       =style  "overflow: auto; font-size: calc(1rem + (300px - 1em) / 100);"
         ;p.grow.p2: {text}
         ;video.wf
-        ::=width  "320"
         =height  "230"
         =controls  ""
           ;source

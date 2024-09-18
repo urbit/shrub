@@ -73,16 +73,21 @@
         ;+  script
       ==
       ;body
-        ;main.p-page.mw-page.ma.fc.g2
-          ;+  make-post
-          ;+  feed-switch
-          ;+  feed
-        ==
+        ;+  main
       ==
+    ==
+  ++  main
+    ^-  manx
+    ;main.p-page.mw-page.ma.fc.g2
+    =id  "0"
+      ;+  make-post
+      ;+  feed-switch
+      ;+  feed
     ==
   ::
   ++  script 
     ;script
+    =defer  ""
       ;+  ;/  %-  trip
       '''
       function resizeIframe(obj) {
@@ -90,9 +95,19 @@
         if (scrollHeight > 300) {
           obj.style.height = '300px';
         } else {
-          obj.style.height = scrollHeight + 'px';
+          obj.style.height = scrollHeight + 2 + 'px';
+        }
+      };
+      function receiveMessage(event) {
+        if (event.origin === window.location.origin){
+          if(event.data.messagetype === 'new-wind'){
+          window.parent.postMessage(event.data, window.location.origin)
+          }
+        }else{
+        return;
         }
       }
+      window.addEventListener('message', receiveMessage, false);
       '''
     ==
   ::
@@ -174,21 +189,19 @@
   ::
   ++  show-feed
   |=  kids=(list pith)
+  =/  sorted-posts  (sort-by-date kids)
   ^-  manx
   ;div.fc.g2
     ;*
-    %+  turn  (sort-by-date kids)
+    %+  turn  sorted-posts
     |=  =pith:neo
     =/  idea=idea:neo  (~(got of:neo lore) pith)
     =/  post  !<([renderer=pith:neo pith=pith:neo] q.q.saga.idea)
     =/  post-date  ;;  @da  +:(rear pith)
-    :: =/  renderer=pith  
-    ::   ?~  renderer.post  /tree
-    ::   renderer.post
     ;div.wf.fc
       ;div.fr.jb
         ;p.p1: {(tail (en-tape:pith:neo /[(head pith.post)]))}
-        ;p:  {(pretty-date post-date)}
+        ;p:  {(pretty-date post-date bowl)}
       ==
       ;iframe.wf.bd2.post.br2.b2.grow   
       =style   "max-height: 300px; overflow: auto;"
@@ -209,10 +222,28 @@
   --
 ::
 ++  pretty-date
-  |=  date=@da
+  |=  [date=@da =bowl:neo]
   ^-  tape
   =/  d  (yore date)
-  "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
+  =/  months
+    ^-  (list tape)
+    :~
+      "Jan"
+      "Feb"
+      "Mar"
+      "Apr"
+      "May"
+      "Jun"
+      "Jul"
+      "Aug"
+      "Sep"
+      "Oct"
+      "Nov"
+      "Dec"
+    ==
+  ?:  &(=(m:d m:(yore now.bowl)) =(d:t:d d:t:(yore now.bowl)))
+    "{(y-co:co h:t:d)}:{(y-co:co m:t:d)}"
+  "{(y-co:co h:t:d)}:{(y-co:co m:t:d)} {(snag (dec m:d) months)}{(y-co:co d:t:d)}"
 ::
 ++  get-all-feed-entries 
   |=  =lore:neo

@@ -412,6 +412,22 @@ customElements.define(
       </main>
       <slot id="default" style="display: none;"></slot>
     `
+      const script = document.createElement('script')
+      script.textContent = `
+      window.addEventListener('message', (event) => {
+        if (event.origin === window.location.origin){
+          if(event.data.messagetype === 'new-wind'){
+            const customEvent = new CustomEvent('new-window', {detail: {href: event.data.href, slot: 's-2'}});
+            const element = document.querySelector('s-k-y');
+            if (element) {
+              element.dispatchEvent(customEvent);
+            }
+          }
+        }else{
+        return;
+        }
+      })`
+      shadow.appendChild(script)
     }
     get windowsOpen() {
       return parseInt(this.getAttribute('windows-open') || '0')
@@ -456,10 +472,12 @@ customElements.define(
       })
       $(this).on('new-window', (e) => {
         let wind = document.createElement('wi-nd')
-        let here = `/${this.our}/home`
+        let here =
+          e.detail && e.detail.href ? e.detail.href : `/${this.our}/home`
+        let slot = e.detail && e.detail.slot ? e.detail.slot : `s-1`
         $(wind).attr('here', here)
         $(wind).attr('renderer', this.chooseStrategy(here))
-        $(wind).attr('slot', `s-1`)
+        $(wind).attr('slot', slot)
         $(this).append(wind)
         this.growFlock()
         this.fixSlots()

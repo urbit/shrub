@@ -601,7 +601,6 @@ customElements.define(
         <div class="fr jb">
           <div class="frw g2 ac js">
           </div>
-          <button id="share" class="b1 bd1 br1 p-1 wfc">share to feed</button>
         </div>
       </div>
     `)
@@ -629,7 +628,6 @@ customElements.define(
         bookmarks.find('.frw').append(bookmark)
       })
       menu.appendChild(bookmarks.get(0))
-      console.log('this', this)
       //
       let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">

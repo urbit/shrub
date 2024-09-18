@@ -25,11 +25,11 @@
       =/  diff
       [(oust [0 2] p.meta) [%comment ~]]
       =/  id  (en-tape:pith:neo p:meta)
-      :_  manx/!>((render ~ id))
+      :_  manx/!>((render ~ id bowl))
       :~  [/[p/our.bowl]/storage %poke storage-diff/!>(diff)]
       ==
     =/  render-data  (get-comments deps.bowl)
-    [~ manx/!>((render render-data))]
+    [~ manx/!>((render -.render-data +.render-data bowl))]
   ::
   ++  poke
     |=  [sud=stud:neo vaz=vase]
@@ -40,7 +40,6 @@
       ?>  ?=([%submit %meta %comment ~] path.eve)
       =/  txt=@t  (~(got by data.eve) 'comment')
       =/  create=pith:neo  (oust [0 2] p:(~(got by deps.bowl) %src))
-      ::~&  >  create-at-pith/create
       =/  dif  [%comment (sy [now.bowl our.bowl txt] ~)]
       :_  pail
       :~  
@@ -48,7 +47,7 @@
       ==
         %rely
       =/  render-data  (get-comments deps.bowl)
-      [~ manx/!>((render render-data))]
+      [~ manx/!>((render -.render-data +.render-data bowl))]
     ==
   ::
   --
@@ -56,7 +55,7 @@
 ::
 |%
 ++  render
-  |_  [meta=(set comment) id=tape]
+  |_  [meta=(set comment) id=tape =bowl:neo]
   ++  $
     ^-  manx
     ;div.fc.g1
@@ -115,17 +114,20 @@
         |=  [a=comment b=comment]
         (gte when.a when.b)
       %+  turn  sorted
-      |=  =comment
-      ^-  manx
-      ;div.fc.wf
-        ;div.fr.jb
-          ;p.f1.p1: {(scow %p from.comment)}
-          ;p.f1: {(pretty-date when.comment)}
-        ==
-        ;div.hfc.fc.as.p4.wf.bd2.br2.b1
-          ;p.grow: {(trip txt.comment)}
-        ==
+      comment-view
+    ==
+  ++  comment-view
+    |=  =comment
+    ^-  manx
+    ;div.fc.wf
+      ;div.fr.jb
+        ;p.f1.p1: {(scow %p from.comment)}
+        ;p.f1: {(pretty-date when.comment bowl)}
       ==
+      ;div.hfc.fc.as.p4.wf.bd2.br2.b1
+        ;p.grow: {(trip txt.comment)}
+      ==
+    ;imp_mast-meta-comment: {(welp (en-tape:pith:neo /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed) id)}
     ==
   ++  hidden-logic
   =/  id-form  (welp "form" id)
@@ -162,9 +164,27 @@
     :-  !<((set comment) (need uvase))
         here
 ::
-++  pretty-date  :: from diary-htmx
-  |=  date=@da
+++  pretty-date
+  |=  [date=@da =bowl:neo]
   ^-  tape
   =/  d  (yore date)
-  "{(y-co:co y:d)}-{(y-co:co m:d)}-{(y-co:co d:t:d)}"
+  =/  months
+    ^-  (list tape)
+    :~
+      "Jan"
+      "Feb"
+      "Mar"
+      "Apr"
+      "May"
+      "Jun"
+      "Jul"
+      "Aug"
+      "Sep"
+      "Oct"
+      "Nov"
+      "Dec"
+    ==
+  ?:  &(=(m:d m:(yore now.bowl)) =(d:t:d d:t:(yore now.bowl)))
+    "{(y-co:co h:t:d)}:{(y-co:co m:t:d)}"
+  "{(y-co:co h:t:d)}:{(y-co:co m:t:d)} {(snag (dec m:d) months)}{(y-co:co d:t:d)}"
 --
