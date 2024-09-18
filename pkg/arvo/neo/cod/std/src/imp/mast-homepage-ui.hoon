@@ -157,7 +157,7 @@
             q.pail:(~(got by ~(tar of:neo (~(del of:neo q:(~(got by deps.bowl) %src)) /))) pith)
           ::  widget container
           ;div.br1
-            =style  "overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
+            =style  "grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
             ::  widget
             ;+  manx.widget
           ==
