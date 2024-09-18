@@ -202,10 +202,12 @@
   ::
   ++  about
     ^-  manx
-    ~&  >>  ~(key by ~(tar of:neo q:(~(got by deps.bowl) %src)))
+    =/  about
+      (~(get by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/about)
+    ?~  about
+      ;div;
     ;span.f1.s0
       =style  "max-height: 175px; overflow: hidden;"
-      :: ;  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed massa nisi, maximus eget quam id, aliquet rutrum eros. Fusce eget libero eu ipsum gravida posuere vel quis dolor. Aliquam tristique nisl non risus aliquet posuere. Suspendisse neque tortor, sagit
       ;  {(trip !<(cord q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/about)))}
     ==
   ::

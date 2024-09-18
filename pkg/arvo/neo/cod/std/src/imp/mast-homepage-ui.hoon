@@ -134,10 +134,10 @@
     ^-  manx
     ;body
       ;main.p-page.mw-page.ma.fc.g5
-        ::  XX need to fix path
-        ::     can't infer location of profile from pith.homepage alone
-        ::     would have to build imp/homepage with "absolute path" of profile
-        ;imp_mast-homepage-header: {(en-tape:pith:neo #/[p/our.bowl]/profiles/default)}
+        ::  XX don't love how this assumes a profile at ~zod/profiles
+        ::     could store "absolute" pith to profile in the homepage state,
+        ::     but this would mess up the widgets without further refactoring
+        ;imp_mast-homepage-header: {(en-tape:pith:neo (welp #/[p/our.bowl]/profiles pith.homepage))}
         ;+  widgets
       ==
     ==
