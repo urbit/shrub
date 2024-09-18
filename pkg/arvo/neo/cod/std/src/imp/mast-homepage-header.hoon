@@ -217,17 +217,17 @@
       ::  XX generate a sigil w/ background if there's no profile pic
       ::     need to fill this space with something to fill grid structure
       ;div.fr.js
-        =style  "grid-column: span 1;"
+        =style  "grid-column: span 1; aspect-ratio: 1 / 1; width: 100%;"
         ;div.fc.ac.br1
-          =style  "overflow: hidden;"
-          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg";
+          =style  "overflow: hidden; width: 100%; height: 100%;"
+          ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 100%; height: 100%; object-fit: cover;");
         ==
       ==
     ;div.fr.js
-      =style  "grid-column: span 1;"
+      =style  "grid-column: span 1; aspect-ratio: 1 / 1; width: 100%;"
       ;div.fc.ac.br1
-        =style  "overflow: hidden;"
-        ;img(src (trip !<(cord q.pail.u.profile-image)));
+        =style  "overflow: hidden; width: 100%; height: 100%;"
+        ;img@"{(trip !<(cord q.pail.u.profile-image))}"(style "width: 100%; height: 100%; object-fit: cover;");
       ==
     ==
   ::
