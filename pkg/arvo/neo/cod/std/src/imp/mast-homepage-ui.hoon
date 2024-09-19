@@ -154,11 +154,11 @@
             q.pail:(~(got by ~(tar of:neo (~(del of:neo q:(~(got by deps.bowl) %src)) /))) pith)
           ::  widget container
           ;div.br1
-            =style  "grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
+            =style  "overflow: hidden; grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
             ::  widget
             ;iframe
-              =style  "width: 100%; height: 100%;"
               =src    (en-tape:pith:neo src.widget)
+              =style  "width: 100%; height: 100%; border: none;"
               ;
             ==
           ==
