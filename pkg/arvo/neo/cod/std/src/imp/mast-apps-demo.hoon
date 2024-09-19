@@ -88,33 +88,33 @@
         =style  "width: 100%; height: 100%; padding: 25px; background-color: white;"
         ;h2
           =style  "text-align: left; margin-bottom: 20px;"
-          ;  Favorite Groups
+          ;  Favorite Apps
         ==
         ;div.fr.jb
           ;div.br1
-            =title  "UF"
-            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; border: solid 0.5px black"
-            ;img@"https://interstellar.nyc3.digitaloceanspaces.com/battus-datsun/2022.11.07..19.39.22-Sig.png"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
+            =title  "Tlon"
+            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; background-color: white; border: solid 0.5px black"
+            ;img@"https://bootstrap.urbit.org/tlon.svg?v=1"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
           ==
           ;div.br1
-            =title  "Tlon Local"
-            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; border: solid 0.5px black"
-            ;img@"https://tlon.io/local-icon.svg"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
+            =title  "Hits"
+            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; background-color: white; border: solid 0.5px black"
+            ;img@"https://storage.googleapis.com/media.urbit.org/apps/%25hits-logo.png"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
           ==
           ;div.br1
-            =title  "Neo"
-            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; border: solid 0.5px black"
-            ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
+            =title  "Common Blog"
+            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; background-color: white; border: solid 0.5px black"
+            ;img@"https://github.com/thecommons-urbit/blog/blob/main/assets/tile.png?raw=true"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
           ==
           ;div.br1
-            =title  "Internet Weirdness Task Force"
-            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; border: solid 0.5px black"
-            ;img@"https://sfo3.digitaloceanspaces.com/iwtf-life7/litmus-ritten/2023.3.28..01.49.47-avatar-landscape-1-iwtf-b.png"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
+            =title  "Fund"
+            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; background-color: white; border: solid 0.5px black"
+            ;img@"https://sfo3.digitaloceanspaces.com/sarlev-sarsen/sarlev-sarsen/2024.4.29..23.58.31..2b02.0c49.ba5e.353f-IMG_4726.jpeg"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
           ==
           ;div.br1
-            =title  "Valeria City"
-            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; border: solid 0.5px black"
-            ;img@"https://nyc3.digitaloceanspaces.com/minderimages/minder-folden/2023.12.9..18.47.43..2189.374b.c6a7.ef9d-ValeriaLogo.png"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
+            =title  "Radio"
+            =style  "width: 80px; height: 80px; overflow: hidden; position: relative; background-color: white; border: solid 0.5px black"
+            ;img@"https://bwyl.nyc3.digitaloceanspaces.com/radio/radio.png"(style "width: 80px; height: 80px; object-fit: cover; cursor: pointer;");
           ==
         ==
       ==
