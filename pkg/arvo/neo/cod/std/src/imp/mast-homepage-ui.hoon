@@ -145,10 +145,7 @@
     ^-  manx
     ::  widget grid
     ;div
-      ::  XX grid-auto-rows assumes 626px width of container; fix this
-      ::     either render a new grid with 1 column for smalle screens or
-      ::     dynamically adjust the grid-auto-rows value to container width
-      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; grid-auto-rows: calc((626px - 40px) / 3);"
+      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; height: calc(626px - 40px); grid-auto-rows: calc((626px - 40px) / 3);"
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
@@ -159,9 +156,13 @@
           ;div.br1
             =style  "grid-row: span {<rows.widget>}; grid-column: span {<columns.widget>};"
             ::  widget
-            ;+  manx.widget
+            ;iframe
+              =style  "width: 100%; height: 100%;"
+              =src    (en-tape:pith:neo src.widget)
+              ;
+            ==
           ==
-    ==
+      ==
   :: ++  display-count
   ::   ^-  manx
   ::   ;p
