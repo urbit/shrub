@@ -50,13 +50,11 @@
           [(welp dst #/theme/[name]/value) %make %txt `txt/!>((got:dat '/target/value')) ~]
         ==
       ::
-          [%sky-event %sky ~]
+          [%strategy-change %sky ~]
         =/  dat  ~(. by data.eve)
         =/  detail  (got:dat '/event/detail')
-        =/  jon=json  (need (de:json:html detail))
-        =/  act=@tas  (get-action jon)
         :_  pail
-        (~(action-cards render bowl) jon act)
+        (~(strategy-change-cards render bowl) (need (de:json:html detail)))
       ==
       ::
         %rely
@@ -76,10 +74,9 @@
     %-  lift
     ;s-k-y
       =our  (scow %p our.bowl)
-      =event  "/sky-event/sky"
+      =event  "/strategy-change/sky"
       =return  "/event/detail"
       =default-strategies  default-strategies-json
-      ::=post-html  (en-xml:html make-a-post)
       ;+  form-theme
       ;+  notifications
     ==
@@ -123,32 +120,21 @@
     ^-  json
     [%s (crip (en-tape:pith:neo v))]
     ::
-  ++  action-cards
-    |=  [jon=json act=@tas]
+  ++  strategy-change-cards
+    |=  jon=json
     ^-  (list card:neo)
     =/  here
       %-  pave:neo
-          %-  (ot ~[here+pa]):dejs:format
-          jon
+      %-  (ot ~[here+pa]):dejs:format
+      jon
+    ::
     =/  strats=order
       %+  turn
-          %-  (ot ~[strategies+(ar pa)]):dejs:format
-          jon
-        pave:neo
-    ?+  act  ~|(%unsupported-action !!)
-        %bookmark-renderer
-      ~&  >>  new-bookmark/strats
-      :~
+        %-  (ot ~[strategies+(ar pa)]):dejs:format
+        jon
+      pave:neo
+    :~
       [:(welp dst #/strategy here) %make %order `order/!>(strats) ~]
-      ==
-        %share-to-feed
-      =/  renderer
-      ::  XX: tree renderer for now as a default
-        ?~  strats  /tree
-        (head strats)
-      :~
-      [#/[p/our.bowl]/home/feed %poke timeline-diff/!>([%post [renderer here]])]
-      ==
     ==
   ::
   ++  default-theme-cards
@@ -354,12 +340,6 @@
       ;div.p3.br1.bd1: second
       ;div.p3.br1.bd1: third
     ==
-  ::
-  ++  make-a-post
-    ;div(slot "post")
-      ;imp_mast-diary-ui: /home/diary
-    ==
-  ::
   ++  lift
     |=  in=manx
     ^-  manx
@@ -445,9 +425,4 @@
       ==
     ==
   --
-  ++  get-action
-    |=  jon=json
-    ;;  @tas
-    %-  (ot ~[action+so]):dejs:format
-    jon
 --
