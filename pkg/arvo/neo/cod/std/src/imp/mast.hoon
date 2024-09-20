@@ -7,20 +7,20 @@
 |%
 ++  state  [%pro %sig]
 ++  poke   (sy %mast-bind %eyre-task %eyre-chan-task %gift ~)
-++  deps   *deps:neo
-  :: %-  ~(gas by *band:neo)
-  :: :~  :-  %src
-  ::     ^-  fief:neo
-  ::     :-  req=&
-  ::     ^-  quay:neo
-  ::     :-  [pro/%sig ~]
-      :: ^-  (unit port:neo)
-      :: :+  ~  %y
-      :: %-  ~(gas by *lads:neo)
-      :: :~  :-  &
-      ::     `lash:neo`[pro/%hoon ~]
-      :: ==
-  ::==
+++  deps   
+  %-  ~(gas by *band:neo)
+  :~  :-  %src
+      ^-  fief:neo
+      :-  req=&
+      ^-  quay:neo
+      :-  [only/%sig ~]
+      ^-  (unit port:neo)
+      :+  ~  %y
+      %-  ~(gas by *lads:neo)
+      :~  :-  [|/%tas |]
+          `lash:neo`[only/%hoon ~]
+      ==
+  ==
 ++  kids
   :+  ~  %y
   %-  my
@@ -82,22 +82,18 @@
         =/  url=path  (stab url.request.req)
         =/  =bind
           ?:  ?=([%mast ^] url)
-            =/  renderer  ;;  @tas  i.t.url
-            ::=/  lore  q:(~(got by deps.bowl) %src)
-            ::=/  u-pail=(unit pail:neo)  (get-pail-saga-by-pith:su q:(~(got by deps.bowl) %src) `pith`/[renderer])
-            ::  i.t.url should match existing imp file 
-            ~&  >>  it-url/i.t.url 
-            ::~&  >>  pail-at-tt-url/(kids-at-pith:su lore /)
             [i.t.url (pave:neo t.t.url)]
           (~(got by endpoints.rig) url)
         =/  =rope  (mug bind)
-        ~&  >  rope/rope
         =/  =boat  ship.src.bowl
-        ~&  >  boat/boat
+        =/  lore  q:(~(got by deps.bowl) %src)
+        =/  renderer=(unit pail:neo)  (get-pail-saga-by-pith:su lore /[view.bind])
+        ~&  >>  u-pail/=(~ renderer)
         ?.  ?|  =(our.bowl boat)
                 (~(has in public.rig) rope)
             ==
           [(~(make-403 res bowl) rid) pail]
+        ?~  renderer  [(~(make-403 res bowl) rid) pail]
         =/  at=pith:neo    (~(session moor our.bowl) rope boat)
         =/  =made:neo      [view.bind ~ (my [%src src.bind] ~)]
         =/  wat            (~(get by waiting.rig) [rope boat])
