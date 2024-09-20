@@ -1571,6 +1571,8 @@
   =.  run
     (emit (do-card #/[p/our.bowl]/blue %make %blue ~ ~))
   =.  run
+    (emit (do-card #/[p/our.bowl]/cod/std/src/imp %make %sig ~ ~))
+  =.  run
     (emit (do-card #/[p/our.bowl]/mast %make %mast ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/self %make %self ~ ~))

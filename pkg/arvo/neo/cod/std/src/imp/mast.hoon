@@ -1,5 +1,6 @@
 /@  ui-event
 /@  mast-bind
+/-  su=shrub-utils
 /*  mast-js
 =<
 ^-  kook:neo
@@ -7,6 +8,19 @@
 ++  state  [%pro %sig]
 ++  poke   (sy %mast-bind %eyre-task %eyre-chan-task %gift ~)
 ++  deps   *deps:neo
+  :: %-  ~(gas by *band:neo)
+  :: :~  :-  %src
+  ::     ^-  fief:neo
+  ::     :-  req=&
+  ::     ^-  quay:neo
+  ::     :-  [pro/%sig ~]
+      :: ^-  (unit port:neo)
+      :: :+  ~  %y
+      :: %-  ~(gas by *lads:neo)
+      :: :~  :-  &
+      ::     `lash:neo`[pro/%hoon ~]
+      :: ==
+  ::==
 ++  kids
   :+  ~  %y
   %-  my
@@ -68,10 +82,18 @@
         =/  url=path  (stab url.request.req)
         =/  =bind
           ?:  ?=([%mast ^] url)
+            =/  renderer  ;;  @tas  i.t.url
+            ::=/  lore  q:(~(got by deps.bowl) %src)
+            ::=/  u-pail=(unit pail:neo)  (get-pail-saga-by-pith:su q:(~(got by deps.bowl) %src) `pith`/[renderer])
+            ::  i.t.url should match existing imp file 
+            ~&  >>  it-url/i.t.url 
+            ::~&  >>  pail-at-tt-url/(kids-at-pith:su lore /)
             [i.t.url (pave:neo t.t.url)]
           (~(got by endpoints.rig) url)
         =/  =rope  (mug bind)
+        ~&  >  rope/rope
         =/  =boat  ship.src.bowl
+        ~&  >  boat/boat
         ?.  ?|  =(our.bowl boat)
                 (~(has in public.rig) rope)
             ==
