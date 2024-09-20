@@ -446,11 +446,9 @@ customElements.define(
         window.location.origin + this.renderer + this.here
       )
       if (isLoading) {
-        console.log('url works')
         let frame = this.createIframe(this.renderer, this.here, true)
         $(this.gid('tabs')).append(frame)
       } else {
-        console.log('redirect to tree')
         let frame = this.createIframe(`/tree`, this.here, true)
         $(this.gid('menu-toggle')).text(`tree`)
         $(this.gid('tabs')).append(frame)
