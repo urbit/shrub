@@ -263,20 +263,14 @@ customElements.define(
           'strategies',
           (this.getAttribute('strategies') || '') + ' ' + e.detail
         )
-        let strategyPokeData = this.getStrategyPoke('bookmark-renderer')
-        $(this).emit('sky-event', strategyPokeData)
+        $(this).emit('strategy-change', this.strategyPoke)
       })
       $(this).on('unbookmark-renderer', (e) => {
         let newstrats = this.strategies
           .slice(0, -1)
           .filter((s) => s != e.detail)
         this.setAttribute('strategies', newstrats)
-        let strategyPokeData = this.getStrategyPoke('bookmark-renderer')
-        $(this).emit('sky-event', strategyPokeData)
-      })
-      $(this).on('share-to-feed', (e) => {
-        let strategyPokeData = this.getStrategyPoke('share-to-feed')
-        $(this).emit('sky-event', strategyPokeData)
+        $(this).emit('strategy-change', this.strategyPoke)
       })
     }
     disconnectedCallback() {
@@ -363,11 +357,10 @@ customElements.define(
         '/tree'
       ]
     }
-    getStrategyPoke(act) {
+    get strategyPoke() {
       let poke = {
         here: this.here,
-        strategies: this.strategies.slice(0, -1),
-        action: act
+        strategies: this.strategies.slice(0, -1)
       }
       return JSON.stringify(poke)
     }
@@ -604,17 +597,6 @@ customElements.define(
         </div>
       </div>
     `)
-      $(bookmarks)
-        .find('#share')
-        .on('click', (e) => {
-          $(this).emit('share-to-feed', this.renderer)
-        })
-      // $(bookmarks)
-      //   .find('#post-toggle')
-      //   .on('click', (e) => {
-      //     console.log('post')
-      //     $(this.gid('post')).toggleClass('hidden')
-      //   })
       //
       this.strategies.forEach((s) => {
         let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)

@@ -49,6 +49,8 @@
     ::  post-pub for our posts
     :~  :-  (welp here.bowl ~[p/our.bowl])
       [%make %post-pub ~ ~]
+        :-  (welp #/[p/our.bowl]/sky/strategy here.bowl) 
+      [%make %order `order/!>([`pith`#/mast/mast-timeline-ui ~]) ~]
     ==
   ::
   ++  poke
