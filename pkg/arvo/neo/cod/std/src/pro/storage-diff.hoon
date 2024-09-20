@@ -1,4 +1,4 @@
-/@  meta-diff
+/@  meta-social
 $%
-  [to=pith:neo poke=meta-diff]
+  [to=pith:neo poke=meta-social]
 ==

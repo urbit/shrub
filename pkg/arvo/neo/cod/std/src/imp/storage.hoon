@@ -1,16 +1,16 @@
 /@  storage
 /@  storage-diff
-/@  meta-diff
+/@  meta-social
 /-  su=shrub-utils
 ^-  kook:neo
 |%
 ++  state  pro/%storage
-++  poke  (sy %storage-diff ~) ::[to=pith:neo poke=meta-diff]
+++  poke  (sy %storage-diff ~) ::[to=pith:neo poke=meta-social]
 ++  kids  
   :+  ~  %z
   %-  ~(gas by *lads:neo)
   :~  :-  [|/%tas |/%p &]
-      [[%any ~] (sy %meta-diff ~)]
+      [[%any ~] (sy %meta-social ~)]
   ==
 ++  deps  *deps:neo
 ++  form
@@ -37,7 +37,7 @@
       :~  [(welp here.bowl to.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
     ~&  >  poke-at-pith/to.diff
-    :~  [(welp here.bowl to.diff) %poke %meta-diff !>(poke.diff)]
+    :~  [(welp here.bowl to.diff) %poke %meta-social !>(poke.diff)]
     ==
   --
 --

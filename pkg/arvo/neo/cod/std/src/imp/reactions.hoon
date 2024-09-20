@@ -1,14 +1,14 @@
 /@  reaction
-/@  meta-diff
+/@  meta-social
 ^-  kook:neo
 |%
 ++  state  pro/%reactions  ::(set reaction)
-++  poke   (sy %meta-diff ~)
+++  poke   (sy %meta-social ~)
 ++  kids
   :+  ~  %y
   %-  ~(gas by *lads:neo)
   :~  :-  &
-    [pro/%reactions (sy %meta-diff ~)]
+    [pro/%reactions (sy %meta-social ~)]
   ==
 ++  deps  *deps:neo
 ++  form
@@ -20,18 +20,18 @@
     :-  ~
     ?~  pal  
       reactions/!>(~)
-    =+  !<(=meta-diff q:(need pal))
-    ~&  meta-diff
-    ?>  ?=(%reaction -.meta-diff)
-    reactions/!>((sy +.meta-diff ~))
+    =+  !<(=meta-social q:(need pal))
+    ~&  meta-social
+    ?>  ?=(%reaction -.meta-social)
+    reactions/!>((sy +.meta-social ~))
     ::
     ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
-    ?>  ?=(%meta-diff stud)
+    ?>  ?=(%meta-social stud)
     ~&  'got poke'
     =/  state  !<((set reaction) q.pail)
-    =/  diff  !<(meta-diff vax)
+    =/  diff  !<(meta-social vax)
     ~&  diff
     ?>  ?=(%reaction -.diff)
     =/  new-state  %-  ~(uni in state)  +.diff
