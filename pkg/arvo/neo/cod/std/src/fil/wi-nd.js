@@ -427,7 +427,11 @@ customElements.define(
       let el = document.createElement('iframe')
       el.setAttribute('prefix', prefix)
       el.setAttribute('lazy', '')
-      el.setAttribute('src', prefix + here)
+      if (prefix === '/self') {
+        el.setAttribute('src', here)
+      } else {
+        el.setAttribute('src', prefix + here)
+      }
       el.setAttribute(
         'style',
         'width: 100%; flex-grow: 1; border: none; background: var(--b0);'
@@ -442,9 +446,12 @@ customElements.define(
     }
     async rebuildIframe() {
       $(this.gid('tabs')).children().remove()
-      let isLoading = await this.checkUrl(
-        window.location.origin + this.renderer + this.here
-      )
+      let url =
+        this.renderer === '/self'
+          ? window.location.origin + this.here
+          : window.location.origin + this.renderer + this.here
+      let isLoading = await this.checkUrl(url)
+      console.log('isLoading', isLoading, url)
       if (isLoading) {
         let frame = this.createIframe(this.renderer, this.here, true)
         $(this.gid('tabs')).append(frame)
