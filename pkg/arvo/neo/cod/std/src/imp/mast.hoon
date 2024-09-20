@@ -88,12 +88,12 @@
         =/  =boat  ship.src.bowl
         =/  lore  q:(~(got by deps.bowl) %src)
         =/  renderer=(unit pail:neo)  (get-pail-saga-by-pith:su lore /[view.bind])
-        ~&  >>  u-pail/=(~ renderer)
         ?.  ?|  =(our.bowl boat)
                 (~(has in public.rig) rope)
             ==
           [(~(make-403 res bowl) rid) pail]
-        ?~  renderer  [(~(make-403 res bowl) rid) pail]
+        =/  has-renderer  !=(~ renderer)
+        ?.  has-renderer  [(~(make-tree-redirect res bowl) rid src.bind) pail]
         =/  at=pith:neo    (~(session moor our.bowl) rope boat)
         =/  =made:neo      [view.bind ~ (my [%src src.bind] ~)]
         =/  wat            (~(get by waiting.rig) [rope boat])
@@ -307,6 +307,14 @@
     %^    make-direct-http-cards
         rid
       [307 ['Location' '/~/login?redirect='] ~]
+    ~
+  ::
+  ++  make-tree-redirect
+    |=  [rid=@ta loc=pith]
+    ^-  (list card:neo)
+    %^    make-direct-http-cards
+        rid
+      [307 ['Location' (en-cord:pith:neo (welp /tree loc))] ~]
     ~
   ::
   ++  make-direct-http-cards

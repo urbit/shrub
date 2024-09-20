@@ -1571,7 +1571,7 @@
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
-    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ ~))
+    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/cod/std/src/imp ~)))
   =.  run
     (emit (do-card #/[p/our.bowl]/mast %make %mast ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/cod/std/src/imp ~)))
   =.  run
