@@ -56,9 +56,6 @@
       !!
     ::
         %rely
-      ~&  >>  "got rely!"
-      ~&  >>  p:(~(got by deps.bowl) %src)
-      ~&  >>  (welp p:(~(got by deps.bowl) %src) #/default)
       =/  =lore:neo
       q:(~(got by deps.bowl) %src)
       :-  ~
