@@ -97,8 +97,7 @@
     ;html
       ;head
         ;meta(charset "utf-8");
-        ::  XX  page title should be user's @p
-        ;title: ~sampel-palnet
+        ;title: {(scow %p (tail (head here.bowl)))}
         ;link
           =href  "/blue/blue-mime/{(scow %p our.bowl)}/static/feather"
           =rel  "stylesheet"
