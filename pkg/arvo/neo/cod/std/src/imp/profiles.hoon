@@ -37,6 +37,9 @@
       [pro/%url (sy %url ~)]
       :-  [|/%tas &/%birthday |]
       [pro/%time (sy %sig ~)]
+      ::  XX  %handle might be a better name for what this is trying to express
+      ::      "here is the globally unique string by which you can find me on
+      ::       this service"
       :-  [|/%tas &/%username |/%t |]
       [pro/%txt (sy %sig ~)]
       ::  XX should limit to 256 characters
