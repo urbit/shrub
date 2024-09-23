@@ -141,7 +141,7 @@
     ^-  manx
     ::  widget grid
     ;div
-      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; height: calc(626px - 40px); grid-auto-rows: calc((626px - 40px) / 3);"
+      =style  "display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; grid-auto-rows: calc((626px - 40px) / 3);"
       ;*  %+  turn
             widget-order.homepage
           |=  =pith:neo
