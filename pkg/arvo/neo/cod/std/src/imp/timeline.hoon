@@ -77,9 +77,13 @@
         state
       ::
           %post
+        =/  meta-pith  (welp here.bowl /[p/our.bowl]/[da/now.bowl])
+        ~&  >  meta-pith/meta-pith
         :_  state
         :~  :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post post.poke])]
+            [/[p/our.bowl]/storage %poke storage-diff/!>([(welp /comments meta-pith) [%comment ~]])]
+            [/[p/our.bowl]/storage %poke storage-diff/!>([(welp /reactions meta-pith) [%reaction ~]])]
         ==
       ::
           %make-post

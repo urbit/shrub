@@ -30,7 +30,7 @@
     ?~  (find [to.diff ~] (kidz-at-pith:su / kids.bowl))
       ?>  ?=(@ -.to.diff)
       =/  make-stud  ;;  stud:neo  -.to.diff
-      ::~&  >  [making-in-storage/make-stud pith/(welp here.bowl to.diff)]
+      ~&  >  [making-in-storage/make-stud pith/(welp here.bowl to.diff)]
       :~  [(welp here.bowl to.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
     :~  [(welp here.bowl to.diff) %poke %meta-social !>(poke.diff)]
