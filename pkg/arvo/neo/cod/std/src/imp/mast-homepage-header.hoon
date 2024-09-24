@@ -154,7 +154,7 @@
   ++  body
     ^-  manx
     ;body
-      ;main.p-page.mw-page.ma.fc.g5
+      ;main.mw-page.ma.fc.g5
         ;div
           =style  "padding: 30px 0px 0px 0px;"
           ;div.mw-page.ma
