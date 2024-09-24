@@ -25,7 +25,10 @@
     =/  task  !<(task:eyre:neo q.pail)
     ?+    stud  !!
         %iris-res
-      ::  XX  if url is broken poke post and make it just into txt
+      ::
+      ::  XX  maybe fetching of url metadata should be done before initiating iframe, perhaps fetching on post ? 
+      ::  creates ugly UI where iframe sized before url metadata is fetched
+      ::
       =+  !<(=res:iris:neo vax)
       ?.  ?=(%finished -.dat.res)
         [~ pail]
@@ -34,7 +37,6 @@
       =/  body=cord  q.data.u.full-file.dat.res
       =/  title  ~(title body-parser:fp body)
       =/  meta-map  ~(metadata body-parser:fp body)
-      ~&  >  meta-map
       =/  meta-data=manx  (meta-div meta-map title)
       :_  pail
       (eyre-cards [bowl task meta-data])

@@ -26,8 +26,9 @@
       [(oust [0 2] p.meta) [%comment ~]]
       =/  id  (en-tape:pith:neo p:meta)
       :_  manx/!>((render ~ id bowl))
-      :~  [/[p/our.bowl]/storage %poke storage-diff/!>(diff)]
-      ==
+      ~
+      :::~  [/[p/our.bowl]/storage %poke storage-diff/!>(diff)]
+      ::==
     =/  render-data  (get-comments deps.bowl)
     [~ manx/!>((render -.render-data +.render-data bowl))]
   ::
@@ -61,7 +62,8 @@
     ;div.fc.g1
     =style  "margin-top: 0.5rem;"
       ;+  buttons
-      ;div.b2.p2.bd2.br2.hidden
+      ;div.b1.p2.bd2.br2.hidden
+      =style  "border-color: var(--b1)"
       =id  (welp "wrapper" id)
         ;+  comment-form
         ;+  comments
@@ -86,10 +88,12 @@
     ==
   ::
   ++  comment-form
-    ;form.fr.hidden.g1.b2
+    ;form.fr.hidden.g1.b1
+    =style  "border-color: var(--b0)"
     =id  (welp "form" id)
     =event  "/submit/meta/comment"
       ;input.p2.grow.b0.bd2.br2
+      =style  "border-color: var(--b1)"
       =type  "text"
       =required  ""
       =name  "comment"
@@ -97,6 +101,7 @@
       ;
       ==
       ;button.loader.bd2.br2.p2.b0.hover
+      =style  "border-color: var(--b1)"
       =onclick  (welp "this.parentNode.classList.add('hidden'); " hidden-logic)
       =type  "submit"
         ;span.loaded:  send
@@ -124,10 +129,12 @@
         ;p.f1.p1: {(scow %p from.comment)}
         ;p.f1: {(pretty-date when.comment bowl)}
       ==
-      ;div.hfc.fc.as.p4.wf.bd2.br2.b1
+      ;div.hfc.fc.as.p4.wf.bd2.br2.b2
+      =style  "border-color: var(--b1)"
         ;p.grow: {(trip txt.comment)}
       ==
-    ;imp_mast-meta-comment: {(welp (en-tape:pith:neo /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed) id)}
+    ;imp_mast-meta-reaction: {(welp (en-tape:pith:neo /[p/our.bowl]/storage/reactions/[p/our.bowl]/home/feed) id)}
+    :: ;imp_mast-meta-comment: {(welp (en-tape:pith:neo /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed) id)}
     ==
   ++  hidden-logic
   =/  id-form  (welp "form" id)

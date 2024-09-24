@@ -3,9 +3,9 @@
 /-  su=shrub-utils
 ^-  kook:neo
 |%
-++  state  pro/%comments  ::(set comment)
+++  state  pro/%comments
 ++  poke   (sy %meta-social ~)
-++  kids  ::*kids:neo
+++  kids
   :+  ~  %y
   %-  ~(gas by *lads:neo)
   :~  :-  &

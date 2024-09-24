@@ -27,9 +27,13 @@
     :_  state
     ?+    stud  !!
         %post
+      =/  post-pith  (welp here.bowl ~[da/now.bowl])
       =/  diff  !<(timeline-diff vax)
       ?>  ?=(%post -.diff)
-      :~  :-  (welp here.bowl ~[da/now.bowl])
+      :~  
+          [/[p/our.bowl]/storage %poke storage-diff/!>([(welp /comments post-pith) [%comment ~]])]
+          [/[p/our.bowl]/storage %poke storage-diff/!>([(welp /reactions post-pith) [%reaction ~]])]
+          :-  post-pith
           [%make %post `post/!>(+.diff) ~]
       ==
     ==

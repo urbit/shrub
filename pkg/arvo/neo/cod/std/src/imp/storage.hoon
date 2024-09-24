@@ -26,17 +26,13 @@
     ^-  (quip card:neo pail:neo)
     ?>  ?=(%storage-diff stud)
     :_  storage/!>(~)
-    ~&  >  kids/~(key by ~(tar of:neo kids.bowl))
     =/  diff  !<(storage-diff vax)
-    ~&  >>  poke/poke.diff
     ?~  (find [to.diff ~] (kidz-at-pith:su / kids.bowl))
-      ~&  >  make-at-pith/to.diff
-      ~&  >>>  making/-.to.diff
       ?>  ?=(@ -.to.diff)
       =/  make-stud  ;;  stud:neo  -.to.diff
+      ::~&  >  [making-in-storage/make-stud pith/(welp here.bowl to.diff)]
       :~  [(welp here.bowl to.diff) %make make-stud `[make-stud !>(poke.diff)] ~]
       ==
-    ~&  >  poke-at-pith/to.diff
     :~  [(welp here.bowl to.diff) %poke %meta-social !>(poke.diff)]
     ==
   --

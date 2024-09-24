@@ -21,20 +21,23 @@
     ?~  pal  
       reactions/!>(~)
     =+  !<(=meta-social q:(need pal))
-    ~&  meta-social
     ?>  ?=(%reaction -.meta-social)
-    reactions/!>((sy +.meta-social ~))
+    reactions/!>(+.meta-social)
     ::
     ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  ?=(%meta-social stud)
-    ~&  'got poke'
     =/  state  !<((set reaction) q.pail)
     =/  diff  !<(meta-social vax)
-    ~&  diff
     ?>  ?=(%reaction -.diff)
-    =/  new-state  %-  ~(uni in state)  +.diff
+    =/  new=(set reaction)  +.diff
+    =/  new-state=(set reaction)
+      ?~  new  state
+      =/  has-in  !=(~ (~(dig in state) -.new))
+      ?:  has-in  
+        %-  ~(del in state)  -.new
+      %-  ~(put in state)  -.new
     :_  reactions/!>(new-state)
     ~
   --

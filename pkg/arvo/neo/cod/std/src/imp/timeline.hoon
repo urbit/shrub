@@ -99,11 +99,11 @@
         ~&  >  posts/posts
         =/  pith  /[p/our.bowl]/posts/[da/now.bowl]
         :_  state 
-        :~  [pith %make %quote-post `quote-post/!>([+.poke posts]) ~]  
+        :~  
+            [pith %make %quote-post `quote-post/!>([+.poke posts]) ~]  
             :-  (welp here.bowl ~[p/our.bowl])
             [%poke post/!>([%post `post`[/blue/post-pith-ui pith]])]
         ==
       ==
-    ::==
   --
 --

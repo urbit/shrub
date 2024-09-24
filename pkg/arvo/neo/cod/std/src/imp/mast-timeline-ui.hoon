@@ -204,11 +204,12 @@
         ;p:  {(pretty-date post-date bowl)}
       ==
       ;iframe.wf.bd2.post.br2.b2.grow   
-      =style   "max-height: 300px; overflow: auto;"
+      =style   "max-height: 300px; overflow: auto; border-color: var(--b0)"
       =onload  "resizeIframe(this)"
       =src  (en-tape:pith:neo (welp renderer.post pith.post))
         ;
       ==
+      ;imp_mast-meta-reaction: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/reactions/[p/our.bowl]/home/feed pith))}
       ;imp_mast-meta-comment: {(en-tape:pith:neo (welp /[p/our.bowl]/storage/comments/[p/our.bowl]/home/feed pith))}
     ==
   ==
