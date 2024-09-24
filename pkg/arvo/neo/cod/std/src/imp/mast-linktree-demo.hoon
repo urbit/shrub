@@ -96,7 +96,7 @@
             ==
             ;div
               =style  "margin-right: 10px;"
-              ;p: bonbud-macryg.eth
+              ;p: sampel-palnet.eth
             ==
           ==
           ::  GitHub
@@ -106,7 +106,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=github.com";
             ==
             ;div
-              ;p: bonbud-macryg
+              ;p: sampel-palnet
             ==
           ==
           ::  X.com
@@ -116,7 +116,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=x.com";
             ==
             ;div
-              ;p: bonbud-macryg
+              ;p: sampel-palnet
             ==
           ==
           ::  Instagram
