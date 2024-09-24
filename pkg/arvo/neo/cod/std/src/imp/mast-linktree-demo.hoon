@@ -84,7 +84,7 @@
         ==
       ==
       ;div.fc.af.p2
-        =style  "background-color: white;"
+        =style  "background-color: white; height: 100%; width: 100%;"
         ;h2:  My Links
         ;div.s0.fc.af
           =style  "margin-top: 10px;"

@@ -84,7 +84,7 @@
         ==
       ==
       ;div.fc.af.p2
-        =style  "background-color: white;"
+        =style  "background-color: white; width: 100%; height: 100%;"
         ;h2:  Top 8 Pals
         ;siv.s0.fc.af
           =style  "margin-top: 10px; color: blue; text-decoration: underline;"
