@@ -3,7 +3,6 @@
 /-  feather-icons
 /-  serv=sky-server
 /-  su=shrub-utils
-/-  manx-utils
 /*  feather-intro
 /*  diary
 /*  counter
@@ -93,8 +92,6 @@
       =;  poke
         [here.bowl %poke [%home !>(poke)]]~
       ^-  home
-      ::=/  body  (parse-body:serv request.req)
-      ::=/  mu  ~(. manx-utils body)
       =/  body  (parse-body:oxy request.req)
       =/  mu  ~(. manx-utils:oxy body)
       =/  head  (@tas (got:mu %head))
