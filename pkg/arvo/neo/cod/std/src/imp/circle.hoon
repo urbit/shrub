@@ -1,6 +1,7 @@
 /@  circle
 /@  circle-diff
 /-  oxy=oxygen
+/-  manx-utils
 ^-  kook:neo
 |%
 ++  state  pro/%circle
@@ -52,14 +53,13 @@
         %'GET'
       =;  manx
         (respond:oxy [bowl eyre-id req manx])
-      %~  render
-        ui
+      %-  render
       (pave:neo pax:(parse-url:oxy request.req))
     ::
         %'POST'
       =;  poke
         [here.bowl %poke [%circle-diff !>(poke)]]~
-      ^-  diary-diff
+      ^-  circle-diff
       =/  body  (parse-body:oxy request.req)
       =/  s  (slav %p (~(vol manx-utils body) "ship"))
       =/  =made:neo  [%sig `sig/!>(~) ~]
