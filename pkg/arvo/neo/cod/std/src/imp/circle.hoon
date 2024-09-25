@@ -1,5 +1,5 @@
 /@  circle
-/@  ircle-diff
+/@  circle-diff
 /-  oxy=oxygen
 ^-  kook:neo
 |%
