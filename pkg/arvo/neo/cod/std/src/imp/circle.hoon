@@ -1,5 +1,6 @@
 /@  circle
 /@  circle-diff
+/-  serv=sky-server
 /-  oxy=oxygen
 /-  manx-utils
 ^-  kook:neo
@@ -25,6 +26,7 @@
     |=  [=stud:neo vax=vase]
     ?+    stud  !!
         %eyre-task
+      ~&  >  "Got %eyre-task!"
       (handle:web !<(task:eyre:neo vax))
         %circle-diff
       =/  diff  !<(circle-diff vax)
@@ -47,21 +49,26 @@
     |=  [eyre-id=@ta req=inbound-request:eyre]
     ^-  (quip card:neo pail:neo)
     :_  pail
-    ?+    method.request.req  
-        ~|(%unsupported-http-method !!)
+    ?+    method.request.req
+        ~_  leaf/"Got unsupported HTTP method at {<(pout here.bowl)>}"
+        !!
     ::
         %'GET'
+      ~&  >  "Got %'GET'!"
       =;  manx
         (respond:oxy [bowl eyre-id req manx])
       %-  render
       (pave:neo pax:(parse-url:oxy request.req))
     ::
         %'POST'
+      ~&  >  "Got %'POST'!"
+      =/  body  (parse-body:oxy request.req)
+      =/  s  (slav %p (~(vol manx-utils body) "ship"))
+      %+  welp
+        (respond:oxy [bowl eyre-id req (foobar s)])
       =;  poke
         [here.bowl %poke [%circle-diff !>(poke)]]~
       ^-  circle-diff
-      =/  body  (parse-body:oxy request.req)
-      =/  s  (slav %p (~(vol manx-utils body) "ship"))
       =/  =made:neo  [%sig `sig/!>(~) ~]
       [%add (~(gas by *(map ship made:neo)) [s made] ~)]
     ==
@@ -69,11 +76,27 @@
   ++  render
     |=  here=pith
     ^-  manx
-    ;div.p3
-      ;div.p2.mw-page.ma
-        ;+  title
-        ;+  (form-new-ship here)
-        ;+  friends-list
+    ;html
+      ;head
+        ;meta(charset "UTF-8");
+        ;title:  circle
+        ;*  old-standard-head-tags:serv
+        ;*  standard-head-tags:serv
+        ;meta
+          =name  "htmx-config"
+          =content  (trip '{"ignoreTitle":"true"}')
+          ;
+        ==
+      ==
+      ;body
+        =hx-ext  "dom-enc,response-targets"
+        ;div.p3
+          ;div.p2.mw-page.ma
+            ;+  title
+            ;+  (form-new-ship here)
+            ;+  friends-list
+          ==
+        ==
       ==
     ==
   ::
@@ -84,7 +107,7 @@
       %+  turn
         %+  murn
           ~(tap in ~(key by ~(tar of:neo kids.bowl)))
-        |=  =road:neo  
+        |=  =road:neo
         ?.  ?=([[%p ship=@] *] road)
           ~
         `ship.road
@@ -100,8 +123,10 @@
   ++  form-new-ship
     |=  here=pith
     ^-  manx
+    ~&  >>  here
     ;form.fr.jc.p3
-      =hx-post  (en-tape:pith:neo here)
+      ::  =hx-post  (en-tape:pith:neo here)
+      =hx-post  (en-tape:pith:neo #/[p/our.bowl]/home/circle)
       =hx-swap  "afterend"
       =hx-target  "this"
       =head  "add"
@@ -114,6 +139,7 @@
         ;
       ==
       ;button.border.b1
+        =type  "submit"
         ; add
       ==
     ==
@@ -129,6 +155,13 @@
           """
         ; circle
       ==
+    ==
+  ++  foobar
+    |=  =ship
+    ^-  manx
+    ;div.border.p2.mono.fr.jb
+      ;div: {<ship>}
+      ;button.b1.border.hover.br1:  x
     ==
   --
 --
