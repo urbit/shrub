@@ -95,7 +95,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=warpcast.com";
             ==
             ;div
-              =style  "margin-right: 10px;"
+              =style  "text-decoration: underline; cursor: pointer; color: blue;"
               ;p: sampel-palnet.eth
             ==
           ==
@@ -106,6 +106,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=github.com";
             ==
             ;div
+              =style  "text-decoration: underline; cursor: pointer; color: blue;"
               ;p: sampel-palnet
             ==
           ==
@@ -116,6 +117,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=x.com";
             ==
             ;div
+              =style  "text-decoration: underline; cursor: pointer; color: blue;"
               ;p: sampel-palnet
             ==
           ==
@@ -126,6 +128,7 @@
               ;img@"https://www.google.com/s2/favicons?domain=instagram.com";
             ==
             ;div
+              =style  "text-decoration: underline; cursor: pointer; color: blue;"
               ;p: urbitofficial
             ==
           ==
