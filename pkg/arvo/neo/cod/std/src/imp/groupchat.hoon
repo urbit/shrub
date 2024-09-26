@@ -7,10 +7,8 @@
 ++  kids
   :+  ~  %y
   %-  ~(gas by *lads:neo)
-  :~  :-  [|/%pub |]
-      [pro/%message-pub (sy %sig ~)]
-      :-  [|/%sub |]
-      [pro/%message-sub (sy %sig ~)]
+  :~  :-  [|/%tas |]
+      [pro/%sig (sy %sig ~)]
   ==
 ++  deps  *deps:neo
 ++  form
