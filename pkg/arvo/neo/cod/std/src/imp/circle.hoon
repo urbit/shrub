@@ -127,10 +127,13 @@
     ;form.fr.jc.p3
       ::  =hx-post  (en-tape:pith:neo here)
       =hx-post  (en-tape:pith:neo #/[p/our.bowl]/home/circle)
-      =hx-swap  "afterend"
-      =hx-target  "this"
+      =hx-swap     "afterend"
+      =hx-target   "this"
+      =hx-trigger  "submit"
+      =onsubmit    "document.getElementById('ship').value = '';"
       =head  "add"
       ;input.border
+        =id    "ship"
         =name  "ship"
         =type  "text"
         =autocomplete  "off"
