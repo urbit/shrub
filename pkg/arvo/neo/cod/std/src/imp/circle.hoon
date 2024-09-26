@@ -125,8 +125,7 @@
     ^-  manx
     ~&  >>  here
     ;form.fr.jc.p3
-      ::  =hx-post  (en-tape:pith:neo here)
-      =hx-post  (en-tape:pith:neo #/[p/our.bowl]/home/circle)
+      =hx-post     (en-tape:pith:neo here)
       =hx-swap     "afterend"
       =hx-target   "this"
       =hx-trigger  "submit"
