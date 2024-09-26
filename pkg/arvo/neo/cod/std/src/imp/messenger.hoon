@@ -29,8 +29,12 @@
   :+  ~  %y
   %-  ~(gas by *lads:neo)
   :~  
+      :: :-  [|/%tas |/%p |]
+      :: [pro/%ship (sy %dm-diff %eyre-task ~)]
+      :: :-  [|/%tas |/%p |/%t |]
+      :: [pro/%groupchat (sy %groupchat-diff %eyre-task ~)]
       :-  [|/%tas |/%p |/%t |]
-      [[%or [pro/%ship pro/%groupchat ~]] (sy %dm-diff %groupchat-diff ~)]
+      [[%or [pro/%ship pro/%groupchat ~]] (sy %dm-diff %groupchat-diff %eyre-task ~)]
   ==
 ++  deps  *deps:neo
 ++  form
@@ -48,9 +52,8 @@
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
-    ?+    stud  !!
+    ?+    stud  ~|(%unsupported-poke !!)
         %dm-diff
-      ~&  >>>  'got dm diff'
       =/  poke  !<(dm-diff vax)
       ?>  =(%invited -.poke)
       :_  state
@@ -95,7 +98,6 @@
         (send-invites:web invites.poke location)
       ==
         %eyre-task
-      ~&  (kids-at-pith:su kids.bowl /)
       (handle:web !<(task:eyre:neo vax))
     ==
   --
@@ -108,13 +110,11 @@
     |=  =ship
     :-  location
     =/  provider  ~[p/ship %home %messenger]
-    ~&  provider
     [%poke groupchat-diff/!>([%invite ship provider])]
   ::
   ++  handle
     |=  [eyre-id=@ta req=inbound-request:eyre]
     ^-  (quip card:neo pail:neo)
-    ~&  p.pail
     :_  pail
     ?+    method.request.req  
         ~|(%unsupported-http-method !!)
@@ -130,49 +130,49 @@
       =/  body  (parse-body:oxy request.req)
       =/  mu  ~(. manx-utils:oxy body)
       =/  head  (@tas (got:mu %head))
-        ?+  head  ~|(%unsupported-request !!)
-          ::
-            %new-dm
-          =/  partner=ship  ;;  @p  (slav %p (vol:mu "invites"))
-          %+  welp 
-          (respond:oxy [bowl eyre-id req *manx])
-          [here.bowl %poke [%messenger-diff !>([head partner])]]~
-          ::
-            %new-groupchat
-          =/  invites=tape  
-            =/  val=tape  (need (val:mu "invites"))
-            ?:  =(' ' (rear val))  (snip val)
-            val
-          =/  parsed-invites=(set @p)
-            %-  silt
-            %+  scan  (weld " " invites)
-              %-  star
-                ;~  pose
-                  ;~  pfix  (jest ' ~')
-                  fed:ag
-                  ==
-                  ;~  pfix  (jest ', ~')
-                  fed:ag
-                  ==
+      ~&  head
+      ?+  head  ~|(%unsupported-request !!)
+        ::
+          %new-dm
+        =/  partner=ship  ;;  @p  (slav %p (vol:mu "invites"))
+        %+  welp 
+        (respond:oxy [bowl eyre-id req *manx])
+        [here.bowl %poke [%messenger-diff !>([head partner])]]~
+        ::
+          %new-groupchat
+        =/  invites=tape  
+          =/  val=tape  (need (val:mu "invites"))
+          ?:  =(' ' (rear val))  (snip val)
+          val
+        =/  parsed-invites=(set @p)
+          %-  silt
+          %+  scan  (weld " " invites)
+            %-  star
+              ;~  pose
+                ;~  pfix  (jest ' ~')
+                fed:ag
                 ==
-          =/  value  (val:mu "name")
-          =/  name=cord 
-          ::  TODO: if invites are longer than some amount of character
-            ?~  value  (crip invites)
-            (crip (need value))
-          %+  welp
-          (respond:oxy [bowl eyre-id req *manx])
-          [here.bowl %poke [%messenger-diff !>([head name parsed-invites])]]~
-          ::
-            %messenger-created 
-          ~&  >>>  %meesenger-created
-          =;  manx
-            (respond:oxy [bowl eyre-id req manx])
-          %~  render
-            ui
-          (pave:neo pax:(parse-url:oxy request.req))
-          ::
-        ==
+                ;~  pfix  (jest ', ~')
+                fed:ag
+                ==
+              ==
+        =/  value  (val:mu "name")
+        =/  name=cord 
+        ::  TODO: if invites are longer than some amount of character
+          ?~  value  (crip invites)
+          (crip (need value))
+        %+  welp
+        (respond:oxy [bowl eyre-id req *manx])
+        [here.bowl %poke [%messenger-diff !>([head name parsed-invites])]]~
+        ::
+          %messenger-created 
+        =;  manx
+          (respond:oxy [bowl eyre-id req manx])
+        %~  render
+          ui
+        (pave:neo pax:(parse-url:oxy request.req))
+        ::
+      ==
     ==
   ::
   ++  ui
@@ -182,7 +182,7 @@
       ;html
         ;head 
           ;meta(charset "UTF-8");
-          ;title:  home
+          ;title:  messenger
           ;*  old-standard-head-tags:serv
           ;*  standard-head-tags:serv
           ;meta
@@ -278,7 +278,6 @@
       ==
     ::
     ++  all-chats
-    ~&  >  (kids-at-pith:su kids.bowl /)
       =/  kids
         %+  skid  ~(tap of:neo kids.bowl)
             |=  [=pith =idea:neo]
@@ -311,14 +310,13 @@
         +:;;([%p @p] (rear pith))
       ^-   manx
       ;a.br1.hover.b0.fr.jb.wf.bc1
-      =href     (en-tape:pith:neo (welp here.bowl pith))
+      =href     (en-tape:pith:neo (welp here pith))
       =hx-swap  "innerHTML"
         ;h3.s-1.p2:  {<ship>}
       ==
     ::
     ++  chat
       |=  =pith
-      ~&  pith
       =/  org=@p  +:;;([%p @p] (snag 1 `(list iota)`pith))
       ::=/  members=(list ship)  ~(tap in members:!<(groupchat q.q.saga.idea))
       =/  chat  +:;;([%t @t] (rear pith))
@@ -326,7 +324,7 @@
       ;div.wf.br1.fc.g1
         ;div.fr.g1
           ;a.br1.hover.fr.jb.g2.wf.bc1.b0
-          =href     (en-tape:pith:neo (welp here.bowl pith))
+          =href     (en-tape:pith:neo (welp here pith))
           =hx-swap  "innerHTML"
             ;h3.s-1.p2:  {(trip chat)}
             ;h3.s-1.p2:  {<org>}
