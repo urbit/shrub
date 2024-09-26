@@ -26,7 +26,6 @@
     |=  [=stud:neo vax=vase]
     ?+    stud  !!
         %eyre-task
-      ~&  >  "Got %eyre-task!"
       (handle:web !<(task:eyre:neo vax))
         %circle-diff
       =/  diff  !<(circle-diff vax)
@@ -54,14 +53,12 @@
         !!
     ::
         %'GET'
-      ~&  >  "Got %'GET'!"
       =;  manx
         (respond:oxy [bowl eyre-id req manx])
       %-  render
       (pave:neo pax:(parse-url:oxy request.req))
     ::
         %'POST'
-      ~&  >  "Got %'POST'!"
       =/  body  (parse-body:oxy request.req)
       =/  s  (slav %p (~(vol manx-utils body) "ship"))
       %+  welp
@@ -123,7 +120,6 @@
   ++  form-new-ship
     |=  here=pith
     ^-  manx
-    ~&  >>  here
     ;form.fr.jc.p3
       =hx-post     (en-tape:pith:neo here)
       =hx-swap     "afterend"
