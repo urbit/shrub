@@ -62,7 +62,7 @@
       =/  body  (parse-body:oxy request.req)
       =/  s  (slav %p (~(vol manx-utils body) "ship"))
       %+  welp
-        (respond:oxy [bowl eyre-id req (foobar s)])
+        (respond:oxy [bowl eyre-id req (new-ship s)])
       =;  poke
         [here.bowl %poke [%circle-diff !>(poke)]]~
       ^-  circle-diff
@@ -154,7 +154,7 @@
         ; circle
       ==
     ==
-  ++  foobar
+  ++  new-ship
     |=  =ship
     ^-  manx
     ;div.border.p2.mono.fr.jb
