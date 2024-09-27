@@ -13,7 +13,7 @@
   :: :~  :-  [|/%tas |]
   ::     [pro/%sig (sy %sig ~)]
   :~  :-  [|/%tas |/%da |]
-  [pro/%message ~]
+  [[%or [pro/%message pro/%sig ~]] ~]
   ==
 ++  deps  *deps:neo
 ++  form
@@ -32,8 +32,8 @@
       :~  :-  (snoc here.bowl %pub)
           [%make %message-pub ~ ~]
           ::
-          :: :-  (snoc here.bowl %sub)
-          :: [%make %message-sub ~ (malt ~[[%pub (snoc here.bowl %pub)]])]
+          :-  (snoc here.bowl %sub)
+          [%make %message-sub ~ (malt ~[[%pub (snoc here.bowl %pub)]])]
           (bind:oxy bowl)
       ==
     ::  otherwise, I've been created as an invitee to
@@ -181,23 +181,15 @@
             """
           ;+  script:messages
           ;+  style:messages
-          ;+  (render-messages:messages [bowl here])
-          ;+  (render-sender:messages [bowl /pub here])
+          ;+  =;  host
+              (render-messages:messages bowl here host)
+              =/  groupchat  !<(groupchat q.pail)
+              =/  host-pith  (snag 0 host.groupchat)
+              ?>  ?=([%p @p] host-pith)  
+              =(our.bowl +.host-pith)
+          ;+  (render-sender:messages bowl /pub here)
         ==
       ==
-      :: ;div.p2
-      :: =label  "Chat"
-      ::   ;+  script:messages
-      ::   ;+  style:messages
-      ::   ;div.ma.fe.g2.wf
-      ::   =style  "max-width: 650px;"
-      ::     ;div.fc.g2.wf
-      ::       =id  "children"
-      ::       ;+  (render-messages:messages [bowl here])
-      ::     ==
-      ::     ;+  (render-sender:messages [bowl /pub here])
-      ::   ==
-      :: ==
     --
   --
 --

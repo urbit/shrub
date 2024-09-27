@@ -37,14 +37,12 @@
     %+  murn  ~(tap of:neo q:(~(got by deps.bowl) %pub))
     |=  [=pith:neo =idea:neo]
     ^-  (unit card:neo)
-    ::~&  pith/pith
     ?.  ?=([[%da @] ~] pith)
       ~
     ?:  (~(has of:neo kids.bowl) pith)
       ~
     ?.  =(%message p.pail.idea)
       ~
-    ::~&  making/~
     `[(welp here.bowl pith) %make %message `pail.idea ~]
   --
 --

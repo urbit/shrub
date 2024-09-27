@@ -24,6 +24,7 @@
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  =(our ship.src):bowl
+    ~&  >>  got-poke/[our.bowl stud now.bowl]
     :_  state
     ?+    stud  !!
         %message

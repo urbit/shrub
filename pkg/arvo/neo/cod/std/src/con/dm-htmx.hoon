@@ -19,7 +19,7 @@
       """
     ;+  script:messages
     ;+  style:messages
-    ;+  (render-messages:messages bowl here.bowl)
+    ;+  (render-messages:messages bowl here.bowl |)
     ;+  (render-sender:messages [bowl /pub here.bowl])
   ==
 ==

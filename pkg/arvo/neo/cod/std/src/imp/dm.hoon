@@ -158,10 +158,10 @@
               "messages"
               "sender"
             """
-          ;+  script:messages
           ;+  style:messages
-          ;+  (render-messages:messages [bowl here])
-          ;+  (render-sender:messages [bowl /pub here])
+          ;+  (render-messages:messages bowl here |)
+          ;+  (render-sender:messages bowl /pub here)
+          ;+  script:messages
         ==
       ==
     --

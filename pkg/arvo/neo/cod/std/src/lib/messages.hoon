@@ -24,10 +24,23 @@
   ;script
   ;+  ;/  %-  trip
   '''
+  document.addEventListener('DOMContentLoaded', function() {
+    let refresher = document.getElementById('refresher');
+    if (refresher) { 
+        refresher.addEventListener('htmx:afterRequest', function() {
+            console.log('loading');
+            let msgs = refresher.closest('.messages');
+            if (msgs) {
+                maybeScrollToBottom(msgs);
+            }
+        });
+    }
+  });
   function scrollToBottom(el) {
     el.scrollTop = el.scrollHeight;
   }
   function maybeScrollToBottom(el) {
+    console.log(el);
     let pos = el.scrollTop + el.clientHeight;
     let height = el.scrollHeight;
     if ((height - pos) < 200) {
@@ -37,21 +50,23 @@
       console.log('NOT scrolling', height, pos);
     }
   }
-  document.querySelectorAll('.messages').forEach(el => scrollToBottom(el));
   '''
   ==
+::  //document.querySelectorAll('.messages').forEach(el => scrollToBottom(el));
 ::
 ++  refresher
+::"let msgs = $(this).closest('.messages')[0]; maybeScrollToBottom(msgs);"
   |=  here=pith
   ;div.absolute.hidden
     =style  "top: 1em; left: 1em;"
     ;div.loader.refresher
-      =hx-get      (en-tape:pith:neo here)
-      ::=hx-on-htmx-after-request  "let msgs = $(this).closest('.messages')[0]; maybeScrollToBottom(msgs);"
+      =id  "refresher"
+      =hx-get  (en-tape:pith:neo here)
+      =hx-on-htmx-after-request  "console.log('after request');"
       =hx-trigger  "every 7s, refresh"
       =hx-target   "closest .top"
       =hx-select   ".top"
-      =hx-swap     "outerHTML"  ::"morph"
+      =hx-swap     "outerHTML"
       ;span.loaded;
       ;span.loading
         ;+  loading.feather-icons
@@ -60,7 +75,7 @@
   ==
 ::
 ++  render-messages
-  |=  [=bowl:neo here=pith]
+  |=  [=bowl:neo here=pith host=?]
   ^-  manx
   ;div.fc.g2.top.scroll-y.messages
     =style  "grid-area: messages; padding: 30px 0;"
@@ -73,15 +88,19 @@
     ==
   ;*
     =/  msgs  ~(tap of:neo kids.bowl)
-    :: ~&  >  msgs/msgs
     %+  turn
       %+  slag  (sub (lent msgs) (min 20 (lent msgs)))
       %+  sort
         %+  murn  msgs
-        |=  [=pith =idea:neo]
-        ?~  pith  ~
+        |=  [pit=pith =idea:neo]
+        ?~  pit  ~
+        ?:  host  
+          =/  msg-type  (snag 0 `pith`pit)
+          ?.  =(%sub msg-type)  ~
+          ?.  =(%message p.q.saga.idea)  ~
+          `[pit idea]
         ?.  =(%message p.q.saga.idea)  ~
-        `[pith idea]
+        `[pit idea]
       |=  [a=[=pith *] b=[=pith *]]
       =/  adate  +:(snag 1 pith.a)
       =/  bdate  +:(snag 1 pith.b)
