@@ -837,13 +837,17 @@ body {
   width: 100%;
   display: block;
   padding: 8px;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   background-color: var(--b1);
+  border-radius: 3px;
 }
 .prose code {
   font-family: var(--font-mono, monospace);
   font-size: calc(1em * var(--mono-scale));
-  color: var(--f2);
+  color: var(--f0);
+  background-color: var(--b1);
+  border-radius: 3px;
+  padding: 2px;
 }
 .prose hr {
   margin: 2rem 0;
