@@ -1,6 +1,7 @@
 /@  ui-event
 /@  txt
 /@  order
+/@  notification
 /-  serv=sky-server
 ^-  kook:neo
 =<
@@ -335,11 +336,78 @@
       ==
     ==
   ++  notifications
-    ;div.fc.g2(slot "notifications")
-      ;div.p3.br1.bd1: first
-      ;div.p3.br1.bd1: second
-      ;div.p3.br1.bd1: third
-    ==
+    :: ;div.fc.g2(slot "notifications")
+    ::   ;div.p3.br1.bd1: first
+    ::   ;div.p3.br1.bd1: second
+    ::   ;div.p3.br1.bd1: third
+    :: ==
+    (nots-to-manx nots)
+    ::
+    ++  flagged-not
+      :*  flag=%.y
+          time=~2000.1.1 
+          src=#/[p/~bud]/home/messages/dms/[p/~fun]
+          dst=#/[p/~bud]/home/messages/dms/[p/~fun]
+          cord='Unread notification.'
+      ==
+    ::
+    ++  unflagged-not
+      :*  flag=%.n
+          time=~1969.12.31
+          src=#/[p/~bud]/home/messages/dms/[p/~fun]
+          dst=#/[p/~bud]/home/messages/dms/[p/~fun]
+          cord='Read notification.'
+      ==
+    ::
+    ++  nots
+      :~  flagged-not
+          flagged-not
+          unflagged-not
+      ==
+    ::
+    ++  not-to-manx
+      |=  not=notification
+      ^-  manx
+      ;div.bd1.br2.p0.tl.ma.mt1
+        ;div.fr.g1.p0.wf
+          ;div.p0(style "width: 30%")
+            ;img@"https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg"(style "margin: 0px; object-fit: cover; border-radius: 6px;");
+          ==
+        ;div.p1(style "width: 70%")
+          ;div.fr.jb
+            ;div.s-1
+              =title  "{<(format-src src.not)>}"
+              ; ship/desk
+            ==
+            ;div.s-1
+              ; {<time.not>}
+            ==
+          ==
+          ; {(trip cord.not)}
+        ==
+        ==
+      ==
+    ::
+    ++  nots-to-manx
+      |=  nots=(list notification)
+      ^-  manx
+      ;div(slot "notifications")
+        ;*
+        %+  turn
+          nots
+        |=  not=notification
+        ^-  manx
+        (not-to-manx not)
+      ==
+    ++  format-src
+      |=  =pith
+      ^-  path
+      ?.  =(%p (head (head pith)))
+        (pout pith)
+      (pout (tail pith))
+    ::
+    ::  XX format time.not
+    ::
   ++  lift
     |=  in=manx
     ^-  manx

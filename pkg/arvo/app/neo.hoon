@@ -1560,7 +1560,9 @@
   =.  run
     (emit (do-card #/[p/our.bowl] %make %root ~ ~))
   =.  run
-    (emit (do-card #/[p/our.bowl]/sky %make %sky ~ ~))
+    (emit (do-card #/[p/our.bowl]/notifications %make %notifications ~ ~))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/sky %make %sky ~ (~(gas by *crew:neo) not/#/[p/our.bowl]/notifications ~)))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
