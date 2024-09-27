@@ -28,7 +28,8 @@
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     :_  home/!>(*home)
-    :~  [#/[p/our.bowl]/home/diary %make %diary ~ ~]
+    :~  
+        [#/[p/our.bowl]/home/diary %make %diary ~ ~]
         [#/[p/our.bowl]/home/tasks %make %task `task/!>(['' | & ~]) ~]
         [#/[p/our.bowl]/home/sail %make %sail `sail/!>(['# hello world' 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/accel %make %accel ~ ~]
@@ -51,13 +52,13 @@
         [#/[p/our.bowl]/home/docs/guides/development %make %sail `sail/!>([developer-environment-setup 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/feather %make %sail `sail/!>([feather-intro 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
+        [#/[p/our.bowl]/home/feed %make %timeline ~ (~(gas by *conf:neo) [%src #/[p/our.bowl]/sky/strategy/[p/our.bowl]] ~)]
       ::
-        [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/hawk ~]) ~]
     ==
   ++  poke
-    |=  =pail:neo
+    |=  [=stud:neo =vase]
     ^-  (quip card:neo pail:neo)
-    ?+    p.pail  !!
+    ?+    stud  !!
         %home
       [~ pail]
     ==

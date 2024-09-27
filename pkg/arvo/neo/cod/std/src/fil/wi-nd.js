@@ -1,25 +1,26 @@
-customElements.define('wi-nd',
-class extends HTMLElement {
-  static get observedAttributes() {
-    //
-    return [
-      "wid",
-      "here",
-      "searching",  // boolean. true is user is using the search bar in the header
-      "strategies", // space-separated list of iframe prefixes
-      "renderer",    // current iframe strategy
-      "menu",
-      "dragging",
-      "tab-title",
-      "favicon",
-    ];
-  }
-  constructor() {
-    //
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.adoptedStyleSheets = [sharedStyles];
-    this.shadowRoot.innerHTML = `
+customElements.define(
+  'wi-nd',
+  class extends HTMLElement {
+    static get observedAttributes() {
+      //
+      return [
+        'wid',
+        'here',
+        'searching', // boolean. true is user is using the search bar in the header
+        'strategies', // space-separated list of iframe prefixes
+        'renderer', // current iframe strategy
+        'menu',
+        'dragging',
+        'tab-title',
+        'favicon'
+      ]
+    }
+    constructor() {
+      //
+      super()
+      const shadow = this.attachShadow({ mode: 'open' })
+      shadow.adoptedStyleSheets = [sharedStyles]
+      this.shadowRoot.innerHTML = `
       <style>
        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
        .mso,
@@ -102,6 +103,12 @@ class extends HTMLElement {
             >
             <span class="mso">close</span>
           </button>
+          <button
+            class="p1 s-1 b2 hover br1 fc jc ac"
+            id="copy-pith"
+            >
+            <span class="mso">content_copy</span>
+          </button>
           <div
             class="p1 s-1 b2 grabber f4 fc jc ac"
             draggable="true"
@@ -117,87 +124,100 @@ class extends HTMLElement {
       <div id="tabs" class="fc grow">
       </div>
     `
-    this.intervalId = null;
-  }
-  connectedCallback() {
-    $(this.gid('searchbar')).off();
-    $(this.gid('searchbar')).on('submit', (e) => {
-      e.preventDefault();
-      this.setAttribute('here', $(this.gid('input-here')).val());
-      this.setAttribute('renderer', this.strategies[0]);
-      this.rebuildIframe();
-    });
-    $(this.gid('input-here')).off();
-    $(this.gid('input-here')).on('focusout', (e) => {
-      $(this).removeAttr('searching');
-    });
-    $(this.gid('input-here')).on('blur', (e) => {
-      $(this).removeAttr('searching');
-    });
-    $(this.gid('menu-toggle')).off();
-    $(this.gid('menu-toggle')).on('click', (e) => {
-      this.toggleAttribute('menu');
-    });
+      this.intervalId = null
+    }
+    connectedCallback() {
+      $(this.gid('searchbar')).off()
+      $(this.gid('searchbar')).on('submit', (e) => {
+        e.preventDefault()
+        this.setAttribute('here', $(this.gid('input-here')).val())
+        this.setAttribute('renderer', this.strategies[0])
+        this.rebuildIframe()
+      })
+      $(this.gid('input-here')).off()
+      $(this.gid('input-here')).on('focusout', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('input-here')).on('blur', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('menu-toggle')).off()
+      $(this.gid('menu-toggle')).on('click', (e) => {
+        this.toggleAttribute('menu')
+      })
 
-    $(this.gid('dragger')).off();
-    $(this.gid('dragger')).on('dragstart', (e) => {
-      e.originalEvent.dataTransfer.setData('text/plain', this.getAttribute('wid'));
-    })
-    $(this.gid('dragger')).on('dragenter', (e) => {
-      $(this).emit('drag-start');
-    })
-    $(this.gid('dragger')).on('dragend', (e) => {
-      $(this).emit('drag-end');
-    })
+      $(this.gid('dragger')).off()
+      $(this.gid('dragger')).on('dragstart', (e) => {
+        e.originalEvent.dataTransfer.setData(
+          'text/plain',
+          this.getAttribute('wid')
+        )
+      })
+      $(this.gid('dragger')).on('dragenter', (e) => {
+        $(this).emit('drag-start')
+      })
+      $(this.gid('dragger')).on('dragend', (e) => {
+        $(this).emit('drag-end')
+      })
 
-    $(this).off();
-    $(this).on('close', () => {
-      $(this).emit('close-window');
-    })
-    $(this).on('minimize', () => {
-      $(this).emit('minimize-window');
-    })
-    $(this).on('dragenter', (e) => {
-      $(this).addClass('dragging');
-    })
-    $(this).on('dragover', (e) => {
-      e.preventDefault();
-    })
-    $(this).on('dragleave', (e) => {
-      $(this).removeClass('dragging');
-    })
-    $(this).on('drop', (e) => {
-      e.preventDefault();
-      $(this).emit('drag-end');
-      let wid = e.originalEvent.dataTransfer.getData('text/plain');
-      let wind = $(`[wid='${wid}']`);
-      let newSlot = parseInt(this.getAttribute('slot').slice(1));
-      let oldSlot = parseInt(wind.attr('slot')?.slice(1));
-      if (!isNaN(oldSlot) && oldSlot < newSlot) {
-        newSlot = newSlot + 0.5;
-      } else {
-        newSlot = newSlot - 0.5;
-      }
-      wind.attr('slot', `s${newSlot}`);
-      $(this).emit('fix-slots');
-    })
-    this.setAttribute('wid', `${Date.now()}`);
-    this.buildMenu()
+      $(this).off()
+      $(this).on('close', () => {
+        $(this).emit('close-window')
+      })
+      $(this).on('minimize', () => {
+        $(this).emit('minimize-window')
+      })
+      $(this.gid('copy-pith')).on('click', async (e) => {
+        let here = this.getAttribute('here')
+        try {
+          await navigator.clipboard.writeText(here)
+        } catch (err) {
+          console.error('Failed to copy text: ', err)
+        }
+      })
+      $(this).on('dragenter', (e) => {
+        $(this).addClass('dragging')
+      })
+      $(this).on('dragover', (e) => {
+        e.preventDefault()
+      })
+      $(this).on('dragleave', (e) => {
+        $(this).removeClass('dragging')
+      })
+      $(this).on('drop', (e) => {
+        e.preventDefault()
+        $(this).emit('drag-end')
+        let wid = e.originalEvent.dataTransfer.getData('text/plain')
+        let wind = $(`[wid='${wid}']`)
+        let newSlot = parseInt(this.getAttribute('slot').slice(1))
+        let oldSlot = parseInt(wind.attr('slot')?.slice(1))
+        if (!isNaN(oldSlot) && oldSlot < newSlot) {
+          newSlot = newSlot + 0.5
+        } else {
+          newSlot = newSlot - 0.5
+        }
+        wind.attr('slot', `s${newSlot}`)
+        $(this).emit('fix-slots')
+      })
+      this.setAttribute('wid', `${Date.now()}`)
+      this.buildMenu()
 
-    // poll iframes for changes every 350ms
-    this.intervalId = setInterval(() => {
-      let here = this.getAttribute('here');
-      let favicon = this.getAttribute('favicon');
-      let tabTitle = this.getAttribute('tab-title');
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "sky-poll",
-          here,
-          favicon,
-          tabTitle,
-        });
-      });
-    }, 350);
+      // poll iframes for changes every 350ms
+      this.intervalId = setInterval(() => {
+        let here = this.getAttribute('here')
+        let favicon = this.getAttribute('favicon')
+        let tabTitle = this.getAttribute('tab-title')
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'sky-poll',
+              here,
+              favicon,
+              tabTitle
+            })
+          })
+      }, 350)
 
     $(this).on('title-changed', (e) => {
       if (!!e.detail) {
@@ -359,51 +379,52 @@ class extends HTMLElement {
         if (words.length != 2) {
           words = ["b", "b-error"];
         }
-        return words[1].split('-').slice(1).join(' ');
-      },
+      }
     }
-  }
-  labelLookup(renderer) {
-    let entries = Object.entries(this.rendererLabels);
-    let entry = entries.filter(([k, v]) => renderer.startsWith(k))[0];
-    if (!entry) return;
-    return entry[1](renderer);
-  }
-  get prettyCurrent() {
-    let r = this.renderer;
-    let m = this.labelLookup(r)
-    if (m) {
-      return m;
+    labelLookup(renderer) {
+      let entries = Object.entries(this.rendererLabels)
+      let entry = entries.filter(([k, v]) => renderer.startsWith(k))[0]
+      if (!entry) return
+      return entry[1](renderer)
     }
-    return r
-  }
-  createIframe(prefix, here, open) {
-    let el = document.createElement('iframe');
-    el.setAttribute('prefix', prefix);
-    el.setAttribute('lazy', '');
-    el.setAttribute('src', prefix+here);
-    el.setAttribute('style', 'width: 100%; flex-grow: 1; border: none; background: var(--b0);');
-    if (!open) {
-      el.hidden = true;
+    get prettyCurrent() {
+      let r = this.renderer
+      let m = this.labelLookup(r)
+      if (m) {
+        return m
+      }
+      return r
     }
-    el.addEventListener('load', () => {
-      this.registerServiceWorker(el, prefix);
-    });
-    return el;
-  }
-  rebuildIframe() {
-    $(this.gid('tabs')).children().remove();
-    let frame = this.createIframe(this.renderer, this.here, true);
-    $(this.gid('tabs')).append(frame);
-  }
-  registerServiceWorker(iframe, prefix) {
-    //  for convenience, this part is inject by wi-nd.
-    //  in future, due to the need to sandbox the iframes,
-    //  this must be provided by the iframe's contents.
-    const iframeDoc = iframe.contentWindow.document;
-    let wid = this.getAttribute('wid');
-    const inlineScript = iframeDoc.createElement('script');
-    inlineScript.textContent = `
+    createIframe(prefix, here, open) {
+      let el = document.createElement('iframe')
+      el.setAttribute('prefix', prefix)
+      el.setAttribute('lazy', '')
+      el.setAttribute('src', prefix + here)
+      el.setAttribute(
+        'style',
+        'width: 100%; flex-grow: 1; border: none; background: var(--b0);'
+      )
+      if (!open) {
+        el.hidden = true
+      }
+      el.addEventListener('load', () => {
+        this.registerServiceWorker(el, prefix)
+      })
+      return el
+    }
+    rebuildIframe() {
+      $(this.gid('tabs')).children().remove()
+      let frame = this.createIframe(this.renderer, this.here, true)
+      $(this.gid('tabs')).append(frame)
+    }
+    registerServiceWorker(iframe, prefix) {
+      //  for convenience, this part is inject by wi-nd.
+      //  in future, due to the need to sandbox the iframes,
+      //  this must be provided by the iframe's contents.
+      const iframeDoc = iframe.contentWindow.document
+      let wid = this.getAttribute('wid')
+      const inlineScript = iframeDoc.createElement('script')
+      inlineScript.textContent = `
       window.parent.postMessage(
         {
           messagetype: 'iframe-wants-feather',
@@ -564,31 +585,32 @@ class extends HTMLElement {
         <div class="frw g2 ac js">
         </div>
       </div>
-    `);
-    //
-    this.strategies.forEach(s => {
-      let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`);
-      bookmark.text(this.labelLookup(s) || s);
-      $(bookmark).on('click', (e) => {
-        $(this).attr('renderer', s)
+    `)
+      //
+      this.strategies.forEach((s) => {
+        let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)
+        bookmark.text(this.labelLookup(s) || s)
+        $(bookmark).on('click', (e) => {
+          $(this).attr('renderer', s)
+        })
+        if (s === this.renderer) {
+          $(bookmark).addClass('toggled')
+        }
+        bookmarks.find('.frw').append(bookmark)
       })
-      if (s === this.renderer) {
-        $(bookmark).addClass('toggled');
-      }
-      bookmarks.find('.frw').append(bookmark);
-    })
-    menu.appendChild(bookmarks.get(0));
-    //
-    let any = $(`
+      menu.appendChild(bookmarks.get(0))
+      //
+      let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">
         <input type="text" class="grow br1 bd1 p-1 b0 wf" autocomplete="off" required placeholder="/any/renderer" />
         <button class="p-1 br1 bd1 b1 hover">submit</button>
       </form>
-    `);
-    any.on('submit', (e) => {
-      e.preventDefault();
-      $(this).attr('renderer', any.find('input').val());
-    })
-    menu.appendChild(any.get(0));
+    `)
+      any.on('submit', (e) => {
+        e.preventDefault()
+        $(this).attr('renderer', any.find('input').val())
+      })
+      menu.appendChild(any.get(0))
+    }
   }
-});
+)

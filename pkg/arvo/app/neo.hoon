@@ -1576,6 +1576,8 @@
     (emit (do-card #/[p/our.bowl]/self %make %self ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/tree %make %tree-eyre ~ (~(gas by *crew:neo) src/#/[p/our.bowl] ~)))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/storage %make %storage ~ ~))
   run
   ++  pess  |=(=post:neo (~(pith press post) %out))
   ++  clay-beak  ^-  path
