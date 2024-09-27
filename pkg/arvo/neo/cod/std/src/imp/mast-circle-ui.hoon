@@ -10,8 +10,13 @@
 ++  deps
   ^-  deps:neo
   %-  my
-  :~  :^  %src  &  [pro/%circle (sy %circle-diff ~)]
-      ~
+  :~  :^    %src
+          &
+        [pro/%circle (sy %circle-diff ~)]
+      :+  ~  %y
+      %-  ~(gas by *lads:neo)
+      :~  [[|/%p |] pro/%sig ~]
+      ==
   ==
 ++  form
   ^-  form:neo
