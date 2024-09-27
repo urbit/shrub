@@ -219,165 +219,189 @@ customElements.define(
           })
       }, 350)
 
-    $(this).on('title-changed', (e) => {
-      if (!!e.detail) {
-        $(this).attr('tab-title', e.detail);
-      } else {
-        $(this).attr('tab-title', null);
-      }
-      $(this).emit('here-moved');
-    });
-    $(this).on('favicon-changed', (e) => {
-      if (!!e.detail) {
-        $(this).attr('favicon', e.detail);
-      } else {
-        $(this).attr('favicon', null);
-      }
-      $(this).emit('here-moved');
-    });
-    $(this).on('iframe-moved', (e) => {
-      $(this).attr('renderer', e.detail.prefix);
-      $(this).attr('here', e.detail.here);
-    });
-    $(this).on('set-feather-values', (e) => {
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "feather-change",
-          rules: e.detail
-        });
-      });
-    });
-    $(this).on('reset-feather-values', (e) => {
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "feather-reset",
-        });
-      });
-    });
-    $(this).on('bookmark-renderer', (e) => {
-      this.setAttribute('strategies', (this.getAttribute('strategies') || '') + ' ' + e.detail);
-      $(this).emit('strategy-change', this.strategyPoke);
-    });
-    $(this).on('unbookmark-renderer', (e) => {
-      let newstrats = this.strategies.slice(0, -1).filter(s => s != e.detail);
-      this.setAttribute('strategies', newstrats);
-      $(this).emit('strategy-change', this.strategyPoke);
-    });
-  }
-  disconnectedCallback() {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    //
-    if (name === "here") {
-      this.setAttribute('strategies', (this.defaultStrategies[newValue] || []).join(' '))
-      this.buildBreadcrumbs();
-      this.buildMenu()
-      $(this.gid('input-here')).val(newValue);
-      $(this).emit('here-moved');
-    }
-    else if (name === "searching") {
-      if (newValue === null) {
-        $(this.gid('breadcrumbs')).removeClass('hidden');
-        $(this.gid('searchbar')).addClass('hidden');
-      } else {
-        $(this.gid('breadcrumbs')).addClass('hidden');
-        $(this.gid('searchbar')).removeClass('hidden');
-        this.gid('input-here').focus();
-        this.gid('input-here').setSelectionRange(999,999);
-      }
-    }
-    else if (name === "renderer") {
-      $(this.gid('menu-toggle')).text(this.prettyCurrent)
-      if (oldValue !== newValue) {
-        this.rebuildIframe();
-      }
-      this.buildMenu()
-    }
-    else if (name === "menu") {
-      if (newValue === null) {
-        $(this.gid('menu')).addClass('hidden');
-        $(this.gid('menu-toggle')).removeClass('o7');
-      } else {
-        $(this.gid('menu')).removeClass('hidden');
-        $(this.gid('menu-toggle')).addClass('o7');
-      }
-    }
-    else if (name === "strategies") {
-      this.buildMenu()
-    }
-    else if (name === "dragging") {
-      if (newValue === null) {
-        $(this).removeClass('dragging');
-        $(this.gid('drag-overlay')).addClass('hidden');
-      } else {
-        $(this.gid('drag-overlay')).removeClass('hidden');
-      }
-    }
-  }
-  qs(sel) {
-    return this.shadowRoot.querySelector(sel);
-  }
-  gid(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  get here() {
-    return this.getAttribute("here") || "/";
-  }
-  get path() {
-    return this.here.slice(1).split("/").filter(s => !!s.trim().length);
-  }
-  get defaultStrategies() {
-    let strats = document.querySelector('s-k-y')?.getAttribute('default-strategies');
-    return JSON.parse(strats || '{}');
-  }
-  get strategies() {
-    const userStrategies = (this.getAttribute('strategies') || '')
-      .split(' ')
-      .map(m => m.trim())
-      .filter(f => !!f);
-  
-    const uniqueStrategies = new Set([...userStrategies, '/hawk', '/tree', '/self']);
-  
-    return [...uniqueStrategies];
-  }
-  get strategyPoke() {
-    let poke = {
-      here: this.here,
-      strategies: this.strategies.slice(0, -1)
-    }
-    return JSON.stringify(poke);
-  }
-  get renderer() {
-    let c = this.getAttribute('renderer');
-    return (c || this.strategies[0]);
-  }
-  get rendererLabels() {
-    //
-    //  this is assuming a naming structure that should
-    //  not need to be assumed. fix this thix this fix this
-    //  ... eventually
-    //
-    return {
-      "/hawk": () => "hawk",
-      "/tree": () => "tree",
-      "/self": () => "self",
-      //
-      "/mast": (x) => {
-        let words = x.split("/").map(s => s.trim()).filter(s => !!s);
-        if (words.length != 2) {
-          words = ["mast", "mast-error"];
+      $(this).on('title-changed', (e) => {
+        if (!!e.detail) {
+          $(this).attr('tab-title', e.detail)
+        } else {
+          $(this).attr('tab-title', null)
         }
-        return words[1].split('-').slice(1).join(' ');
-      },
+        $(this).emit('here-moved')
+      })
+      $(this).on('favicon-changed', (e) => {
+        if (!!e.detail) {
+          $(this).attr('favicon', e.detail)
+        } else {
+          $(this).attr('favicon', null)
+        }
+        $(this).emit('here-moved')
+      })
+      $(this).on('iframe-moved', (e) => {
+        $(this).attr('renderer', e.detail.prefix)
+        $(this).attr('here', e.detail.here)
+      })
+      $(this).on('set-feather-values', (e) => {
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'feather-change',
+              rules: e.detail
+            })
+          })
+      })
+      $(this).on('reset-feather-values', (e) => {
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'feather-reset'
+            })
+          })
+      })
+      $(this).on('bookmark-renderer', (e) => {
+        this.setAttribute(
+          'strategies',
+          (this.getAttribute('strategies') || '') + ' ' + e.detail
+        )
+        $(this).emit('strategy-change', this.strategyPoke)
+      })
+      $(this).on('unbookmark-renderer', (e) => {
+        let newstrats = this.strategies
+          .slice(0, -1)
+          .filter((s) => s != e.detail)
+        this.setAttribute('strategies', newstrats)
+        $(this).emit('strategy-change', this.strategyPoke)
+      })
+    }
+    disconnectedCallback() {
+      if (this.intervalId !== null) {
+        clearInterval(this.intervalId)
+        this.intervalId = null
+      }
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
       //
-      "/blue": (x) => {
-        let words = x.split("/").map(s => s.trim()).filter(s => !!s);
-        if (words.length != 2) {
-          words = ["b", "b-error"];
+      if (name === 'here') {
+        this.setAttribute(
+          'strategies',
+          (this.defaultStrategies[newValue] || []).join(' ')
+        )
+        this.buildBreadcrumbs()
+        this.buildMenu()
+        $(this.gid('input-here')).val(newValue)
+        $(this).emit('here-moved')
+      } else if (name === 'searching') {
+        if (newValue === null) {
+          $(this.gid('breadcrumbs')).removeClass('hidden')
+          $(this.gid('searchbar')).addClass('hidden')
+        } else {
+          $(this.gid('breadcrumbs')).addClass('hidden')
+          $(this.gid('searchbar')).removeClass('hidden')
+          this.gid('input-here').focus()
+          this.gid('input-here').setSelectionRange(999, 999)
+        }
+      } else if (name === 'renderer') {
+        $(this.gid('menu-toggle')).text(this.prettyCurrent)
+        if (oldValue !== newValue) {
+          this.rebuildIframe()
+        }
+        this.buildMenu()
+      } else if (name === 'menu') {
+        if (newValue === null) {
+          $(this.gid('menu')).addClass('hidden')
+          $(this.gid('menu-toggle')).removeClass('o7')
+        } else {
+          $(this.gid('menu')).removeClass('hidden')
+          $(this.gid('menu-toggle')).addClass('o7')
+        }
+      } else if (name === 'strategies') {
+        this.buildMenu()
+      } else if (name === 'dragging') {
+        if (newValue === null) {
+          $(this).removeClass('dragging')
+          $(this.gid('drag-overlay')).addClass('hidden')
+        } else {
+          $(this.gid('drag-overlay')).removeClass('hidden')
+        }
+      }
+    }
+    qs(sel) {
+      return this.shadowRoot.querySelector(sel)
+    }
+    gid(id) {
+      return this.shadowRoot.getElementById(id)
+    }
+    get here() {
+      return this.getAttribute('here') || '/'
+    }
+    get path() {
+      return this.here
+        .slice(1)
+        .split('/')
+        .filter((s) => !!s.trim().length)
+    }
+    get defaultStrategies() {
+      let strats = document
+        .querySelector('s-k-y')
+        ?.getAttribute('default-strategies')
+      return JSON.parse(strats || '{}')
+    }
+    get strategies() {
+      const userStrategies = (this.getAttribute('strategies') || '')
+        .split(' ')
+        .map((m) => m.trim())
+        .filter((f) => !!f)
+
+      const uniqueStrategies = new Set([
+        ...userStrategies,
+        '/hawk',
+        '/tree',
+        '/self'
+      ])
+
+      return [...uniqueStrategies]
+    }
+    get strategyPoke() {
+      let poke = {
+        here: this.here,
+        strategies: this.strategies.slice(0, -1)
+      }
+      return JSON.stringify(poke)
+    }
+    get renderer() {
+      let c = this.getAttribute('renderer')
+      return c || this.strategies[0]
+    }
+    get rendererLabels() {
+      //
+      //  this is assuming a naming structure that should
+      //  not need to be assumed. fix this thix this fix this
+      //  ... eventually
+      //
+      return {
+        '/hawk': () => 'hawk',
+        '/tree': () => 'tree',
+        '/self': () => 'self',
+        //
+        '/mast': (x) => {
+          let words = x
+            .split('/')
+            .map((s) => s.trim())
+            .filter((s) => !!s)
+          if (words.length != 2) {
+            words = ['mast', 'mast-error']
+          }
+          return words[1].split('-').slice(1).join(' ')
+        },
+        //
+        '/blue': (x) => {
+          let words = x
+            .split('/')
+            .map((s) => s.trim())
+            .filter((s) => !!s)
+          if (words.length != 2) {
+            words = ['b', 'b-error']
+          }
         }
       }
     }
@@ -484,43 +508,43 @@ customElements.define(
           document.documentElement.style = '';
         }
       });
-    `;
-    iframeDoc.body.appendChild(inlineScript);
-  }
-  buildBreadcrumbs() {
-    let breadcrumbs = $(this.gid('breadcrumbs'));
-    breadcrumbs.children().remove();
-    //
-    this.path.forEach((p, i) => {
-      let chevron = $(document.createElement('span'));
-      chevron.addClass('s-2 f4 o6 fc ac jc no-select');
-      if (i > 0) {
-        chevron.text('›');
-      }
-      breadcrumbs.append(chevron);
+    `
+      iframeDoc.body.appendChild(inlineScript)
+    }
+    buildBreadcrumbs() {
+      let breadcrumbs = $(this.gid('breadcrumbs'))
+      breadcrumbs.children().remove()
       //
-      let crumb = $(document.createElement('button'));
-      crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2');
-      crumb.text((i === 0 && this.path[0].startsWith('~')) ? "/" : this.path[i]);
-      crumb.on('click', () => {
-        $(this).attr('here', "/"+this.path.slice(0, i+1).join("/"));
-        $(this).attr('renderer', this.strategies[0]);
-        this.rebuildIframe();
-      });
-      breadcrumbs.append(crumb);
-    })
-    let spacer = $(document.createElement('button'));
-    spacer.addClass('grow b2 br1 hover')
-    spacer.on('click', () => {
-      $(this).attr('searching', '');
-    });
-    breadcrumbs.append(spacer);
-  }
-  buildMenu() {
-    let menu = this.gid('menu');
-    $(menu).children().remove();
-    //
-    /*let top = $(`
+      this.path.forEach((p, i) => {
+        let chevron = $(document.createElement('span'))
+        chevron.addClass('s-2 f4 o6 fc ac jc no-select')
+        if (i > 0) {
+          chevron.text('›')
+        }
+        breadcrumbs.append(chevron)
+        //
+        let crumb = $(document.createElement('button'))
+        crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2')
+        crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
+        crumb.on('click', () => {
+          $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
+          $(this).attr('renderer', this.strategies[0])
+          this.rebuildIframe()
+        })
+        breadcrumbs.append(crumb)
+      })
+      let spacer = $(document.createElement('button'))
+      spacer.addClass('grow b2 br1 hover')
+      spacer.on('click', () => {
+        $(this).attr('searching', '')
+      })
+      breadcrumbs.append(spacer)
+    }
+    buildMenu() {
+      let menu = this.gid('menu')
+      $(menu).children().remove()
+      //
+      /*let top = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderer</span>
         <div class="fr g3 ac js">
@@ -549,7 +573,7 @@ customElements.define(
         </div>
       </div>
     `);*/
-    let top = $(`
+      let top = $(`
       <div class="fc g1">
         <div class="fr g3 ac js">
           <div class="grow"></div>
@@ -563,8 +587,8 @@ customElements.define(
           </a>
         </div>
       </div>
-    `);
-    /*$(top).find('h4').text(this.renderer);
+    `)
+      /*$(top).find('h4').text(this.renderer);
     if (this.strategies.includes(this.renderer)) {
       $(top).find('#bm-save-btn').addClass('hidden')
     }
@@ -577,9 +601,9 @@ customElements.define(
     $(top).find('#bm-del-btn').on('click', (e) => {
       $(this).emit('unbookmark-renderer', this.renderer)
     });*/
-    //menu.appendChild(top.get(0));
-    //
-    let bookmarks = $(`
+      //menu.appendChild(top.get(0));
+      //
+      let bookmarks = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderers</span>
         <div class="frw g2 ac js">
