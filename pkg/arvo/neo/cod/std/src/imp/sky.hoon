@@ -6,7 +6,7 @@
 =<
 |%
 ++  state  pro/%sig
-++  poke   (sy %gift %bind-static-assets ~)
+++  poke   (sy %gift %bind-static-assets %make-system-shrubs ~)
 ++  kids
   :+  ~  %z
   schema.serv
@@ -30,6 +30,14 @@
         [#/[p/our.bowl]/static/hawk-icon %make %png `png/!>(hawk-icon) ~]
         [#/[p/our.bowl]/static/sky-manifest %make %json `json/!>(~(manifest web bowl)) ~]
       ==
+    ::
+        %make-system-shrubs
+      :_  sig/!>(~)
+      :~  [#/[p/our.bowl]/profiles [%make %profiles `[%sig !>(~)] ~]]
+          [#/[p/our.bowl]/profiles/default [%make %sig `[%sig !>(~)] ~]]
+          [#/[p/our.bowl]/homepage [%make %homepage `[%homepage !>([#/default ~])] (malt ~[[%profiles #/[p/our.bowl]/profiles]])]]
+          ::  XX make "network.urbit.org" widget
+      ==
     ==
       ::
   ++  init
@@ -48,6 +56,7 @@
     :~
       [~[p/our.bowl %home] %make %home ~ ~]
       [here.bowl %poke bind-static-assets/!>(~)]
+      [here.bowl %poke make-system-shrubs/!>(~)]
     ==
   --
 --

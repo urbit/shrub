@@ -2,16 +2,12 @@
 ^-  kook:neo
 |%
 ++  state
-  ^-  curb:neo
-  [%pro %url]
+  pro/%url
 ++  poke
-  ^-  (set stud:neo)
   (sy %url ~)
 ++  kids
-  ^-  kids:neo
   *kids:neo
 ++  deps
-  ^-  deps:neo
   *deps:neo
 ++  form
   ^-  form:neo
@@ -27,7 +23,7 @@
     ++  poke
       |=  [=stud:neo vaz=vase]
       ^-  (quip card:neo pail:neo)
-      ?>  =(%url stud)
+      ?>  =(stud %url)
       [~ [%url !>((url !<(cord vaz)))]]
   --
 --
