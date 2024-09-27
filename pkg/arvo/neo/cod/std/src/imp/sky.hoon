@@ -35,7 +35,7 @@
       :_  sig/!>(~)
       :~  
           [#/[p/our.bowl]/sky/strategy/[p/our.bowl] %make %order `order/!>(~) ~]
-          [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/hawk ~]) ~]
+          [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/self ~]) ~]
           [#/[p/our.bowl]/profiles [%make %profiles `[%sig !>(~)] ~]]
           [#/[p/our.bowl]/profiles/default [%make %sig `[%sig !>(~)] ~]]
           [#/[p/our.bowl]/homepage [%make %homepage `[%homepage !>([#/default ~])] (malt ~[[%profiles #/[p/our.bowl]/profiles]])]]

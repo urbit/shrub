@@ -145,7 +145,41 @@ customElements.define(
       $(this.gid('menu-toggle')).on('click', (e) => {
         this.toggleAttribute('menu')
       })
+      this.intervalId = null
+    }
+    connectedCallback() {
+      $(this.gid('searchbar')).off()
+      $(this.gid('searchbar')).on('submit', (e) => {
+        e.preventDefault()
+        this.setAttribute('here', $(this.gid('input-here')).val())
+        this.setAttribute('renderer', this.strategies[0])
+        this.rebuildIframe()
+      })
+      $(this.gid('input-here')).off()
+      $(this.gid('input-here')).on('focusout', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('input-here')).on('blur', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('menu-toggle')).off()
+      $(this.gid('menu-toggle')).on('click', (e) => {
+        this.toggleAttribute('menu')
+      })
 
+      $(this.gid('dragger')).off()
+      $(this.gid('dragger')).on('dragstart', (e) => {
+        e.originalEvent.dataTransfer.setData(
+          'text/plain',
+          this.getAttribute('wid')
+        )
+      })
+      $(this.gid('dragger')).on('dragenter', (e) => {
+        $(this).emit('drag-start')
+      })
+      $(this.gid('dragger')).on('dragend', (e) => {
+        $(this).emit('drag-end')
+      })
       $(this.gid('dragger')).off()
       $(this.gid('dragger')).on('dragstart', (e) => {
         e.originalEvent.dataTransfer.setData(
@@ -202,6 +236,22 @@ customElements.define(
       this.setAttribute('wid', `${Date.now()}`)
       this.buildMenu()
 
+      // poll iframes for changes every 350ms
+      this.intervalId = setInterval(() => {
+        let here = this.getAttribute('here')
+        let favicon = this.getAttribute('favicon')
+        let tabTitle = this.getAttribute('tab-title')
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'sky-poll',
+              here,
+              favicon,
+              tabTitle
+            })
+          })
+      }, 350)
       // poll iframes for changes every 350ms
       this.intervalId = setInterval(() => {
         let here = this.getAttribute('here')
@@ -402,6 +452,7 @@ customElements.define(
           if (words.length != 2) {
             words = ['b', 'b-error']
           }
+          return words[1].split('-').slice(1).join(' ')
         }
       }
     }
@@ -418,6 +469,23 @@ customElements.define(
         return m
       }
       return r
+    }
+    async checkUrl(url) {
+      try {
+        let response = await fetch(url, { method: 'GET' })
+        if (response.ok) {
+          if (response.redirected) {
+            return false
+          } else {
+            return true
+          }
+        } else {
+          return false
+        }
+      } catch (error) {
+        console.error('Fetch error:', error)
+        return false
+      }
     }
     createIframe(prefix, here, open) {
       let el = document.createElement('iframe')
@@ -436,10 +504,22 @@ customElements.define(
       })
       return el
     }
-    rebuildIframe() {
-      $(this.gid('tabs')).children().remove()
-      let frame = this.createIframe(this.renderer, this.here, true)
-      $(this.gid('tabs')).append(frame)
+    async rebuildIframe() {
+      let url =
+        this.renderer === '/self'
+          ? window.location.origin + this.here
+          : window.location.origin + this.renderer + this.here
+      let isLoading = await this.checkUrl(url)
+      if (isLoading) {
+        $(this.gid('tabs')).children().remove()
+        let frame = this.createIframe(this.renderer, this.here, true)
+        $(this.gid('tabs')).append(frame)
+      } else {
+        $(this.gid('tabs')).children().remove()
+        let frame = this.createIframe(`/tree`, this.here, true)
+        $(this.gid('menu-toggle')).text(`tree`)
+        $(this.gid('tabs')).append(frame)
+      }
     }
     registerServiceWorker(iframe, prefix) {
       //  for convenience, this part is inject by wi-nd.
@@ -545,6 +625,43 @@ customElements.define(
       $(menu).children().remove()
       //
       /*let top = $(`
+    `
+      iframeDoc.body.appendChild(inlineScript)
+    }
+    buildBreadcrumbs() {
+      let breadcrumbs = $(this.gid('breadcrumbs'))
+      breadcrumbs.children().remove()
+      //
+      this.path.forEach((p, i) => {
+        let chevron = $(document.createElement('span'))
+        chevron.addClass('s-2 f4 o6 fc ac jc no-select')
+        if (i > 0) {
+          chevron.text('›')
+        }
+        breadcrumbs.append(chevron)
+        //
+        let crumb = $(document.createElement('button'))
+        crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2')
+        crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
+        crumb.on('click', () => {
+          $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
+          $(this).attr('renderer', this.strategies[0])
+          this.rebuildIframe()
+        })
+        breadcrumbs.append(crumb)
+      })
+      let spacer = $(document.createElement('button'))
+      spacer.addClass('grow b2 br1 hover')
+      spacer.on('click', () => {
+        $(this).attr('searching', '')
+      })
+      breadcrumbs.append(spacer)
+    }
+    buildMenu() {
+      let menu = this.gid('menu')
+      $(menu).children().remove()
+      //
+      /*let top = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderer</span>
         <div class="fr g3 ac js">
@@ -574,6 +691,7 @@ customElements.define(
       </div>
     `);*/
       let top = $(`
+      let top = $(`
       <div class="fc g1">
         <div class="fr g3 ac js">
           <div class="grow"></div>
@@ -589,6 +707,8 @@ customElements.define(
       </div>
     `)
       /*$(top).find('h4').text(this.renderer);
+    `)
+      /*$(top).find('h4').text(this.renderer);
     if (this.strategies.includes(this.renderer)) {
       $(top).find('#bm-save-btn').addClass('hidden')
     }
@@ -601,6 +721,9 @@ customElements.define(
     $(top).find('#bm-del-btn').on('click', (e) => {
       $(this).emit('unbookmark-renderer', this.renderer)
     });*/
+      //menu.appendChild(top.get(0));
+      //
+      let bookmarks = $(`
       //menu.appendChild(top.get(0));
       //
       let bookmarks = $(`
@@ -625,10 +748,33 @@ customElements.define(
       menu.appendChild(bookmarks.get(0))
       //
       let any = $(`
+    `)
+      //
+      this.strategies.forEach((s) => {
+        let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)
+        bookmark.text(this.labelLookup(s) || s)
+        $(bookmark).on('click', (e) => {
+          $(this).attr('renderer', s)
+        })
+        if (s === this.renderer) {
+          $(bookmark).addClass('toggled')
+        }
+        bookmarks.find('.frw').append(bookmark)
+      })
+      menu.appendChild(bookmarks.get(0))
+      //
+      let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">
         <input type="text" class="grow br1 bd1 p-1 b0 wf" autocomplete="off" required placeholder="/any/renderer" />
         <button class="p-1 br1 bd1 b1 hover">submit</button>
       </form>
+    `)
+      any.on('submit', (e) => {
+        e.preventDefault()
+        $(this).attr('renderer', any.find('input').val())
+      })
+      menu.appendChild(any.get(0))
+    }
     `)
       any.on('submit', (e) => {
         e.preventDefault()
