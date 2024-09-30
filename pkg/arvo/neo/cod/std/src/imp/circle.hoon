@@ -112,8 +112,6 @@
       ^-  manx
       (new-ship ship)
     ==
-  ++  my-address
-    (en-tape:pith:neo :(weld /hawk here.bowl))
   ++  form-new-ship
     |=  here=pith
     ^-  manx
