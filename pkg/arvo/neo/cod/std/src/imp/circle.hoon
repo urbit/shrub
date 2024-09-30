@@ -39,7 +39,7 @@
           %del
         %+  turn  ~(tap in p.diff)
         |=  =ship
-        [(snoc here.bowl p/ship) %tomb ~]
+        [(snoc here.bowl p/ship) %cull ~]
       ==
     ==
   --
