@@ -93,7 +93,9 @@
             ==
           [(~(make-403 res bowl) rid) pail]
         =/  has-renderer  !=(~ renderer)
+        ~&  >  has-renderer/has-renderer
         ?.  has-renderer  [(~(make-tree-redirect res bowl) rid src.bind) pail]
+        ~&  >>  'no redirect'
         =/  at=pith:neo    (~(session moor our.bowl) rope boat)
         =/  =made:neo      [view.bind ~ (my [%src src.bind] ~)]
         =/  wat            (~(get by waiting.rig) [rope boat])

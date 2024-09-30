@@ -505,10 +505,7 @@ customElements.define(
       return el
     }
     async rebuildIframe() {
-      let url =
-        this.renderer === '/self'
-          ? window.location.origin + this.here
-          : window.location.origin + this.renderer + this.here
+      let url = window.location.origin + this.renderer + this.here
       let isLoading = await this.checkUrl(url)
       if (isLoading) {
         $(this.gid('tabs')).children().remove()
@@ -657,9 +654,6 @@ customElements.define(
       })
       breadcrumbs.append(spacer)
     }
-    buildMenu() {
-      let menu = this.gid('menu')
-      $(menu).children().remove()
       //
       /*let top = $(`
       <div class="fc g1">
@@ -690,7 +684,6 @@ customElements.define(
         </div>
       </div>
     `);*/
-      let top = $(`
       let top = $(`
       <div class="fc g1">
         <div class="fr g3 ac js">
@@ -724,9 +717,6 @@ customElements.define(
       //menu.appendChild(top.get(0));
       //
       let bookmarks = $(`
-      //menu.appendChild(top.get(0));
-      //
-      let bookmarks = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderers</span>
         <div class="frw g2 ac js">
@@ -748,33 +738,10 @@ customElements.define(
       menu.appendChild(bookmarks.get(0))
       //
       let any = $(`
-    `)
-      //
-      this.strategies.forEach((s) => {
-        let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)
-        bookmark.text(this.labelLookup(s) || s)
-        $(bookmark).on('click', (e) => {
-          $(this).attr('renderer', s)
-        })
-        if (s === this.renderer) {
-          $(bookmark).addClass('toggled')
-        }
-        bookmarks.find('.frw').append(bookmark)
-      })
-      menu.appendChild(bookmarks.get(0))
-      //
-      let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">
         <input type="text" class="grow br1 bd1 p-1 b0 wf" autocomplete="off" required placeholder="/any/renderer" />
         <button class="p-1 br1 bd1 b1 hover">submit</button>
       </form>
-    `)
-      any.on('submit', (e) => {
-        e.preventDefault()
-        $(this).attr('renderer', any.find('input').val())
-      })
-      menu.appendChild(any.get(0))
-    }
     `)
       any.on('submit', (e) => {
         e.preventDefault()
