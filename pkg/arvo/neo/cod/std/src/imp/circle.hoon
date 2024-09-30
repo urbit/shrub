@@ -110,10 +110,7 @@
         `ship.road
       |=  =ship
       ^-  manx
-      ;div.border.p2.mono.fr.jb
-        ;div: {<ship>}
-        ;button.b1.border.hover.br1:  x
-      ==
+      (new-ship ship)
     ==
   ++  my-address
     (en-tape:pith:neo :(weld /hawk here.bowl))
