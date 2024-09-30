@@ -33,8 +33,9 @@
   ++  poke
     |=  [sud=stud:neo vaz=vase]
     ^-  (quip card:neo pail:neo)
-    ?+  sud  ~|(bad-stud/sud !!)
-      ::
+    ?+      sud
+          ~_  leaf/"Bad stud {<sud>} at {<(pout here.bowl)>}"
+          !!
         %ui-event
       ~&  >>  "got ui-event!"
       =/  eve  !<(ui-event vaz)
@@ -44,12 +45,15 @@
       (get-render-data lore)
       ~&  >>  dat
       ~&  >>  eve
-      ::  ?>  =(path.eve [%click %increment ~])
-      :_  pail
-      ~
-      ::  :~  :-  p:(~(got by deps.bowl) %src)
-      ::      [%poke [%circle !>(+(dat))]]
-      ::  ==
+      ?+      path.eve
+            !!
+          [%click %delete @ ~]
+        =/  =ship  (slav %p i.t.t.path.eve)
+        :_  pail
+        :~  :-  p:(~(got by deps.bowl) %src)
+            [%poke [%circle-diff !>([%del (sy ship ~)])]]
+        ==
+      ==
     ::
         %rely
       ~&  >>  "got rely!"
@@ -150,6 +154,7 @@
   ::
   ++  new-entry-form
     ^-  manx
+    ::  XX add mast logic
     ;form.fr.jc.p3
       =onsubmit  "document.getElementById('ship').value = '';"
       ;input.border
@@ -181,8 +186,11 @@
       ^-  manx
       ;div.border.p2.mono.fr.jb
         ;div: {<ship>}
-        ::  XX need to add logic for mast here
-        ;button.b1.border.hover.br1:  x
+        ;button.b1.border.hover.br1
+          ::  XX should show loading spinner on click
+          =event  "/click/delete/{<ship>}"
+          ;  x
+        ==
       ==
     ==
   --
