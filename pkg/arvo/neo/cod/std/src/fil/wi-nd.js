@@ -244,12 +244,14 @@ customElements.define(
         $(this.gid('tabs'))
           .children()
           .each(function () {
-            this.contentWindow.postMessage({
-              messagetype: 'sky-poll',
-              here,
-              favicon,
-              tabTitle
-            })
+            if (this.contentWindow) {
+              this.contentWindow.postMessage({
+                messagetype: 'sky-poll',
+                here,
+                favicon,
+                tabTitle
+              })
+            }
           })
       }, 350)
       // poll iframes for changes every 350ms
@@ -505,6 +507,7 @@ customElements.define(
       return el
     }
     async rebuildIframe() {
+      console.log('renderer', this.renderer)
       let url = window.location.origin + this.renderer + this.here
       let isLoading = await this.checkUrl(url)
       if (isLoading) {
@@ -605,6 +608,7 @@ customElements.define(
         crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
         crumb.on('click', () => {
           $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
+          console.log($(this).attr('here'))
           $(this).attr('renderer', this.strategies[0])
           this.rebuildIframe()
         })

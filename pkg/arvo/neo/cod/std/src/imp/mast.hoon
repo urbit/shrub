@@ -6,14 +6,14 @@
 ^-  kook:neo
 |%
 ++  state  [%pro %sig]
-++  poke   (sy %mast-bind %eyre-task %eyre-chan-task %gift ~)
+++  poke   (sy %mast-bind %eyre-task %eyre-chan-task %gift %rely ~)
 ++  deps   
   %-  ~(gas by *band:neo)
   :~  :-  %src
       ^-  fief:neo
       :-  req=&
       ^-  quay:neo
-      :-  [only/%sig ~]
+      :-  [pro/%sig ~]
       ^-  (unit port:neo)
       :+  ~  %y
       %-  ~(gas by *lads:neo)
@@ -45,9 +45,11 @@
   ++  poke
     |=  [sud=stud:neo vaz=vase]
     ^-  (quip card:neo pail:neo)
-    :: ~&  mast-poke/sud
     =+  !<(=rig q.pail)
     ?+  sud  !!
+        %rely 
+      ~&  >>  %got-rely
+      `pail
       ::
         %mast-bind                 :: bind outside of sky
       ?>  =(our.bowl ship.src.bowl)
