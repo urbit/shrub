@@ -58,21 +58,21 @@
       ::
       ::  handle everything under /blue
       =/  renderer  (snag 1 inner)
-      =/  lore  q:(~(got by deps.bowl) %src)
-      =/  has-renderer  
-        !=(~ (get-pail-saga-by-pith:su lore /[renderer]))
+      :: =/  lore  q:(~(got by deps.bowl) %src)
+      :: =/  has-renderer  
+      ::   !=(~ (get-pail-saga-by-pith:su lore /[renderer]))
       ?^  renderer
         ~|('Second iota in URL must be a @tas.' !!)
-      ?.  has-renderer 
-        :_  sig/!>(~)
-        =/  =pith:neo  #/[p/our.bowl]/$/eyre
-        =/  loc  
-          (en-cord:pith:neo (welp /tree (tail (tail inner))))
-        :~
-          [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
-          [pith %poke eyre-sign/!>([eyre-id %data ~])]
-          [pith %poke eyre-sign/!>([eyre-id %done ~])]
-        ==
+      :: ?.  has-renderer 
+      ::   :_  sig/!>(~)
+      ::   =/  =pith:neo  #/[p/our.bowl]/$/eyre
+      ::   =/  loc  
+      ::     (en-cord:pith:neo (welp /tree (tail (tail inner))))
+      ::   :~
+      ::     [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
+      ::     [pith %poke eyre-sign/!>([eyre-id %data ~])]
+      ::     [pith %poke eyre-sign/!>([eyre-id %done ~])]
+      ::   ==
       :_  sig/!>(~)
       :~  :*  (welp here.bowl [[%ta eyre-id] ~])
               %make

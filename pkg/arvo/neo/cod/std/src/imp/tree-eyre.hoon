@@ -45,7 +45,7 @@
         %tree-diff
       :_  eyre-id/q.pail
       =/  diff  !<(tree-diff vax)
-      ~&  >>>  diff-tree-imp/diff
+      ::~&  >>>  diff-tree-imp/diff
       =,  diff
       ?-  -.diff
         ::
