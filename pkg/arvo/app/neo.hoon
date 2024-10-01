@@ -2286,7 +2286,7 @@
     |=  [src=pith:neo dst=pith:neo =note:neo]
     ?>  ?=(%poke -.note) :: XX: all shanes should be virtualised and hand deliver acks
     ?>  ?=(%behn-req p.pail.note)
-    =+  !<(=req:behn:neo q.pail.note)
+    =/  req  (req:behn:neo !<(task:behn q.pail.note))
     ?-    -.req
         %rest
       =/  =wire  /sys/behn/wait/(scot %da p.req)
