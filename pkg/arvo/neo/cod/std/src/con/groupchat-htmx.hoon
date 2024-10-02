@@ -14,8 +14,8 @@
     =style  "max-width: 650px;"
       ;div.fc.g2.wf
         =id  "children"
-        ;+  (render-messages:messages bowl)
+        ;+  (render-messages:messages bowl here.bowl |)
       ==
-      ;+  (render-sender:messages [bowl /pub])
+      ;+  (render-sender:messages [bowl /pub here.bowl])
   ==
 ==
