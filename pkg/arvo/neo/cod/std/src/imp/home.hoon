@@ -133,26 +133,6 @@
         ==
       ==
     ::
-    :: ++  id
-    ::   ^-  tape
-    ::   %-  zing
-    ::   %+  turn  (pout (slag 1 here.bowl))
-    ::   |=  smeg=@ta
-    ::   %+  weld  "--"
-    ::   (trip smeg)
-    :: ::
-    :: ++  indicator
-    ::   ;div.absolute.hidden
-    ::     =style  "top: 0px; right: 0px;"
-    ::     ;div.loader.wfc.fc.p2.f2.s-2.mono.br2
-    ::       =id  "indicator-{id}"
-    ::       ;span.loaded(style "opacity: 0"): ---
-    ::       ;span.loading
-    ::         ;+  loading.feather-icons
-    ::       ==
-    ::     ==
-    ::   ==
-    ::
     ++  apps
       =/  home  !<(home q.pail)
       ^-  manx
@@ -179,6 +159,7 @@
         ^-  (unit manx)
         ?~  pith  ~
         =/  =path  (pout (welp here.bowl pith))
+        ~&  >>  path/path
         :-  ~
         ;div.relative.br2.tile
           =draggable  "true"
@@ -191,10 +172,7 @@
           ==
           ;a.b1.br2.block.fc.as.js.hover.p3.s1.border-2.loader
             =style  "width: 160px; height: 160px;"
-            :: =hx-target  "innerHTML"
-            :: =hx-swap  "outerHTML"
-            :: =hx-indicator  "this"
-            =href  (trip (spat path))
+            =href  (trip (spat (welp /self path)))
             ;span.loaded: {(trip (snag 0 (pout:neo pith)))}
             ;span.loading.s2
               ;+  loading.feather-icons
@@ -208,15 +186,6 @@
             ==
           ==
         ==
-        :: ;button
-        ::   =type  "submit"
-        ::   ;span:  submit
-        :: ==
-        :: ;input#order.hidden
-        ::   =name  "order"
-        ::   =type  "text"
-        ::   ;
-        :: ==
       ==
     ::
     ++  script 

@@ -49,9 +49,12 @@
   ++  init
     |=  pal=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
-    :-  ~
-    ?^  pal  u.pal
-    task/!>(*task)
+    :_  
+      ?^  pal  u.pal
+      task/!>(*task)
+    :~  :-  (welp #/[p/our.bowl]/sky/strategy here.bowl) 
+      [%make %order `order/!>([#/mast/mast-task-ui ~]) ~]
+    ==
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)

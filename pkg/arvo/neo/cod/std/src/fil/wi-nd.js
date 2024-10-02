@@ -507,7 +507,6 @@ customElements.define(
       return el
     }
     async rebuildIframe() {
-      console.log('renderer', this.renderer)
       let url = window.location.origin + this.renderer + this.here
       let isLoading = await this.checkUrl(url)
       if (isLoading) {
@@ -608,7 +607,6 @@ customElements.define(
         crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
         crumb.on('click', () => {
           $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
-          console.log($(this).attr('here'))
           $(this).attr('renderer', this.strategies[0])
           this.rebuildIframe()
         })
@@ -628,35 +626,6 @@ customElements.define(
       /*let top = $(`
     `
       iframeDoc.body.appendChild(inlineScript)
-    }
-    buildBreadcrumbs() {
-      let breadcrumbs = $(this.gid('breadcrumbs'))
-      breadcrumbs.children().remove()
-      //
-      this.path.forEach((p, i) => {
-        let chevron = $(document.createElement('span'))
-        chevron.addClass('s-2 f4 o6 fc ac jc no-select')
-        if (i > 0) {
-          chevron.text('›')
-        }
-        breadcrumbs.append(chevron)
-        //
-        let crumb = $(document.createElement('button'))
-        crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2')
-        crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
-        crumb.on('click', () => {
-          $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
-          $(this).attr('renderer', this.strategies[0])
-          this.rebuildIframe()
-        })
-        breadcrumbs.append(crumb)
-      })
-      let spacer = $(document.createElement('button'))
-      spacer.addClass('grow b2 br1 hover')
-      spacer.on('click', () => {
-        $(this).attr('searching', '')
-      })
-      breadcrumbs.append(spacer)
     }
       //
       /*let top = $(`
