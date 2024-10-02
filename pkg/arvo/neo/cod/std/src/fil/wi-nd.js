@@ -406,8 +406,8 @@ customElements.define(
 
       const uniqueStrategies = new Set([
         ...userStrategies,
-        '/hawk',
         '/tree',
+        '/hawk',
         '/self'
       ])
 
@@ -431,8 +431,8 @@ customElements.define(
       //  ... eventually
       //
       return {
-        '/hawk': () => 'hawk',
         '/tree': () => 'tree',
+        '/hawk': () => 'hawk',
         '/self': () => 'self',
         //
         '/mast': (x) => {
@@ -508,13 +508,10 @@ customElements.define(
     }
     async rebuildIframe() {
       let url = window.location.origin + this.renderer + this.here
-      console.log('checking this', this.here)
       let here = this.here
       let isLoading = await this.checkUrl(url)
-      console.log('url-state', isLoading)
       if (isLoading) {
         $(this.gid('tabs')).children().remove()
-        console.log('this.here', here)
         let frame = this.createIframe(this.renderer, here, true)
         $(this.gid('tabs')).append(frame)
       } else {
@@ -612,7 +609,6 @@ customElements.define(
         crumb.on('click', () => {
           $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
           $(this).attr('renderer', this.strategies[0])
-          console.log('new here', '/' + this.path.slice(0, i + 1).join('/'))
           this.rebuildIframe()
         })
         breadcrumbs.append(crumb)

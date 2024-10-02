@@ -731,7 +731,7 @@ customElements.define(
           windows: [
             {
               here: `/${this.our}/home`,
-              renderer: `/hawk`,
+              renderer: `/self`,
               strategies: ``,
               slot: 's0'
             }
