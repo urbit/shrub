@@ -1,25 +1,26 @@
-customElements.define('wi-nd',
-class extends HTMLElement {
-  static get observedAttributes() {
-    //
-    return [
-      "wid",
-      "here",
-      "searching",  // boolean. true is user is using the search bar in the header
-      "strategies", // space-separated list of iframe prefixes
-      "renderer",    // current iframe strategy
-      "menu",
-      "dragging",
-      "tab-title",
-      "favicon",
-    ];
-  }
-  constructor() {
-    //
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.adoptedStyleSheets = [sharedStyles];
-    this.shadowRoot.innerHTML = `
+customElements.define(
+  'wi-nd',
+  class extends HTMLElement {
+    static get observedAttributes() {
+      //
+      return [
+        'wid',
+        'here',
+        'searching', // boolean. true is user is using the search bar in the header
+        'strategies', // space-separated list of iframe prefixes
+        'renderer', // current iframe strategy
+        'menu',
+        'dragging',
+        'tab-title',
+        'favicon'
+      ]
+    }
+    constructor() {
+      //
+      super()
+      const shadow = this.attachShadow({ mode: 'open' })
+      shadow.adoptedStyleSheets = [sharedStyles]
+      this.shadowRoot.innerHTML = `
       <style>
        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
        .mso,
@@ -102,6 +103,12 @@ class extends HTMLElement {
             >
             <span class="mso">close</span>
           </button>
+          <button
+            class="p1 s-1 b2 hover br1 fc jc ac"
+            id="copy-pith"
+            >
+            <span class="mso">content_copy</span>
+          </button>
           <div
             class="p1 s-1 b2 grabber f4 fc jc ac"
             draggable="true"
@@ -117,293 +124,411 @@ class extends HTMLElement {
       <div id="tabs" class="fc grow">
       </div>
     `
-    this.intervalId = null;
-  }
-  connectedCallback() {
-    $(this.gid('searchbar')).off();
-    $(this.gid('searchbar')).on('submit', (e) => {
-      e.preventDefault();
-      this.setAttribute('here', $(this.gid('input-here')).val());
-      this.setAttribute('renderer', this.strategies[0]);
-      this.rebuildIframe();
-    });
-    $(this.gid('input-here')).off();
-    $(this.gid('input-here')).on('focusout', (e) => {
-      $(this).removeAttr('searching');
-    });
-    $(this.gid('input-here')).on('blur', (e) => {
-      $(this).removeAttr('searching');
-    });
-    $(this.gid('menu-toggle')).off();
-    $(this.gid('menu-toggle')).on('click', (e) => {
-      this.toggleAttribute('menu');
-    });
+      this.intervalId = null
+    }
+    connectedCallback() {
+      $(this.gid('searchbar')).off()
+      $(this.gid('searchbar')).on('submit', (e) => {
+        e.preventDefault()
+        this.setAttribute('here', $(this.gid('input-here')).val())
+        this.setAttribute('renderer', this.strategies[0])
+        this.rebuildIframe()
+      })
+      $(this.gid('input-here')).off()
+      $(this.gid('input-here')).on('focusout', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('input-here')).on('blur', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('menu-toggle')).off()
+      $(this.gid('menu-toggle')).on('click', (e) => {
+        this.toggleAttribute('menu')
+      })
+      this.intervalId = null
+    }
+    connectedCallback() {
+      $(this.gid('searchbar')).off()
+      $(this.gid('searchbar')).on('submit', (e) => {
+        e.preventDefault()
+        this.setAttribute('here', $(this.gid('input-here')).val())
+        this.setAttribute('renderer', this.strategies[0])
+        this.rebuildIframe()
+      })
+      $(this.gid('input-here')).off()
+      $(this.gid('input-here')).on('focusout', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('input-here')).on('blur', (e) => {
+        $(this).removeAttr('searching')
+      })
+      $(this.gid('menu-toggle')).off()
+      $(this.gid('menu-toggle')).on('click', (e) => {
+        this.toggleAttribute('menu')
+      })
 
-    $(this.gid('dragger')).off();
-    $(this.gid('dragger')).on('dragstart', (e) => {
-      e.originalEvent.dataTransfer.setData('text/plain', this.getAttribute('wid'));
-    })
-    $(this.gid('dragger')).on('dragenter', (e) => {
-      $(this).emit('drag-start');
-    })
-    $(this.gid('dragger')).on('dragend', (e) => {
-      $(this).emit('drag-end');
-    })
+      $(this.gid('dragger')).off()
+      $(this.gid('dragger')).on('dragstart', (e) => {
+        e.originalEvent.dataTransfer.setData(
+          'text/plain',
+          this.getAttribute('wid')
+        )
+      })
+      $(this.gid('dragger')).on('dragenter', (e) => {
+        $(this).emit('drag-start')
+      })
+      $(this.gid('dragger')).on('dragend', (e) => {
+        $(this).emit('drag-end')
+      })
+      $(this.gid('dragger')).off()
+      $(this.gid('dragger')).on('dragstart', (e) => {
+        e.originalEvent.dataTransfer.setData(
+          'text/plain',
+          this.getAttribute('wid')
+        )
+      })
+      $(this.gid('dragger')).on('dragenter', (e) => {
+        $(this).emit('drag-start')
+      })
+      $(this.gid('dragger')).on('dragend', (e) => {
+        $(this).emit('drag-end')
+      })
 
-    $(this).off();
-    $(this).on('close', () => {
-      $(this).emit('close-window');
-    })
-    $(this).on('minimize', () => {
-      $(this).emit('minimize-window');
-    })
-    $(this).on('dragenter', (e) => {
-      $(this).addClass('dragging');
-    })
-    $(this).on('dragover', (e) => {
-      e.preventDefault();
-    })
-    $(this).on('dragleave', (e) => {
-      $(this).removeClass('dragging');
-    })
-    $(this).on('drop', (e) => {
-      e.preventDefault();
-      $(this).emit('drag-end');
-      let wid = e.originalEvent.dataTransfer.getData('text/plain');
-      let wind = $(`[wid='${wid}']`);
-      let newSlot = parseInt(this.getAttribute('slot').slice(1));
-      let oldSlot = parseInt(wind.attr('slot')?.slice(1));
-      if (!isNaN(oldSlot) && oldSlot < newSlot) {
-        newSlot = newSlot + 0.5;
-      } else {
-        newSlot = newSlot - 0.5;
-      }
-      wind.attr('slot', `s${newSlot}`);
-      $(this).emit('fix-slots');
-    })
-    this.setAttribute('wid', `${Date.now()}`);
-    this.buildMenu()
-
-    // poll iframes for changes every 350ms
-    this.intervalId = setInterval(() => {
-      let here = this.getAttribute('here');
-      let favicon = this.getAttribute('favicon');
-      let tabTitle = this.getAttribute('tab-title');
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "sky-poll",
-          here,
-          favicon,
-          tabTitle,
-        });
-      });
-    }, 350);
-
-    $(this).on('title-changed', (e) => {
-      if (!!e.detail) {
-        $(this).attr('tab-title', e.detail);
-      } else {
-        $(this).attr('tab-title', null);
-      }
-      $(this).emit('here-moved');
-    });
-    $(this).on('favicon-changed', (e) => {
-      if (!!e.detail) {
-        $(this).attr('favicon', e.detail);
-      } else {
-        $(this).attr('favicon', null);
-      }
-      $(this).emit('here-moved');
-    });
-    $(this).on('iframe-moved', (e) => {
-      $(this).attr('renderer', e.detail.prefix);
-      $(this).attr('here', e.detail.here);
-    });
-    $(this).on('set-feather-values', (e) => {
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "feather-change",
-          rules: e.detail
-        });
-      });
-    });
-    $(this).on('reset-feather-values', (e) => {
-      $(this.gid('tabs')).children().each(function() {
-        this.contentWindow.postMessage({
-          messagetype: "feather-reset",
-        });
-      });
-    });
-    $(this).on('bookmark-renderer', (e) => {
-      this.setAttribute('strategies', (this.getAttribute('strategies') || '') + ' ' + e.detail);
-      $(this).emit('strategy-change', this.strategyPoke);
-    });
-    $(this).on('unbookmark-renderer', (e) => {
-      let newstrats = this.strategies.slice(0, -1).filter(s => s != e.detail);
-      this.setAttribute('strategies', newstrats);
-      $(this).emit('strategy-change', this.strategyPoke);
-    });
-  }
-  disconnectedCallback() {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    //
-    if (name === "here") {
-      this.setAttribute('strategies', (this.defaultStrategies[newValue] || []).join(' '))
-      this.buildBreadcrumbs();
-      this.buildMenu()
-      $(this.gid('input-here')).val(newValue);
-      $(this).emit('here-moved');
-    }
-    else if (name === "searching") {
-      if (newValue === null) {
-        $(this.gid('breadcrumbs')).removeClass('hidden');
-        $(this.gid('searchbar')).addClass('hidden');
-      } else {
-        $(this.gid('breadcrumbs')).addClass('hidden');
-        $(this.gid('searchbar')).removeClass('hidden');
-        this.gid('input-here').focus();
-        this.gid('input-here').setSelectionRange(999,999);
-      }
-    }
-    else if (name === "renderer") {
-      $(this.gid('menu-toggle')).text(this.prettyCurrent)
-      if (oldValue !== newValue) {
-        this.rebuildIframe();
-      }
-      this.buildMenu()
-    }
-    else if (name === "menu") {
-      if (newValue === null) {
-        $(this.gid('menu')).addClass('hidden');
-        $(this.gid('menu-toggle')).removeClass('o7');
-      } else {
-        $(this.gid('menu')).removeClass('hidden');
-        $(this.gid('menu-toggle')).addClass('o7');
-      }
-    }
-    else if (name === "strategies") {
-      this.buildMenu()
-    }
-    else if (name === "dragging") {
-      if (newValue === null) {
-        $(this).removeClass('dragging');
-        $(this.gid('drag-overlay')).addClass('hidden');
-      } else {
-        $(this.gid('drag-overlay')).removeClass('hidden');
-      }
-    }
-  }
-  qs(sel) {
-    return this.shadowRoot.querySelector(sel);
-  }
-  gid(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  get here() {
-    return this.getAttribute("here") || "/";
-  }
-  get path() {
-    return this.here.slice(1).split("/").filter(s => !!s.trim().length);
-  }
-  get defaultStrategies() {
-    let strats = document.querySelector('s-k-y')?.getAttribute('default-strategies');
-    return JSON.parse(strats || '{}');
-  }
-  get strategies() {
-    const userStrategies = (this.getAttribute('strategies') || '')
-      .split(' ')
-      .map(m => m.trim())
-      .filter(f => !!f);
-  
-    const uniqueStrategies = new Set([...userStrategies, '/hawk', '/tree', '/self']);
-  
-    return [...uniqueStrategies];
-  }
-  get strategyPoke() {
-    let poke = {
-      here: this.here,
-      strategies: this.strategies.slice(0, -1)
-    }
-    return JSON.stringify(poke);
-  }
-  get renderer() {
-    let c = this.getAttribute('renderer');
-    return (c || this.strategies[0]);
-  }
-  get rendererLabels() {
-    //
-    //  this is assuming a naming structure that should
-    //  not need to be assumed. fix this thix this fix this
-    //  ... eventually
-    //
-    return {
-      "/hawk": () => "hawk",
-      "/tree": () => "tree",
-      "/self": () => "self",
-      //
-      "/mast": (x) => {
-        let words = x.split("/").map(s => s.trim()).filter(s => !!s);
-        if (words.length != 2) {
-          words = ["mast", "mast-error"];
+      $(this).off()
+      $(this).on('close', () => {
+        $(this).emit('close-window')
+      })
+      $(this).on('minimize', () => {
+        $(this).emit('minimize-window')
+      })
+      $(this.gid('copy-pith')).on('click', async (e) => {
+        let here = this.getAttribute('here')
+        try {
+          await navigator.clipboard.writeText(here)
+        } catch (err) {
+          console.error('Failed to copy text: ', err)
         }
-        return words[1].split('-').slice(1).join(' ');
-      },
-      //
-      "/blue": (x) => {
-        let words = x.split("/").map(s => s.trim()).filter(s => !!s);
-        if (words.length != 2) {
-          words = ["b", "b-error"];
+      })
+      $(this).on('dragenter', (e) => {
+        $(this).addClass('dragging')
+      })
+      $(this).on('dragover', (e) => {
+        e.preventDefault()
+      })
+      $(this).on('dragleave', (e) => {
+        $(this).removeClass('dragging')
+      })
+      $(this).on('drop', (e) => {
+        e.preventDefault()
+        $(this).emit('drag-end')
+        let wid = e.originalEvent.dataTransfer.getData('text/plain')
+        let wind = $(`[wid='${wid}']`)
+        let newSlot = parseInt(this.getAttribute('slot').slice(1))
+        let oldSlot = parseInt(wind.attr('slot')?.slice(1))
+        if (!isNaN(oldSlot) && oldSlot < newSlot) {
+          newSlot = newSlot + 0.5
+        } else {
+          newSlot = newSlot - 0.5
         }
-        return words[1].split('-').slice(1).join(' ');
-      },
+        wind.attr('slot', `s${newSlot}`)
+        $(this).emit('fix-slots')
+      })
+      this.setAttribute('wid', `${Date.now()}`)
+      this.buildMenu()
+
+      // poll iframes for changes every 350ms
+      this.intervalId = setInterval(() => {
+        let here = this.getAttribute('here')
+        let favicon = this.getAttribute('favicon')
+        let tabTitle = this.getAttribute('tab-title')
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            if (this.contentWindow) {
+              this.contentWindow.postMessage({
+                messagetype: 'sky-poll',
+                here,
+                favicon,
+                tabTitle
+              })
+            }
+          })
+      }, 350)
+      // poll iframes for changes every 350ms
+      this.intervalId = setInterval(() => {
+        let here = this.getAttribute('here')
+        let favicon = this.getAttribute('favicon')
+        let tabTitle = this.getAttribute('tab-title')
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'sky-poll',
+              here,
+              favicon,
+              tabTitle
+            })
+          })
+      }, 350)
+
+      $(this).on('title-changed', (e) => {
+        if (!!e.detail) {
+          $(this).attr('tab-title', e.detail)
+        } else {
+          $(this).attr('tab-title', null)
+        }
+        $(this).emit('here-moved')
+      })
+      $(this).on('favicon-changed', (e) => {
+        if (!!e.detail) {
+          $(this).attr('favicon', e.detail)
+        } else {
+          $(this).attr('favicon', null)
+        }
+        $(this).emit('here-moved')
+      })
+      $(this).on('iframe-moved', (e) => {
+        $(this).attr('renderer', e.detail.prefix)
+        $(this).attr('here', e.detail.here)
+      })
+      $(this).on('set-feather-values', (e) => {
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'feather-change',
+              rules: e.detail
+            })
+          })
+      })
+      $(this).on('reset-feather-values', (e) => {
+        $(this.gid('tabs'))
+          .children()
+          .each(function () {
+            this.contentWindow.postMessage({
+              messagetype: 'feather-reset'
+            })
+          })
+      })
+      $(this).on('bookmark-renderer', (e) => {
+        this.setAttribute(
+          'strategies',
+          (this.getAttribute('strategies') || '') + ' ' + e.detail
+        )
+        $(this).emit('strategy-change', this.strategyPoke)
+      })
+      $(this).on('unbookmark-renderer', (e) => {
+        let newstrats = this.strategies
+          .slice(0, -1)
+          .filter((s) => s != e.detail)
+        this.setAttribute('strategies', newstrats)
+        $(this).emit('strategy-change', this.strategyPoke)
+      })
     }
-  }
-  labelLookup(renderer) {
-    let entries = Object.entries(this.rendererLabels);
-    let entry = entries.filter(([k, v]) => renderer.startsWith(k))[0];
-    if (!entry) return;
-    return entry[1](renderer);
-  }
-  get prettyCurrent() {
-    let r = this.renderer;
-    let m = this.labelLookup(r)
-    if (m) {
-      return m;
+    disconnectedCallback() {
+      if (this.intervalId !== null) {
+        clearInterval(this.intervalId)
+        this.intervalId = null
+      }
     }
-    return r
-  }
-  createIframe(prefix, here, open) {
-    let el = document.createElement('iframe');
-    el.setAttribute('prefix', prefix);
-    el.setAttribute('lazy', '');
-    el.setAttribute('src', prefix+here);
-    el.setAttribute('style', 'width: 100%; flex-grow: 1; border: none; background: var(--b0);');
-    if (!open) {
-      el.hidden = true;
+    attributeChangedCallback(name, oldValue, newValue) {
+      //
+      if (name === 'here') {
+        this.setAttribute(
+          'strategies',
+          (this.defaultStrategies[newValue] || []).join(' ')
+        )
+        this.buildBreadcrumbs()
+        this.buildMenu()
+        $(this.gid('input-here')).val(newValue)
+        $(this).emit('here-moved')
+      } else if (name === 'searching') {
+        if (newValue === null) {
+          $(this.gid('breadcrumbs')).removeClass('hidden')
+          $(this.gid('searchbar')).addClass('hidden')
+        } else {
+          $(this.gid('breadcrumbs')).addClass('hidden')
+          $(this.gid('searchbar')).removeClass('hidden')
+          this.gid('input-here').focus()
+          this.gid('input-here').setSelectionRange(999, 999)
+        }
+      } else if (name === 'renderer') {
+        $(this.gid('menu-toggle')).text(this.prettyCurrent)
+        if (oldValue !== newValue) {
+          this.rebuildIframe()
+        }
+        this.buildMenu()
+      } else if (name === 'menu') {
+        if (newValue === null) {
+          $(this.gid('menu')).addClass('hidden')
+          $(this.gid('menu-toggle')).removeClass('o7')
+        } else {
+          $(this.gid('menu')).removeClass('hidden')
+          $(this.gid('menu-toggle')).addClass('o7')
+        }
+      } else if (name === 'strategies') {
+        this.buildMenu()
+      } else if (name === 'dragging') {
+        if (newValue === null) {
+          $(this).removeClass('dragging')
+          $(this.gid('drag-overlay')).addClass('hidden')
+        } else {
+          $(this.gid('drag-overlay')).removeClass('hidden')
+        }
+      }
     }
-    el.addEventListener('load', () => {
-      this.registerServiceWorker(el, prefix);
-    });
-    return el;
-  }
-  rebuildIframe() {
-    $(this.gid('tabs')).children().remove();
-    let frame = this.createIframe(this.renderer, this.here, true);
-    $(this.gid('tabs')).append(frame);
-  }
-  registerServiceWorker(iframe, prefix) {
-    //  for convenience, this part is inject by wi-nd.
-    //  in future, due to the need to sandbox the iframes,
-    //  this must be provided by the iframe's contents.
-    const iframeDoc = iframe.contentWindow.document;
-    let wid = this.getAttribute('wid');
-    const inlineScript = iframeDoc.createElement('script');
-    inlineScript.textContent = `
+    qs(sel) {
+      return this.shadowRoot.querySelector(sel)
+    }
+    gid(id) {
+      return this.shadowRoot.getElementById(id)
+    }
+    get here() {
+      return this.getAttribute('here') || '/'
+    }
+    get path() {
+      return this.here
+        .slice(1)
+        .split('/')
+        .filter((s) => !!s.trim().length)
+    }
+    get defaultStrategies() {
+      let strats = document
+        .querySelector('s-k-y')
+        ?.getAttribute('default-strategies')
+      return JSON.parse(strats || '{}')
+    }
+    get strategies() {
+      const userStrategies = (this.getAttribute('strategies') || '')
+        .split(' ')
+        .map((m) => m.trim())
+        .filter((f) => !!f)
+
+      const uniqueStrategies = new Set([
+        ...userStrategies,
+        '/tree',
+        '/hawk',
+        '/self'
+      ])
+
+      return [...uniqueStrategies]
+    }
+    get strategyPoke() {
+      let poke = {
+        here: this.here,
+        strategies: this.strategies.slice(0, -1)
+      }
+      return JSON.stringify(poke)
+    }
+    get renderer() {
+      let c = this.getAttribute('renderer')
+      return c || this.strategies[0]
+    }
+    get rendererLabels() {
+      //
+      //  this is assuming a naming structure that should
+      //  not need to be assumed. fix this thix this fix this
+      //  ... eventually
+      //
+      return {
+        '/tree': () => 'tree',
+        '/hawk': () => 'hawk',
+        '/self': () => 'self',
+        //
+        '/mast': (x) => {
+          let words = x
+            .split('/')
+            .map((s) => s.trim())
+            .filter((s) => !!s)
+          if (words.length != 2) {
+            words = ['mast', 'mast-error']
+          }
+          return words[1].split('-').slice(1).join(' ')
+        },
+        //
+        '/blue': (x) => {
+          let words = x
+            .split('/')
+            .map((s) => s.trim())
+            .filter((s) => !!s)
+          if (words.length != 2) {
+            words = ['b', 'b-error']
+          }
+          return words[1].split('-').slice(1).join(' ')
+        }
+      }
+    }
+    labelLookup(renderer) {
+      let entries = Object.entries(this.rendererLabels)
+      let entry = entries.filter(([k, v]) => renderer.startsWith(k))[0]
+      if (!entry) return
+      return entry[1](renderer)
+    }
+    get prettyCurrent() {
+      let r = this.renderer
+      let m = this.labelLookup(r)
+      if (m) {
+        return m
+      }
+      return r
+    }
+    async checkUrl(url) {
+      try {
+        let response = await fetch(url, { method: 'GET' })
+        if (response.ok) {
+          if (response.redirected) {
+            return false
+          } else {
+            return true
+          }
+        } else {
+          return false
+        }
+      } catch (error) {
+        console.error('Fetch error:', error)
+        return false
+      }
+    }
+    createIframe(prefix, here, open) {
+      let el = document.createElement('iframe')
+      el.setAttribute('prefix', prefix)
+      el.setAttribute('lazy', '')
+      el.setAttribute('src', prefix + here)
+      el.setAttribute(
+        'style',
+        'width: 100%; flex-grow: 1; border: none; background: var(--b0);'
+      )
+      if (!open) {
+        el.hidden = true
+      }
+      el.addEventListener('load', () => {
+        this.registerServiceWorker(el, prefix)
+      })
+      return el
+    }
+    async rebuildIframe() {
+      let url = window.location.origin + this.renderer + this.here
+      let here = this.here
+      let isLoading = await this.checkUrl(url)
+      if (isLoading) {
+        $(this.gid('tabs')).children().remove()
+        let frame = this.createIframe(this.renderer, here, true)
+        $(this.gid('tabs')).append(frame)
+      } else {
+        $(this.gid('tabs')).children().remove()
+        let frame = this.createIframe(`/tree`, here, true)
+        $(this.gid('menu-toggle')).text(`tree`)
+        $(this.gid('tabs')).append(frame)
+      }
+    }
+    registerServiceWorker(iframe, prefix) {
+      //  for convenience, this part is inject by wi-nd.
+      //  in future, due to the need to sandbox the iframes,
+      //  this must be provided by the iframe's contents.
+      const iframeDoc = iframe.contentWindow.document
+      let wid = this.getAttribute('wid')
+      const inlineScript = iframeDoc.createElement('script')
+      inlineScript.textContent = `
       window.parent.postMessage(
         {
           messagetype: 'iframe-wants-feather',
@@ -463,43 +588,48 @@ class extends HTMLElement {
           document.documentElement.style = '';
         }
       });
-    `;
-    iframeDoc.body.appendChild(inlineScript);
-  }
-  buildBreadcrumbs() {
-    let breadcrumbs = $(this.gid('breadcrumbs'));
-    breadcrumbs.children().remove();
-    //
-    this.path.forEach((p, i) => {
-      let chevron = $(document.createElement('span'));
-      chevron.addClass('s-2 f4 o6 fc ac jc no-select');
-      if (i > 0) {
-        chevron.text('›');
-      }
-      breadcrumbs.append(chevron);
+    `
+      iframeDoc.body.appendChild(inlineScript)
+    }
+    buildBreadcrumbs() {
+      let breadcrumbs = $(this.gid('breadcrumbs'))
+      breadcrumbs.children().remove()
       //
-      let crumb = $(document.createElement('button'));
-      crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2');
-      crumb.text((i === 0 && this.path[0].startsWith('~')) ? "/" : this.path[i]);
-      crumb.on('click', () => {
-        $(this).attr('here', "/"+this.path.slice(0, i+1).join("/"));
-        $(this).attr('renderer', this.strategies[0]);
-        this.rebuildIframe();
-      });
-      breadcrumbs.append(crumb);
-    })
-    let spacer = $(document.createElement('button'));
-    spacer.addClass('grow b2 br1 hover')
-    spacer.on('click', () => {
-      $(this).attr('searching', '');
-    });
-    breadcrumbs.append(spacer);
-  }
-  buildMenu() {
-    let menu = this.gid('menu');
-    $(menu).children().remove();
-    //
-    /*let top = $(`
+      this.path.forEach((p, i) => {
+        let chevron = $(document.createElement('span'))
+        chevron.addClass('s-2 f4 o6 fc ac jc no-select')
+        if (i > 0) {
+          chevron.text('›')
+        }
+        breadcrumbs.append(chevron)
+        //
+        let crumb = $(document.createElement('button'))
+        crumb.addClass((i === 0 ? 'p-1' : 'p1') + ' b2 hover br1 s-1 f2')
+        crumb.text(i === 0 && this.path[0].startsWith('~') ? '/' : this.path[i])
+        crumb.on('click', () => {
+          $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
+          $(this).attr('renderer', this.strategies[0])
+          this.rebuildIframe()
+        })
+        breadcrumbs.append(crumb)
+      })
+      let spacer = $(document.createElement('button'))
+      spacer.addClass('grow b2 br1 hover')
+      spacer.on('click', () => {
+        $(this).attr('searching', '')
+      })
+      breadcrumbs.append(spacer)
+    }
+    buildMenu() {
+      let menu = this.gid('menu')
+      $(menu).children().remove()
+      //
+      /*let top = $(`
+    `
+      iframeDoc.body.appendChild(inlineScript)
+    }
+      //
+      /*let top = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderer</span>
         <div class="fr g3 ac js">
@@ -528,7 +658,7 @@ class extends HTMLElement {
         </div>
       </div>
     `);*/
-    let top = $(`
+      let top = $(`
       <div class="fc g1">
         <div class="fr g3 ac js">
           <div class="grow"></div>
@@ -542,8 +672,10 @@ class extends HTMLElement {
           </a>
         </div>
       </div>
-    `);
-    /*$(top).find('h4').text(this.renderer);
+    `)
+      /*$(top).find('h4').text(this.renderer);
+    `)
+      /*$(top).find('h4').text(this.renderer);
     if (this.strategies.includes(this.renderer)) {
       $(top).find('#bm-save-btn').addClass('hidden')
     }
@@ -556,39 +688,40 @@ class extends HTMLElement {
     $(top).find('#bm-del-btn').on('click', (e) => {
       $(this).emit('unbookmark-renderer', this.renderer)
     });*/
-    //menu.appendChild(top.get(0));
-    //
-    let bookmarks = $(`
+      //menu.appendChild(top.get(0));
+      //
+      let bookmarks = $(`
       <div class="fc g1">
         <span class="s-2 f3">renderers</span>
         <div class="frw g2 ac js">
         </div>
       </div>
-    `);
-    //
-    this.strategies.forEach(s => {
-      let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`);
-      bookmark.text(this.labelLookup(s) || s);
-      $(bookmark).on('click', (e) => {
-        $(this).attr('renderer', s)
+    `)
+      //
+      this.strategies.forEach((s) => {
+        let bookmark = $(`<button class="b1 br1 bd1 p-1 wfc"></button>`)
+        bookmark.text(this.labelLookup(s) || s)
+        $(bookmark).on('click', (e) => {
+          $(this).attr('renderer', s)
+        })
+        if (s === this.renderer) {
+          $(bookmark).addClass('toggled')
+        }
+        bookmarks.find('.frw').append(bookmark)
       })
-      if (s === this.renderer) {
-        $(bookmark).addClass('toggled');
-      }
-      bookmarks.find('.frw').append(bookmark);
-    })
-    menu.appendChild(bookmarks.get(0));
-    //
-    let any = $(`
+      menu.appendChild(bookmarks.get(0))
+      //
+      let any = $(`
       <form class="fr g1 af js wf" onsubmit="event.preventDefault()">
         <input type="text" class="grow br1 bd1 p-1 b0 wf" autocomplete="off" required placeholder="/any/renderer" />
         <button class="p-1 br1 bd1 b1 hover">submit</button>
       </form>
-    `);
-    any.on('submit', (e) => {
-      e.preventDefault();
-      $(this).attr('renderer', any.find('input').val());
-    })
-    menu.appendChild(any.get(0));
+    `)
+      any.on('submit', (e) => {
+        e.preventDefault()
+        $(this).attr('renderer', any.find('input').val())
+      })
+      menu.appendChild(any.get(0))
+    }
   }
-});
+)

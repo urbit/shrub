@@ -38,6 +38,7 @@
     =/  [eyre-id=@ta req=inbound-request:eyre]  task
     ?+    method.request.req  ~|(%unsupported-http-method !!)
         %'GET'
+      ~&  >  'got request'
       :_  [stud vase]
       (eyre-cards [bowl task])
     ::

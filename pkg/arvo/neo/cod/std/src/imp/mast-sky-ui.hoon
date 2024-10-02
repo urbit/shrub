@@ -123,6 +123,7 @@
   ++  strategy-change-cards
     |=  jon=json
     ^-  (list card:neo)
+    ~&  jon
     =/  here
       %-  pave:neo
       %-  (ot ~[here+pa]):dejs:format

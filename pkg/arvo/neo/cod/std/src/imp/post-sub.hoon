@@ -1,4 +1,4 @@
-/@  message
+/@  post
 ^-  kook:neo
 |%
 ++  state  pro/%sig
@@ -7,16 +7,16 @@
   :+  ~  %y
   %-  ~(gas by *lads:neo)
   :~  :-  [|/%da |]
-      [pro/%message ~]
+      [pro/%post ~]
   ==
 ++  deps
   %-  ~(gas by *deps:neo)
   :~  :-  %pub
-      :+  req=|  [pro/%sig (sy %sig ~)]
+      :+  req=|  [pro/%sig (sy %post ~)]
       :+  ~  %y
       %-  ~(gas by *lads:neo)
       :~  :-  [|/%da |]
-          [pro/%message ~]
+          [pro/%post ~]
       ==
   ==
 ++  form
@@ -25,24 +25,26 @@
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
+    :: ~&  >>  p:(~(got by deps.bowl) %pub)
+    :: ~&  >>  (kids-at-pith:su q:(~(got by deps.bowl) %pub) /)
     [~ sig/!>(~)]
   ::
   ++  poke
     |=  [=stud:neo vax=vase]
     ^-  (quip card:neo pail:neo)
     ?>  =(%rely stud)
+    ~&  >>  'got rely'
     :_  state
-    =+  !<([=term =leaf:neo] vax)
-    ::  only get new kids
-    %+  murn  ~(tap of:neo q:(~(got by deps.bowl) %pub))
+    %+  murn  
+      ~(tap of:neo q:(~(got by deps.bowl) %pub))
     |=  [=pith:neo =idea:neo]
     ^-  (unit card:neo)
     ?.  ?=([[%da @] ~] pith)
       ~
     ?:  (~(has of:neo kids.bowl) pith)
       ~
-    ?.  =(%message p.pail.idea)
+    ?.  =(%post p.pail.idea)
       ~
-    `[(welp here.bowl pith) %make %message `pail.idea ~]
+    `[(welp here.bowl pith) %make %post `pail.idea ~]
   --
 --

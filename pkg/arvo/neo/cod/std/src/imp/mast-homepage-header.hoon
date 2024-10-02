@@ -78,7 +78,7 @@
       :: ==
     ::
         %rely
-      ~&  >>  "got rely!"
+      ::~&  >>  "got rely!"
       :: ~&  >>  !<  cord
       ::         q.pail:(~(got by ~(tar of:neo q:(~(got by deps.bowl) %src))) #/display-name)
       =/  =lore:neo

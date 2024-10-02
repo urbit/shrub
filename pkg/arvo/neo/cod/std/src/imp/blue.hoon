@@ -1,6 +1,7 @@
 /@  eyre-reqs
 /-  serv=sky-server
 /-  srv=server
+/-  su=shrub-utils
 ^-  kook:neo
 |%
 ++  state  pro/%sig
@@ -11,7 +12,20 @@
   :~  :-  [|/%ta |]
       [pro/%eyre-task (sy %rely ~)]
   ==
-++  deps  *deps:neo
+++  deps   
+  %-  ~(gas by *band:neo)
+  :~  :-  %src
+      ^-  fief:neo
+      :-  req=&
+      ^-  quay:neo
+      :-  [only/%sig ~]
+      ^-  (unit port:neo)
+      :+  ~  %y
+      %-  ~(gas by *lads:neo)
+      :~  :-  [|/%tas |]
+          `lash:neo`[only/%hoon ~]
+      ==
+  ==
 ++  form
   |_  [=bowl:neo =aeon:neo =pail:neo]
   ++  init
@@ -44,8 +58,21 @@
       ::
       ::  handle everything under /blue
       =/  renderer  (snag 1 inner)
+      :: =/  lore  q:(~(got by deps.bowl) %src)
+      :: =/  has-renderer  
+      ::   !=(~ (get-pail-saga-by-pith:su lore /[renderer]))
       ?^  renderer
         ~|('Second iota in URL must be a @tas.' !!)
+      :: ?.  has-renderer 
+      ::   :_  sig/!>(~)
+      ::   =/  =pith:neo  #/[p/our.bowl]/$/eyre
+      ::   =/  loc  
+      ::     (en-cord:pith:neo (welp /tree (tail (tail inner))))
+      ::   :~
+      ::     [pith %poke eyre-sign/!>([eyre-id %head 307 ['Location' loc]~])]
+      ::     [pith %poke eyre-sign/!>([eyre-id %data ~])]
+      ::     [pith %poke eyre-sign/!>([eyre-id %done ~])]
+      ::   ==
       :_  sig/!>(~)
       :~  :*  (welp here.bowl [[%ta eyre-id] ~])
               %make

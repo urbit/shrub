@@ -1565,17 +1565,21 @@
   =.  run
     (emit (do-card #/[p/our.bowl] %make %root ~ ~))
   =.  run
+    (emit (do-card #/[p/our.bowl]/cod/std/src/imp %make %imp-folder ~ ~))
+  =.  run
     (emit (do-card #/[p/our.bowl]/sky %make %sky ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/hawk %make %hawk-eyre ~ ~))
   =.  run
-    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ ~))
+    (emit (do-card #/[p/our.bowl]/blue %make %blue ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/cod/std/src/imp ~)))
   =.  run
-    (emit (do-card #/[p/our.bowl]/mast %make %mast ~ ~))
+    (emit (do-card #/[p/our.bowl]/mast %make %mast ~ (~(gas by *crew:neo) src/#/[p/our.bowl]/cod/std/src/imp ~)))
   =.  run
     (emit (do-card #/[p/our.bowl]/self %make %self ~ ~))
   =.  run
     (emit (do-card #/[p/our.bowl]/srv/tree %make %tree-eyre ~ (~(gas by *crew:neo) src/#/[p/our.bowl] ~)))
+  =.  run
+    (emit (do-card #/[p/our.bowl]/storage %make %storage ~ ~))
   run
   ++  pess  |=(=post:neo (~(pith press post) %out))
   ++  clay-beak  ^-  path
@@ -2286,7 +2290,7 @@
     |=  [src=pith:neo dst=pith:neo =note:neo]
     ?>  ?=(%poke -.note) :: XX: all shanes should be virtualised and hand deliver acks
     ?>  ?=(%behn-req p.pail.note)
-    =+  !<(=req:behn:neo q.pail.note)
+    =/  req  (req:behn:neo !<(task:behn q.pail.note))
     ?-    -.req
         %rest
       =/  =wire  /sys/behn/wait/(scot %da p.req)

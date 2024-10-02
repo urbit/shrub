@@ -1,20 +1,16 @@
-customElements.define('s-k-y',
-class extends HTMLElement {
-  static get observedAttributes() {
-    //
-    return [
-      "our",
-      "open",
-      "windows-open",
-      "default-strategies",
-    ];
-  }
-  constructor() {
-    //
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.adoptedStyleSheets = [sharedStyles];
-    this.shadowRoot.innerHTML = `
+customElements.define(
+  's-k-y',
+  class extends HTMLElement {
+    static get observedAttributes() {
+      //
+      return ['our', 'open', 'windows-open', 'default-strategies']
+    }
+    constructor() {
+      //
+      super()
+      const shadow = this.attachShadow({ mode: 'open' })
+      shadow.adoptedStyleSheets = [sharedStyles]
+      this.shadowRoot.innerHTML = `
       <style>
        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
        .mso,
@@ -416,304 +412,334 @@ class extends HTMLElement {
       </main>
       <slot id="default" style="display: none;"></slot>
     `
-  }
-  get windowsOpen() {
-    return parseInt(this.getAttribute("windows-open") || "0");
-  }
-  get our() {
-    return this.getAttribute('our');
-  }
-  get currentFeatherRules() {
-    return this.qs('feather-settings')?.currentFeatherRules || [];
-  }
-  get windows() {
-    let slots = $(this).children('wi-nd[slot]').get().toSorted((a, b) => {
-      let aSlot = parseFloat(a.getAttribute('slot').slice(1));
-      let bSlot = parseFloat(b.getAttribute('slot').slice(1));
-      if (aSlot > bSlot) return 1;
-      if (aSlot < bSlot) return -1;
-      return 0;
-    });
-    let noslots = $(this).children('wi-nd:not([slot])').get();
-    return [...slots, ...noslots];
-  }
-  qs(sel) {
-    return this.shadowRoot.querySelector(sel);
-  }
-  qsa(sel) {
-    return this.shadowRoot.querySelectorAll(sel);
-  }
-  gid(id) {
-    return this.shadowRoot.getElementById(id);
-  }
-  connectedCallback() {
-    $(this).off();
-    $(this).on("sky-open", (e) => {
-      this.toggleAttribute("open");
-      $(this).poke('save-layout');
-    })
-    $(this).on('fix-slots', () => {
-      this.fixSlots();
-    })
-    $(this).on('new-window', (e) => {
-      let wind = document.createElement('wi-nd');
-      let here = `/${this.our}/home`;
-      $(wind).attr('here', here);
-      $(wind).attr('renderer', this.chooseStrategy(here));
-      $(wind).attr('slot', `s-1`);
-      $(this).append(wind);
-      this.growFlock();
-      this.fixSlots();
-    })
-    $(this).on('close-window', (e) => {
-      let wind = $(e.target);
-      if (wind.attr('slot') != undefined) {
-        this.shrinkFlock();
-      }
-      wind.remove();
-      this.fixSlots();
-      this.renderTabs();
-    })
-    $(this).on('minimize-window', (e) => {
-      let wind = $(e.target);
-      if (wind.attr('slot') != undefined) {
-        wind.removeAttr('slot');
-        this.shrinkFlock();
-      }
-      this.fixSlots();
-      this.renderTabs();
-    })
-    $(this).on('maximize-window', (e) => {
-      let wind = $(e.target);
-      if (!wind.attr('slot')) {
-        this.growFlock();
-      }
-      wind.attr('slot', 's-1');
-      this.fixSlots();
-      this.renderTabs();
-    })
-    $(this).on('drag-start', (e) => {
-      $(this.windows).attr('dragging', '');
-    })
-    $(this).on('drag-end', (e) => {
-      $(this.windows).removeAttr('dragging');
-    })
-    $(this).on('here-moved', () => {
-      this.renderTabs();
-    })
-    $(this.gid('s0')).off();
-    $(this.gid('s0')).on('slotchange', (e) => {
-      this.renderTabs();
-    });
-    $(this.gid('s1')).off();
-    $(this.gid('s1')).on('slotchange', () => {
-      this.renderTabs();
-    });
-    $(this.gid('s2')).off();
-    $(this.gid('s2')).on('slotchange', () => {
-      this.renderTabs();
-    });
-    $(this.gid('s3')).off();
-    $(this.gid('s3')).on('slotchange', () => {
-      this.renderTabs();
-    });
-    $(this.gid('default')).off();
-    $(this.gid('default')).on('slotchange', () => {
-      this.renderTabs();
-    });
-
-    $(this.gid('nav')).off();
-    $(this.gid('nav')).on('dragover', (e) => {
-      e.preventDefault();
-    })
-    $(this.gid('nav')).on('drop', (e) => {
-      e.preventDefault();
-      let wid = e.originalEvent.dataTransfer.getData('text/plain');
-      let wind = $(`[wid='${wid}']`);
-      wind.poke('minimize');
-    });
-    //
-    $(this).on("toggle-notifications", () => {
-      if (this.getAttribute('open') === 'notifications') {
-        this.setAttribute('open', '');
-      } else {
-        this.setAttribute('open', 'notifications');
-      }
-    })
-    $(this).on("toggle-settings", () => {
-      if (this.getAttribute('open') === 'settings') {
-        this.setAttribute('open', '');
-      } else {
-        this.setAttribute('open', 'settings');
-      }
-    })
-    $(this).on("toggle-help", () => {
-      if (this.getAttribute('open') === 'help') {
-        this.setAttribute('open', '');
-      } else {
-        this.setAttribute('open', 'help');
-      }
-    })
-    $(this).on("save-layout", () => {
-      this.saveLayout();
-    });
-    this.qs("main").className = `open-${this.windowsOpen}`;
-    this.restoreLayout();
-  }
-  attributeChangedCallback(name, oldValue, newValue) {
-    //
-    if (name === "open") {
-      $(this.gid('notifications')).addClass('hidden');
-      $(this.gid('settings')).addClass('hidden');
-      $(this.gid('help')).addClass('hidden');
-      $(this.gid('tab-controller')).addClass('hidden');
-      if (newValue ===  null) {
-        $(this).removeClass("open");
-      } else if (newValue === 'notifications') {
-        $(this).addClass("open");
-        $(this.gid('notifications')).removeClass('hidden');
-      } else if (newValue === 'settings') {
-        $(this).addClass("open");
-        $(this.gid('settings')).removeClass('hidden');
-      } else if (newValue === 'help') {
-        $(this).addClass("open");
-        $(this.gid('help')).removeClass('hidden');
-      } else {
-        $(this).addClass("open");
-        $(this.gid('tab-controller')).removeClass('hidden');
-      }
-    } else if (name === "windows-open") {
-      this.qs("main").className = `open-${this.windowsOpen}`;
+      const script = document.createElement('script')
+      script.textContent = `
+      window.addEventListener('message', (event) => {
+        if (event.origin === window.location.origin){
+          if(event.data.messagetype === 'new-wind'){
+            const customEvent = new CustomEvent('new-window', {detail: {href: event.data.href, slot: 's-2'}});
+            const element = document.querySelector('s-k-y');
+            if (element) {
+              element.dispatchEvent(customEvent);
+            }
+          }
+        }else{
+        return;
+        }
+      })`
+      shadow.appendChild(script)
     }
-  }
-  get defaultStrategies() {
-    let strats = this.getAttribute('default-strategies')
-    return JSON.parse(strats || '{}');
-  }
-  chooseStrategy(here) {
-    let strats = this.defaultStrategies;
-    let strat = strats[here] || ['/self'];
-    return strat[0];
-  }
-  renderIcon(name) {
-    let s = document.createElement('span');
-    s.className = 'mso';
-    s.textContent = name;
-    return s;
-  }
-  renderTabs() {
-    let tabs = $(this.gid('tabs'));
-    tabs.children().remove();
-    let windowsOpen = this.windowsOpen;
-    let that = this;
-    $(this.windows).each(function(i) {
-      let wind = this;
-      let tab = document.createElement('div');
-      $(tab).addClass('b2 br1 fr af js bd1');
-      if (i < windowsOpen) {
-        $(tab).addClass('toggled');
-      }
+    get windowsOpen() {
+      return parseInt(this.getAttribute('windows-open') || '0')
+    }
+    get our() {
+      return this.getAttribute('our')
+    }
+    get currentFeatherRules() {
+      return this.qs('feather-settings')?.currentFeatherRules || []
+    }
+    get windows() {
+      let slots = $(this)
+        .children('wi-nd[slot]')
+        .get()
+        .toSorted((a, b) => {
+          let aSlot = parseFloat(a.getAttribute('slot').slice(1))
+          let bSlot = parseFloat(b.getAttribute('slot').slice(1))
+          if (aSlot > bSlot) return 1
+          if (aSlot < bSlot) return -1
+          return 0
+        })
+      let noslots = $(this).children('wi-nd:not([slot])').get()
+      return [...slots, ...noslots]
+    }
+    qs(sel) {
+      return this.shadowRoot.querySelector(sel)
+    }
+    qsa(sel) {
+      return this.shadowRoot.querySelectorAll(sel)
+    }
+    gid(id) {
+      return this.shadowRoot.getElementById(id)
+    }
+    connectedCallback() {
+      $(this).off()
+      $(this).on('sky-open', (e) => {
+        this.toggleAttribute('open')
+        $(this).poke('save-layout')
+      })
+      $(this).on('fix-slots', () => {
+        this.fixSlots()
+      })
+      $(this).on('new-window', (e) => {
+        let wind = document.createElement('wi-nd')
+        let here =
+          e.detail && e.detail.href ? e.detail.href : `/${this.our}/home`
+        let slot = e.detail && e.detail.slot ? e.detail.slot : `s-1`
+        $(wind).attr('here', here)
+        $(wind).attr('renderer', this.chooseStrategy(here))
+        $(wind).attr('slot', slot)
+        $(this).append(wind)
+        this.growFlock()
+        this.fixSlots()
+      })
+      $(this).on('close-window', (e) => {
+        let wind = $(e.target)
+        if (wind.attr('slot') != undefined) {
+          this.shrinkFlock()
+        }
+        wind.remove()
+        this.fixSlots()
+        this.renderTabs()
+      })
+      $(this).on('minimize-window', (e) => {
+        let wind = $(e.target)
+        if (wind.attr('slot') != undefined) {
+          wind.removeAttr('slot')
+          this.shrinkFlock()
+        }
+        this.fixSlots()
+        this.renderTabs()
+      })
+      $(this).on('maximize-window', (e) => {
+        let wind = $(e.target)
+        if (!wind.attr('slot')) {
+          this.growFlock()
+        }
+        wind.attr('slot', 's-1')
+        this.fixSlots()
+        this.renderTabs()
+      })
+      $(this).on('drag-start', (e) => {
+        $(this.windows).attr('dragging', '')
+      })
+      $(this).on('drag-end', (e) => {
+        $(this.windows).removeAttr('dragging')
+      })
+      $(this).on('here-moved', () => {
+        this.renderTabs()
+      })
+      $(this.gid('s0')).off()
+      $(this.gid('s0')).on('slotchange', (e) => {
+        this.renderTabs()
+      })
+      $(this.gid('s1')).off()
+      $(this.gid('s1')).on('slotchange', () => {
+        this.renderTabs()
+      })
+      $(this.gid('s2')).off()
+      $(this.gid('s2')).on('slotchange', () => {
+        this.renderTabs()
+      })
+      $(this.gid('s3')).off()
+      $(this.gid('s3')).on('slotchange', () => {
+        this.renderTabs()
+      })
+      $(this.gid('default')).off()
+      $(this.gid('default')).on('slotchange', () => {
+        this.renderTabs()
+      })
 
-      let mux = document.createElement('button');
-      mux.className = "b2 hover br1 bd0 p2 grow tl fr g2 ac js"
-      mux.style = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left;"
-      let im = wind.getAttribute('favicon') ? `
-        <img src="${wind.getAttribute('favicon')}" style="width: 20px; height: 20px;" />
-        ` : ``;
-      mux.innerHTML = `
+      $(this.gid('nav')).off()
+      $(this.gid('nav')).on('dragover', (e) => {
+        e.preventDefault()
+      })
+      $(this.gid('nav')).on('drop', (e) => {
+        e.preventDefault()
+        let wid = e.originalEvent.dataTransfer.getData('text/plain')
+        let wind = $(`[wid='${wid}']`)
+        wind.poke('minimize')
+      })
+      //
+      $(this).on('toggle-notifications', () => {
+        if (this.getAttribute('open') === 'notifications') {
+          this.setAttribute('open', '')
+        } else {
+          this.setAttribute('open', 'notifications')
+        }
+      })
+      $(this).on('toggle-settings', () => {
+        if (this.getAttribute('open') === 'settings') {
+          this.setAttribute('open', '')
+        } else {
+          this.setAttribute('open', 'settings')
+        }
+      })
+      $(this).on('toggle-help', () => {
+        if (this.getAttribute('open') === 'help') {
+          this.setAttribute('open', '')
+        } else {
+          this.setAttribute('open', 'help')
+        }
+      })
+      $(this).on('save-layout', () => {
+        this.saveLayout()
+      })
+      this.qs('main').className = `open-${this.windowsOpen}`
+      this.restoreLayout()
+    }
+    attributeChangedCallback(name, oldValue, newValue) {
+      //
+      if (name === 'open') {
+        $(this.gid('notifications')).addClass('hidden')
+        $(this.gid('settings')).addClass('hidden')
+        $(this.gid('help')).addClass('hidden')
+        $(this.gid('tab-controller')).addClass('hidden')
+        if (newValue === null) {
+          $(this).removeClass('open')
+        } else if (newValue === 'notifications') {
+          $(this).addClass('open')
+          $(this.gid('notifications')).removeClass('hidden')
+        } else if (newValue === 'settings') {
+          $(this).addClass('open')
+          $(this.gid('settings')).removeClass('hidden')
+        } else if (newValue === 'help') {
+          $(this).addClass('open')
+          $(this.gid('help')).removeClass('hidden')
+        } else {
+          $(this).addClass('open')
+          $(this.gid('tab-controller')).removeClass('hidden')
+        }
+      } else if (name === 'windows-open') {
+        this.qs('main').className = `open-${this.windowsOpen}`
+      }
+    }
+    get defaultStrategies() {
+      let strats = this.getAttribute('default-strategies')
+      return JSON.parse(strats || '{}')
+    }
+    chooseStrategy(here) {
+      let strats = this.defaultStrategies
+      let strat = strats[here] || ['/self']
+      return strat[0]
+    }
+    renderIcon(name) {
+      let s = document.createElement('span')
+      s.className = 'mso'
+      s.textContent = name
+      return s
+    }
+    renderTabs() {
+      let tabs = $(this.gid('tabs'))
+      tabs.children().remove()
+      let windowsOpen = this.windowsOpen
+      let that = this
+      $(this.windows).each(function (i) {
+        let wind = this
+        let tab = document.createElement('div')
+        $(tab).addClass('b2 br1 fr af js bd1')
+        if (i < windowsOpen) {
+          $(tab).addClass('toggled')
+        }
+
+        let mux = document.createElement('button')
+        mux.className = 'b2 hover br1 bd0 p2 grow tl fr g2 ac js'
+        mux.style =
+          'overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left;'
+        let im = wind.getAttribute('favicon')
+          ? `
+        <img src="${wind.getAttribute(
+          'favicon'
+        )}" style="width: 20px; height: 20px;" />
+        `
+          : ``
+        mux.innerHTML = `
         ${im}
         <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left;">
           ${$(wind).attr('tab-title') || $(wind).attr('here')}
         </span>
-      `;
-      let max = $(mux);
-      $(max).on('click', () => {
-        $(wind).emit('maximize-window');
-      });
+      `
+        let max = $(mux)
+        $(max).on('click', () => {
+          $(wind).emit('maximize-window')
+        })
 
-      let min = document.createElement('button');
-      $(min).append(that.renderIcon('minimize'));
-      $(min).addClass('b2 hover br1 bd0 p1 f3');
-      $(min).on('click', () => {
-        $(wind).emit('minimize-window');
-      });
-      if (i >= windowsOpen) {
-        $(min).hide();
-      }
-
-      let close = document.createElement('button');
-      $(close).append(that.renderIcon('close'));
-      $(close).addClass('b2 hover br1 bd0 p1 f3');
-      $(close).on('click', () => {
-        $(wind).emit('close-window');
-      });
-
-      $(tab).append(max);
-      $(tab).append(min);
-      $(tab).append(close);
-      tabs.append(tab);
-    })
-    $(this).poke('save-layout');
-  }
-  fixSlots() {
-    let slotted = $(this.windows).filter('[slot]').get().slice(0, 3);
-    $(this.windows).removeAttr('slot');
-    slotted.forEach((s, i) => {
-      s.setAttribute('slot', `s${i}`);
-    })
-  }
-  growFlock() {
-    $(this).attr('windows-open', Math.min(3, this.windowsOpen + 1));
-  }
-  shrinkFlock() {
-    $(this).attr('windows-open', Math.max(0, this.windowsOpen - 1));
-  }
-  saveLayout() {
-    let layout = {
-      open: this.hasAttribute('open'),
-      windowsOpen: parseInt(this.getAttribute('windows-open')),
-      windows: $(this).children('wi-nd').get().map(w => {
-        return {
-          here: w.getAttribute('here'),
-          slot: w.getAttribute('slot'),
-          strategies: w.getAttribute('strategies'),
-          renderer: w.getAttribute('renderer'),
+        let min = document.createElement('button')
+        $(min).append(that.renderIcon('minimize'))
+        $(min).addClass('b2 hover br1 bd0 p1 f3')
+        $(min).on('click', () => {
+          $(wind).emit('minimize-window')
+        })
+        if (i >= windowsOpen) {
+          $(min).hide()
         }
+
+        let close = document.createElement('button')
+        $(close).append(that.renderIcon('close'))
+        $(close).addClass('b2 hover br1 bd0 p1 f3')
+        $(close).on('click', () => {
+          $(wind).emit('close-window')
+        })
+
+        $(tab).append(max)
+        $(tab).append(min)
+        $(tab).append(close)
+        tabs.append(tab)
+      })
+      $(this).poke('save-layout')
+    }
+    fixSlots() {
+      let slotted = $(this.windows).filter('[slot]').get().slice(0, 3)
+      $(this.windows).removeAttr('slot')
+      slotted.forEach((s, i) => {
+        s.setAttribute('slot', `s${i}`)
       })
     }
-    localStorage.setItem('sky-layout', JSON.stringify(layout))
-  }
-  restoreLayout() {
-    let layoutString = localStorage.getItem('sky-layout');
-    if (!!layoutString) {
-      let layout = JSON.parse(layoutString);
-      $(this).attr('open', layout.open ? '' : null);
-      $(this).attr('windows-open', `${layout.windowsOpen}`);
-      $(this).children('wi-nd').remove();
-      layout.windows.forEach(w => {
-        let wind = document.createElement('wi-nd');
-        $(wind).attr('here', w.here);
-        $(wind).attr('renderer', w.renderer);
-        $(wind).attr('strategies', w.strategies);
-        $(wind).attr('slot', !!w.slot ? w.slot : null);
-        $(this).append(wind);
-      })
-    } else {
-      // create initial layout
+    growFlock() {
+      $(this).attr('windows-open', Math.min(3, this.windowsOpen + 1))
+    }
+    shrinkFlock() {
+      $(this).attr('windows-open', Math.max(0, this.windowsOpen - 1))
+    }
+    saveLayout() {
       let layout = {
-        open: false,
-        windowsOpen: 1,
-        windows: [
-          {
-            here: `/${this.our}/home`,
-            renderer: `/hawk`,
-            strategies: ``,
-            slot: 's0'
-          }
-        ]
+        open: this.hasAttribute('open'),
+        windowsOpen: parseInt(this.getAttribute('windows-open')),
+        windows: $(this)
+          .children('wi-nd')
+          .get()
+          .map((w) => {
+            return {
+              here: w.getAttribute('here'),
+              slot: w.getAttribute('slot'),
+              strategies: w.getAttribute('strategies'),
+              renderer: w.getAttribute('renderer')
+            }
+          })
       }
       localStorage.setItem('sky-layout', JSON.stringify(layout))
-      this.restoreLayout();
+    }
+    restoreLayout() {
+      let layoutString = localStorage.getItem('sky-layout')
+      if (!!layoutString) {
+        let layout = JSON.parse(layoutString)
+        $(this).attr('open', layout.open ? '' : null)
+        $(this).attr('windows-open', `${layout.windowsOpen}`)
+        $(this).children('wi-nd').remove()
+        layout.windows.forEach((w) => {
+          let wind = document.createElement('wi-nd')
+          $(wind).attr('here', w.here)
+          $(wind).attr('renderer', w.renderer)
+          $(wind).attr('strategies', w.strategies)
+          $(wind).attr('slot', !!w.slot ? w.slot : null)
+          $(this).append(wind)
+        })
+      } else {
+        // create initial layout
+        let layout = {
+          open: false,
+          windowsOpen: 1,
+          windows: [
+            {
+              here: `/${this.our}/home`,
+              renderer: `/self`,
+              strategies: ``,
+              slot: 's0'
+            }
+          ]
+        }
+        localStorage.setItem('sky-layout', JSON.stringify(layout))
+        this.restoreLayout()
+      }
     }
   }
-});
+)

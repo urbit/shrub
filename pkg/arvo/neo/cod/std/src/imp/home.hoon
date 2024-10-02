@@ -1,4 +1,8 @@
 /@  home
+/-  oxy=oxygen
+/-  feather-icons
+/-  serv=sky-server
+/-  su=shrub-utils
 /*  feather-intro
 /*  diary
 /*  counter
@@ -10,25 +14,27 @@
 ^-  kook:neo
 |%
 ++  state  pro/%home
-++  poke  (sy %home ~)
+++  poke  (sy %home %eyre-task ~)
 ++  kids
   :-  ~
   :-  %y
-  ^-  (map pish:neo lash:neo)
-  %-  malt
+  %-  ~(gas by *lads:neo)
   :~
-    :-  [|/%ta |]
-    [pro/%any ~]
+    :-  [|/%tas &]
+    [any/~ ~]
   ==
 ++  deps  *deps:neo
 ++  form
   ^-  form:neo
+  =<
   |_  [=bowl:neo =aeon:neo =pail:neo]
+  +*  web  ~(. +> [bowl pail])
   ++  init
     |=  old=(unit pail:neo)
     ^-  (quip card:neo pail:neo)
     :_  home/!>(*home)
-    :~  [#/[p/our.bowl]/home/diary %make %diary ~ ~]
+    :~  
+        [#/[p/our.bowl]/home/diary %make %diary ~ ~]
         [#/[p/our.bowl]/home/tasks %make %task `task/!>(['' | & ~]) ~]
         [#/[p/our.bowl]/home/sail %make %sail `sail/!>(['# hello world' 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/accel %make %accel ~ ~]
@@ -51,15 +57,186 @@
         [#/[p/our.bowl]/home/docs/guides/development %make %sail `sail/!>([developer-environment-setup 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/feather %make %sail `sail/!>([feather-intro 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
-      ::
-        [#/[p/our.bowl]/sky/strategy/[p/our.bowl]/home %make %order `order/!>([#/hawk ~]) ~]
+        [#/[p/our.bowl]/home/feed %make %timeline ~ (~(gas by *conf:neo) [%src #/[p/our.bowl]/sky/strategy/[p/our.bowl]] ~)]
     ==
   ++  poke
-    |=  =pail:neo
+    |=  [=stud:neo =vase]
     ^-  (quip card:neo pail:neo)
-    ?+    p.pail  !!
+    ?+    stud  !!
         %home
       [~ pail]
+        %eyre-task
+      (handle:web !<(task:eyre:neo vase))
     ==
+  --
+  ::
+  |_  [=bowl:neo =pail:neo]
+  ++  handle
+    |=  [eyre-id=@ta req=inbound-request:eyre]
+    ^-  (quip card:neo pail:neo)
+    :_  pail
+    ?+    method.request.req  
+        ~|(%unsupported-http-method !!)
+    ::
+        %'GET'
+      =;  manx
+        (respond:oxy [bowl eyre-id req manx])
+      %~  render
+        ui
+      (pave:neo pax:(parse-url:oxy request.req))
+    ::
+        %'POST'
+      %+  welp 
+      (respond:oxy [bowl eyre-id req *manx])
+      =;  poke
+        [here.bowl %poke [%home !>(poke)]]~
+      ^-  home
+      =/  body  (parse-body:oxy request.req)
+      =/  mu  ~(. manx-utils:oxy body)
+      =/  head  (@tas (got:mu %head))
+      ?>  ?=(%home head)
+      =/  pith-marl
+        %+  skim  pre-flatten:mu
+          |=  =manx
+          =((~(gut by (malt a.g.manx)) %name "") "pith")
+      =/  order=(list pith)
+        %+  turn  pith-marl 
+        |=  m=manx
+        (en-pith:su (~(vol manx-utils:oxy m) "pith"))
+      order
+    ==
+  ::
+  ++  ui
+    |_  here=pith
+    ++  render 
+      ^-  manx
+      ;html
+        ;head 
+          ;meta(charset "UTF-8");
+          ;title:  home
+          ;*  old-standard-head-tags:serv
+          ;*  standard-head-tags:serv
+          ;meta
+            =name  "htmx-config"
+            =content  (trip '{"ignoreTitle":"true"}')
+            ;
+          ==
+        ==
+        ;body
+          =hx-ext  "dom-enc,response-targets"
+          ;div.wf.hf.relative
+            ;div.fc.g5.ma.mw-page.p-page
+              ;+  apps
+            ==
+          ==
+          ;+  script
+        ==
+      ==
+    ::
+    ++  apps
+      =/  home  !<(home q.pail)
+      ^-  manx
+      ;form.frw.g3.ac.jc.wfc.ma
+        =hx-post  (en-tape:pith:neo here)
+        =hx-swap       "none"
+        =hx-include    "this"
+        =head          "home"
+        ;*
+        =/  apps
+          %+  welp
+            apps.home
+          %-  skip
+          :_  |=  =pith
+              (gth (lent pith) 1)
+          %~  tap  in
+          %-  %~  dif  in
+              %~  key  by
+              %~  tar  of:neo
+              kids.bowl
+          `(set pith)`(silt apps.home)
+        %+  murn  apps
+        |=  =pith
+        ^-  (unit manx)
+        ?~  pith  ~
+        =/  =path  (pout (welp here.bowl pith))
+        ~&  >>  path/path
+        :-  ~
+        ;div.relative.br2.tile
+          =draggable  "true"
+          =pith  (en-tape:pith:neo pith)
+          ;input.hidden
+            =name  "pith"
+            =type  "text"
+            =value  (en-tape:pith:neo pith)
+            ;
+          ==
+          ;a.b1.br2.block.fc.as.js.hover.p3.s1.border-2.loader
+            =style  "width: 160px; height: 160px;"
+            =href  (trip (spat (welp /self path)))
+            ;span.loaded: {(trip (snag 0 (pout:neo pith)))}
+            ;span.loading.s2
+              ;+  loading.feather-icons
+            ==
+          ==
+          ;div.br2.b2.z1.f3.fc.wf.border-2
+            =style  "position: absolute; bottom: 0; right: 0;"
+            ;div.basis-full.tc.s-2.p1.hover.br2.dragger
+              =type  "button"
+              ; ...
+            ==
+          ==
+        ==
+      ==
+    ::
+    ++  script 
+    ;script
+    ;+  ;/  %-  trip
+      '''
+      let draggedElement = null;
+      let tiles = document.querySelectorAll('.tile')
+
+      document.addEventListener('DOMContentLoaded', () => {
+        tiles.forEach(tile => {
+
+          tile.addEventListener('dragstart', event => {
+            draggedElement = tile;
+            event.dataTransfer.setData('text/plain', '')
+            event.dataTransfer.effectAllowed = 'move';
+          });
+
+          tile.addEventListener('dragover', event => {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+          });
+
+          tile.addEventListener('drop', event => {
+            event.preventDefault();
+            if (draggedElement) {
+              const tempContent = tile.innerHTML;
+              const tempPith = tile.getAttribute('pith');
+
+              tile.innerHTML = draggedElement.innerHTML;
+              tile.setAttribute('pith', draggedElement.getAttribute('pith'));
+              draggedElement.innerHTML = tempContent;
+              draggedElement.setAttribute('pith', tempPith);
+
+              draggedElement = null;
+              let form = document.querySelector('form');
+              form.requestSubmit();
+            }
+          });
+
+          tile.querySelector('.dragger').addEventListener('mousedown', event => {
+            event.stopPropagation();
+          });
+
+          tile.querySelector('.dragger').addEventListener('dragstart', event => {
+              event.stopPropagation();
+          });
+        })
+      });
+      '''
+    ==
+    --
   --
 --
