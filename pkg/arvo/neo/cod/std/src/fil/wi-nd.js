@@ -508,14 +508,18 @@ customElements.define(
     }
     async rebuildIframe() {
       let url = window.location.origin + this.renderer + this.here
+      console.log('checking this', this.here)
+      let here = this.here
       let isLoading = await this.checkUrl(url)
+      console.log('url-state', isLoading)
       if (isLoading) {
         $(this.gid('tabs')).children().remove()
-        let frame = this.createIframe(this.renderer, this.here, true)
+        console.log('this.here', here)
+        let frame = this.createIframe(this.renderer, here, true)
         $(this.gid('tabs')).append(frame)
       } else {
         $(this.gid('tabs')).children().remove()
-        let frame = this.createIframe(`/tree`, this.here, true)
+        let frame = this.createIframe(`/tree`, here, true)
         $(this.gid('menu-toggle')).text(`tree`)
         $(this.gid('tabs')).append(frame)
       }
@@ -608,6 +612,7 @@ customElements.define(
         crumb.on('click', () => {
           $(this).attr('here', '/' + this.path.slice(0, i + 1).join('/'))
           $(this).attr('renderer', this.strategies[0])
+          console.log('new here', '/' + this.path.slice(0, i + 1).join('/'))
           this.rebuildIframe()
         })
         breadcrumbs.append(crumb)
