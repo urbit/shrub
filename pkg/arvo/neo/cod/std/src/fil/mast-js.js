@@ -3,6 +3,8 @@ let ship;
 let eventSource;
 let activeSubIds= {};
 let channelMessageId = 0;
+let mastLogs = false;
+const heartbeatMins = 30;
 const channelId = `${Date.now()}${Math.floor(Math.random() * 100)}`;
 const channelPath = `${window.location.origin}/~/channel/${channelId}`;
 const baseSubPath = '/eyre-chan/mast';
@@ -23,6 +25,7 @@ addEventListener('DOMContentLoaded', async () => {
         subKeys.push(subKey);
         closeSubscriptions(subKeys);
     });
+    setHeartbeat();
 });
 async function connectToShip(subKey) {
     await fetch(channelPath, { 
@@ -58,6 +61,19 @@ function setEventListeners(el) {
         };
     });
 };
+function setHeartbeat() {
+    setInterval(sendHeartbeat, (heartbeatMins * 60 * 1000));
+}
+function sendHeartbeat() {
+    let eles = document.querySelectorAll('[rope]');
+    let vals = Array.from(eles).map(el => Number(el.getAttribute('rope')));
+    fetch(channelPath, {
+        method: 'PUT',
+        body: JSON.stringify(makePokeBody(
+            ['beat', vals]
+        ))
+    });
+}
 function pokeThrottle(ms, ...pokeArgs) {
   let ready = true
   return (e) => {
@@ -95,74 +111,53 @@ function pokeShip(event, target, eventType, eventAttr, returnAttrVals) {
     };
     fetch(channelPath, {
         method: 'PUT',
-        body: JSON.stringify(makePokeBody({
-            rope,
-            path: eventAttr,
-            data: uiEventData
-        }))
+        body: JSON.stringify(makePokeBody(
+            ['poke', {
+                rope,
+                path: eventAttr,
+                data: uiEventData
+            }]
+        ))
     });
 };
 function handleReturnAttr(event, target, returnAttrVals) {
-  let returnData = {}
-  returnAttrVals.split(/\s+/).forEach((returnAttr) => {
-    let splitReturnAttr = returnAttr.split('/')
-    if (splitReturnAttr[0] === '') splitReturnAttr.shift()
-    const returnObjSelector = splitReturnAttr[0]
-    const key = splitReturnAttr[1]
-    if (returnObjSelector === 'event') {
-      if (!(key in event)) {
-        console.error(`Property: ${key} does not exist on the event object`)
-        return
-      }
-      returnData[returnAttr] = String(event[key])
-    } else {
-      let returnObj
-      if (returnObjSelector === 'target') {
-        returnObj = target
-      } else {
-        const linkedEl = document.getElementById(returnObjSelector)
-        if (!linkedEl) {
-          console.error(`No element found for id: ${returnObjSelector}`)
-          return
-        }
-        returnObj = linkedEl
-      }
-      if (key.startsWith('data')) {
-        const dataKey = key
-          .substring(5)
-          .split('-')
-          .map((w, i) => {
-            if (i === 0) {
-              return w.toLowerCase()
-            } else {
-              return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()
+    let returnData = {};
+    returnAttrVals.split(/\s+/).forEach((returnAttr) => {
+        let splitReturnAttr = returnAttr.split('/');
+        if (splitReturnAttr[0] === '') splitReturnAttr.shift();
+        const returnObjSelector = splitReturnAttr[0];
+        const key = splitReturnAttr[1];
+        if (returnObjSelector === 'event') {
+            if (!(key in event)) {
+                console.error(`Property: ${key} does not exist on the event object`);
+                return;
             }
-          })
-          .join('')
-        if (!returnObj.dataset.hasOwnProperty(dataKey)) {
-          console.error(
-            `Property: ${dataKey} does not exist on the specified object`
-          )
-          return
+            returnData[returnAttr] = String(event[key]);
+        } else {
+            let returnObj;
+            if (returnObjSelector === 'target') {
+                returnObj = target;
+            } else {
+                const linkedEl = document.getElementById(returnObjSelector);
+                if (!linkedEl) {
+                    console.error(`No element found for id: ${returnObjSelector}`);
+                    return;
+                }
+                returnObj = linkedEl;
+            }
+            let dat = returnObj.getAttribute(key) ?? returnObj[key];
+            if (!dat) {
+                console.error(`The value of: ${key} is null or does not exist on the specified object`);
+                return;
+            }
+            returnData[returnAttr] = String(dat);
         }
-        returnData[returnAttr] = String(returnObj.dataset[dataKey])
-      } else {
-        if (!(key in returnObj)) {
-          console.error(
-            `Property: ${key} does not exist on the specified object`
-          )
-          return
-        }
-        // TODO: handle other properties that don't cast to string
-        returnData[returnAttr] = String(returnObj[key])
-      }
-    }
-  })
-  return returnData
+    })
+    return returnData;
 }
 function handleChannelStream(event) {
     const streamResponse = JSON.parse(event.data);
-    // console.log(streamResponse);
+    if (mastLogs) console.log(streamResponse);
     if (streamResponse.response !== 'diff') return;
     fetch(channelPath, {
         method: 'PUT',
