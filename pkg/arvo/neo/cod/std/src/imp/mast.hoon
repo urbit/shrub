@@ -306,18 +306,17 @@
       :~  [%pith (en-tape:pith:neo ~(here moor our.bowl))]
           [%ship +:(scow %p our.bowl)]
       ==
-    ?:  ?&  =(%html n.g.sail)  ?=(^ c.sail)
-            =(%head n.g.i.c.sail)  ?=(^ t.c.sail)
-            =(%body n.g.i.t.c.sail)
-        ==
-      %_  sail
-        a.g    (weld mart a.g.sail)
-        c.i.c  (snoc c.i.c.sail script-node)
+    ?.  =(%html n.g.sail)
+      ^-  manx
+      :-  [%html mart]
+      :~  [[%head ~] [script-node ~]]
+          ?:(=(%body n.g.sail) sail [[%body ~] [sail ~]])
       ==
-    ^-  manx
-    :-  [%html mart]
-    :~  [[%head ~] [script-node ~]]
-        ?:(=(%body n.g.sail) sail [[%body ~] [sail ~]])
+    =/  i  (get-el-index %head c.sail)
+    =/  hed=manx  (snag i c.sail)
+    %_  sail
+      a.g  (weld mart a.g.sail)
+      c    (snap c.sail i hed(c (snoc c.hed script-node)))
     ==
   ::
   ++  gust                         :: send a diff update
@@ -396,6 +395,14 @@
   :_  sig/!>(rig)
   [(behn-wait bowl) kill]
 ::
+++  get-el-index
+  |=  [n=@tas m=marl]
+  =|  i=@
+  |-  ^-  @
+  ?~  m  ~|(missing-element/n !!)
+  ?:  =(n n.g.i.m)  i
+  $(m t.m, i +(i))
+::
 ++  find-imp-els
   |=  m=manx
   =|  acc=(list bind)
@@ -436,11 +443,9 @@
 ++  prepare-imp-sail
   |=  m=manx
   ^-  manx
-  ?:  ?&  =(%html n.g.m)  ?=(^ c.m)  ?=(^ t.c.m)
-          =(%body n.g.i.t.c.m)
-      ==
-    i.t.c.m(n.g %div)
-  m
+  ?.  =(%html n.g.m)  m
+  =/  bod=manx  (snag (get-el-index %body c.m) c.m)
+  bod(n.g %div)
 ::
 ++  make-imp-gust
   |=  m=manx
@@ -490,13 +495,20 @@
   ++  $
     ^-  manx
     =/  root-key=tape  (y-co:co buoy)
-    ?.  ?&  =(%html n.g.sail)
-            ?=(^ c.sail)  ?=(^ t.c.sail)
-            =(%body n.g.i.t.c.sail)
-        ==
-      (anx sail(a.g (prepare-root-mart rope a.g.sail)) [root-key ~])
-    %_  sail
-      i.t.c  (anx i.t.c.sail(a.g (prepare-root-mart rope a.g.i.t.c.sail)) [root-key ~])
+    ?.  =(%html n.g.sail)
+      %+  anx
+        sail(a.g (prepare-root-mart rope a.g.sail))
+      [root-key ~]
+    =/  i=@       (get-el-index %body c.sail)
+    =/  bod=manx  (snag i c.sail)
+    %_    sail
+        c
+      %^    snap
+          c.sail
+        i
+      %+  anx
+        bod(a.g (prepare-root-mart rope a.g.bod))
+      [root-key ~]
     ==
   ++  anx
     |=  [m=manx key=(pair tape (list @))]
@@ -553,18 +565,12 @@
 ++  luff                           :: produce a sail diff for the client
   |=  [oldx=manx newx=manx]
   =/  [old=marl new=marl]
-    :-  ?.  ?&  =(%html n.g.oldx)
-              ?=(^ c.oldx)  ?=(^ t.c.oldx)
-              =(%body n.g.i.t.c.oldx)
-            ==
+    :-  ?.  =(%html n.g.oldx)
           [oldx ~]
-        [i.t.c.oldx ~]
-    ?.  ?&  =(%html n.g.newx)
-            ?=(^ c.newx)  ?=(^ t.c.newx)
-            =(%body n.g.i.t.c.newx)
-        ==
+        [(snag (get-el-index %body c.oldx) c.oldx) ~]
+    ?.  =(%html n.g.newx)
       [newx ~]
-    [i.t.c.newx ~]
+    [(snag (get-el-index %body c.newx) c.newx) ~]
   =|  i=@ud
   =|  pkey=@t
   =|  acc=diff
