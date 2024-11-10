@@ -203,7 +203,7 @@
   ::
   ++  kids
     |=  pax=pith
-    ^-  (axil _?>(?=(^ fil.fat) u.fil.fat))
+    ^-  (axal _?>(?=(^ fil.fat) u.fil.fat))
     :-  (get pax)
     (kid pax)
   ::

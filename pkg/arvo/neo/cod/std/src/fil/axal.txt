@@ -143,12 +143,12 @@ Get the kids of the node at the given path.
 ```
 ++  kids
   |=  pax=pith
-  ^-  (axil _?>(?=(^ fil.fat) u.fil.fat))
+  ^-  (axal _?>(?=(^ fil.fat) u.fil.fat))
   :-  (get pax)
   (kid pax)
 ```
 
-Returns an [`axil`](https://docs.urbit.org/language/hoon/reference/arvo#axil), for secret reasons.
+Returns an axal.
 
 ## `+lop`
 
