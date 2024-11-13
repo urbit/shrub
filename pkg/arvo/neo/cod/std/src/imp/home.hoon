@@ -10,6 +10,7 @@
 /*  messenger
 /*  introduction
 /*  developer-environment-setup
+/*  mast-guide
 /*  axal
 ^-  kook:neo
 |%
@@ -57,6 +58,7 @@
         [#/[p/our.bowl]/home/docs/guides/development %make %sail `sail/!>([developer-environment-setup 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/feather %make %sail `sail/!>([feather-intro 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/docs/guides/axal-core %make %sail `sail/!>([axal 'prose p-page mw-page ma' ~]) ~]
+        [#/[p/our.bowl]/home/docs/guides/mast %make %sail `sail/!>([mast-guide 'prose p-page mw-page ma' ~]) ~]
         [#/[p/our.bowl]/home/feed %make %timeline ~ (~(gas by *conf:neo) [%src #/[p/our.bowl]/sky/strategy/[p/our.bowl]] ~)]
     ==
   ++  poke
