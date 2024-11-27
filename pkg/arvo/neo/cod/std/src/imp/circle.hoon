@@ -39,7 +39,7 @@
           %del
         %+  turn  ~(tap in p.diff)
         |=  =ship
-        [(snoc here.bowl p/ship) %tomb ~]
+        [(snoc here.bowl p/ship) %cull ~]
       ==
     ==
   --
@@ -110,13 +110,8 @@
         `ship.road
       |=  =ship
       ^-  manx
-      ;div.border.p2.mono.fr.jb
-        ;div: {<ship>}
-        ;button.b1.border.hover.br1:  x
-      ==
+      (new-ship ship)
     ==
-  ++  my-address
-    (en-tape:pith:neo :(weld /hawk here.bowl))
   ++  form-new-ship
     |=  here=pith
     ^-  manx
